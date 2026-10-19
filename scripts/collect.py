@@ -82,28 +82,75 @@ def archive(data):
   lines=path.read_text(encoding='utf8').splitlines()
   if lines and json.loads(lines[-1]).get('attemptAt')==stamp:return
  with path.open('a',encoding='utf8') as f:f.write(json.dumps(observation,ensure_ascii=False,separators=(',',':'))+'\n')
+def update_changes(data, snapshots=None):
+ """A 24h comparison needs real, fresh observations at both ends, not two check times."""
+ def stamp(value):
+  try:return datetime.datetime.fromisoformat(value.replace('Z','+00:00')).timestamp()
+  except (AttributeError,TypeError,ValueError):return None
+ now=stamp(data.get('lastAttemptAt'))
+ if now is None:return
+ frames=[] if snapshots is None else snapshots
+ if snapshots is None:
+  for day in [now,now-86400]:
+   month=datetime.datetime.fromtimestamp(day,datetime.timezone.utc).strftime('%Y-%m')
+   path=ROOT/f'data/archive/{month}.jsonl'
+   if path.exists():
+    for line in path.read_text().splitlines():
+     try:frames.append(json.loads(line))
+     except json.JSONDecodeError:continue
+ target=now-86400
+ candidates=[f for f in frames if stamp(f.get('attemptAt')) is not None and abs(stamp(f['attemptAt'])-target)<=5400]
+ changes={'at':data['lastAttemptAt'],'baselineAt':None,'views':None,'likes':None,'followers':None}
+ data['changes24h']=changes
+ if not candidates:return
+ base=min(candidates,key=lambda f:abs(stamp(f['attemptAt'])-target));before=stamp(base['attemptAt'])
+ changes['baselineAt']=base['attemptAt']
+ def posts(frame):
+  return {(platform,str(p['id'])):p for v in frame['videos'] for platform,p in v['posts'].items()}
+ oldposts=posts(base);newposts=posts(data)
+ old_in_current={(platform,str(p['id'])) for v in data['videos'] for platform,p in v['posts'].items()
+                 if stamp(v.get('publishedAt')) is None or stamp(v['publishedAt'])<=before}
+ same_publications=set(oldposts)==old_in_current
+ def measured(objects,key,at):
+  ms=[o.get('metrics',{}).get(key) for o in objects]
+  if not ms:return None
+  for m in ms:
+   if not m or isinstance(m.get('value'),bool) or not isinstance(m.get('value'),(int,float)) or m['value']<0:return None
+   observed=stamp(m.get('at'))
+   if observed is None or not 0<=at-observed<=10800:return None
+  return sum(m['value'] for m in ms),any(m.get('approximate') for m in ms)
+ for key in ['views','likes','followers']:
+  if key=='followers':
+   if {a['id'] for a in base['accounts']}!={a['id'] for a in data['accounts']}:continue
+   left=measured(base['accounts'],key,before);right=measured(data['accounts'],key,now)
+  else:
+   if not same_publications:continue
+   left=measured(oldposts.values(),key,before);right=measured(newposts.values(),key,now)
+  if left is None or right is None:continue
+  changes[key]={'value':right[0]-left[0],'at':data['lastAttemptAt'],'baselineAt':base['attemptAt'],
+                'periodHours':round((now-before)/3600,2),'comparable':True,
+                'approximate':left[1] or right[1] or abs(before-target)>300}
 def collect(data):
  data['lastAttemptAt']=NOW
  accounts={a['id']:a for a in data['accounts']}
  for a in accounts.values():a.update(lastAttemptAt=NOW,status='unavailable',message='Viešas šaltinis nepateikė patikimos statistikos.')
  tt=accounts['tiktok']
- profile,error=attempt(lambda:state(request(tt['url'])).get('webapp.user-detail',{}).get('userInfo',{}))
+ profile_scope,error=attempt(lambda:state(request(tt['url'])).get('webapp.user-detail',{}))
+ profile=(profile_scope or {}).get('userInfo',{})
  if profile and profile.get('user',{}).get('uniqueId')=='cooked_dev_':
   st=profile.get('statsV2') or profile.get('stats') or {}
   setmetric(tt,'followers',st.get('followerCount'),tt['url']);setmetric(tt,'profileLikes',st.get('heartCount'),tt['url']);setmetric(tt,'publishedCount',st.get('videoCount'),tt['url'])
   tt.update(status='partial',lastSuccessAt=NOW,message='Profilio skaičiai atnaujinti.')
   # New posts are adopted only when the actual public profile supplies their IDs and author.
-  for item in profile.get('itemList',[]):
+  for item in profile_scope.get('itemList',[]):
    if not isinstance(item,dict) or not item.get('id'):continue
    author=item.get('author',{});handle=author.get('uniqueId') if isinstance(author,dict) else author
    if handle!='cooked_dev_':continue
    if any(v['posts'].get('tiktok',{}).get('id')==str(item['id']) for v in data['videos']):continue
    caption=item.get('desc','').split('#')[0].strip()
-   def normalize(t):return re.sub(r'[^a-z0-9]','',t.lower())
-   existing=next((v for v in data['videos'] if normalize(v['caption'])==normalize(caption)),None)
-   if not existing:
-    existing={'id':'tt-'+str(item['id']),'number':max(v['number'] for v in data['videos'])+1,'title':caption[:110],'caption':caption,'publishedAt':datetime.datetime.fromtimestamp(int(item.get('createTime',0)),datetime.timezone.utc).isoformat(),'thumbnail':None,'assetUrl':None,'posts':{}}
-    data['videos'].append(existing)
+   # A similar caption is not proof of a cross-platform match or a Drive original.
+   existing={'id':'tt-'+str(item['id']),'number':max((v['number'] for v in data['videos']),default=0)+1,'title':caption[:110],'caption':caption,'publishedAt':datetime.datetime.fromtimestamp(int(item.get('createTime',0)),datetime.timezone.utc).isoformat(),'thumbnail':None,'assetUrl':None,'posts':{}}
+   data['videos'].append(existing)
    existing['posts']['tiktok']={'id':str(item['id']),'url':tt['url']+'/video/'+str(item['id']),'metrics':{}}
  elif error:tt['message']='TikTok profilis: '+error
  jobs=[];results={'tiktok':[],'instagram':[]}
@@ -126,6 +173,8 @@ def collect(data):
   try:
    marker=re.search(r'(?:var\s+)?ytInitialData\s*=\s*',page)
    initial=json.JSONDecoder().raw_decode(page[marker.end():])[0] if marker else {}
+   if initial.get('metadata',{}).get('channelMetadataRenderer',{}).get('externalId')!='UCNPkHyLJotjamsFxts47T2A':
+    raise ValueError('YouTube channel identity is unverified')
    texts=[]
    for node in walk(initial):
     for key in ['simpleText','text','content']:
@@ -145,13 +194,20 @@ def collect(data):
    a.update(status='ok',lastSuccessAt=NOW,emptyConfirmedAt=NOW,message='Viešas profilis patvirtina, kad įrašų nėra.')
   else:a['message']='Automatinė vieša statistika nepasiekiama. Palikti paskutiniai patikrinti duomenys.'
  data['generatedAt']=NOW
+ data['cloudCollection']={'at':NOW,'method':'public_cloud','metricsUpdated':{
+  a['id']:sum(m.get('at')==NOW for v in data['videos'] for p in [v['posts'].get(a['id'],{})] for m in p.get('metrics',{}).values())
+             +sum(m.get('at')==NOW for m in a.get('metrics',{}).values()) for a in accounts.values()}}
+ if os.environ.get('GITHUB_ACTIONS')=='true':
+  data['cloudCollection']['runUrl']='https://github.com/'+os.environ['GITHUB_REPOSITORY']+'/actions/runs/'+os.environ['GITHUB_RUN_ID']
  total=sum(m['value'] for v in data['videos'] for p in v['posts'].values() for k,m in p['metrics'].items() if k=='views')
  sample={'at':NOW,'views':total,'posts':sum(len(v['posts']) for v in data['videos']),'updatedPlatforms':[a['id'] for a in accounts.values() if a.get('lastSuccessAt')==NOW]}
  data['history']=(data.get('history',[])+[sample])[-2160:]
+ update_changes(data)
  return data
 if __name__=='__main__':
  path=ROOT/'data/latest.json';data=json.loads(path.read_text())
  if '--export-only' not in sys.argv:data=collect(data)
+ else:update_changes(data)
  path.write_text(json.dumps(data,ensure_ascii=False,indent=2)+'\n');exports(data)
  if '--export-only' not in sys.argv:archive(data)
  print(json.dumps({'videos':len(data['videos']),'attemptAt':data['lastAttemptAt'],'platforms':{a['id']:a['status'] for a in data['accounts']}}))

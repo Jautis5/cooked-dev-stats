@@ -23,6 +23,7 @@ jobs:
       - name: Validate and save snapshot
         run: |
           python scripts/test_collector.py
+          python scripts/test_changes.py
           python scripts/test_data.py
           git config user.name 'Cooked Dev Stats'
           git config user.email 'stats@users.noreply.github.com'
