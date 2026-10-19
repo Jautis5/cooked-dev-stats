@@ -67,6 +67,19 @@ def exports(data):
    totals.append(sum(vals) if vals else (0 if a.get('emptyConfirmedAt') and a['status']=='ok' else ''))
   platforms.append([a['name'],a.get('metrics',{}).get('followers',{}).get('value',''),len(posts),*totals,a.get('metrics',{}).get('followers',{}).get('at',''),a.get('lastAttemptAt',''),a['status']])
  dump('platforms',platforms)
+def archive(data):
+ # Preserve public observations beyond the compact history window. No token or private report is archived.
+ stamp=data.get('lastAttemptAt') or NOW
+ folder=ROOT/'data/archive';folder.mkdir(parents=True,exist_ok=True)
+ path=folder/(stamp[:7]+'.jsonl')
+ observation={'attemptAt':stamp,
+  'accounts':[{k:a.get(k) for k in ['id','url','metrics','status','lastAttemptAt','lastSuccessAt']} for a in data['accounts']],
+  'videos':[{'id':v['id'],'number':v['number'],'assetUrl':v.get('assetUrl'),
+   'posts':{p:{k:post.get(k) for k in ['id','url','metrics']} for p,post in v['posts'].items()}} for v in data['videos']]}
+ if path.exists():
+  lines=path.read_text(encoding='utf8').splitlines()
+  if lines and json.loads(lines[-1]).get('attemptAt')==stamp:return
+ with path.open('a',encoding='utf8') as f:f.write(json.dumps(observation,ensure_ascii=False,separators=(',',':'))+'\n')
 def collect(data):
  data['lastAttemptAt']=NOW
  accounts={a['id']:a for a in data['accounts']}
@@ -138,4 +151,5 @@ if __name__=='__main__':
  path=ROOT/'data/latest.json';data=json.loads(path.read_text())
  if '--export-only' not in sys.argv:data=collect(data)
  path.write_text(json.dumps(data,ensure_ascii=False,indent=2)+'\n');exports(data)
+ if '--export-only' not in sys.argv:archive(data)
  print(json.dumps({'videos':len(data['videos']),'attemptAt':data['lastAttemptAt'],'platforms':{a['id']:a['status'] for a in data['accounts']}}))
