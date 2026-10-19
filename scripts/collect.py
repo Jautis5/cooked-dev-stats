@@ -49,14 +49,15 @@ def attempt(func,*args):
 def exports(data):
  def dump(name,rows):
   with (ROOT/f'data/{name}.csv').open('w',newline='',encoding='utf8') as f:
-   csv.writer(f).writerows(rows)
+   csv.writer(f,lineterminator='\n').writerows(rows)
  rows=[['Video Nr.','Video','Platforma','Nuoroda','Peržiūros','Patiktukai','Komentarai','Pasidalinimai','Peržiūrų patikra','Statistikos patikra','Būsena']]
  for v in data['videos']:
   for account in data['accounts']:
    p=v['posts'].get(account['id'])
    if not p:continue
    m=p.get('metrics',{});values=[m.get(k,{}).get('value','') for k in ['views','likes','comments','shares']]
-   rows.append([v['number'],v['title'],account['name'],p['url'],*values,m.get('views',{}).get('at',''),max((x.get('at','') for x in m.values()),default=''),account['status']])
+   status=account['status']+(' · ≈ peržiūros' if m.get('views',{}).get('approximate') else '')
+   rows.append([v['number'],v['title'],account['name'],p['url'],*values,m.get('views',{}).get('at',''),max((x.get('at','') for x in m.values()),default=''),status])
  dump('posts',rows)
  platforms=[['Platforma','Sekėjai','Rasti video','Peržiūros','Patiktukai','Komentarai','Pasidalinimai','Sekėjų patikra','Paskutinis bandymas','Būsena']]
  for a in data['accounts']:
@@ -65,7 +66,8 @@ def exports(data):
   for k in ['views','likes','comments','shares']:
    vals=[p['metrics'][k]['value'] for p in posts if k in p.get('metrics',{})]
    totals.append(sum(vals) if vals else (0 if a.get('emptyConfirmedAt') and a['status']=='ok' else ''))
-  platforms.append([a['name'],a.get('metrics',{}).get('followers',{}).get('value',''),len(posts),*totals,a.get('metrics',{}).get('followers',{}).get('at',''),a.get('lastAttemptAt',''),a['status']])
+  status=a['status']+(' · ≈ peržiūros' if any(p.get('metrics',{}).get('views',{}).get('approximate') for p in posts) else '')
+  platforms.append([a['name'],a.get('metrics',{}).get('followers',{}).get('value',''),len(posts),*totals,a.get('metrics',{}).get('followers',{}).get('at',''),a.get('lastAttemptAt',''),status])
  dump('platforms',platforms)
 def archive(data):
  # Preserve public observations beyond the compact history window. No token or private report is archived.
