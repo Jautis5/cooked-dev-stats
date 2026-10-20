@@ -1,6 +1,7 @@
-import copy, datetime, unittest
+import copy, datetime, hashlib, pathlib, tempfile, unittest
 from cloud_clock import collection_plan, clock_recovery_plan, ensure_successor, tick
 from cloud_api import CloudAPI
+from version_assets import version_assets
 
 NOW=datetime.datetime.fromisoformat('2026-10-20T15:00:00+00:00').timestamp()
 POLICY={'continuousClockEnabled':True,'intervalMinutes':15,'failureRetryMinutes':3,'clockStaleMinutes':35}
@@ -66,6 +67,17 @@ class ClockTests(unittest.TestCase):
         self.assertIsNotNone(api.child)
     def test_token_cannot_be_sent_to_another_host(self):
         with self.assertRaises(ValueError):CloudAPI('owner/repo','not-a-real-token').call('https://example.com/')
+    def test_changed_program_receives_a_new_browser_cache_key(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root=pathlib.Path(temp)
+            (root/'index.html').write_text('<script src="app.js?v=old"></script><link href="styles.css">')
+            (root/'app.js').write_text('old program');(root/'styles.css').write_text('style')
+            version_assets(root);before=(root/'index.html').read_text()
+            (root/'app.js').write_text('new program');version_assets(root)
+            after=(root/'index.html').read_text()
+            self.assertNotEqual(before,after)
+            self.assertIn('app.js?v='+hashlib.sha256(b'new program').hexdigest()[:12],after)
+            version_assets(root);self.assertEqual((root/'index.html').read_text(),after)
 
 
 if __name__=='__main__':unittest.main()

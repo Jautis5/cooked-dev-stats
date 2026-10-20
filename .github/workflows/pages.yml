@@ -2,7 +2,7 @@ name: Publish independent dashboard
 on:
   push:
     branches: [main]
-    paths: ['site/**', 'scripts/build_pages.py', '.github/workflows/pages.yml']
+    paths: ['site/**', 'scripts/build_pages.py', 'scripts/version_assets.py', '.github/workflows/pages.yml']
   workflow_run:
     workflows: ['Refresh public social stats']
     types: [completed]

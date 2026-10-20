@@ -7,7 +7,7 @@ const ICONS = {
  followers:'<circle cx="9" cy="8" r="3.5"/><path d="M2 21v-2a7 7 0 0 1 14 0v2m1-17a3.5 3.5 0 0 1 0 7m2 3a6 6 0 0 1 3 5v2"/>',
  posts:'<rect x="3" y="3" width="18" height="18" rx="4"/><path d="m10 8 6 4-6 4Z"/>'
 };
-let channels=[],entries=new Map(),active='all',loading=false,chartRange='24h',chartScope='all',renderedScope='all',cloudHealth=null,cloudConfig={};
+let channels=[],entries=new Map(),active='all',loading=false,chartRange='24h',chartScope='all',renderedScope='all',cloudHealth=null,cloudConfig={},clockRuns=null;
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const full=n=>n==null?'—':new Intl.NumberFormat('en-US').format(n);
 function compact(n) {
@@ -190,7 +190,7 @@ function collectorStatus(health,now=Date.now()){
  if(!Number.isFinite(age)||age<0||age>45*60000)return {label:'Automatic updates delayed',warning:true};
  if(health.status!=='completed')return {label:'Completed with errors',warning:true};
  const updated=Object.values(health.channels||{}).reduce((n,c)=>n+(c.metricsUpdated||0),0);
- const label=health.trigger==='schedule'?'Scheduled collection completed':health.trigger==='workflow_dispatch'?'On-demand collection completed':'Cloud job completed';
+ const label=health.initiator==='continuous_clock'?'Automatic collection completed':health.initiator==='watchdog'?'Recovery collection completed':health.trigger==='schedule'?'Scheduled collection completed':health.trigger==='workflow_dispatch'?'On-demand collection completed':'Cloud job completed';
  return {label:updated?label:'Completed · no new metrics',warning:!updated};
 }
 function renderCloudHealth(){
@@ -198,6 +198,29 @@ function renderCloudHealth(){
  const records=scope.map(c=>cloudHealth?.channels?.[c.id]).filter(Boolean),count=records.reduce((n,c)=>n+(c.metricsUpdated||0),0);
  const platforms=records.flatMap(c=>Object.values(c.platforms||{})),updated=platforms.filter(p=>p.metricsUpdated>0).length;
  $('cloud-health').innerHTML='<div><span class="cloud-label">AUTONOMOUS COLLECTOR</span><strong><span class="dot '+(state.warning?'partial':'ok')+'"></span>'+esc(state.label)+'</strong><small>'+esc(time(cloudHealth?.completedAt))+'</small></div><div><span class="cloud-label">LATEST RUN</span><strong>'+full(count)+' metrics updated</strong><small>'+records.length+' of '+scope.length+' channel reports · earlier metric dates are retained</small></div><div><span class="cloud-label">PUBLIC SOURCE COVERAGE</span><strong>'+updated+' / '+platforms.length+' accounts with new metrics</strong><small>Free mode · blocked values keep their actual dates</small></div><div class="cloud-links"><a href="'+safe(cloudHealth?.runUrl||cloudConfig.runsUrl||'https://github.com/jonass-pandos/cooked-dev-stats/actions/workflows/refresh.yml')+'" target="_blank" rel="noopener">Run details ↗</a><a href="'+safe(cloudConfig.watchdogUrl||'https://github.com/jonass-pandos/cooked-dev-stats/actions/workflows/watchdog.yml')+'" target="_blank" rel="noopener">Auto-recovery ↗</a><a href="'+safe(cloudConfig.independentUrl||'https://jonass-pandos.github.io/cooked-dev-stats/')+'" target="_blank" rel="noopener">Independent site ↗</a></div>';
+}
+function clockStatus(runs,now=Date.now()){
+ if(!Array.isArray(runs))return {label:'Checking the next cloud update…',warning:true};
+ const run=runs.filter(r=>['queued','in_progress','waiting','pending','requested'].includes(r.status)).sort((a,b)=>Date.parse(b.created_at)-Date.parse(a.created_at))[0];
+ if(!run)return {label:'Next update is not queued',warning:true};
+ const age=now-Date.parse(run.created_at);
+ if(!Number.isFinite(age)||age<0||age>20*60000)return {label:'Update queue delayed',warning:true,url:run.html_url};
+ if(run.status==='in_progress')return {label:'Checking sources and queuing the next update',warning:false,url:run.html_url};
+ return {label:'Next cloud update queued',warning:false,url:run.html_url,targetAt:Date.parse(run.created_at)+15*60000};
+}
+function renderClock(){
+ const state=clockStatus(clockRuns),target=state.targetAt?' · target '+time(state.targetAt):'';
+ $('cloud-clock').innerHTML='<span><span class="dot '+(state.warning?'partial':'ok')+'"></span><strong>'+esc(state.label)+'</strong>'+esc(target)+'</span><a href="'+safe(state.url||'https://github.com/jonass-pandos/cooked-dev-stats/actions/workflows/clock.yml')+'" target="_blank" rel="noopener">Timed updates ↗</a>';
+}
+async function loadClock(){
+ try{
+  const response=await fetch('https://api.github.com/repos/jonass-pandos/cooked-dev-stats/actions/workflows/clock.yml/runs?per_page=10',{cache:'no-store',signal:AbortSignal.timeout(8000)});
+  if(!response.ok)throw Error('Queue status unavailable');
+  const data=await response.json();if(!Array.isArray(data.workflow_runs))throw Error('Invalid queue');
+  clockRuns=data.workflow_runs;renderClock();
+ }catch{
+  $('cloud-clock').innerHTML='<span><span class="dot partial"></span>Queue status unavailable · saved statistics remain visible</span><a href="https://github.com/jonass-pandos/cooked-dev-stats/actions/workflows/clock.yml" target="_blank" rel="noopener">Timed updates ↗</a>';
+ }
 }
 function sourceState(entry){
  if(!entry?.data)return {label:'Unavailable',warning:true};
@@ -216,7 +239,7 @@ function renderNavigation(){
 function render(){
  const c=selected(),entry=c&&entries.get(c.id),data=entry?.data,view=currentView(),scope=scopedChannels();
  renderedScope=c?.id||'all';
- renderNavigation();renderCloudHealth();
+ renderNavigation();renderCloudHealth();renderClock();
  $('channel-logo').hidden=!c;
  if(c){$('channel-logo').src=c.logo;$('channel-logo').alt=c.name;}
  $('eyebrow').textContent=c?'YOUR CHANNEL WORKSPACE':'SHARED WORKSPACE';
@@ -405,7 +428,7 @@ async function load(manual=false){
    if(chosen){chosen.fallbackReason=chosen.fallback&&results[0].status==='fulfilled'?'newer_snapshot':'unreachable';entries.set(c.id,chosen);}
    else entries.set(c.id,{data:null,fallback:true});
   }));
-  await healthTask;render();
+  await healthTask;render();void loadClock();
  }catch{$('notice').textContent='Could not load the channel list. Please try refreshing.';$('notice').hidden=false;}
  finally{loading=false;$('reload').disabled=false;}
 }

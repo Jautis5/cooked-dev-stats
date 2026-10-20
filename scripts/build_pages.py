@@ -1,5 +1,6 @@
 """Build the independent public site, bundling the latest valid fallback feeds."""
 import json, pathlib, shutil
+from version_assets import version_assets
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 out = ROOT / '_site'
 if out.exists():
@@ -14,4 +15,5 @@ for channel in config['channels']:
 if (ROOT / 'data/health.json').exists():
     shutil.copyfile(ROOT / 'data/health.json', out / 'data/health.json')
 (out / '.nojekyll').write_text('')
+version_assets(out)
 print('Built independent site with current public fallback snapshots.')
