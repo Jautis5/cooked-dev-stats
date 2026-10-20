@@ -95,7 +95,13 @@ def tick(client, current_run, now=None, sleep=time.sleep):
 
 
 if __name__ == '__main__':
-    result = tick(CloudAPI(os.environ['GITHUB_REPOSITORY'],os.environ['GH_TOKEN']),os.environ['GITHUB_RUN_ID'])
+    client=CloudAPI(os.environ['GITHUB_REPOSITORY'],os.environ['GH_TOKEN'])
+    try:
+        result = tick(client,os.environ['GITHUB_RUN_ID'])
+    finally:
+        # Completion events from token-created workflows were not delivered in
+        # the live verification. Audit explicitly rather than depending on them.
+        client.call('/actions/workflows/watchdog.yml/dispatches',{'ref':'main'})
     if os.environ.get('GITHUB_STEP_SUMMARY'):
         with open(os.environ['GITHUB_STEP_SUMMARY'],'a') as stream:
             stream.write('## Continuous cloud publication clock\n\n'+json.dumps(result)+'\n\nThe successor waits without occupying a runner. No owner computer, Codex session, new login or paid service is used.\n')

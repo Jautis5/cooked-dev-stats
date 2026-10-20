@@ -15,6 +15,7 @@ on:
         default: ''
 permissions:
   contents: write
+  actions: write
 concurrency:
   group: public-stats-refresh
   cancel-in-progress: false
@@ -62,6 +63,11 @@ jobs:
       - name: Report cloud status
         if: always()
         run: python scripts/cloud_summary.py
+      - name: Publish the latest dashboard fallback explicitly
+        if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run pages.yml --repo "$GITHUB_REPOSITORY" --ref main
       - name: Surface collection failure
         if: steps.collect.outcome == 'failure'
         run: exit 1

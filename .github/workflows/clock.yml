@@ -33,3 +33,8 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: python3 scripts/cloud_clock.py
+      - name: Recover after a failed clock step
+        if: failure()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run watchdog.yml --repo "$GITHUB_REPOSITORY" --ref main
