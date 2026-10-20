@@ -3,6 +3,16 @@ on:
   schedule:
     - cron: '7-59/15 * * * *'
   workflow_dispatch:
+    inputs:
+      reason:
+        description: What requested this collection
+        type: choice
+        options: [manual, continuous_clock, watchdog]
+        default: manual
+      clock_run_id:
+        description: Verified clock run that requested collection
+        type: string
+        default: ''
 permissions:
   contents: write
 concurrency:
@@ -31,6 +41,9 @@ jobs:
       - name: Collect both channels without a browser
         id: collect
         continue-on-error: true
+        env:
+          COLLECTION_INITIATOR: ${{ inputs.reason || github.event_name }}
+          COLLECTION_CLOCK_RUN_ID: ${{ inputs.clock_run_id }}
         run: python scripts/refresh_all.py
       - name: Validate and publish with conflict recovery
         run: python scripts/publish_refresh.py

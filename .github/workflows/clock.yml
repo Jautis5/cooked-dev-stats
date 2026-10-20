@@ -1,0 +1,35 @@
+name: Keep cloud collection active
+run-name: 'Cloud clock · after ${{ inputs.predecessor || ''bootstrap'' }}'
+on:
+  workflow_dispatch:
+    inputs:
+      predecessor:
+        description: Previous clock run used to verify handoff
+        type: string
+        default: bootstrap
+      timer:
+        description: Hosted delay before the next publication check
+        type: choice
+        options: [social-stats-clock, social-stats-clock-check]
+        default: social-stats-clock
+permissions:
+  contents: read
+  actions: write
+concurrency:
+  group: social-stats-continuous-clock
+  cancel-in-progress: false
+jobs:
+  tick:
+    if: github.event.repository.private == false && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    environment:
+      name: ${{ inputs.timer || 'social-stats-clock' }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - name: Check collection and hand off the next timed publication
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: python3 scripts/cloud_clock.py

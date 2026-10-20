@@ -38,6 +38,12 @@ def refresh(root=ROOT):
     if os.environ.get('GITHUB_ACTIONS') == 'true':
         run_url = 'https://github.com/' + os.environ['GITHUB_REPOSITORY'] + '/actions/runs/' + os.environ['GITHUB_RUN_ID']
     health = {'version': 1, 'startedAt': started, 'provider': 'GitHub Actions' if run_url else 'local_verification', 'trigger': os.environ.get('GITHUB_EVENT_NAME', 'unknown') if run_url else 'local_verification', 'intervalMinutes': policy['intervalMinutes'], 'runUrl': run_url, 'channels': {}}
+    initiator = os.environ.get('COLLECTION_INITIATOR','unknown') if run_url else 'local_verification'
+    health['initiator'] = initiator if initiator in ['manual','continuous_clock','watchdog','schedule','local_verification'] else 'unknown'
+    clock_id = os.environ.get('COLLECTION_CLOCK_RUN_ID','')
+    if run_url and initiator=='continuous_clock' and clock_id.isdecimal():
+        health['clockRunUrl']='https://github.com/'+os.environ['GITHUB_REPOSITORY']+'/actions/runs/'+clock_id
+    health['clockDriver']=policy.get('clockDriver') if policy.get('continuousClockEnabled') else None
     failed = 0
     for config in json.loads((root / 'data/channels.json').read_text())['channels']:
         path = (root / config['dataPath']).resolve()

@@ -3,6 +3,9 @@ on:
   schedule:
     - cron: '11-59/15 * * * *'
   workflow_dispatch:
+  workflow_run:
+    workflows: ['Keep cloud collection active']
+    types: [completed]
 permissions:
   contents: read
   actions: write
@@ -15,6 +18,8 @@ jobs:
     timeout-minutes: 3
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: main
       - name: Check cloud heartbeat and recover missing runs
         env:
           GH_TOKEN: ${{ github.token }}

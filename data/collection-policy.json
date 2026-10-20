@@ -1,6 +1,10 @@
 {
   "version": 1,
   "intervalMinutes": 15,
+  "continuousClockEnabled": true,
+  "clockDriver": "environment_wait_timer",
+  "clockStaleMinutes": 35,
+  "failureRetryMinutes": 3,
   "cron": "7-59/15 * * * *",
   "watchdogCron": "11-59/15 * * * *",
   "recoveryAfterMinutes": 45,

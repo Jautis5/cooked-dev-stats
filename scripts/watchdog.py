@@ -1,6 +1,8 @@
 """Free cloud recovery. Never retries missing API access or requires the owner's PC."""
 import datetime, json, os, pathlib, re, urllib.request
 from snapshot_merge import timestamp
+from cloud_api import CloudAPI
+from cloud_clock import clock_recovery_plan
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 
 
@@ -24,14 +26,7 @@ def recovery_plan(runs, health, now, policy):
 
 
 def api(repository, token, path, body=None):
-    if not re.fullmatch(r'[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+', repository):
-        raise ValueError('Invalid repository identity')
-    request = urllib.request.Request('https://api.github.com/repos/' + repository + path,
-        data=json.dumps(body).encode() if body is not None else None,
-        headers={'Authorization': 'Bearer ' + token, 'Accept': 'application/vnd.github+json', 'Content-Type': 'application/json', 'User-Agent': 'Social-Stats-Cloud-Watchdog', 'X-GitHub-Api-Version': '2022-11-28'})
-    with urllib.request.urlopen(request, timeout=30) as response:
-        raw = response.read()
-        return json.loads(raw) if raw else {}
+    return CloudAPI(repository, token).call(path, body)
 
 
 def run():
@@ -42,11 +37,21 @@ def run():
     health = json.loads(path.read_text()) if path.exists() else {}
     runs = api(repository, token, '/actions/workflows/refresh.yml/runs?per_page=20')['workflow_runs']
     now = datetime.datetime.now(datetime.timezone.utc).timestamp()
+    if policy.get('continuousClockEnabled'):
+        if api(repository,token,'').get('private') is not False:
+            raise RuntimeError('Automatic clock is restricted to the free public repository.')
+        clocks = api(repository,token,'/actions/workflows/clock.yml/runs?per_page=30')['workflow_runs']
+        clock_plan = clock_recovery_plan(clocks,now,policy)
+        if clock_plan['action']=='dispatch':
+            for run_id in clock_plan.get('cancelRunIds',[]):
+                api(repository,token,'/actions/runs/'+str(run_id)+'/cancel',{})
+            api(repository,token,'/actions/workflows/clock.yml/dispatches',{'ref':'main'})
+        print(json.dumps({'clockRecovery':clock_plan}))
     plan = recovery_plan(runs, health, now, policy)
     if plan['action'] == 'dispatch':
         for run_id in plan.get('cancelRunIds', []):
             api(repository, token, '/actions/runs/'+str(run_id)+'/cancel', {})
-        api(repository, token, '/actions/workflows/refresh.yml/dispatches', {'ref': 'main'})
+        api(repository, token, '/actions/workflows/refresh.yml/dispatches', {'ref': 'main','inputs':{'reason':'watchdog'}})
         plan['dispatched'] = True
     else:
         plan['dispatched'] = False
