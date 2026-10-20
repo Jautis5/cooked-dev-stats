@@ -19,8 +19,10 @@ def collection_plan(runs, now, policy):
         return {'action':'wait','reason':'A collector is already running or queued.'}
     latest = ordered[0] if ordered else None
     failed = latest and latest.get('conclusion') not in ['success', 'skipped']
-    interval = policy.get('failureRetryMinutes',3) if failed else policy['intervalMinutes']
-    if latest and now-timestamp(latest.get('created_at')) < interval*60:
+    # The hosted wait timer already enforces the clock's interval. A separate
+    # manual/cron refresh must not defer the next automatic cycle by 15 more minutes.
+    cooldown = policy.get('failureRetryMinutes',3)*60 if failed else policy.get('duplicateCooldownSeconds',60)
+    if latest and now-timestamp(latest.get('created_at')) < cooldown:
         return {'action':'wait','reason':'The next collection is not due yet.'}
     return {'action':'dispatch','reason':'Collection interval reached.'}
 

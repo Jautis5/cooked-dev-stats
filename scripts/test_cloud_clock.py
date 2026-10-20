@@ -28,8 +28,9 @@ class FakeAPI:
 
 
 class ClockTests(unittest.TestCase):
-    def test_fifteen_minute_clock_does_not_use_forty_five_minute_outage_threshold(self):
-        self.assertEqual(collection_plan([run(14)],NOW,POLICY)['action'],'wait')
+    def test_an_extra_manual_refresh_cannot_defer_the_timed_cycle(self):
+        self.assertEqual(collection_plan([run(0.5)],NOW,POLICY)['action'],'wait')
+        self.assertEqual(collection_plan([run(14)],NOW,POLICY)['action'],'dispatch')
         self.assertEqual(collection_plan([run(15)],NOW,POLICY)['action'],'dispatch')
     def test_recent_collector_is_not_duplicated(self):
         self.assertEqual(collection_plan([run(2,'in_progress')],NOW,POLICY)['action'],'wait')

@@ -5,6 +5,7 @@
   "clockDriver": "environment_wait_timer",
   "clockStaleMinutes": 35,
   "failureRetryMinutes": 3,
+  "duplicateCooldownSeconds": 60,
   "cron": "7-59/15 * * * *",
   "watchdogCron": "11-59/15 * * * *",
   "recoveryAfterMinutes": 45,
