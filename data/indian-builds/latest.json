@@ -6,8 +6,8 @@
   },
   "sheetUrl": "https://docs.google.com/spreadsheets/d/1sT8AqlGMMqnJUCcA697DaVcLvRqsJhCT4xMIdl52WYY/edit#gid=785807837",
   "sourceUrl": "https://drive.google.com/drive/folders/1WEHFKQCzbjUcPzm7nYB3PthPngxLXYGR",
-  "generatedAt": "2026-10-20T10:08:48.744Z",
-  "lastAttemptAt": "2026-10-20T10:08:48.744Z",
+  "generatedAt": "2026-10-20T10:14:59.611Z",
+  "lastAttemptAt": "2026-10-20T10:14:59.611Z",
   "schedule": {
     "intervalHours": 1,
     "timezone": "Europe/Vilnius"
@@ -141,6 +141,41 @@
       "lastAttemptAt": "2026-10-20T10:08:48.744Z",
       "lastSuccessAt": "2026-10-20T10:08:48.744Z",
       "message": "Visible profile and video list checked; legacy posts excluded."
+    },
+    {
+      "id": "youtube",
+      "name": "YouTube",
+      "url": "https://www.youtube.com/channel/UCgHxdk2zTRXwsoCrICSwiRg",
+      "expectedChannelId": "UCgHxdk2zTRXwsoCrICSwiRg",
+      "handle": "IndianBuilds",
+      "status": "partial",
+      "metrics": {
+        "followers": {
+          "value": 0,
+          "at": "2026-10-20T10:14:59.611Z",
+          "source": "https://www.youtube.com/channel/UCgHxdk2zTRXwsoCrICSwiRg",
+          "method": "browser_bulk",
+          "approximate": false
+        },
+        "publishedCount": {
+          "value": 0,
+          "at": "2026-10-20T10:14:59.611Z",
+          "source": "https://www.youtube.com/channel/UCgHxdk2zTRXwsoCrICSwiRg",
+          "method": "browser_bulk",
+          "approximate": false
+        },
+        "trackedPublishedCount": {
+          "value": 0,
+          "at": "2026-10-20T10:14:59.611Z",
+          "source": "https://www.youtube.com/channel/UCgHxdk2zTRXwsoCrICSwiRg",
+          "method": "browser_bulk",
+          "approximate": false
+        }
+      },
+      "trackedEmptyConfirmedAt": "2026-10-20T10:14:59.611Z",
+      "lastAttemptAt": "2026-10-20T10:14:59.611Z",
+      "lastSuccessAt": "2026-10-20T10:14:59.611Z",
+      "message": "Visible profile and video list checked; legacy posts excluded."
     }
   ],
   "videos": [],
@@ -161,6 +196,13 @@
     },
     {
       "at": "2026-10-20T10:08:48.744Z",
+      "views": 0,
+      "posts": 0,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-20T10:14:59.611Z",
       "views": 0,
       "posts": 0,
       "approximate": false,
@@ -210,7 +252,7 @@
     "summary": "Indian Summary"
   },
   "changes24h": {
-    "at": "2026-10-20T10:08:48.744Z",
+    "at": "2026-10-20T10:14:59.611Z",
     "baselineAt": null,
     "views": null,
     "likes": null,

@@ -47,6 +47,8 @@ class ChannelSafety(unittest.TestCase):
                 x=next(a for a in data['accounts'] if a['id']=='x')
                 self.assertEqual(x['expectedHandle'],'IndiaanBuilds')
                 self.assertEqual(x['url'],'https://x.com/IndiaanBuilds')
+                yt=next(a for a in data['accounts'] if a['id']=='youtube')
+                self.assertEqual(yt['expectedChannelId'],'UCgHxdk2zTRXwsoCrICSwiRg')
                 excluded=data['tracking']['excludedPostIds']
                 self.assertTrue(all(p['id'] not in excluded.get(platform,[]) for v in data['videos'] for platform,p in v['posts'].items()))
     def test_cooked_facebook_cannot_update_indian_builds(self):
@@ -59,6 +61,22 @@ class ChannelSafety(unittest.TestCase):
         self.assertIsNone(out['videos'][-1]['assetUrl'])
         batch['platforms']['facebook']['posts'][0]['url']='https://www.facebook.com/reel/987654321'
         with self.assertRaises(ValueError):merge(self.data,batch)
+    def test_youtube_requires_real_channel_identity(self):
+        account={'expectedChannelId':'UCgHxdk2zTRXwsoCrICSwiRg','url':'https://www.youtube.com/channel/UCgHxdk2zTRXwsoCrICSwiRg','metrics':{}}
+        initial={'metadata':{'channelMetadataRenderer':{'externalId':'UCNPkHyLJotjamsFxts47T2A'}},'contents':{'text':'999 subscribers'}}
+        page='var ytInitialData = '+json.dumps(initial)+';'
+        with self.assertRaises(ValueError):c.youtube_profile(account,page)
+        self.assertEqual(account['metrics'],{})
+        initial['metadata']['channelMetadataRenderer']['externalId']=account['expectedChannelId']
+        initial['contents']['text']='0 subscribers';c.youtube_profile(account,'var ytInitialData = '+json.dumps(initial)+';')
+        self.assertEqual(account['metrics']['followers']['value'],0)
+    def test_youtube_adoption_requires_verified_owner(self):
+        batch={'channelId':'indian-builds','platforms':{'youtube':{'browserProfile':'lostastronaut.space','accountUrl':'https://www.youtube.com/channel/UCgHxdk2zTRXwsoCrICSwiRg','observedAt':self.now,'posts':[{'id':'abcdefghijk','url':'https://www.youtube.com/shorts/abcdefghijk','public':True,'caption':'A build','ownerChannelId':'UCNPkHyLJotjamsFxts47T2A','metrics':{'views':0}}]}}}
+        with self.assertRaises(ValueError):merge(self.data,batch)
+        batch['platforms']['youtube']['posts'][0]['ownerChannelId']='UCgHxdk2zTRXwsoCrICSwiRg'
+        out=merge(self.data,batch)
+        self.assertEqual(out['videos'][-1]['posts']['youtube']['id'],'abcdefghijk')
+        self.assertIsNone(out['videos'][-1]['assetUrl'])
     def test_x_rejects_cooked_dev_and_text_posts(self):
         batch={'channelId':'indian-builds','platforms':{'x':{'browserProfile':'lostastronaut.space','accountUrl':'https://x.com/IndiaanBuilds','observedAt':self.now,'posts':[{'id':'123456789','url':'https://x.com/Cooked_Deev/status/123456789','public':True,'isVideo':True,'caption':'A build','metrics':{'views':0}}]}}}
         with self.assertRaises(ValueError):merge(self.data,batch)

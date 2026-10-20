@@ -5,6 +5,34 @@ import collect as base
 
 ROOT=pathlib.Path(__file__).resolve().parents[1]
 
+def youtube_profile(account,page):
+    marker=re.search(r'(?:var\s+)?ytInitialData\s*=\s*',page)
+    initial=json.JSONDecoder().raw_decode(page[marker.end():])[0] if marker else {}
+    if initial.get('metadata',{}).get('channelMetadataRenderer',{}).get('externalId')!=account['expectedChannelId']:
+        raise ValueError('YouTube channel identity unverified')
+    texts=[node[k] for node in base.walk(initial) for k in ['simpleText','text','content'] if isinstance(node.get(k),str)]
+    for text in texts:
+        match=re.fullmatch(r'([\d,.]+)([KMB]?) subscribers?',text,re.I)
+        if match:
+            value=float(match[1].replace(',',''))*{'':1,'K':1000,'M':1000000,'B':1000000000}[match[2].upper()]
+            base.setmetric(account,'followers',round(value),account['url'],bool(match[2]));break
+    empty=any("channel doesn't have any content" in t.lower() or 'channel doesn’t have any content' in t.lower() or 'channel has no content' in t.lower() for t in texts)
+    if empty:
+        base.setmetric(account,'publishedCount',0,account['url']);base.setmetric(account,'trackedPublishedCount',0,account['url'])
+        account['trackedEmptyConfirmedAt']=base.NOW
+    if empty or any(m.get('at')==base.NOW for m in account.get('metrics',{}).values()):
+        account.update(status='partial',lastSuccessAt=base.NOW,message='Verified YouTube profile checked; metric observation dates retained.')
+    return account
+
+def youtube_video(post,channel_id):
+    import yt_dlp
+    with yt_dlp.YoutubeDL({'quiet':True,'no_warnings':True,'skip_download':True,'socket_timeout':20,'retries':0,'extractor_retries':0,'ignore_no_formats_error':True}) as ydl:
+        info=ydl.extract_info(post['url'],download=False)
+    if str(info.get('id'))!=post['id'] or info.get('channel_id')!=channel_id:raise ValueError('YouTube video or owner identity unverified')
+    for key,field in [('views','view_count'),('likes','like_count'),('comments','comment_count')]:base.setmetric(post,key,info.get(field),post['url'])
+    if not any(m.get('at')==base.NOW for m in post.get('metrics',{}).values()):raise ValueError('No public YouTube metrics')
+    return post
+
 def tracked_item(data, item, handle):
     author=item.get('author',{})
     author=author.get('uniqueId') if isinstance(author,dict) else author
@@ -41,6 +69,9 @@ def refresh(data):
                     data['videos'].append({'id':'tt-'+str(item['id']),'number':max((v['number'] for v in data['videos']),default=0)+1,
                         'title':caption[:110] or 'Untitled video','caption':caption,'publishedAt':datetime.datetime.fromtimestamp(float(item['createTime']),datetime.timezone.utc).isoformat(),
                         'thumbnail':None,'assetUrl':None,'posts':{'tiktok':{'id':str(item['id']),'url':account['url']+'/video/'+str(item['id']),'metrics':{}}}})
+        elif platform=='youtube':
+            page,error=base.attempt(base.request,account['url']+'?hl=en')
+            if page:base.attempt(youtube_profile,account,page)
         elif platform in ['facebook','x']:
             # These sources may serve a login wall: reachability never verifies metrics.
             base.attempt(base.request,account['url'])
@@ -50,6 +81,7 @@ def refresh(data):
             post=video['posts'].get(platform)
             if not post:continue
             fn={'tiktok':base.tiktok_video,'instagram':base.instagram_video}.get(platform)
+            if platform=='youtube':fn=lambda post:youtube_video(post,account['expectedChannelId'])
             if fn is None:continue
             result,error=base.attempt(fn,post)
             if result:

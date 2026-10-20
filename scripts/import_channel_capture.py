@@ -1,6 +1,6 @@
 """Import a private, DOM-visible batch into one explicitly identified public channel feed."""
 import argparse, copy, datetime, json, pathlib, re
-from urllib.parse import urlsplit
+from urllib.parse import urlsplit, parse_qs
 import collect_channels
 
 def merge(data,capture):
@@ -40,12 +40,15 @@ def merge(data,capture):
                 valid=parts.hostname in ['www.facebook.com','facebook.com'] and identity.isdigit() and parts.path.rstrip('/') in [f'/reel/{identity}',f"/{account['expectedPageId']}/videos/{identity}"]
             elif platform=='x':
                 valid=parts.hostname in ['x.com','www.x.com','twitter.com','www.twitter.com'] and identity.isdigit() and parts.path.rstrip('/').lower()==f"/{account['expectedHandle']}/status/{identity}".lower()
+            elif platform=='youtube':
+                valid=bool(re.fullmatch(r'[A-Za-z0-9_-]{11}',identity)) and ((parts.hostname in ['youtube.com','www.youtube.com'] and (parts.path.rstrip('/')==f'/shorts/{identity}' or parts.path=='/watch' and parse_qs(parts.query).get('v')==[identity])) or parts.hostname=='youtu.be' and parts.path.rstrip('/')==f'/{identity}')
             else:raise ValueError('Unsupported platform')
             if not valid:raise ValueError('Wrong publication URL')
             video=next((v for v in result['videos'] if v['posts'].get(platform,{}).get('id')==identity),None)
             if video is None:
                 if post.get('public') is not True or not post.get('caption'):raise ValueError('New publication needs observed Public state and caption')
                 if platform=='x' and post.get('isVideo') is not True:raise ValueError('X publication must be a verified video, not a text post or repost')
+                if platform=='youtube' and post.get('ownerChannelId')!=account['expectedChannelId']:raise ValueError('YouTube publication owner is not the verified channel')
                 video={'id':platform+'-'+identity,'number':max((v['number'] for v in result['videos']),default=0)+1,'title':post['caption'][:110],'caption':post['caption'],'publishedAt':post.get('publishedAt'),
                     'thumbnail':None,'assetUrl':None,'posts':{platform:{'id':identity,'url':url,'metrics':{}}}}
                 result['videos'].append(video)
