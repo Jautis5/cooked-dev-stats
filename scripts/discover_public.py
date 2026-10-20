@@ -28,7 +28,8 @@ def discover_youtube(data, account, request, observe=None):
             continue
         link = next((node.get('href') for node in entry.findall('atom:link', NS) if node.get('rel') == 'alternate'), None)
         url = urlsplit(link or '')
-        if url.scheme != 'https' or url.hostname not in ['www.youtube.com', 'youtube.com'] or parse_qs(url.query).get('v') != [video_id]:
+        matches_id=(url.path=='/watch' and parse_qs(url.query).get('v')==[video_id]) or url.path=='/shorts/'+video_id
+        if url.scheme != 'https' or url.hostname not in ['www.youtube.com', 'youtube.com'] or not matches_id:
             continue
         post = known.get(video_id)
         if post is None:

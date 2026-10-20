@@ -47,6 +47,10 @@ class PublicDiscoveryTests(unittest.TestCase):
         self.assertIsNone(video['assetUrl']);self.assertEqual(list(video['posts']),['youtube'])
         self.assertEqual(video['posts']['youtube']['metrics']['views']['value'],42)
         self.assertEqual(discover_youtube(data,ACCOUNT,lambda _:self.feed(),setmetric),0)
+    def test_actual_shorts_feed_url_updates_existing_post(self):
+        data=self.data();feed=self.feed().replace('watch?v=abcdefghijk','shorts/abcdefghijk')
+        self.assertEqual(discover_youtube(data,ACCOUNT,lambda _:feed,setmetric),1)
+        self.assertEqual(data['videos'][0]['posts']['youtube']['metrics']['views']['value'],42)
     def test_wrong_owner_is_rejected(self):
         with self.assertRaises(ValueError):discover_youtube(self.data(),ACCOUNT,lambda _:self.feed(owner='UCgHxdk2zTRXwsoCrICSwiRg'),setmetric)
     def test_legacy_or_excluded_video_is_not_adopted(self):
