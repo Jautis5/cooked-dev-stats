@@ -21,6 +21,9 @@ def metric_health(data, observed_at):
         out[account['id']] = {
             'name': account['name'], 'status': account['status'],
             'metricsUpdated': sum(m.get('at') == observed_at for m in metrics),
+            'metricsKnown': len(metrics),
+            'viewsUpdated': sum(obj.get('metrics', {}).get('views', {}).get('at') == observed_at for obj in objects[1:]),
+            'postsKnown': len(objects)-1,
             'latestMetricAt': max((m['at'] for m in metrics), key=timestamp, default=None),
             'access': 'authorization_required' if account['id'] in ['facebook', 'x'] and account['status'] == 'unavailable' else 'public_cloud',
         }
@@ -28,12 +31,13 @@ def metric_health(data, observed_at):
 
 
 def refresh(root=ROOT):
+    policy = json.loads((root / 'data/collection-policy.json').read_text())
     started = datetime.datetime.now(datetime.timezone.utc).isoformat()
     base.NOW = started
     run_url = None
     if os.environ.get('GITHUB_ACTIONS') == 'true':
         run_url = 'https://github.com/' + os.environ['GITHUB_REPOSITORY'] + '/actions/runs/' + os.environ['GITHUB_RUN_ID']
-    health = {'version': 1, 'startedAt': started, 'provider': 'GitHub Actions' if run_url else 'local_verification', 'intervalMinutes': 30, 'runUrl': run_url, 'channels': {}}
+    health = {'version': 1, 'startedAt': started, 'provider': 'GitHub Actions' if run_url else 'local_verification', 'intervalMinutes': policy['intervalMinutes'], 'runUrl': run_url, 'channels': {}}
     failed = 0
     for config in json.loads((root / 'data/channels.json').read_text())['channels']:
         path = (root / config['dataPath']).resolve()
@@ -42,7 +46,7 @@ def refresh(root=ROOT):
         previous = json.loads(path.read_text())
         try:
             data = base.collect(copy.deepcopy(previous)) if config['id'] == 'cooked-dev' else extra.refresh(copy.deepcopy(previous))
-            data['schedule'] = {'provider': 'GitHub Actions' if run_url else 'local_verification', 'intervalMinutes': 30, 'cron': '13,43 * * * *'}
+            data['schedule'] = {'provider': 'GitHub Actions' if run_url else 'local_verification', 'intervalMinutes': policy['intervalMinutes'], 'cron': policy['cron']}
             data['cloudCollection']['runUrl'] = run_url
             validate(data)
             if config['id'] == 'cooked-dev':

@@ -1,0 +1,44 @@
+const assert=require('node:assert/strict');
+const fs=require('node:fs');
+const path=require('node:path');
+const vm=require('node:vm');
+const root=path.resolve(__dirname,'..','site');
+const code=fs.readFileSync(path.join(root,'app.js'),'utf8').split("window.addEventListener('hashchange'")[0];
+const api=vm.runInNewContext(code+'\n({viewHistory,combinedViewHistory,chartSeries,chartWindow,sampleChartPoints,chartGeometry,chartTick,time})',{Intl,Date,URL,location:{href:'https://example.com/',hash:''}});
+const now=Date.parse('2026-10-19T18:00:00Z');
+const d=history=>({accounts:[],videos:[],history});
+const point=(hour,views)=>({at:`2026-10-19T${hour}:00Z`,views,posts:2});
+const a=d([point('17:00',15),point('16:00',10),point('17:00',16),point('19:00',99),{at:'bad',views:33},point('17:30',-1)]);
+let s=api.viewHistory(a,now);assert.equal(s.length,2);assert.equal(s[0].value,10);assert.equal(s[1].value,16);
+assert.equal(api.viewHistory(d([point('16:00',0)]),now)[0].value,0);
+assert.equal(api.viewHistory(d([]),now).length,0);
+const joined=api.combinedViewHistory([d([point('16:00',10),point('17:00',15)]),d([point('16:30',20),point('17:30',25)])],now);
+assert.equal(joined.length,3);assert.equal(joined[0].t,Date.parse('2026-10-19T16:30:00Z'));
+assert.equal(JSON.stringify(joined.map(p=>p.value)),JSON.stringify([30,35,40]));
+assert.equal(api.combinedViewHistory([a,d([])],now).length,0);
+const configs=[{id:'cooked-dev'},{id:'indian-builds'}],records=new Map([['cooked-dev',{data:a}],['indian-builds',{data:d([point('17:00',0)])}]]);
+assert.equal(api.chartSeries(configs,records,'cooked-dev',now).points[0].t,Date.parse('2026-10-19T16:00:00Z'));
+assert.equal(api.chartSeries(configs,records,'all',now).points[0].t,Date.parse('2026-10-19T17:00:00Z'));
+assert.equal(api.chartSeries(configs,records,'indian-builds',now).points[0].value,0);
+assert.equal(api.chartSeries(configs,new Map([['cooked-dev',{data:a}]]),'all',now).complete,false);
+assert.equal(api.chartSeries(configs,new Map([['cooked-dev',{data:a}]]),'cooked-dev',now).complete,true);
+assert.equal(api.chartSeries(configs,records,'unknown',now).points.length,0);
+const current=d([point('16:00',10)]);current.lastAttemptAt='2026-10-19T17:00:00Z';current.videos=[{posts:{tiktok:{metrics:{views:{value:42,at:current.lastAttemptAt}}}}}];
+assert.equal(api.viewHistory(current,now).at(-1).value,42);
+const old={t:now-3*86400000,value:5},recent={t:now-1000,value:9};
+assert.equal(api.chartWindow([old,recent],'24h',now).length,1);assert.equal(api.chartWindow([old,recent],'7d',now).length,2);
+for(const width of [260,1100]){
+ const g=api.chartGeometry(joined,width);
+ for(const p of g.points){assert.ok(Number.isFinite(p.x)&&Number.isFinite(p.y));assert.ok(p.x>=g.left&&p.x<=width-g.right+.01);assert.ok(p.y>=g.top&&p.y<=g.height-g.bottom);}
+}
+assert.equal(api.chartGeometry([],300),null);
+assert.ok(Number.isFinite(api.chartGeometry([{t:now,value:0}],300).points[0].y));
+assert.ok(api.chartGeometry([{t:now,value:0}],300).ticks.every(t=>Number.isInteger(t.value)));
+assert.ok(api.time(now).includes('Vilnius'));assert.ok(!api.time(now).includes('Not checked'));
+const large=api.chartGeometry([{t:0,value:12081450},{t:1,value:12197700}],800),labels=large.ticks.map(t=>api.chartTick(t.value,large.step));
+assert.equal(new Set(labels).size,labels.length);assert.ok(labels.every(v=>v.endsWith('M')));
+const many=Array.from({length:3000},(_,i)=>({t:i,value:i===1700?100000:i})),sample=api.sampleChartPoints(many,160);
+assert.ok(sample.length<=160);assert.equal(sample[0],many[0]);assert.equal(sample.at(-1),many.at(-1));assert.ok(sample.includes(many[1700]));assert.ok(sample.every(p=>many.includes(p)));
+const real=JSON.parse(fs.readFileSync(path.join(root,'data/latest.json')));
+const measured=api.viewHistory(real,Date.now());assert.ok(measured.length>=4);assert.equal(measured[0].value,241629);
+console.log('PASS: saved history, 50-channel-safe sampling, asynchronous totals, unknown vs zero, range filters, mobile-width geometry and real timestamps.');

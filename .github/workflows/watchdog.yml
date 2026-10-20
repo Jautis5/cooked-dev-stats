@@ -1,0 +1,21 @@
+name: Recover stalled cloud collection
+on:
+  schedule:
+    - cron: '11,26,41,56 * * * *'
+  workflow_dispatch:
+permissions:
+  contents: read
+  actions: write
+concurrency:
+  group: public-stats-watchdog
+  cancel-in-progress: false
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check cloud heartbeat and recover missing runs
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: python3 scripts/watchdog.py

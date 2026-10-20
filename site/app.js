@@ -187,7 +187,7 @@ function collectorStatus(health,now=Date.now()){
  if(!health)return {label:'Status unavailable',warning:true};
  if(health.provider!=='GitHub Actions')return {label:'Awaiting first cloud run',warning:true};
  const at=Date.parse(health.completedAt),age=now-at;
- if(!Number.isFinite(age)||age<0||age>2*3600000)return {label:'Cloud job overdue',warning:true};
+ if(!Number.isFinite(age)||age<0||age>45*60000)return {label:'Cloud job overdue',warning:true};
  if(health.status!=='completed')return {label:'Completed with errors',warning:true};
  const updated=Object.values(health.channels||{}).reduce((n,c)=>n+(c.metricsUpdated||0),0);
  return {label:updated?'Cloud job completed':'Completed · no new metrics',warning:!updated};
@@ -195,13 +195,13 @@ function collectorStatus(health,now=Date.now()){
 function renderCloudHealth(){
  const state=collectorStatus(cloudHealth),scope=scopedChannels();
  const records=scope.map(c=>cloudHealth?.channels?.[c.id]).filter(Boolean),count=records.reduce((n,c)=>n+(c.metricsUpdated||0),0);
- const access=[...new Set(records.flatMap(c=>Object.values(c.platforms||{}).filter(p=>p.access==='authorization_required').map(p=>p.name)))];
- $('cloud-health').innerHTML='<div><span class="cloud-label">AUTONOMOUS COLLECTOR</span><strong><span class="dot '+(state.warning?'partial':'ok')+'"></span>'+esc(state.label)+'</strong><small>'+esc(time(cloudHealth?.completedAt))+'</small></div><div><span class="cloud-label">LATEST RUN</span><strong>'+full(count)+' metrics updated</strong><small>'+records.length+' of '+scope.length+' channel reports · earlier metric dates are retained</small></div><div><span class="cloud-label">SOURCE ACCESS</span><strong>'+esc(access.length?access.join(' + ')+' need authorization':'Public cloud sources')+'</strong><small>Independent of Codex and your computer</small></div><div class="cloud-links"><a href="'+safe(cloudHealth?.runUrl||cloudConfig.runsUrl||'https://github.com/jonass-pandos/cooked-dev-stats/actions/workflows/refresh.yml')+'" target="_blank" rel="noopener">Run details ↗</a><a href="'+safe(cloudConfig.independentUrl||'https://jonass-pandos.github.io/cooked-dev-stats/')+'" target="_blank" rel="noopener">Independent site ↗</a></div>';
+ const platforms=records.flatMap(c=>Object.values(c.platforms||{})),updated=platforms.filter(p=>p.metricsUpdated>0).length;
+ $('cloud-health').innerHTML='<div><span class="cloud-label">AUTONOMOUS COLLECTOR</span><strong><span class="dot '+(state.warning?'partial':'ok')+'"></span>'+esc(state.label)+'</strong><small>'+esc(time(cloudHealth?.completedAt))+'</small></div><div><span class="cloud-label">LATEST RUN</span><strong>'+full(count)+' metrics updated</strong><small>'+records.length+' of '+scope.length+' channel reports · earlier metric dates are retained</small></div><div><span class="cloud-label">PUBLIC SOURCE COVERAGE</span><strong>'+updated+' / '+platforms.length+' accounts with new metrics</strong><small>Free mode · blocked values keep their actual dates</small></div><div class="cloud-links"><a href="'+safe(cloudHealth?.runUrl||cloudConfig.runsUrl||'https://github.com/jonass-pandos/cooked-dev-stats/actions/workflows/refresh.yml')+'" target="_blank" rel="noopener">Run details ↗</a><a href="'+safe(cloudConfig.watchdogUrl||'https://github.com/jonass-pandos/cooked-dev-stats/actions/workflows/watchdog.yml')+'" target="_blank" rel="noopener">Auto-recovery ↗</a><a href="'+safe(cloudConfig.independentUrl||'https://jonass-pandos.github.io/cooked-dev-stats/')+'" target="_blank" rel="noopener">Independent site ↗</a></div>';
 }
 function sourceState(entry){
  if(!entry?.data)return {label:'Unavailable',warning:true};
  if(entry.fallback)return {label:'Saved snapshot',warning:true};
- if(!Number.isFinite(Date.parse(checkedAt(entry.data)))||Date.now()-Date.parse(checkedAt(entry.data))>2*3600000)return {label:'Check overdue',warning:true};
+ if(!Number.isFinite(Date.parse(checkedAt(entry.data)))||Date.now()-Date.parse(checkedAt(entry.data))>45*60000)return {label:'Check overdue',warning:true};
  return {label:entry.data.accounts.some(a=>a.status!=='ok')?'Partial metrics':'Feed checked',warning:entry.data.accounts.some(a=>a.status!=='ok')};
 }
 function sourceBadge(entry){const s=sourceState(entry);return '<span class="status-badge '+(s.warning?'warning':'')+'"><span class="dot '+(s.warning?'partial':'ok')+'"></span>'+s.label+'</span>';}
@@ -238,7 +238,7 @@ function render(){
  const catchingUp=fallback.filter(x=>entries.get(x.id)?.fallbackReason==='newer_snapshot'),unreachable=fallback.filter(x=>entries.get(x.id)?.fallbackReason!=='newer_snapshot');
  if(catchingUp.length)problems.push(catchingUp.map(x=>x.name).join(', ')+': live feed is catching up; showing a newer verified snapshot.');
  if(unreachable.length)problems.push(unreachable.map(x=>x.name).join(', ')+': live feed unavailable; showing the last saved snapshot.');
- if(scope.some(x=>{const at=checkedAt(entries.get(x.id)?.data);return at&&Date.now()-Date.parse(at)>2*3600000;}))problems.push('Some source checks are over two hours old. See Accounts & sources for exact times.');
+ if(scope.some(x=>{const at=checkedAt(entries.get(x.id)?.data);return at&&Date.now()-Date.parse(at)>45*60000;}))problems.push('Some source checks are over 45 minutes old. See Accounts & sources for exact times.');
  if(data?.tracking?.note)problems.push(data.tracking.note);
  $('notice').textContent=problems.join(' ');$('notice').hidden=!problems.length;
  if(view==='overview'){
@@ -377,6 +377,11 @@ function resetTracker(){active='all';$('search').value='';$('video-channel').val
 function newestSnapshot(candidates){
  return candidates.filter(c=>c.data).sort((a,b)=>(Date.parse(checkedAt(b.data))||0)-(Date.parse(checkedAt(a.data))||0)||Number(a.fallback)-Number(b.fallback))[0]||null;
 }
+function newestHealth(candidates){
+ const valid=candidates.filter(h=>h?.version===1&&h.channels&&Number.isFinite(Date.parse(h.completedAt)));
+ const cloud=valid.filter(h=>h.provider==='GitHub Actions');
+ return (cloud.length?cloud:valid).sort((a,b)=>Date.parse(b.completedAt)-Date.parse(a.completedAt))[0]||null;
+}
 async function fetchData(url,refresh=false){
  const u=new URL(url,location.href);u.searchParams.set('v',String(Date.now()));
  const r=await fetch(u,{cache:'no-store',signal:AbortSignal.timeout(15000)});if(!r.ok)throw Error('Source unavailable');
@@ -386,7 +391,11 @@ async function load(manual=false){
  if(loading)return;loading=true;$('reload').disabled=true;
  try{
   if(!channels.length){const r=await fetch('data/channels.json',{cache:'no-store',signal:AbortSignal.timeout(15000)});if(!r.ok)throw Error('Channel list unavailable');const config=await r.json();if(config.version!==1||!Array.isArray(config.channels))throw Error('Invalid channels');channels=config.channels;cloudConfig=config.collector||{};}
-  const healthTask=(async()=>{try{const r=await fetch((cloudConfig.healthUrl||'https://raw.githubusercontent.com/jonass-pandos/cooked-dev-stats/main/data/health.json')+'?v='+Date.now(),{cache:'no-store',signal:AbortSignal.timeout(8000)});if(r.ok){const h=await r.json();if(h.version===1&&h.channels)cloudHealth=h;}}catch{}})();
+  const healthTask=(async()=>{
+   const urls=[cloudConfig.healthUrl||'https://raw.githubusercontent.com/jonass-pandos/cooked-dev-stats/main/data/health.json','data/health.json'];
+   const results=await Promise.allSettled(urls.map(async url=>{const r=await fetch(url+'?v='+Date.now(),{cache:'no-store',signal:AbortSignal.timeout(8000)});if(!r.ok)throw Error('Health unavailable');return r.json();}));
+   cloudHealth=newestHealth([...results.flatMap(r=>r.status==='fulfilled'?[r.value]:[]),...(cloudHealth?[cloudHealth]:[])]);
+  })();
   await Promise.all(channels.map(async c=>{
    const previous=entries.get(c.id),results=await Promise.allSettled([fetchData(c.dataUrl,manual),fetchData(c.fallbackUrl,manual)]);
    const candidates=results.flatMap((r,i)=>r.status==='fulfilled'?[{data:r.value,fallback:i===1}]:[]);

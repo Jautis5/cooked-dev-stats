@@ -24,6 +24,7 @@
     "healthUrl": "https://raw.githubusercontent.com/jonass-pandos/cooked-dev-stats/main/data/health.json",
     "runsUrl": "https://github.com/jonass-pandos/cooked-dev-stats/actions/workflows/refresh.yml",
     "independentUrl": "https://jonass-pandos.github.io/cooked-dev-stats/",
-    "intervalMinutes": 30
+    "intervalMinutes": 15,
+    "watchdogUrl": "https://github.com/jonass-pandos/cooked-dev-stats/actions/workflows/watchdog.yml"
   }
 }

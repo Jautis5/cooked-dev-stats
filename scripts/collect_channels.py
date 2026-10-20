@@ -43,6 +43,11 @@ def tracked_item(data, item, handle):
 def refresh(data):
     now=base.NOW
     data['lastAttemptAt']=now
+    from discover_public import discover_youtube
+    yt=next((a for a in data['accounts'] if a['id']=='youtube'),None)
+    if yt:
+        added,error=base.attempt(discover_youtube,data,yt,base.request,base.setmetric)
+        data.setdefault('discovery',{})['youtube']={'checkedAt':now,'status':'unavailable' if error else 'checked','newVideos':added or 0}
     for account in data['accounts']:
         account.update(lastAttemptAt=now,status='unavailable',message='Public source unavailable; previous observations preserved.')
         platform=account['id']
@@ -80,7 +85,8 @@ def refresh(data):
             result,error=base.attempt(fn,post)
             if result:
                 video['posts'][platform]=result;refreshed+=1
-        if refreshed:account.update(status='partial',lastSuccessAt=now,message='Public video metrics updated; per-metric dates retained.')
+        fresh=any(m.get('at')==now for v in data['videos'] for m in v['posts'].get(platform,{}).get('metrics',{}).values())
+        if refreshed or fresh:account.update(status='partial',lastSuccessAt=now,message='Public video metrics updated; per-metric dates retained.')
     data['generatedAt']=now
     data['cloudCollection']={'at':now,'method':'public_cloud','metricsUpdated':{a['id']:sum(m.get('at')==now for v in data['videos'] for m in v['posts'].get(a['id'],{}).get('metrics',{}).values())+sum(m.get('at')==now for m in a.get('metrics',{}).values()) for a in data['accounts']}}
     return data

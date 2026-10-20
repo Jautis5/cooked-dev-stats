@@ -171,6 +171,11 @@ def collect(data):
    data['videos'].append(existing)
    existing['posts']['tiktok']={'id':str(item['id']),'url':tt['url']+'/video/'+str(item['id']),'metrics':{}}
  elif error:tt['message']='TikTok profilis: '+error
+ from discover_public import discover_youtube
+ added,discovery_error=attempt(discover_youtube,data,accounts['youtube'],request,setmetric)
+ data.setdefault('discovery',{})['youtube']={'checkedAt':NOW,'status':'unavailable' if discovery_error else 'checked','newVideos':added or 0}
+ if any(v['posts'].get('youtube',{}).get('metrics',{}).get('views',{}).get('at')==NOW for v in data['videos']):
+  accounts['youtube'].update(status='partial',lastSuccessAt=NOW,message='Owner-verified public channel feed updated video view counts.')
  jobs=[];results={'tiktok':[],'instagram':[],'youtube':[]}
  with concurrent.futures.ThreadPoolExecutor(max_workers=3) as pool:
   for v in data['videos']:

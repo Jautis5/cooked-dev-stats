@@ -1,7 +1,7 @@
 name: Refresh public social stats
 on:
   schedule:
-    - cron: '13,43 * * * *'
+    - cron: '7,22,37,52 * * * *'
   workflow_dispatch:
 permissions:
   contents: write
@@ -22,6 +22,12 @@ jobs:
       - run: python -m pip install --disable-pip-version-check 'yt-dlp==2026.8.19'
       - name: Test collection and concurrent publishing
         run: python -m unittest discover -s scripts -p 'test_*.py'
+      - name: Check dashboard logic
+        run: |
+          node --check site/app.js
+          node scripts/test_dashboard.cjs
+          node scripts/test_chart.cjs
+          node scripts/test_workspace.cjs
       - name: Collect both channels without a browser
         id: collect
         continue-on-error: true
