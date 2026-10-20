@@ -1,8 +1,8 @@
 {
   "version": 1,
   "intervalMinutes": 15,
-  "cron": "7,22,37,52 * * * *",
-  "watchdogCron": "11,26,41,56 * * * *",
+  "cron": "7-59/15 * * * *",
+  "watchdogCron": "11-59/15 * * * *",
   "recoveryAfterMinutes": 45,
   "retryCooldownMinutes": 15,
   "mode": "public_free",

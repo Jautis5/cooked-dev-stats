@@ -37,7 +37,7 @@ def refresh(root=ROOT):
     run_url = None
     if os.environ.get('GITHUB_ACTIONS') == 'true':
         run_url = 'https://github.com/' + os.environ['GITHUB_REPOSITORY'] + '/actions/runs/' + os.environ['GITHUB_RUN_ID']
-    health = {'version': 1, 'startedAt': started, 'provider': 'GitHub Actions' if run_url else 'local_verification', 'intervalMinutes': policy['intervalMinutes'], 'runUrl': run_url, 'channels': {}}
+    health = {'version': 1, 'startedAt': started, 'provider': 'GitHub Actions' if run_url else 'local_verification', 'trigger': os.environ.get('GITHUB_EVENT_NAME', 'unknown') if run_url else 'local_verification', 'intervalMinutes': policy['intervalMinutes'], 'runUrl': run_url, 'channels': {}}
     failed = 0
     for config in json.loads((root / 'data/channels.json').read_text())['channels']:
         path = (root / config['dataPath']).resolve()

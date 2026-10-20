@@ -47,6 +47,9 @@ assert.equal(api.collectorStatus(null,healthNow).warning,true);
 assert.equal(api.collectorStatus({provider:'local_verification'},healthNow).warning,true);
 const health={provider:'GitHub Actions',completedAt:new Date(healthNow).toISOString(),status:'completed',channels:{one:{metricsUpdated:5}}};
 assert.equal(api.collectorStatus(health,healthNow).warning,false);
+assert.equal(api.collectorStatus({...health,trigger:'workflow_dispatch'},healthNow).label,'On-demand collection completed');
+assert.equal(api.collectorStatus({...health,trigger:'schedule'},healthNow).label,'Scheduled collection completed');
+assert.equal(api.collectorStatus({...health,trigger:'workflow_dispatch'},healthNow+3*3600000).label,'Automatic updates delayed');
 assert.equal(api.collectorStatus(health,healthNow+3*3600000).warning,true);
 health.channels.one.metricsUpdated=0;assert.equal(api.collectorStatus(health,healthNow).warning,true);
 

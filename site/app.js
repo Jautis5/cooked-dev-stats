@@ -187,10 +187,11 @@ function collectorStatus(health,now=Date.now()){
  if(!health)return {label:'Status unavailable',warning:true};
  if(health.provider!=='GitHub Actions')return {label:'Awaiting first cloud run',warning:true};
  const at=Date.parse(health.completedAt),age=now-at;
- if(!Number.isFinite(age)||age<0||age>45*60000)return {label:'Cloud job overdue',warning:true};
+ if(!Number.isFinite(age)||age<0||age>45*60000)return {label:'Automatic updates delayed',warning:true};
  if(health.status!=='completed')return {label:'Completed with errors',warning:true};
  const updated=Object.values(health.channels||{}).reduce((n,c)=>n+(c.metricsUpdated||0),0);
- return {label:updated?'Cloud job completed':'Completed · no new metrics',warning:!updated};
+ const label=health.trigger==='schedule'?'Scheduled collection completed':health.trigger==='workflow_dispatch'?'On-demand collection completed':'Cloud job completed';
+ return {label:updated?label:'Completed · no new metrics',warning:!updated};
 }
 function renderCloudHealth(){
  const state=collectorStatus(cloudHealth),scope=scopedChannels();
@@ -238,7 +239,7 @@ function render(){
  const catchingUp=fallback.filter(x=>entries.get(x.id)?.fallbackReason==='newer_snapshot'),unreachable=fallback.filter(x=>entries.get(x.id)?.fallbackReason!=='newer_snapshot');
  if(catchingUp.length)problems.push(catchingUp.map(x=>x.name).join(', ')+': live feed is catching up; showing a newer verified snapshot.');
  if(unreachable.length)problems.push(unreachable.map(x=>x.name).join(', ')+': live feed unavailable; showing the last saved snapshot.');
- if(scope.some(x=>{const at=checkedAt(entries.get(x.id)?.data);return at&&Date.now()-Date.parse(at)>45*60000;}))problems.push('Some source checks are over 45 minutes old. See Accounts & sources for exact times.');
+ if(scope.some(x=>{const at=checkedAt(entries.get(x.id)?.data);return at&&Date.now()-Date.parse(at)>45*60000;}))problems.push('Automatic collection is delayed; showing the last saved observations. Reload saved stats checks for already collected data. See Accounts & sources for exact metric times.');
  if(data?.tracking?.note)problems.push(data.tracking.note);
  $('notice').textContent=problems.join(' ');$('notice').hidden=!problems.length;
  if(view==='overview'){
