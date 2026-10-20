@@ -235,7 +235,9 @@ function render(){
  $('refresh-dot').className='dot '+(states.some(s=>s.warning)?'partial':'ok');
  const failed=scope.filter(x=>!entries.get(x.id)?.data),fallback=scope.filter(x=>entries.get(x.id)?.fallback),problems=[];
  if(failed.length)problems.push(failed.map(x=>x.name).join(', ')+': source unavailable. Shared totals exclude these channels.');
- if(fallback.length)problems.push(fallback.map(x=>x.name).join(', ')+': live feed unavailable; showing the last saved snapshot.');
+ const catchingUp=fallback.filter(x=>entries.get(x.id)?.fallbackReason==='newer_snapshot'),unreachable=fallback.filter(x=>entries.get(x.id)?.fallbackReason!=='newer_snapshot');
+ if(catchingUp.length)problems.push(catchingUp.map(x=>x.name).join(', ')+': live feed is catching up; showing a newer verified snapshot.');
+ if(unreachable.length)problems.push(unreachable.map(x=>x.name).join(', ')+': live feed unavailable; showing the last saved snapshot.');
  if(scope.some(x=>{const at=checkedAt(entries.get(x.id)?.data);return at&&Date.now()-Date.parse(at)>2*3600000;}))problems.push('Some source checks are over two hours old. See Accounts & sources for exact times.');
  if(data?.tracking?.note)problems.push(data.tracking.note);
  $('notice').textContent=problems.join(' ');$('notice').hidden=!problems.length;
@@ -372,8 +374,11 @@ function videoCsv(rows,platform='all'){
 }
 function toast(message){$('toast').textContent=message;$('toast').classList.add('show');setTimeout(()=>$('toast').classList.remove('show'),2500);}
 function resetTracker(){active='all';$('search').value='';$('video-channel').value=selected()?.id||'all';$('video-platform').value='all';$('video-coverage').value='all';$('sort').value='views';renderVideos();}
+function newestSnapshot(candidates){
+ return candidates.filter(c=>c.data).sort((a,b)=>(Date.parse(checkedAt(b.data))||0)-(Date.parse(checkedAt(a.data))||0)||Number(a.fallback)-Number(b.fallback))[0]||null;
+}
 async function fetchData(url,refresh=false){
- const u=new URL(url,location.href);u.searchParams.set('v',refresh?String(Date.now()):String(Math.floor(Date.now()/300000)));
+ const u=new URL(url,location.href);u.searchParams.set('v',String(Date.now()));
  const r=await fetch(u,{cache:'no-store',signal:AbortSignal.timeout(15000)});if(!r.ok)throw Error('Source unavailable');
  const d=await r.json();if(d.version!==1||!Array.isArray(d.accounts)||!Array.isArray(d.videos))throw Error('Invalid stats');return d;
 }
@@ -381,8 +386,15 @@ async function load(manual=false){
  if(loading)return;loading=true;$('reload').disabled=true;
  try{
   if(!channels.length){const r=await fetch('data/channels.json',{cache:'no-store',signal:AbortSignal.timeout(15000)});if(!r.ok)throw Error('Channel list unavailable');const config=await r.json();if(config.version!==1||!Array.isArray(config.channels))throw Error('Invalid channels');channels=config.channels;cloudConfig=config.collector||{};}
-  const healthTask=(async()=>{try{const r=await fetch(cloudConfig.healthUrl||'https://raw.githubusercontent.com/jonass-pandos/cooked-dev-stats/main/data/health.json',{cache:'no-store',signal:AbortSignal.timeout(8000)});if(r.ok){const h=await r.json();if(h.version===1&&h.channels)cloudHealth=h;}}catch{}})();
-  await Promise.all(channels.map(async c=>{try{entries.set(c.id,{data:await fetchData(c.dataUrl,manual),fallback:false});}catch{const previous=entries.get(c.id);if(previous?.data){entries.set(c.id,{...previous,fallback:true});return;}try{entries.set(c.id,{data:await fetchData(c.fallbackUrl,manual),fallback:true});}catch{entries.set(c.id,{data:null,fallback:true});}}}));
+  const healthTask=(async()=>{try{const r=await fetch((cloudConfig.healthUrl||'https://raw.githubusercontent.com/jonass-pandos/cooked-dev-stats/main/data/health.json')+'?v='+Date.now(),{cache:'no-store',signal:AbortSignal.timeout(8000)});if(r.ok){const h=await r.json();if(h.version===1&&h.channels)cloudHealth=h;}}catch{}})();
+  await Promise.all(channels.map(async c=>{
+   const previous=entries.get(c.id),results=await Promise.allSettled([fetchData(c.dataUrl,manual),fetchData(c.fallbackUrl,manual)]);
+   const candidates=results.flatMap((r,i)=>r.status==='fulfilled'?[{data:r.value,fallback:i===1}]:[]);
+   if(previous?.data)candidates.push({...previous,fallback:true});
+   const chosen=newestSnapshot(candidates);
+   if(chosen){chosen.fallbackReason=chosen.fallback&&results[0].status==='fulfilled'?'newer_snapshot':'unreachable';entries.set(c.id,chosen);}
+   else entries.set(c.id,{data:null,fallback:true});
+  }));
   await healthTask;render();
  }catch{$('notice').textContent='Could not load the channel list. Please try refreshing.';$('notice').hidden=false;}
  finally{loading=false;$('reload').disabled=false;}
