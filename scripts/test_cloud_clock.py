@@ -1,4 +1,6 @@
 import copy, datetime, hashlib, pathlib, tempfile, unittest
+import urllib.error
+from unittest.mock import patch
 from cloud_clock import collection_plan, clock_recovery_plan, ensure_successor, tick
 from cloud_api import CloudAPI
 from version_assets import version_assets
@@ -68,6 +70,14 @@ class ClockTests(unittest.TestCase):
         self.assertIsNotNone(api.child)
     def test_token_cannot_be_sent_to_another_host(self):
         with self.assertRaises(ValueError):CloudAPI('owner/repo','not-a-real-token').call('https://example.com/')
+    def test_failed_reads_retry_with_a_fixed_bound(self):
+        with patch('cloud_api.urllib.request.urlopen',side_effect=urllib.error.URLError('temporary')) as request, patch('cloud_api.time.sleep'):
+            with self.assertRaises(urllib.error.URLError):CloudAPI('owner/repo','not-a-real-token').call('/actions/workflows')
+            self.assertEqual(request.call_count,3)
+    def test_ambiguous_dispatch_is_not_repeated_inside_the_http_client(self):
+        with patch('cloud_api.urllib.request.urlopen',side_effect=urllib.error.URLError('response lost')) as request, patch('cloud_api.time.sleep'):
+            with self.assertRaises(urllib.error.URLError):CloudAPI('owner/repo','not-a-real-token').call('/actions/workflows/clock.yml/dispatches',{'ref':'main'})
+            self.assertEqual(request.call_count,1)
     def test_changed_program_receives_a_new_browser_cache_key(self):
         with tempfile.TemporaryDirectory() as temp:
             root=pathlib.Path(temp)
