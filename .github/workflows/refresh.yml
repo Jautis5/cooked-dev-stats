@@ -52,8 +52,13 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: public-observations-${{ github.run_id }}
-          path: data/
-          retention-days: 7
+          path: |
+            data/latest.json
+            data/health.json
+            data/*.csv
+            data/indian-builds/latest.json
+            data/indian-builds/*.csv
+          retention-days: 1
       - name: Report cloud status
         if: always()
         run: python scripts/cloud_summary.py
