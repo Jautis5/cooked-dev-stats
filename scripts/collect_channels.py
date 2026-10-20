@@ -41,6 +41,10 @@ def refresh(data):
                     data['videos'].append({'id':'tt-'+str(item['id']),'number':max((v['number'] for v in data['videos']),default=0)+1,
                         'title':caption[:110] or 'Untitled video','caption':caption,'publishedAt':datetime.datetime.fromtimestamp(float(item['createTime']),datetime.timezone.utc).isoformat(),
                         'thumbnail':None,'assetUrl':None,'posts':{'tiktok':{'id':str(item['id']),'url':account['url']+'/video/'+str(item['id']),'metrics':{}}}})
+        elif platform=='facebook':
+            # Facebook may serve a login wall: reachability alone never verifies metrics.
+            base.attempt(base.request,account['url'])
+            account['message']='Facebook list metrics need the connected Lost Chrome session; previous observations preserved.'
         refreshed=0
         for video in data['videos']:
             post=video['posts'].get(platform)

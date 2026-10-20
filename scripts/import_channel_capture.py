@@ -36,6 +36,8 @@ def merge(data,capture):
                 valid=parts.hostname in ['www.tiktok.com','tiktok.com'] and parts.path==f"/@{account['expectedHandle']}/video/{identity}"
             elif platform=='instagram':
                 valid=parts.hostname in ['www.instagram.com','instagram.com'] and parts.path.rstrip('/') in [f'/reel/{identity}',f"/{account['expectedHandle']}/reel/{identity}"]
+            elif platform=='facebook':
+                valid=parts.hostname in ['www.facebook.com','facebook.com'] and identity.isdigit() and parts.path.rstrip('/') in [f'/reel/{identity}',f"/{account['expectedPageId']}/videos/{identity}"]
             else:raise ValueError('Unsupported platform')
             if not valid:raise ValueError('Wrong publication URL')
             video=next((v for v in result['videos'] if v['posts'].get(platform,{}).get('id')==identity),None)

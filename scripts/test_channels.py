@@ -40,7 +40,20 @@ class ChannelSafety(unittest.TestCase):
             self.assertEqual(len({v['id'] for v in data['videos']}),len(data['videos']))
             if channel['id']=='indian-builds':
                 self.assertEqual(data['channelId'],channel['id'])
-                self.assertTrue(all(a['expectedHandle']=='indiaanbuilds' for a in data['accounts']))
+                self.assertTrue(all(a.get('expectedHandle')=='indiaanbuilds' for a in data['accounts'] if a['id'] in ['instagram','tiktok']))
+                facebook=next(a for a in data['accounts'] if a['id']=='facebook')
+                self.assertEqual(facebook['expectedPageId'],'61594164374065')
+                self.assertEqual(facebook['url'],'https://www.facebook.com/profile.php?id=61594164374065')
                 excluded=data['tracking']['excludedPostIds']
                 self.assertTrue(all(p['id'] not in excluded.get(platform,[]) for v in data['videos'] for platform,p in v['posts'].items()))
+    def test_cooked_facebook_cannot_update_indian_builds(self):
+        batch={'channelId':'indian-builds','platforms':{'facebook':{'browserProfile':'lostastronaut.space','accountUrl':'https://www.facebook.com/profile.php?id=61595564490107','observedAt':self.now,'profileMetrics':{'followers':999},'posts':[]}}}
+        with self.assertRaises(ValueError):merge(self.data,batch)
+    def test_facebook_accepts_only_matching_real_reel_id(self):
+        batch={'channelId':'indian-builds','platforms':{'facebook':{'browserProfile':'lostastronaut.space','accountUrl':'https://www.facebook.com/profile.php?id=61594164374065','observedAt':self.now,'posts':[{'id':'123456789','url':'https://www.facebook.com/reel/123456789','public':True,'caption':'New build','metrics':{'views':0}}]}}}
+        out=merge(self.data,batch)
+        self.assertEqual(out['videos'][-1]['posts']['facebook']['metrics']['views']['value'],0)
+        self.assertIsNone(out['videos'][-1]['assetUrl'])
+        batch['platforms']['facebook']['posts'][0]['url']='https://www.facebook.com/reel/987654321'
+        with self.assertRaises(ValueError):merge(self.data,batch)
 if __name__=='__main__':unittest.main()
