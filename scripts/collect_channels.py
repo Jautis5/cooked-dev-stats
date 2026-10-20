@@ -25,13 +25,7 @@ def youtube_profile(account,page):
     return account
 
 def youtube_video(post,channel_id):
-    import yt_dlp
-    with yt_dlp.YoutubeDL({'quiet':True,'no_warnings':True,'skip_download':True,'socket_timeout':20,'retries':0,'extractor_retries':0,'ignore_no_formats_error':True}) as ydl:
-        info=ydl.extract_info(post['url'],download=False)
-    if str(info.get('id'))!=post['id'] or info.get('channel_id')!=channel_id:raise ValueError('YouTube video or owner identity unverified')
-    for key,field in [('views','view_count'),('likes','like_count'),('comments','comment_count')]:base.setmetric(post,key,info.get(field),post['url'])
-    if not any(m.get('at')==base.NOW for m in post.get('metrics',{}).values()):raise ValueError('No public YouTube metrics')
-    return post
+    return base.youtube_video(post,channel_id)
 
 def tracked_item(data, item, handle):
     author=item.get('author',{})

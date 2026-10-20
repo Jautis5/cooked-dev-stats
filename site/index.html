@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#f5f6f8">
+  <meta name="description" content="Separate workspaces for Cooked Dev and Indian Builds, with shared stats, video tracking and account sources.">
+  <title>All channels · Social Stats</title>
+  <link rel="icon" href="assets/logo.jpg">
+  <link rel="stylesheet" href="styles.css">
+  <script src="app.js" defer></script>
+</head>
+<body>
+<header>
+  <nav class="nav" aria-label="Main navigation">
+    <a class="brand" href="#"><span class="brand-mark" aria-hidden="true">▦</span> Social Stats <span class="brand-label">WORKSPACE</span></a>
+    <div class="nav-actions">
+      <a class="btn" id="library-link" href="#" target="_blank" rel="noopener" hidden>Video library ↗</a>
+      <a class="btn" id="sheet-link" href="#" target="_blank" rel="noopener" hidden>Google Sheet ↗</a>
+      <button class="btn" id="share">Copy link ↗</button>
+    </div>
+  </nav>
+</header>
+<main>
+  <nav class="workspace-switcher" id="workspace-switcher" aria-label="Choose channel"><a class="workspace active" href="#" aria-current="page">All channels</a></nav>
+  <section class="intro">
+    <div><p class="eyebrow" id="eyebrow">SHARED OVERVIEW</p><div class="title-line"><img id="channel-logo" alt="" hidden><h1 id="page-title">All channels.</h1></div><p class="muted" id="description">Separate channels. One place to keep track.</p></div>
+    <div class="refresh"><span class="pill"><span class="dot" id="refresh-dot"></span>Cloud checks · every 30 min</span><p id="last-check">Loading saved observations…</p><button id="reload" class="text-button">Reload latest feed ↻</button></div>
+  </section>
+  <nav class="page-tabs" id="page-tabs" aria-label="Workspace sections"></nav>
+  <div class="notice" id="notice" role="status" hidden></div>
+  <section class="cloud-health" id="cloud-health" aria-label="Cloud collector status"></section>
+  <section class="stats" id="stats" aria-label="Statistics"><p class="loading">Loading stats…</p></section>
+  <div id="overview-section">
+    <section id="channels-section" class="channels-section" aria-labelledby="channels-title">
+      <div class="section-heading"><div><p class="eyebrow">SEPARATE WORKSPACES</p><h2 id="channels-title">Your channels <span id="channel-count"></span></h2></div><p class="muted">Open either channel for its own stats, videos and links.</p></div>
+      <div class="channels" id="channels"></div>
+    </section>
+    <section class="views-chart block" id="views-chart" aria-labelledby="views-title" hidden>
+      <div class="chart-head"><div><p class="eyebrow">PERFORMANCE</p><h2 id="views-title">Views over time</h2><p class="muted" id="chart-subtitle">Total tracked views across all channels</p></div><div class="chart-controls"><label class="sr-only" for="chart-channel">Chart channel</label><select id="chart-channel" class="sort" hidden><option value="all">All channels</option></select><div class="chart-ranges" role="group" aria-label="Chart time range"><button data-range="24h" aria-pressed="true">24h</button><button data-range="7d" aria-pressed="false">7d</button><button data-range="30d" aria-pressed="false">30d</button><button data-range="all" aria-pressed="false">All</button></div></div></div>
+      <div class="chart-summary"><strong id="chart-total">—</strong><span id="chart-period" class="muted"></span></div>
+      <div class="chart-plot" id="chart-plot"></div>
+      <div class="chart-bottom"><span><i></i>Recorded views</span><span id="chart-history-start"></span></div>
+      <p class="chart-note" id="chart-note">Saved observations only.</p>
+    </section>
+    <section class="block comparison-block" id="comparison-section" aria-labelledby="comparison-title">
+      <div class="block-head"><div><p class="eyebrow">SIDE BY SIDE</p><h2 id="comparison-title">Channel comparison</h2><p class="muted filter">The same metrics, kept separate for each channel.</p></div><a class="text-link" href="#accounts">All accounts & sources ↗</a></div>
+      <div class="table-wrap"><table><thead><tr><th>Channel</th><th class="number">Views</th><th class="number">Likes</th><th class="number">Followers</th><th class="number">Videos</th><th class="number">Confirmed posts</th><th>Feed checked</th></tr></thead><tbody id="comparison-rows"></tbody></table></div>
+    </section>
+    <section id="channel-section" hidden>
+      <div class="section-heading"><div><p class="eyebrow">THIS CHANNEL</p><h2>Platform performance</h2></div><a class="text-link" id="channel-accounts-link" href="#">Accounts & sources ↗</a></div>
+      <div class="platforms" id="platforms" aria-label="Open videos by platform"></div>
+      <div class="channel-links" id="channel-links"></div>
+    </section>
+    <section class="block attention-block" id="attention-section" aria-labelledby="attention-title"><div class="block-head"><div><p class="eyebrow">KEEP TRACK</p><h2 id="attention-title">What needs a check</h2></div><a class="text-link" id="attention-accounts-link" href="#accounts">View sources ↗</a></div><div id="attention-list"></div></section>
+  </div>
+  <section id="video-section" hidden aria-labelledby="videos-title">
+    <section class="block" id="video-block">
+      <div class="block-head"><div><p class="eyebrow">PUBLICATION TRACKER</p><h2 id="videos-title">Videos <span class="muted" id="video-count"></span></h2><p class="filter muted" id="active-filter">All channels · all platforms</p></div><button class="btn" id="export-csv">Export CSV ↓</button></div>
+      <div class="tracker-filters">
+        <label class="search-label"><span class="sr-only">Search videos</span><input id="search" class="search" type="search" placeholder="Search videos or channels…"></label>
+        <label><span class="sr-only">Filter channel</span><select class="sort" id="video-channel"><option value="all">All channels</option></select></label>
+        <label><span class="sr-only">Filter platform</span><select class="sort" id="video-platform"><option value="all">All platforms</option></select></label>
+        <label><span class="sr-only">Publication coverage</span><select class="sort" id="video-coverage"><option value="all">Any coverage</option><option value="gaps">Has unconfirmed platforms</option><option value="complete">All platforms confirmed</option></select></label>
+        <label><span class="sr-only">Sort videos</span><select class="sort" id="sort"><option value="views">Most views</option><option value="likes">Most likes</option><option value="recent">Newest first</option><option value="gaps">Most unconfirmed platforms</option></select></label>
+        <button id="clear-filter" class="text-button" hidden>Reset filters</button>
+      </div>
+      <div class="tracker-legend"><span><i class="legend-dot"></i> Confirmed post ↗</span><span><i class="legend-dot unknown"></i> Not confirmed</span><span>Missing confirmation is not proof that a video is unpublished.</span></div>
+      <div class="table-wrap"><table class="video-table"><thead><tr><th>Video / channel</th><th>Platform coverage</th><th class="number">Views</th><th class="number">Likes</th><th class="number">Comments</th><th class="number">Shares</th></tr></thead><tbody id="videos"></tbody></table></div>
+      <div class="empty" id="empty" hidden></div>
+    </section>
+    <div class="resource-grid" id="video-resources"></div>
+  </section>
+  <section id="accounts-section" hidden aria-labelledby="accounts-title">
+    <div class="section-heading"><div><p class="eyebrow">CONNECTED PROFILES</p><h2 id="accounts-title">Accounts & sources</h2></div><p class="muted">Each metric keeps its own observation time.</p></div>
+    <div class="account-groups" id="account-groups"></div>
+  </section>
+  <footer><p>Views are additive plays across platforms, not unique people. Followers are added account counts, not a deduplicated audience. ≈ Rounded at source. — Unavailable.</p><p>Hover or focus a number for its full value and observation time. Feed check times do not mean every metric was refreshed. All times are Vilnius time.</p><p>The collector and independent website run on GitHub without Codex or your computer. Platforms that withhold public metrics need authorized API access. Saved values retain their real observation times.</p></footer>
+</main>
+<dialog id="detail" aria-labelledby="detail-title"><div class="modal-head"><div><p class="eyebrow" id="detail-channel"></p><h2 id="detail-title"></h2><p class="muted" id="detail-caption"></p><div id="detail-original"></div></div><button class="close" id="close-modal" aria-label="Close video details">×</button></div><div class="table-wrap"><table><thead><tr><th>Platform / status</th><th class="number">Views</th><th class="number">Likes</th><th class="number">Comments</th><th class="number">Shares</th></tr></thead><tbody id="detail-rows"></tbody></table></div><div class="modal-foot">A linked post is confirmed. Other platforms have no confirmed publication in the feed. Hover or focus a metric for its observation time.</div></dialog>
+<div class="toast" role="status" id="toast"></div>
+</body>
+</html>

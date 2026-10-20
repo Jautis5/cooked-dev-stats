@@ -43,6 +43,21 @@ def instagram_video(post):
  for key,field in [('views','view_count'),('likes','like_count'),('comments','comment_count'),('shares','repost_count')]:setmetric(post,key,info.get(field),post['url'])
  if not any(m.get('at')==NOW for m in post['metrics'].values()):raise ValueError('Statistikos nėra')
  return post
+def youtube_video(post, channel_id):
+ # Read public metadata only: no video download, browser session or private API key.
+ page=request('https://www.youtube.com/watch?v='+post['id']+'&hl=en')
+ match=re.search(r'(?:var\s+)?ytInitialPlayerResponse\s*=\s*',page)
+ player=json.JSONDecoder().raw_decode(page[match.end():])[0] if match else {}
+ details=player.get('videoDetails',{})
+ if details.get('videoId')!=post['id'] or details.get('channelId')!=channel_id:
+  raise ValueError('YouTube video or owner identity unverified')
+ if player.get('playabilityStatus',{}).get('status')!='OK':
+  raise ValueError('Public YouTube video metadata unavailable')
+ value=num(details.get('viewCount'))
+ if value is None:raise ValueError('Public YouTube view count missing')
+ setmetric(post,'views',value,post['url'])
+ return post
+
 def attempt(func,*args):
  try:return func(*args),None
  except Exception as e:return None,str(e)[:180]
@@ -156,10 +171,10 @@ def collect(data):
    data['videos'].append(existing)
    existing['posts']['tiktok']={'id':str(item['id']),'url':tt['url']+'/video/'+str(item['id']),'metrics':{}}
  elif error:tt['message']='TikTok profilis: '+error
- jobs=[];results={'tiktok':[],'instagram':[]}
+ jobs=[];results={'tiktok':[],'instagram':[],'youtube':[]}
  with concurrent.futures.ThreadPoolExecutor(max_workers=3) as pool:
   for v in data['videos']:
-   for platform,func in [('tiktok',tiktok_video),('instagram',instagram_video)]:
+   for platform,func in [('tiktok',tiktok_video),('instagram',instagram_video),('youtube',lambda p:youtube_video(p,'UCNPkHyLJotjamsFxts47T2A'))]:
     if platform in v['posts']:jobs.append((platform,v,pool.submit(attempt,func,v['posts'][platform])))
   for platform,v,f in jobs:
    post,error=f.result();results[platform].append(not error)
@@ -187,7 +202,7 @@ def collect(data):
     if m:
      n=float(m[1].replace(',',''))*({'K':1000,'M':1000000,'B':1000000000}.get(m[2].upper(),1));setmetric(yt,'followers',round(n),yt['url'],bool(m[2]));break
    empty=any('channel doesn’t have any content' in t.lower() or "channel doesn't have any content" in t.lower() or 'channel has no content' in t.lower() for t in texts)
-   if empty:yt.update(status='ok',lastSuccessAt=NOW,emptyConfirmedAt=NOW,message='Viešame kanale turinio nėra.')
+   if empty and not any('youtube' in v['posts'] for v in data['videos']):yt.update(status='ok',lastSuccessAt=NOW,emptyConfirmedAt=NOW,message='Viešame kanale turinio nėra.')
    elif any(m.get('at')==NOW for m in yt['metrics'].values()):yt.update(status='partial',lastSuccessAt=NOW,message='Profilis pasiekiamas. Visas publikacijų sąrašas nepatvirtintas.')
   except Exception:pass
  # X and Facebook can require account APIs. A login wall or challenge is never parsed as zero.

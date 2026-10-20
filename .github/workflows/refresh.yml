@@ -1,7 +1,7 @@
 name: Refresh public social stats
 on:
   schedule:
-    - cron: '17 * * * *'
+    - cron: '13,43 * * * *'
   workflow_dispatch:
 permissions:
   contents: write
@@ -11,27 +11,33 @@ concurrency:
 jobs:
   refresh:
     runs-on: ubuntu-latest
-    timeout-minutes: 12
+    timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - run: python -m pip install --disable-pip-version-check 'yt-dlp>=2026.8.19'
-      - name: Collect public metrics
-        run: python scripts/collect.py
-      - name: Collect additional channel metrics
-        run: python scripts/collect_channels.py
-      - name: Validate and save snapshot
-        run: |
-          python scripts/test_collector.py
-          python scripts/test_changes.py
-          python scripts/test_data.py
-          python scripts/test_channels.py
-          git config user.name 'Cooked Dev Stats'
-          git config user.email 'stats@users.noreply.github.com'
-          git add data/
-          if ! git diff --cached --quiet; then
-            git commit -m 'Refresh public social metrics'
-            git push
-          fi
+      - run: python -m pip install --disable-pip-version-check 'yt-dlp==2026.8.19'
+      - name: Test collection and concurrent publishing
+        run: python -m unittest discover -s scripts -p 'test_*.py'
+      - name: Collect both channels without a browser
+        id: collect
+        continue-on-error: true
+        run: python scripts/refresh_all.py
+      - name: Validate and publish with conflict recovery
+        run: python scripts/publish_refresh.py
+      - name: Keep public observations for recovery
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: public-observations-${{ github.run_id }}
+          path: data/
+          retention-days: 7
+      - name: Report cloud status
+        if: always()
+        run: python scripts/cloud_summary.py
+      - name: Surface collection failure
+        if: steps.collect.outcome == 'failure'
+        run: exit 1

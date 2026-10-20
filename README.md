@@ -1,6 +1,6 @@
 # Cooked Dev social stats
 
-Public statistics for Cooked Dev and Indian Builds. Cooked Dev uses Instagram, TikTok, YouTube, X and Facebook; Indian Builds currently uses Instagram, TikTok, Facebook, X and YouTube. The public dashboard is hosted with Sites. GitHub Actions checks public sources hourly at minute 17 UTC, independently of the owner's computer. GitHub may delay scheduled jobs, and public sources can withhold metrics.
+Public statistics for Cooked Dev and Indian Builds. Cooked Dev uses Instagram, TikTok, YouTube, X and Facebook; Indian Builds currently uses Instagram, TikTok, Facebook, X and YouTube. Primary independent dashboard: https://jonass-pandos.github.io/cooked-dev-stats/ . The existing Sites URL remains a mirror. Dashboard source is `site/`; GitHub Pages builds it on source changes and after collector runs. No Codex session or owner computer is required. GitHub Actions schedules public collection at minutes 13 and 43 UTC. GitHub can delay or drop scheduled jobs, so this is a requested cadence, not a guaranteed 30-minute SLA.
 
 `data/latest.json` holds public observations with a source and timestamp for every metric. `data/posts.csv` and `data/platforms.csv` feed Google Sheets. Failed collection preserves earlier observations and updates the source status; it never fabricates a zero or advances a metric's observation time. Platform view counts are additive plays, not unique cross-platform reach.
 
@@ -23,3 +23,13 @@ Existing Sheet `1sT8AqlGMMqnJUCcA697DaVcLvRqsJhCT4xMIdl52WYY` has separate manag
 New X publications must have the exact `/IndiaanBuilds/status/<real-ID>` link, observed Public state and `isVideo: true`. Do not adopt text posts, recommendations or repost wrappers as video publications. Profile counters are not video view counts.
 
 Indian Builds YouTube owner ID is `UCgHxdk2zTRXwsoCrICSwiRg`; Cooked Dev YouTube is `UCNPkHyLJotjamsFxts47T2A`. New YouTube capture publications require `ownerChannelId: "UCgHxdk2zTRXwsoCrICSwiRg"` with an actual video ID and observed Public state. Exclude Private, Unlisted, Scheduled and unrelated legacy content. YouTube Studio counts are read from this exact channel only.
+
+## Autonomous operation and incident recovery
+
+The scheduled run on 20 October 2026 at 10:05 UTC collected real data, but its final Git push failed because the branch advanced during collection. The old workflow discarded those unpublished results when the runner ended. `publish_refresh.py` now fetches the current branch into an isolated disposable worktree, merges metrics by their actual observation times, preserves concurrent source edits and Drive links, then pushes normally. A concurrent push triggers up to four merge/retry attempts. It never force-pushes or resets the caller checkout. Public-only recovery snapshots are also retained as seven-day Actions artifacts. Regression tests recreate the actual two-writer Git race.
+
+`refresh_all.py` isolates channel failures, writes `data/health.json` with the real provider, run link, per-platform updated metric count and latest metric time, and preserves prior values when sources fail. A completed job is not proof that every platform metric is fresh. Instagram and TikTok public extraction and YouTube public metadata can run unattended; individual public requests may still be withheld. Facebook and X currently have no cloud API authorization, so their saved measurements are retained and explicitly marked as requiring authorization. No cookies, browser profiles, passwords or local credentials are uploaded.
+
+`site/` is the dashboard source of truth. `scripts/build_pages.py` bundles that source with current valid fallback data. The Pages workflow runs independently after collection completes (including collection problems, so the status remains visible). The dashboard reads public feeds directly and checks them every five minutes while open. Closing it, Codex, or the owner computer does not stop collection or hosting. `data/health.json` and the Actions run are the live operational evidence.
+
+Local verification: `python -m unittest discover -s scripts -p 'test_*.py'`. Collection: `python scripts/refresh_all.py`. Publish: `python scripts/publish_refresh.py`. Use the GitHub Actions **Refresh public social stats** workflow for a cloud run; a local run is labelled `local_verification`, never reported as a cloud run.

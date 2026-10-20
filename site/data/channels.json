@@ -1,0 +1,29 @@
+{
+  "version": 1,
+  "channels": [
+    {
+      "id": "cooked-dev",
+      "name": "Cooked Dev",
+      "logo": "assets/logo.jpg",
+      "dataUrl": "https://raw.githubusercontent.com/jonass-pandos/cooked-dev-stats/main/data/latest.json",
+      "fallbackUrl": "data/latest.json",
+      "assetLibraryUrl": "https://drive.google.com/drive/folders/1ydKVLUydkJepT9m-BQymF-2rifKf3lSA",
+      "sheetUrl": "https://docs.google.com/spreadsheets/d/1sT8AqlGMMqnJUCcA697DaVcLvRqsJhCT4xMIdl52WYY/edit"
+    },
+    {
+      "id": "indian-builds",
+      "name": "Indian Builds",
+      "logo": "assets/indian-builds.png",
+      "dataUrl": "https://raw.githubusercontent.com/jonass-pandos/cooked-dev-stats/main/data/indian-builds/latest.json",
+      "fallbackUrl": "data/indian-builds.json",
+      "assetLibraryUrl": "https://drive.google.com/drive/folders/1WEHFKQCzbjUcPzm7nYB3PthPngxLXYGR",
+      "sheetUrl": "https://docs.google.com/spreadsheets/d/1sT8AqlGMMqnJUCcA697DaVcLvRqsJhCT4xMIdl52WYY/edit#gid=785807837"
+    }
+  ],
+  "collector": {
+    "healthUrl": "https://raw.githubusercontent.com/jonass-pandos/cooked-dev-stats/main/data/health.json",
+    "runsUrl": "https://github.com/jonass-pandos/cooked-dev-stats/actions/workflows/refresh.yml",
+    "independentUrl": "https://jonass-pandos.github.io/cooked-dev-stats/",
+    "intervalMinutes": 30
+  }
+}
