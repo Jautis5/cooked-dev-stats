@@ -46,9 +46,11 @@ def instagram_video(post):
 def attempt(func,*args):
  try:return func(*args),None
  except Exception as e:return None,str(e)[:180]
-def exports(data):
+def exports(data,directory=None):
+ directory=pathlib.Path(directory) if directory is not None else ROOT/'data'
+ directory.mkdir(parents=True,exist_ok=True)
  def dump(name,rows):
-  with (ROOT/f'data/{name}.csv').open('w',newline='',encoding='utf8') as f:
+  with (directory/f'{name}.csv').open('w',newline='',encoding='utf8') as f:
    csv.writer(f,lineterminator='\n').writerows(rows)
  rows=[['Video Nr.','Video','Platforma','Nuoroda','Peržiūros','Patiktukai','Komentarai','Pasidalinimai','Peržiūrų patikra','Statistikos patikra','Būsena']]
  for v in data['videos']:
@@ -65,14 +67,15 @@ def exports(data):
   totals=[]
   for k in ['views','likes','comments','shares']:
    vals=[p['metrics'][k]['value'] for p in posts if k in p.get('metrics',{})]
-   totals.append(sum(vals) if vals else (0 if a.get('emptyConfirmedAt') and a['status']=='ok' else ''))
+   scoped_empty=a.get('trackedEmptyConfirmedAt') and a.get('metrics',{}).get('trackedPublishedCount',{}).get('value')==0 and not posts
+   totals.append(sum(vals) if vals else (0 if (a.get('emptyConfirmedAt') and a['status']=='ok') or scoped_empty else ''))
   status=a['status']+(' · ≈ peržiūros' if any(p.get('metrics',{}).get('views',{}).get('approximate') for p in posts) else '')
   platforms.append([a['name'],a.get('metrics',{}).get('followers',{}).get('value',''),len(posts),*totals,a.get('metrics',{}).get('followers',{}).get('at',''),a.get('lastAttemptAt',''),status])
  dump('platforms',platforms)
-def archive(data):
+def archive(data,directory=None):
  # Preserve public observations beyond the compact history window. No token or private report is archived.
  stamp=data.get('lastAttemptAt') or NOW
- folder=ROOT/'data/archive';folder.mkdir(parents=True,exist_ok=True)
+ folder=(pathlib.Path(directory) if directory is not None else ROOT/'data')/'archive';folder.mkdir(parents=True,exist_ok=True)
  path=folder/(stamp[:7]+'.jsonl')
  observation={'attemptAt':stamp,
   'accounts':[{k:a.get(k) for k in ['id','url','metrics','status','lastAttemptAt','lastSuccessAt']} for a in data['accounts']],
@@ -82,7 +85,7 @@ def archive(data):
   lines=path.read_text(encoding='utf8').splitlines()
   if lines and json.loads(lines[-1]).get('attemptAt')==stamp:return
  with path.open('a',encoding='utf8') as f:f.write(json.dumps(observation,ensure_ascii=False,separators=(',',':'))+'\n')
-def update_changes(data, snapshots=None):
+def update_changes(data, snapshots=None,directory=None):
  """A 24h comparison needs real, fresh observations at both ends, not two check times."""
  def stamp(value):
   try:return datetime.datetime.fromisoformat(value.replace('Z','+00:00')).timestamp()
@@ -93,7 +96,7 @@ def update_changes(data, snapshots=None):
  if snapshots is None:
   for day in [now,now-86400]:
    month=datetime.datetime.fromtimestamp(day,datetime.timezone.utc).strftime('%Y-%m')
-   path=ROOT/f'data/archive/{month}.jsonl'
+   path=(pathlib.Path(directory) if directory is not None else ROOT/'data')/f'archive/{month}.jsonl'
    if path.exists():
     for line in path.read_text().splitlines():
      try:frames.append(json.loads(line))
