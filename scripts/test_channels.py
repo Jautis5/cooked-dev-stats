@@ -44,6 +44,9 @@ class ChannelSafety(unittest.TestCase):
                 facebook=next(a for a in data['accounts'] if a['id']=='facebook')
                 self.assertEqual(facebook['expectedPageId'],'61594164374065')
                 self.assertEqual(facebook['url'],'https://www.facebook.com/profile.php?id=61594164374065')
+                x=next(a for a in data['accounts'] if a['id']=='x')
+                self.assertEqual(x['expectedHandle'],'IndiaanBuilds')
+                self.assertEqual(x['url'],'https://x.com/IndiaanBuilds')
                 excluded=data['tracking']['excludedPostIds']
                 self.assertTrue(all(p['id'] not in excluded.get(platform,[]) for v in data['videos'] for platform,p in v['posts'].items()))
     def test_cooked_facebook_cannot_update_indian_builds(self):
@@ -56,4 +59,14 @@ class ChannelSafety(unittest.TestCase):
         self.assertIsNone(out['videos'][-1]['assetUrl'])
         batch['platforms']['facebook']['posts'][0]['url']='https://www.facebook.com/reel/987654321'
         with self.assertRaises(ValueError):merge(self.data,batch)
+    def test_x_rejects_cooked_dev_and_text_posts(self):
+        batch={'channelId':'indian-builds','platforms':{'x':{'browserProfile':'lostastronaut.space','accountUrl':'https://x.com/IndiaanBuilds','observedAt':self.now,'posts':[{'id':'123456789','url':'https://x.com/Cooked_Deev/status/123456789','public':True,'isVideo':True,'caption':'A build','metrics':{'views':0}}]}}}
+        with self.assertRaises(ValueError):merge(self.data,batch)
+        batch['platforms']['x']['posts'][0]['url']='https://x.com/IndiaanBuilds/status/123456789'
+        batch['platforms']['x']['posts'][0]['isVideo']=False
+        with self.assertRaises(ValueError):merge(self.data,batch)
+        batch['platforms']['x']['posts'][0]['isVideo']=True
+        out=merge(self.data,batch)
+        self.assertEqual(out['videos'][-1]['posts']['x']['metrics']['views']['value'],0)
+        self.assertIsNone(out['videos'][-1]['assetUrl'])
 if __name__=='__main__':unittest.main()

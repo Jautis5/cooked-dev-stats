@@ -38,11 +38,14 @@ def merge(data,capture):
                 valid=parts.hostname in ['www.instagram.com','instagram.com'] and parts.path.rstrip('/') in [f'/reel/{identity}',f"/{account['expectedHandle']}/reel/{identity}"]
             elif platform=='facebook':
                 valid=parts.hostname in ['www.facebook.com','facebook.com'] and identity.isdigit() and parts.path.rstrip('/') in [f'/reel/{identity}',f"/{account['expectedPageId']}/videos/{identity}"]
+            elif platform=='x':
+                valid=parts.hostname in ['x.com','www.x.com','twitter.com','www.twitter.com'] and identity.isdigit() and parts.path.rstrip('/').lower()==f"/{account['expectedHandle']}/status/{identity}".lower()
             else:raise ValueError('Unsupported platform')
             if not valid:raise ValueError('Wrong publication URL')
             video=next((v for v in result['videos'] if v['posts'].get(platform,{}).get('id')==identity),None)
             if video is None:
                 if post.get('public') is not True or not post.get('caption'):raise ValueError('New publication needs observed Public state and caption')
+                if platform=='x' and post.get('isVideo') is not True:raise ValueError('X publication must be a verified video, not a text post or repost')
                 video={'id':platform+'-'+identity,'number':max((v['number'] for v in result['videos']),default=0)+1,'title':post['caption'][:110],'caption':post['caption'],'publishedAt':post.get('publishedAt'),
                     'thumbnail':None,'assetUrl':None,'posts':{platform:{'id':identity,'url':url,'metrics':{}}}}
                 result['videos'].append(video)
