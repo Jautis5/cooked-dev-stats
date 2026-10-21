@@ -39,7 +39,7 @@ jobs:
           node scripts/test_dashboard.cjs
           node scripts/test_chart.cjs
           node scripts/test_workspace.cjs
-      - name: Collect both channels without a browser
+      - name: Collect registered channels without a browser
         id: collect
         continue-on-error: true
         env:
@@ -59,6 +59,8 @@ jobs:
             data/*.csv
             data/indian-builds/latest.json
             data/indian-builds/*.csv
+            data/dont-get-traced/latest.json
+            data/dont-get-traced/*.csv
           retention-days: 1
       - name: Report cloud status
         if: always()

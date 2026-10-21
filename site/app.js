@@ -244,7 +244,7 @@ function render(){
  if(c){$('channel-logo').src=c.logo;$('channel-logo').alt=c.name;}
  $('eyebrow').textContent=c?'YOUR CHANNEL WORKSPACE':'SHARED WORKSPACE';
  $('page-title').textContent=c?c.name+'.':'All channels.';
- $('description').textContent=c?'Your stats, publications and source links. Kept together for this channel.':'Cooked Dev + Indian Builds. See the whole picture, or focus on one channel.';
+ $('description').textContent=c?'Your stats, publications and source links. Kept together for this channel.':channels.map(channel=>channel.name).join(' + ')+'. See the whole picture, or focus on one channel.';
  document.title=(c?c.name:'All channels')+' · '+({overview:'Overview',videos:'Video tracker',accounts:'Accounts & sources'}[view])+' · Social Stats';
  $('overview-section').hidden=view!=='overview';$('video-section').hidden=view!=='videos';$('accounts-section').hidden=view!=='accounts';
  $('channels-section').hidden=!!c;$('comparison-section').hidden=!!c;$('channel-section').hidden=!c||!data;
