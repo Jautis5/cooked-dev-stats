@@ -25,7 +25,34 @@
       "logo": "assets/dont-get-traced.png",
       "dataUrl": "https://raw.githubusercontent.com/jonass-pandos/cooked-dev-stats/main/data/dont-get-traced/latest.json",
       "fallbackUrl": "data/dont-get-traced.json",
-      "sheetUrl": "https://docs.google.com/spreadsheets/d/1sT8AqlGMMqnJUCcA697DaVcLvRqsJhCT4xMIdl52WYY/edit#gid=1732102601"
+      "sheetUrl": "https://docs.google.com/spreadsheets/d/1sT8AqlGMMqnJUCcA697DaVcLvRqsJhCT4xMIdl52WYY/edit#gid=1732102601",
+      "assetLibraryUrl": "https://drive.google.com/drive/folders/1Oml5iynOfs4DUi8gh1B0L4Lbe--N0nUO",
+      "publishingPlan": {
+        "status": "proposed",
+        "audience": "Primarily US; international secondary",
+        "days": [
+          "Tuesday",
+          "Thursday",
+          "Sunday"
+        ],
+        "time": "18:00",
+        "timeZone": "America/New_York",
+        "voteWindowHours": 24,
+        "primaryPlatform": "Instagram Reels",
+        "crossPostPlatforms": [
+          "TikTok",
+          "YouTube Shorts",
+          "Facebook Reels",
+          "X"
+        ],
+        "automationStatus": "not_configured",
+        "firstReleaseAt": null,
+        "sourceReview": {
+          "at": "2026-10-21T13:21:57Z",
+          "videoCount": 0,
+          "method": "Drive folder listing and signed-in browser refresh"
+        }
+      }
     }
   ],
   "collector": {

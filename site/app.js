@@ -251,6 +251,10 @@ function render(){
  $('channels-section').hidden=!!c;$('comparison-section').hidden=!!c;$('channel-section').hidden=!c||!data;
  $('sheet-link').href=c?.sheetUrl||'#';$('sheet-link').hidden=!c?.sheetUrl;
  $('library-link').href=c?.assetLibraryUrl||'#';$('library-link').hidden=!c?.assetLibraryUrl;
+ const plan=c?.publishingPlan,planBox=$('publishing-plan');
+ planBox.hidden=!plan;
+ if(plan)planBox.innerHTML='<div><p class="eyebrow">PUBLISHING PLAN · PROPOSED</p><h2>3 episodes a week · US first</h2><p>Tue · Thu · Sun at 6:00 PM New York time. '+esc(plan.voteWindowHours)+' hours for the Instagram vote.</p><p class="muted">Instagram Reels → TikTok · YouTube Shorts · Facebook Reels · X.</p><p class="publishing-status">No posts scheduled. Automatic publishing is not connected.</p></div><a class="btn" href="'+safe(c.assetLibraryUrl)+'" target="_blank" rel="noopener">Open video source ↗</a>';
+
  const available=scope.filter(x=>entries.get(x.id)?.data),summaries=available.map(x=>summary(entries.get(x.id).data));
  if(available.length)renderStats(combine(summaries),data||(available.length===1?entries.get(available[0].id).data:null));
  else $('stats').innerHTML='<p class="loading">Stats are unavailable. Try reloading the feed.</p>';
