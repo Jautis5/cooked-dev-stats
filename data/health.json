@@ -1,23 +1,23 @@
 {
   "version": 1,
-  "startedAt": "2026-10-21T00:24:46.738218+00:00",
+  "startedAt": "2026-10-21T00:29:42.417193+00:00",
   "provider": "GitHub Actions",
-  "trigger": "workflow_dispatch",
+  "trigger": "schedule",
   "intervalMinutes": 15,
-  "runUrl": "https://github.com/jonass-pandos/cooked-dev-stats/actions/runs/39521135968",
+  "runUrl": "https://github.com/jonass-pandos/cooked-dev-stats/actions/runs/39521631705",
   "channels": {
     "cooked-dev": {
       "status": "completed",
-      "checkedAt": "2026-10-21T00:24:46.738218+00:00",
+      "checkedAt": "2026-10-21T00:29:42.417193+00:00",
       "platforms": {
         "instagram": {
           "name": "Instagram",
           "status": "partial",
-          "metricsUpdated": 28,
+          "metricsUpdated": 30,
           "metricsKnown": 47,
           "viewsUpdated": 0,
           "postsKnown": 15,
-          "latestMetricAt": "2026-10-21T00:24:46.738218+00:00",
+          "latestMetricAt": "2026-10-21T00:29:42.417193+00:00",
           "access": "public_cloud"
         },
         "tiktok": {
@@ -27,7 +27,7 @@
           "metricsKnown": 78,
           "viewsUpdated": 15,
           "postsKnown": 15,
-          "latestMetricAt": "2026-10-21T00:24:46.738218+00:00",
+          "latestMetricAt": "2026-10-21T00:29:42.417193+00:00",
           "access": "public_cloud"
         },
         "youtube": {
@@ -37,7 +37,7 @@
           "metricsKnown": 11,
           "viewsUpdated": 5,
           "postsKnown": 5,
-          "latestMetricAt": "2026-10-21T00:24:46.738218+00:00",
+          "latestMetricAt": "2026-10-21T00:29:42.417193+00:00",
           "access": "public_cloud"
         },
         "x": {
@@ -61,11 +61,11 @@
           "access": "authorization_required"
         }
       },
-      "metricsUpdated": 112
+      "metricsUpdated": 114
     },
     "indian-builds": {
       "status": "completed",
-      "checkedAt": "2026-10-21T00:24:46.738218+00:00",
+      "checkedAt": "2026-10-21T00:29:42.417193+00:00",
       "platforms": {
         "instagram": {
           "name": "Instagram",
@@ -84,7 +84,7 @@
           "metricsKnown": 3,
           "viewsUpdated": 0,
           "postsKnown": 0,
-          "latestMetricAt": "2026-10-21T00:24:46.738218+00:00",
+          "latestMetricAt": "2026-10-21T00:29:42.417193+00:00",
           "access": "public_cloud"
         },
         "facebook": {
@@ -114,16 +114,15 @@
           "metricsKnown": 3,
           "viewsUpdated": 0,
           "postsKnown": 0,
-          "latestMetricAt": "2026-10-21T00:24:46.738218+00:00",
+          "latestMetricAt": "2026-10-21T00:29:42.417193+00:00",
           "access": "public_cloud"
         }
       },
       "metricsUpdated": 4
     }
   },
-  "initiator": "continuous_clock",
-  "clockRunUrl": "https://github.com/jonass-pandos/cooked-dev-stats/actions/runs/39519566615",
+  "initiator": "schedule",
   "clockDriver": "environment_wait_timer",
-  "completedAt": "2026-10-21T00:24:58.876177+00:00",
+  "completedAt": "2026-10-21T00:29:53.288717+00:00",
   "status": "completed"
 }
