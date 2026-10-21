@@ -1,19 +1,19 @@
 {
   "version": 1,
-  "startedAt": "2026-10-21T05:12:08.203901+00:00",
+  "startedAt": "2026-10-21T05:15:48.784024+00:00",
   "provider": "GitHub Actions",
-  "trigger": "schedule",
+  "trigger": "workflow_dispatch",
   "intervalMinutes": 15,
-  "runUrl": "https://github.com/jonass-pandos/cooked-dev-stats/actions/runs/39548194807",
+  "runUrl": "https://github.com/jonass-pandos/cooked-dev-stats/actions/runs/39548536931",
   "channels": {
     "cooked-dev": {
       "status": "completed",
-      "checkedAt": "2026-10-21T05:12:08.203901+00:00",
+      "checkedAt": "2026-10-21T05:15:48.784024+00:00",
       "platforms": {
         "instagram": {
           "name": "Instagram",
-          "status": "partial",
-          "metricsUpdated": 30,
+          "status": "unavailable",
+          "metricsUpdated": 0,
           "metricsKnown": 47,
           "viewsUpdated": 0,
           "postsKnown": 15,
@@ -27,7 +27,7 @@
           "metricsKnown": 78,
           "viewsUpdated": 15,
           "postsKnown": 15,
-          "latestMetricAt": "2026-10-21T05:12:08.203901+00:00",
+          "latestMetricAt": "2026-10-21T05:15:48.784024+00:00",
           "access": "public_cloud"
         },
         "youtube": {
@@ -37,7 +37,7 @@
           "metricsKnown": 11,
           "viewsUpdated": 0,
           "postsKnown": 5,
-          "latestMetricAt": "2026-10-21T05:12:08.203901+00:00",
+          "latestMetricAt": "2026-10-21T05:15:48.784024+00:00",
           "access": "public_cloud"
         },
         "x": {
@@ -61,11 +61,11 @@
           "access": "authorization_required"
         }
       },
-      "metricsUpdated": 109
+      "metricsUpdated": 79
     },
     "indian-builds": {
       "status": "completed",
-      "checkedAt": "2026-10-21T05:12:08.203901+00:00",
+      "checkedAt": "2026-10-21T05:15:48.784024+00:00",
       "platforms": {
         "instagram": {
           "name": "Instagram",
@@ -84,7 +84,7 @@
           "metricsKnown": 3,
           "viewsUpdated": 0,
           "postsKnown": 0,
-          "latestMetricAt": "2026-10-21T05:12:08.203901+00:00",
+          "latestMetricAt": "2026-10-21T05:15:48.784024+00:00",
           "access": "public_cloud"
         },
         "facebook": {
@@ -114,15 +114,16 @@
           "metricsKnown": 3,
           "viewsUpdated": 0,
           "postsKnown": 0,
-          "latestMetricAt": "2026-10-21T05:12:08.203901+00:00",
+          "latestMetricAt": "2026-10-21T05:15:48.784024+00:00",
           "access": "public_cloud"
         }
       },
       "metricsUpdated": 4
     }
   },
-  "initiator": "schedule",
+  "initiator": "continuous_clock",
+  "clockRunUrl": "https://github.com/jonass-pandos/cooked-dev-stats/actions/runs/39547109527",
   "clockDriver": "environment_wait_timer",
-  "completedAt": "2026-10-21T05:12:21.012213+00:00",
+  "completedAt": "2026-10-21T05:15:55.393676+00:00",
   "status": "completed"
 }
