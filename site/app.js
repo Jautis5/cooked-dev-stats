@@ -232,6 +232,7 @@ function sourceBadge(entry){const s=sourceState(entry);return '<span class="stat
 function renderNavigation(){
  const c=selected(),view=currentView();
  document.body.dataset.channel=c?.id||'all';
+ document.querySelector('link[rel="icon"]').href=c?.logo||'assets/logo.jpg';
  $('workspace-switcher').innerHTML='<a class="workspace '+(!c?'active':'')+'" href="'+scopeHref(null,view)+'" '+(!c?'aria-current="page"':'')+'><span class="scope-icon" aria-hidden="true">▦</span>All channels<span class="workspace-count">'+channels.length+'</span></a>'+channels.map(x=>'<a class="workspace '+(c?.id===x.id?'active':'')+'" data-channel="'+esc(x.id)+'" href="'+scopeHref(x.id,view)+'" '+(c?.id===x.id?'aria-current="page"':'')+'><img src="'+safe(x.logo)+'" alt="">'+esc(x.name)+'</a>').join('');
  const count=scopedChannels().reduce((n,x)=>n+(entries.get(x.id)?.data?.videos.length||0),0);
  $('page-tabs').innerHTML=[['overview','Overview'],['videos','Video tracker'],['accounts','Accounts & sources']].map(([id,label])=>'<a class="page-tab '+(view===id?'active':'')+'" href="'+scopeHref(c?.id,id)+'" '+(view===id?'aria-current="page"':'')+'>'+label+(id==='videos'?'<span class="tab-count">'+count+'</span>':'')+'</a>').join('');
