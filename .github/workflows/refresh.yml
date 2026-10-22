@@ -39,12 +39,15 @@ jobs:
           node scripts/test_dashboard.cjs
           node scripts/test_chart.cjs
           node scripts/test_workspace.cjs
+          node scripts/test_official_broker.cjs
       - name: Collect registered channels without a browser
         id: collect
         continue-on-error: true
         env:
           COLLECTION_INITIATOR: ${{ inputs.reason || github.event_name }}
           COLLECTION_CLOCK_RUN_ID: ${{ inputs.clock_run_id }}
+          SOCIAL_STATS_BROKER_URL: ${{ secrets.SOCIAL_STATS_BROKER_URL }}
+          SOCIAL_STATS_BROKER_KEY: ${{ secrets.SOCIAL_STATS_BROKER_KEY }}
         run: python scripts/refresh_all.py
       - name: Validate and publish with conflict recovery
         run: python scripts/publish_refresh.py

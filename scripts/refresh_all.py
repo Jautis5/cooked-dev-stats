@@ -1,10 +1,11 @@
-"""Unattended cloud collection. No browser, Codex, OAuth files or owner computer."""
+"""Unattended cloud collection with optional official reads. No local browser."""
 import copy, datetime, json, os, pathlib, sys
 import collect as base
 import collect_channels as extra
 from snapshot_merge import validate, timestamp
 from publications import reconcile
 from public_fallbacks import refresh_fallbacks
+import official_broker
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 
 
@@ -16,6 +17,8 @@ def write_json(path, value):
 
 
 def metric_health(data, observed_at):
+    def fresh(metric):
+        return timestamp(metric.get('at')) >= timestamp(observed_at)
     out = {}
     for account in data['accounts']:
         objects = [account] + [v['posts'][account['id']] for v in data['videos'] if account['id'] in v['posts']]
@@ -24,9 +27,9 @@ def metric_health(data, observed_at):
         inventory = data.get('discovery', {}).get(account['id'], {})
         out[account['id']] = {
             'name': account['name'], 'status': account['status'],
-            'metricsUpdated': sum(m.get('at') == observed_at for m in metrics),
+            'metricsUpdated': sum(fresh(m) for m in metrics),
             'metricsKnown': len(metrics),
-            'viewsUpdated': sum(obj.get('metrics', {}).get('views', {}).get('at') == observed_at for obj in objects[1:]),
+            'viewsUpdated': sum(fresh(obj.get('metrics', {}).get('views', {})) for obj in objects[1:]),
             'postsKnown': len(objects)-1,
             'viewsKnown': sum(bool(m) for m in views),
             'oldestViewAt': min((m['at'] for m in views if m), key=timestamp, default=None),
@@ -35,7 +38,7 @@ def metric_health(data, observed_at):
             'inventoryCheckedAt': inventory.get('checkedAt'),
             'reportedPostCount': account.get('metrics', {}).get('publishedCount'),
             'latestMetricAt': max((m['at'] for m in metrics), key=timestamp, default=None),
-            'access': 'authorization_required' if account['id'] in ['facebook', 'x'] and account['status'] == 'unavailable' else 'public_cloud',
+            'access': 'authorized_cloud' if inventory.get('method') == 'official_api' else 'authorization_required' if account['id'] in ['instagram','facebook'] and inventory.get('status') == 'session_required' else 'public_cloud',
         }
     return out
 
@@ -64,6 +67,7 @@ def refresh(root=ROOT):
             prepared = reconcile(copy.deepcopy(previous))
             data = base.collect(prepared) if config['id'] == 'cooked-dev' else extra.refresh(prepared)
             refresh_fallbacks(data)
+            official_broker.refresh(data)
             reconcile(data)
             # Include fallback measurements in the same run's actual update count.
             data['cloudCollection']['metricsUpdated'] = {p:h['metricsUpdated'] for p,h in metric_health(data, started).items()}
