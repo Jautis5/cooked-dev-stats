@@ -6,6 +6,7 @@ No force push; freshest measured values and remote source edits always survive.
 import copy, json, os, pathlib, subprocess, tempfile, time
 import collect as base
 from snapshot_merge import merge_snapshot, timestamp, validate
+from publications import reconcile
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 
 
@@ -51,6 +52,8 @@ def publish(root=ROOT, before_push=None, retries=4):
                     path = checkout / relative
                     remote = json.loads(path.read_text())
                     data = merge_snapshot(remote, candidate, baseline[relative])
+                    ledger = checkout / 'data/publications.json'
+                    if ledger.exists(): reconcile(data, json.loads(ledger.read_text()))
                     validate(data)
                     base.update_changes(data, directory=path.parent)
                     path.write_text(json.dumps(data, ensure_ascii=False, indent=2) + '\n')

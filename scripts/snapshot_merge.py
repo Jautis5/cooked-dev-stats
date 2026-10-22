@@ -82,6 +82,12 @@ def merge_snapshot(remote, collected, baseline=None):
     for key in ['lastAttemptAt', 'generatedAt']:
         if collected.get(key):
             out[key] = newer(collected[key], out.get(key))
+    for platform, report in collected.get('discovery', {}).items():
+        prior = out.setdefault('discovery', {}).get(platform, {})
+        selected = copy.deepcopy(report if timestamp(report.get('checkedAt')) > timestamp(prior.get('checkedAt')) else prior)
+        complete_at = newer(report.get('lastCompleteAt'), prior.get('lastCompleteAt'))
+        if complete_at: selected['lastCompleteAt'] = complete_at
+        out['discovery'][platform] = selected
     if timestamp(collected.get('cloudCollection', {}).get('at')) > timestamp(out.get('cloudCollection', {}).get('at')):
         out['cloudCollection'] = copy.deepcopy(collected['cloudCollection'])
         out['schedule'] = copy.deepcopy(collected.get('schedule', out.get('schedule', {})))

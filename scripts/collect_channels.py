@@ -5,7 +5,7 @@ import collect as base
 
 ROOT=pathlib.Path(__file__).resolve().parents[1]
 
-def youtube_profile(account,page):
+def youtube_profile(account,page,has_posts=False):
     marker=re.search(r'(?:var\s+)?ytInitialData\s*=\s*',page)
     initial=json.JSONDecoder().raw_decode(page[marker.end():])[0] if marker else {}
     if initial.get('metadata',{}).get('channelMetadataRenderer',{}).get('externalId')!=account['expectedChannelId']:
@@ -17,7 +17,7 @@ def youtube_profile(account,page):
             value=float(match[1].replace(',',''))*{'':1,'K':1000,'M':1000000,'B':1000000000}[match[2].upper()]
             base.setmetric(account,'followers',round(value),account['url'],bool(match[2]));break
     empty=any("channel doesn't have any content" in t.lower() or 'channel doesn’t have any content' in t.lower() or 'channel has no content' in t.lower() for t in texts)
-    if empty:
+    if empty and not has_posts:
         base.setmetric(account,'publishedCount',0,account['url']);base.setmetric(account,'trackedPublishedCount',0,account['url'])
         account['trackedEmptyConfirmedAt']=base.NOW
     if empty or any(m.get('at')==base.NOW for m in account.get('metrics',{}).values()):
@@ -70,7 +70,7 @@ def refresh(data):
                         'thumbnail':None,'assetUrl':None,'posts':{'tiktok':{'id':str(item['id']),'url':account['url']+'/video/'+str(item['id']),'metrics':{}}}})
         elif platform=='youtube':
             page,error=base.attempt(base.request,account['url']+'?hl=en')
-            if page:base.attempt(youtube_profile,account,page)
+            if page:base.attempt(youtube_profile,account,page,any('youtube' in v['posts'] for v in data['videos']))
         elif platform in ['facebook','x']:
             # These sources may serve a login wall: reachability never verifies metrics.
             base.attempt(base.request,account['url'])

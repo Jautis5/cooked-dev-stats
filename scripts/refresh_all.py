@@ -3,6 +3,8 @@ import copy, datetime, json, os, pathlib, sys
 import collect as base
 import collect_channels as extra
 from snapshot_merge import validate, timestamp
+from publications import reconcile
+from public_fallbacks import refresh_fallbacks
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 
 
@@ -18,12 +20,20 @@ def metric_health(data, observed_at):
     for account in data['accounts']:
         objects = [account] + [v['posts'][account['id']] for v in data['videos'] if account['id'] in v['posts']]
         metrics = [m for obj in objects for m in obj.get('metrics', {}).values()]
+        views = [obj.get('metrics', {}).get('views') for obj in objects[1:]]
+        inventory = data.get('discovery', {}).get(account['id'], {})
         out[account['id']] = {
             'name': account['name'], 'status': account['status'],
             'metricsUpdated': sum(m.get('at') == observed_at for m in metrics),
             'metricsKnown': len(metrics),
             'viewsUpdated': sum(obj.get('metrics', {}).get('views', {}).get('at') == observed_at for obj in objects[1:]),
             'postsKnown': len(objects)-1,
+            'viewsKnown': sum(bool(m) for m in views),
+            'oldestViewAt': min((m['at'] for m in views if m), key=timestamp, default=None),
+            'inventoryStatus': inventory.get('status', 'unverified'),
+            'inventoryComplete': inventory.get('complete') is True,
+            'inventoryCheckedAt': inventory.get('checkedAt'),
+            'reportedPostCount': account.get('metrics', {}).get('publishedCount'),
             'latestMetricAt': max((m['at'] for m in metrics), key=timestamp, default=None),
             'access': 'authorization_required' if account['id'] in ['facebook', 'x'] and account['status'] == 'unavailable' else 'public_cloud',
         }
@@ -51,7 +61,12 @@ def refresh(root=ROOT):
             raise ValueError('Unsafe channel data path')
         previous = json.loads(path.read_text())
         try:
-            data = base.collect(copy.deepcopy(previous)) if config['id'] == 'cooked-dev' else extra.refresh(copy.deepcopy(previous))
+            prepared = reconcile(copy.deepcopy(previous))
+            data = base.collect(prepared) if config['id'] == 'cooked-dev' else extra.refresh(prepared)
+            refresh_fallbacks(data)
+            reconcile(data)
+            # Include fallback measurements in the same run's actual update count.
+            data['cloudCollection']['metricsUpdated'] = {p:h['metricsUpdated'] for p,h in metric_health(data, started).items()}
             data['schedule'] = {'provider': 'GitHub Actions' if run_url else 'local_verification', 'intervalMinutes': policy['intervalMinutes'], 'cron': policy['cron']}
             data['cloudCollection']['runUrl'] = run_url
             validate(data)
@@ -71,7 +86,9 @@ def refresh(root=ROOT):
             health['channels'][config['id']] = {'status': 'failed', 'checkedAt': started, 'error': type(error).__name__, 'platforms': metric_health(previous, started), 'metricsUpdated': 0}
             print('::warning::Cloud collection failed for ' + config['id'] + '; original metric dates retained.')
     health['completedAt'] = datetime.datetime.now(datetime.timezone.utc).isoformat()
-    health['status'] = 'completed_with_errors' if failed else 'completed'
+    gaps = any(not p.get('inventoryComplete') or (p['postsKnown'] and p['viewsUpdated'] < p['postsKnown'])
+               for channel in health['channels'].values() for p in channel['platforms'].values())
+    health['status'] = 'completed_with_errors' if failed else 'completed_with_gaps' if gaps else 'completed'
     write_json(root / 'data/health.json', health)
     return failed
 
