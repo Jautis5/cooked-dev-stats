@@ -87,6 +87,24 @@ def exports(data,directory=None):
   status=a['status']+(' · ≈ peržiūros' if any(p.get('metrics',{}).get('views',{}).get('approximate') for p in posts) else '')
   platforms.append([a['name'],a.get('metrics',{}).get('followers',{}).get('value',''),len(posts),*totals,a.get('metrics',{}).get('followers',{}).get('at',''),a.get('lastAttemptAt',''),status])
  dump('platforms',platforms)
+ # Long-form output keeps each metric's own source/date, including explicit gaps.
+ # A newer like count must never make an old view count appear refreshed.
+ rows=[['Channel','Entity','Video Nr.','Video','Platform','Post URL','Metric','Value','Observed at','Source','State']]
+ for a in data['accounts']:
+  for key in sorted({'followers'}|set(a.get('metrics',{}))):
+   m=a.get('metrics',{}).get(key,{})
+   rows.append([data.get('channelId','cooked-dev'),'account','','',a['name'],a['url'],key,m.get('value',''),m.get('at',''),m.get('source',''),'observed' if num(m.get('value')) is not None else 'not_observed'])
+ for v in data['videos']:
+  for a in data['accounts']:
+   p=v['posts'].get(a['id'])
+   if not p:
+    for key in ['views','likes','comments','shares']:
+     rows.append([data.get('channelId','cooked-dev'),'video',v['number'],v.get('caption') or v['title'],a['name'],'',key,'','','','publication_not_confirmed'])
+    continue
+   for key in sorted({'views','likes','comments','shares'}|set(p.get('metrics',{}))):
+    m=p.get('metrics',{}).get(key,{})
+    rows.append([data.get('channelId','cooked-dev'),'video',v['number'],v.get('caption') or v['title'],a['name'],p['url'],key,m.get('value',''),m.get('at',''),m.get('source',''),'observed' if num(m.get('value')) is not None else 'not_observed'])
+ dump('metrics',rows)
 def archive(data,directory=None):
  # Preserve public observations beyond the compact history window. No token or private report is archived.
  stamp=data.get('lastAttemptAt') or NOW

@@ -87,3 +87,26 @@ Routine successful sync and unchanged access blocks stay quiet. Notify only on
 a meaningful failure, new identity ambiguity or required owner action. The
 local browser automation's paused/enabled state is controlled separately from
 the cloud collector; do not claim a paused browser task is collecting.
+
+## Continuous coverage and Google Sheets
+
+Every run exports `metrics.csv` for each channel as well as `posts.csv` and
+`platforms.csv`. It contains one row per actual account/post/metric with the
+metric's own source and observation time. Missing views/likes/comments/shares
+are explicit `not_observed` entries, never measured zeros. Additional metrics
+returned by a provider (including saves) are retained. `health.json` records
+known, updated, missing and oldest observation for every per-post metric.
+
+Google Sheets now imports the canonical CSVs with native `IMPORTDATA` formulas
+in A1 of Statistika, Suvestinė, Indian Stats, Indian Summary, Traced Stats and
+Traced Summary. Do not overwrite their spill areas with manual snapshots.
+Their dependent per-video totals update from the same source as the website.
+Google controls import refresh timing; do not promise a 15-minute Sheets SLA.
+This removes the manual-copy drift, not the platform authorization limits.
+
+The Cooked-only local MCP seed is the current autonomous checkout, not the
+obsolete cloud checkout. After a browser import, seed that local archive from
+the canonical Cooked feed while preserving the original metric dates. The
+hourly browser heartbeat complements the 15-minute cloud collector only while
+the authorized desktop session is available. Neither can fabricate inaccessible
+Instagram/Facebook analytics. Scheduled social posts stay outside public totals.

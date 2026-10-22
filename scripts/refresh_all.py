@@ -25,6 +25,14 @@ def metric_health(data, observed_at):
         metrics = [m for obj in objects for m in obj.get('metrics', {}).values()]
         views = [obj.get('metrics', {}).get('views') for obj in objects[1:]]
         inventory = data.get('discovery', {}).get(account['id'], {})
+        keys = {'views', 'likes', 'comments', 'shares'} | {k for obj in objects[1:] for k in obj.get('metrics', {})}
+        coverage = {}
+        for key in sorted(keys):
+            known = [obj.get('metrics', {}).get(key) for obj in objects[1:]]
+            known = [m for m in known if m and base.num(m.get('value')) is not None]
+            coverage[key] = {'known': len(known), 'updated': sum(fresh(m) for m in known),
+                             'missing': len(objects)-1-len(known),
+                             'oldestAt': min((m['at'] for m in known), key=timestamp, default=None)}
         out[account['id']] = {
             'name': account['name'], 'status': account['status'],
             'metricsUpdated': sum(fresh(m) for m in metrics),
@@ -32,6 +40,7 @@ def metric_health(data, observed_at):
             'viewsUpdated': sum(fresh(obj.get('metrics', {}).get('views', {})) for obj in objects[1:]),
             'postsKnown': len(objects)-1,
             'viewsKnown': sum(bool(m) for m in views),
+            'metricCoverage': coverage,
             'oldestViewAt': min((m['at'] for m in views if m), key=timestamp, default=None),
             'inventoryStatus': inventory.get('status', 'unverified'),
             'inventoryComplete': inventory.get('complete') is True,
