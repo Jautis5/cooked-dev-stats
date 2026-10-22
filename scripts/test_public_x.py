@@ -66,6 +66,17 @@ class PublicXTests(unittest.TestCase):
             with self.assertRaises(ValueError): public_x.discover(data, account, add_post)
         self.assertEqual(data['videos'], [])
 
+    def test_failed_handle_lookup_recovers_id_from_verified_known_video(self):
+        post = {'id': '123', 'url': 'https://x.com/right/status/123', 'metrics': {}}
+        data = {'videos': [{'id': 'v', 'number': 1, 'posts': {'x': post}}]}
+        page = {'code': 200, 'results': [status()], 'cursor': {}}
+        with patch.object(base, 'request', side_effect=[ValueError('404'),
+                          json.dumps({'code': 200, 'status': status()}), json.dumps(page)]) as request:
+            report = public_x.discover(data, {'handle': 'right', 'url': 'https://x.com/right'}, add_post)
+        self.assertIn('profile/id:456/media', request.call_args_list[2].args[0])
+        self.assertEqual(report['listedPosts'], 1)
+        self.assertEqual(post['metrics']['views']['value'], 6)
+
     def test_tracking_cutoff_and_excluded_ids_still_apply(self):
         data = {'tracking': {'startedAt': '2026-10-22T00:00:00Z'}, 'videos': []}
         account = {'handle': 'right', 'url': 'https://x.com/right'}

@@ -62,7 +62,19 @@ def known_post(post, account):
 def discover(data, account, add_post):
     handle = handle_of(account)
     profile_endpoint = 'profile/' + handle
-    profile = get(profile_endpoint).get('user') or {}
+    try:
+        profile = get(profile_endpoint).get('user') or {}
+    except Exception:
+        # A handle lookup can be unavailable while exact posts remain accessible.
+        # Recover the stable owner ID only from an already verified owned video.
+        known = next((v['posts']['x'] for v in data['videos'] if 'x' in v['posts']), None)
+        if not known:
+            raise
+        profile_endpoint = 'status/' + known['id']
+        item = get(profile_endpoint).get('status') or {}
+        if not owned_video(item, handle, known['id']):
+            raise ValueError('Fallback X profile owner unverified')
+        profile = item['author']
     if (profile.get('screen_name', '').lower() != handle.lower()
             or profile.get('protected') is not False
             or not str(profile.get('id', '')).isdecimal()):
@@ -90,6 +102,8 @@ def discover(data, account, add_post):
         pages += 1
         for item in response['results']:
             if not isinstance(item, dict) or not owned_video(item, handle):
+                continue
+            if str(item['author'].get('id')) != str(profile['id']):
                 continue
             identity = str(item['id'])
             listed.add(identity)
