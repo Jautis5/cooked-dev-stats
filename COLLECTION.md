@@ -11,7 +11,9 @@ Dashboard source lives in `site/`; Sites is a published mirror of this source.
 and `tracking` settings before collecting. There are three channels: Cooked Dev,
 Indian Builds and DontGetTraced. DontGetTraced Instagram is **dontgettraced**;
 the old dongettraced handle was wrong. Indian Builds Instagram/TikTok is
-indiaanbuilds; X is IndiaanBuilds. Never mix channel IDs or Facebook Page IDs.
+indian_builds; X is IndiaanBuilds. The former indiaanbuilds Instagram/TikTok
+identity was corrected on 22 October. Read the feed rather than restoring an
+older handle. Never mix channel IDs or Facebook Page IDs.
 
 The cloud collector runs every 15 minutes without an owner computer. TikTok's
 ordinary profile response can omit its video list; the public creator embed is
@@ -88,6 +90,19 @@ a meaningful failure, new identity ambiguity or required owner action. The
 local browser automation's paused/enabled state is controlled separately from
 the cloud collector; do not claim a paused browser task is collecting.
 
+Inventory discovery must precede known-ID metric checks. A fresh like count
+does not renew `discovery.lastCompleteAt`. Mark a list complete only after
+checking its actual end; validate `reportedVideoCount` against the unique IDs
+in the capture. The cloud health and dashboard flag a last full check older
+than two hours independently of metric freshness.
+
+Record local browser failures and notification state privately in
+`../social-audit-2026-10-22/maintenance-state.json`. Report a new overdue
+inventory failure once, and suppress the same unchanged failure until access
+recovers. Missing the Lost profile in browser inventory or a closed native
+control pipe is a maintenance failure, not proof that an account is empty.
+Preserve measured data and continue the healthy cloud sources.
+
 ## Continuous coverage and Google Sheets
 
 Every run exports `metrics.csv` for each channel as well as `posts.csv` and
@@ -100,6 +115,9 @@ known, updated, missing and oldest observation for every per-post metric.
 Google Sheets now imports the canonical CSVs with native `IMPORTDATA` formulas
 in A1 of Statistika, Suvestinė, Indian Stats, Indian Summary, Traced Stats and
 Traced Summary. Do not overwrite their spill areas with manual snapshots.
+Verify the A1 formulas on every maintenance pass. If a formula was replaced
+by static values, back up that managed table, clear its cell values only,
+restore the canonical `main` CSV import and verify the resulting values.
 Their dependent per-video totals update from the same source as the website.
 Google controls import refresh timing; do not promise a 15-minute Sheets SLA.
 This removes the manual-copy drift, not the platform authorization limits.
