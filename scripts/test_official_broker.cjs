@@ -48,6 +48,15 @@ function runtime(values={}) {
 }
 
 {
+  const {context}=runtime();
+  context.YouTube={Channels:{list:()=>({items:[{id:'UCqsTDLISgGhzA_xiQT3E9yg',statistics:{videoCount:'0'}}]})},
+    PlaylistItems:{list:()=>{throw new Error('Empty channel has no uploads playlist');}}};
+  const out=context.ssYouTube_('dont-get-traced',[]);
+  assert.equal(out.inventory.complete,true);
+  assert.equal(out.posts.length,0);
+}
+
+{
   const saved={access_token:'expired',refresh_token:'old-refresh',open_id:'owner',expiresAt:0};
   const {context,properties,logs}=runtime({TIKTOK_CLIENT_KEY:'test-key',TIKTOK_CLIENT_SECRET:'test-secret','TIKTOK_indian-builds':JSON.stringify(saved)});
   const fetched=[];
@@ -80,5 +89,64 @@ function runtime(values={}) {
 }
 
 const manifest=JSON.parse(fs.readFileSync(require('node:path').join(__dirname,'../integrations/apps-script/appsscript.json'),'utf8'));
+{
+  const {context}=runtime({BROKER_SIGNING_KEY:'test-only-signing-key-32-characters-long'});
+  const cursor=context.ssCursor_('cooked-dev','instagram','123','replies','','456');
+  assert.equal(context.ssReadCursor_(cursor,'cooked-dev','instagram','123').parentId,'456');
+  assert.throws(()=>context.ssReadCursor_(cursor,'indian-builds','instagram','123'),/INVALID_REQUEST/);
+  assert.throws(()=>context.ssReadCursor_(cursor,'cooked-dev','instagram','999'),/INVALID_REQUEST/);
+  assert.throws(()=>context.ssReadCursor_(cursor.replace('456','777'),'cooked-dev','instagram','123'),/INVALID_REQUEST/);
+  assert.equal(context.ssCapabilities_('cooked-dev','instagram').identityVerified,false);
+  assert.equal(context.ssCapabilities_('cooked-dev','tiktok').status,'business_access_required');
+  assert.throws(()=>context.ssTTBusiness_('cooked-dev'),/BUSINESS_ACCESS_REQUIRED/);
+}
+{
+  const {context}=runtime({BROKER_SIGNING_KEY:'test-only-signing-key-32-characters-long'});
+  context.ssIGIdentity_=()=>({id:'owned',token:'not-returned'});
+  context.ssIGList_=()=>({data:[{id:'123',permalink:'https://www.instagram.com/reel/OWNED/'}]});
+  const requested=[];
+  context.ssGraph_=(path,token,params)=>{
+    requested.push(path);
+    return {data:[{id:'456',text:'Real comment',username:'viewer',timestamp:'2026-10-22T08:00:00Z',like_count:0},{id:'456',text:'Duplicate',timestamp:'2026-10-22T08:00:00Z'}]};
+  };
+  const first=context.ssComments_('cooked-dev','instagram',{postId:'OWNED'});
+  assert.equal(first.comments.length,1);
+  assert.equal(first.comments[0].likes,0);
+  assert.equal(first.pageComplete,true);
+  assert.equal(first.allThreadsComplete,false);
+  assert.ok(first.comments[0].replyCursor);
+  context.ssComments_('cooked-dev','instagram',{postId:'OWNED',cursor:first.comments[0].replyCursor});
+  assert.equal(requested[1],'456/replies');
+  assert.throws(()=>context.ssComments_('cooked-dev','instagram',{postId:'FOREIGN'}),/POST_NOT_FOUND/);
+  assert.ok(!JSON.stringify(first).includes('not-returned'));
+}
+{
+  const {context}=runtime({BROKER_SIGNING_KEY:'test-only-signing-key-32-characters-long'});
+  context.ssTTBusiness_=()=>({access_token:'not-a-display-token',open_id:'private',handle:'cooked_dev_'});
+  context.ssTTBusinessPost_=()=>({item_id:'123',share_url:'https://www.tiktok.com/@cooked_dev_/video/123'});
+  let requested;
+  context.ssTTBusinessGet_=(saved,path,params)=>{
+    requested={path,params};
+    return {comments:[{comment_id:'9007199254740993123',video_id:'123',text:'Keep ID precision',create_time:'1792656000',likes:0,replies:4,status:'PUBLIC'}],cursor:30,has_more:true};
+  };
+  const first=context.ssComments_('cooked-dev','tiktok',{postId:'123'});
+  assert.equal(first.comments[0].id,'9007199254740993123');
+  assert.equal(first.comments[0].likes,0);
+  assert.equal(first.pageComplete,false);
+  assert.equal(requested.params.include_replies,false);
+  assert.ok(first.comments[0].replyCursor);
+  context.ssTTBusinessGet_=()=>({comments:[],cursor:30,has_more:true});
+  assert.throws(()=>context.ssComments_('cooked-dev','tiktok',{postId:'123',cursor:first.nextCursor}),/SOURCE_UNAVAILABLE/);
+}
+{
+  const {context}=runtime();
+  context.ssTTBusiness_=()=>({});
+  context.ssTTBusinessPost_=()=>({share_url:'https://www.tiktok.com/@cooked_dev_/video/123',video_views:0,reach:7,average_time_watched:2.5,impression_sources:[{impression_source:'Search',percentage:0.5}]});
+  const result=context.ssTraffic_('cooked-dev','tiktok',{postId:'123'});
+  assert.equal(result.metrics.video_views.value,0);
+  assert.equal(result.metrics.average_time_watched.value,2.5);
+  assert.ok(result.unavailable.includes('website_clicks'));
+  assert.equal(result.metrics.website_clicks,undefined);
+}
 assert.deepEqual(manifest.oauthScopes.sort(),['https://www.googleapis.com/auth/script.external_request','https://www.googleapis.com/auth/youtube.readonly']);
-console.log('PASS: request signatures/replay, public owner checks, token rotation persistence, secret-free output, zero/null and read-only scopes.');
+console.log('PASS: HMAC/replay, owner checks, empty channels, token rotation, private cursors/replies, deduplication, zero/null, traffic precision and unchanged Google scopes.');

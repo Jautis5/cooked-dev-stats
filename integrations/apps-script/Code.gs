@@ -46,27 +46,41 @@ function ssRequest_(event) {
   if(!ssEqual_(ssSign_(body.message),body.signature)) throw new Error('UNAUTHORIZED');
   const parts=JSON.parse(body.message);
   if(!Array.isArray(parts)||parts.length!==7) throw new Error('INVALID_REQUEST');
-  const [version,action,epoch,nonce,channel,platform,knownIds]=parts;
-  if(version!==1||action!=='collect'||!Object.prototype.hasOwnProperty.call(SS_CHANNELS,channel)||!SS_PLATFORMS.includes(platform)
+  const [version,action,epoch,nonce,channel,platform,options]=parts;
+  if(version!==1||!['collect','capabilities','posts','comments','traffic'].includes(action)||!Object.prototype.hasOwnProperty.call(SS_CHANNELS,channel)||!SS_PLATFORMS.includes(platform)
     ||!Number.isSafeInteger(epoch)||Math.abs(Date.now()/1000-epoch)>180||typeof nonce!=='string'||!/^[a-f0-9]{32}$/.test(nonce)
-    ||!Array.isArray(knownIds)||knownIds.length>300||knownIds.some(id=>typeof id!=='string'||!/^[-A-Za-z0-9_]{1,64}$/.test(id))) throw new Error('INVALID_REQUEST');
+    ) throw new Error('INVALID_REQUEST');
+  if(action==='collect') {
+    if(!Array.isArray(options)||options.length>300||options.some(id=>typeof id!=='string'||!/^[-A-Za-z0-9_]{1,64}$/.test(id))) throw new Error('INVALID_REQUEST');
+  } else {
+    if(!['instagram','tiktok'].includes(platform)||!options||typeof options!=='object'||Array.isArray(options)
+      ||Object.keys(options).some(key=>!['postId','cursor','limit','days'].includes(key))
+      ||(options.postId!==undefined&&(typeof options.postId!=='string'||!/^[-A-Za-z0-9_]{1,64}$/.test(options.postId)))
+      ||(options.cursor!==undefined&&(typeof options.cursor!=='string'||options.cursor.length>8192))
+      ||(options.limit!==undefined&&(!Number.isSafeInteger(options.limit)||options.limit<1||options.limit>100))
+      ||(options.days!==undefined&&(!Number.isSafeInteger(options.days)||options.days<1||options.days>30))
+      ||(action==='comments'&&!options.postId)) throw new Error('INVALID_REQUEST');
+  }
   const lock=LockService.getScriptLock(); lock.waitLock(10000);
   try {
     const cache=CacheService.getScriptCache(), key='request_'+nonce;
     if(cache.get(key)) throw new Error('REPLAY_REJECTED');
     cache.put(key,'1',360);
   } finally { lock.releaseLock(); }
-  return {channel,platform,knownIds};
+  return {channel,platform,action,options,knownIds:action==='collect'?options:[]};
 }
 
 function doPost(event) {
   try {
     const request=ssRequest_(event);
-    const fn={youtube:ssYouTube_,tiktok:ssTikTok_,instagram:ssInstagram_,facebook:ssFacebook_}[request.platform];
-    return ssJSON_({ok:true,observation:fn(request.channel,request.knownIds)});
+    if(request.action==='collect') {
+      const fn={youtube:ssYouTube_,tiktok:ssTikTok_,instagram:ssInstagram_,facebook:ssFacebook_}[request.platform];
+      return ssJSON_({ok:true,observation:fn(request.channel,request.knownIds)});
+    }
+    return ssJSON_({ok:true,result:ssBackend_(request)});
   } catch(error) {
     // Do not return raw platform errors, request URLs or token-bearing payloads.
-    const allowed=['CONFIGURATION_REQUIRED','UNAUTHORIZED','INVALID_REQUEST','REPLAY_REJECTED','IDENTITY_MISMATCH','RECONNECT_REQUIRED','SOURCE_UNAVAILABLE'];
+    const allowed=['CONFIGURATION_REQUIRED','UNAUTHORIZED','INVALID_REQUEST','REPLAY_REJECTED','IDENTITY_MISMATCH','RECONNECT_REQUIRED','SOURCE_UNAVAILABLE','BUSINESS_ACCESS_REQUIRED','PERMISSION_REQUIRED','POST_NOT_FOUND'];
     return ssJSON_({ok:false,error:allowed.includes(error.message)?error.message:'SOURCE_UNAVAILABLE'});
   }
 }
@@ -85,6 +99,10 @@ function ssYouTube_(channel,knownIds) {
   // Subscriber counts can be rounded by YouTube; never claim exact follower counts.
   if(out.accountMetrics.followers) out.accountMetrics.followers.approximate=true;
   ssMetric_(out.accountMetrics,'publishedCount',owner.statistics.videoCount,'videoCount');
+  if(ssInteger_(owner.statistics.videoCount)===0 && knownIds.length===0) {
+    out.inventory.complete=true;
+    return out; // A verified empty channel may not have an uploads playlist yet.
+  }
   const ids=new Set(knownIds), playlist=owner.contentDetails.relatedPlaylists.uploads;
   let pageToken;
   for(let page=0;page<10;page++) {
@@ -269,7 +287,7 @@ function ssBegin_(platform,channel) {
     url='https://www.tiktok.com/v2/auth/authorize/?'+Object.entries({client_key:ssNeed_('TIKTOK_CLIENT_KEY'),response_type:'code',scope:'user.info.basic,user.info.profile,user.info.stats,video.list',redirect_uri:redirect,state}).map(([k,v])=>k+'='+encodeURIComponent(v)).join('&');
   } else {
     const version=ssNeed_('META_GRAPH_VERSION');
-    url='https://www.facebook.com/'+version+'/dialog/oauth?'+Object.entries({client_id:ssNeed_('META_APP_ID'),redirect_uri:redirect,response_type:'code',scope:'pages_show_list,pages_read_engagement,read_insights,instagram_basic,instagram_manage_insights',state}).map(([k,v])=>k+'='+encodeURIComponent(v)).join('&');
+    url='https://www.facebook.com/'+version+'/dialog/oauth?'+Object.entries({client_id:ssNeed_('META_APP_ID'),redirect_uri:redirect,response_type:'code',scope:'pages_show_list,pages_read_engagement,read_insights,instagram_basic,instagram_manage_insights,instagram_manage_comments',state}).map(([k,v])=>k+'='+encodeURIComponent(v)).join('&');
   }
   console.log(url);return url; // A short-lived authorization link, never an access token.
 }
@@ -279,6 +297,213 @@ function connectTikTokTraced() { return ssBegin_('tiktok','dont-get-traced'); }
 function connectMetaCooked() { return ssBegin_('meta','cooked-dev'); }
 function connectMetaIndian() { return ssBegin_('meta','indian-builds'); }
 function connectMetaTraced() { return ssBegin_('meta','dont-get-traced'); }
+
+/** Read-only MCP operations. No user-supplied URL, path, token or write operation. */
+function ssCursor_(channel,platform,postId,kind,after,parentId) {
+  const text=JSON.stringify({channel,platform,postId,kind,after:after===undefined?'':String(after),parentId:parentId||'',expiresAt:Date.now()+86400000});
+  return encodeURIComponent(text)+'.'+ssSign_(text);
+}
+function ssReadCursor_(cursor,channel,platform,postId,kind) {
+  if(!cursor) return {kind:kind||'comments',after:'',parentId:''};
+  const split=cursor.lastIndexOf('.');
+  if(split<0) throw new Error('INVALID_REQUEST');
+  let text,value;
+  try {text=decodeURIComponent(cursor.slice(0,split));value=JSON.parse(text);} catch(error) {throw new Error('INVALID_REQUEST');}
+  if(!ssEqual_(ssSign_(text),cursor.slice(split+1))||value.channel!==channel||value.platform!==platform||value.postId!==postId
+    ||!['posts','comments','replies'].includes(value.kind)||(kind&&value.kind!==kind)||value.expiresAt<Date.now()
+    ||typeof value.after!=='string'||value.after.length>2048||typeof value.parentId!=='string'
+    ||(value.kind==='replies'&&!/^\d+$/.test(value.parentId))) throw new Error('INVALID_REQUEST');
+  return value;
+}
+function ssBackendBase_(channel,platform) {
+  return {version:1,channelId:channel,platform,owner:{handle:SS_CHANNELS[channel][platform]},checkedAt:new Date().toISOString(),method:'official_api'};
+}
+function ssIGIdentity_(channel) {
+  const {saved,page}=ssMeta_(channel), ig=(page.instagram_business_account||{}).id;
+  if(!ig||ig!==saved.igId) throw new Error('IDENTITY_MISMATCH');
+  const user=ssGraph_(ig,saved.pageToken,{fields:'id,username'});
+  if(user.id!==ig||user.username!==SS_CHANNELS[channel].instagram) throw new Error('IDENTITY_MISMATCH');
+  return {id:ig,token:saved.pageToken};
+}
+function ssIGList_(identity,after,limit) {
+  const params={fields:'id,media_type,media_product_type,permalink,caption,timestamp',limit};
+  if(after) params.after=after;
+  const result=ssGraph_(identity.id+'/media',identity.token,params);
+  if(!Array.isArray(result.data)) throw new Error('SOURCE_UNAVAILABLE');
+  return result;
+}
+function ssIGPost_(identity,postId) {
+  // Resolve only through the intended account's own media edge, including photos.
+  let after;
+  for(let page=0;page<20;page++) {
+    const result=ssIGList_(identity,after,100);
+    const found=result.data.find(item=>String(item.id)===postId||((item.permalink||'').match(/\/(?:p|reel)\/([-\w]+)\/?$/)||[])[1]===postId);
+    if(found&&/^\d+$/.test(String(found.id))) return found;
+    if(!(result.paging||{}).next) throw new Error('POST_NOT_FOUND');
+    const next=((result.paging||{}).cursors||{}).after;
+    if(!next||next===after) throw new Error('SOURCE_UNAVAILABLE');
+    after=next;
+  }
+  throw new Error('SOURCE_UNAVAILABLE'); // A scan limit is not evidence that a post is absent.
+}
+function ssTTBusiness_(channel) {
+  const saved=ssLoad_('TIKTOK_BUSINESS_'+channel);
+  if(!saved||!saved.access_token||!saved.open_id) throw new Error('BUSINESS_ACCESS_REQUIRED');
+  if(saved.handle!==SS_CHANNELS[channel].tiktok) throw new Error('IDENTITY_MISMATCH');
+  if(!Number.isFinite(saved.expiresAt)||saved.expiresAt<=Date.now()) throw new Error('RECONNECT_REQUIRED');
+  return saved;
+}
+function ssTTBusinessGet_(saved,path,params) {
+  if(!['business/video/list/','business/comment/list/','business/comment/reply/list/'].includes(path)) throw new Error('INVALID_REQUEST');
+  const query=Object.entries(Object.assign({business_id:saved.open_id},params)).map(([key,value])=>encodeURIComponent(key)+'='+encodeURIComponent(typeof value==='object'?JSON.stringify(value):String(value))).join('&');
+  const result=ssHTTP_('https://business-api.tiktok.com/open_api/v1.3/'+path+'?'+query,{headers:{'Access-Token':saved.access_token}});
+  if(result.code!==0||!result.data) throw new Error('SOURCE_UNAVAILABLE');
+  return result.data;
+}
+function ssTTBusinessPost_(channel,saved,postId,fields) {
+  if(!/^\d+$/.test(postId)) throw new Error('INVALID_REQUEST');
+  const result=ssTTBusinessGet_(saved,'business/video/list/',{fields:['item_id','share_url'].concat(fields||[]),filters:{video_ids:[postId]},max_count:20});
+  if(!Array.isArray(result.videos)) throw new Error('SOURCE_UNAVAILABLE');
+  const item=result.videos.find(row=>row.item_id===postId);
+  if(!item) throw new Error('POST_NOT_FOUND');
+  const expected='https://www.tiktok.com/@'+SS_CHANNELS[channel].tiktok+'/video/'+postId;
+  if((item.share_url||'').split('?')[0].replace(/\/$/,'')!==expected) throw new Error('IDENTITY_MISMATCH');
+  return item;
+}
+function ssCapabilities_(channel,platform) {
+  const out=ssBackendBase_(channel,platform);
+  out.readOnly=true;out.freeOnly=true;out.browserRequired=false;out.identityVerified=false;
+  out.capabilities={posts:false,comments:false,replies:false,traffic:false};
+  out.status='authorization_required';
+  if(platform==='instagram') {
+    out.credentialConfigured=!!ssLoad_('META_'+channel);
+    if(out.credentialConfigured) {
+      ssIGIdentity_(channel);out.identityVerified=true;out.status='identity_verified_permissions_unverified';
+    }
+    out.requirements=['Meta developer registration (currently blocked by owner SMS verification)','Professional Instagram account linked to the intended Page','instagram_basic','instagram_manage_insights','instagram_manage_comments'];
+    out.note='A stored credential or verified identity does not prove comments/insights permissions. Each read must succeed.';
+  } else {
+    out.displayCredentialConfigured=!!ssLoad_('TIKTOK_'+channel);
+    out.businessCredentialConfigured=!!ssLoad_('TIKTOK_BUSINESS_'+channel);
+    out.status=out.businessCredentialConfigured?'business_credentials_unverified':'business_access_required';
+    out.requirements=['TikTok Accounts API access application approval','Owned-account authorization for video.list, video.insights and comment.list','Separate API for Business token, not a Display API token'];
+    out.note='Display API has counts, not comment text or traffic sources. Account entitlements may limit insights; data can lag 24-48 hours.';
+  }
+  return out;
+}
+function ssPosts_(channel,platform,options) {
+  const cursor=ssReadCursor_(options.cursor,channel,platform,'','posts'), out=ssBackendBase_(channel,platform);
+  const limit=options.limit||100;
+  if(platform==='instagram') {
+    const identity=ssIGIdentity_(channel), result=ssIGList_(identity,cursor.after,limit);
+    out.posts=result.data.map(item=>({id:String(item.id),url:item.permalink,title:item.caption||'',type:item.media_type,publishedAt:item.timestamp}));
+    const more=!!(result.paging||{}).next, after=((result.paging||{}).cursors||{}).after;
+    if(more&&(!after||after===cursor.after)) throw new Error('SOURCE_UNAVAILABLE');
+    out.nextCursor=more?ssCursor_(channel,platform,'','posts',after):null;
+  } else {
+    const saved=ssTTBusiness_(channel), params={fields:['item_id','share_url','caption','create_time'],max_count:Math.min(limit,20)};
+    if(cursor.after) params.cursor=Number(cursor.after);
+    const result=ssTTBusinessGet_(saved,'business/video/list/',params);
+    if(!Array.isArray(result.videos)||typeof result.has_more!=='boolean') throw new Error('SOURCE_UNAVAILABLE');
+    out.posts=result.videos.map(item=>{
+      const id=String(item.item_id), expected='https://www.tiktok.com/@'+SS_CHANNELS[channel].tiktok+'/video/'+id;
+      if(!/^\d+$/.test(id)||(item.share_url||'').split('?')[0].replace(/\/$/,'')!==expected) throw new Error('IDENTITY_MISMATCH');
+      return {id,url:expected,title:item.caption||'',publishedAt:new Date(Number(item.create_time)*1000).toISOString()};
+    });
+    if(result.has_more&&(!Number.isSafeInteger(result.cursor)||String(result.cursor)===cursor.after)) throw new Error('SOURCE_UNAVAILABLE');
+    out.nextCursor=result.has_more?ssCursor_(channel,platform,'','posts',result.cursor):null;
+  }
+  out.pageComplete=out.nextCursor===null;out.scope='api_accessible_owned_posts';
+  return out;
+}
+function ssComments_(channel,platform,options) {
+  const postId=options.postId, cursor=ssReadCursor_(options.cursor,channel,platform,postId), out=ssBackendBase_(channel,platform);
+  if(!['comments','replies'].includes(cursor.kind)) throw new Error('INVALID_REQUEST');
+  out.postId=postId;out.parentId=cursor.parentId||null;out.comments=[];
+  let rows,more,after,source;
+  if(platform==='instagram') {
+    const identity=ssIGIdentity_(channel), post=ssIGPost_(identity,postId);
+    source=post.permalink;
+    const params={fields:'id,text,timestamp,username,like_count',limit:options.limit||100};
+    if(cursor.after) params.after=cursor.after;
+    const path=cursor.kind==='replies'?cursor.parentId+'/replies':post.id+'/comments';
+    const result=ssGraph_(path,identity.token,params);
+    if(!Array.isArray(result.data)) throw new Error('SOURCE_UNAVAILABLE');
+    rows=result.data.map(item=>({id:item.id,text:item.text,username:item.username,postedAt:item.timestamp,likes:ssInteger_(item.like_count),parentId:cursor.parentId||null}));
+    more=!!(result.paging||{}).next;after=((result.paging||{}).cursors||{}).after;
+    out.scope='api_accessible_comments';
+  } else {
+    const saved=ssTTBusiness_(channel), post=ssTTBusinessPost_(channel,saved,postId);
+    source=post.share_url.split('?')[0];
+    const params={video_id:postId,status:'ALL',sort_field:'create_time',sort_order:'asc',max_count:Math.min(options.limit||30,30),cursor:cursor.after?Number(cursor.after):0};
+    if(cursor.kind==='replies') params.comment_id=cursor.parentId;
+    else params.include_replies=false; // Nested preview is limited to three; always page reply/list separately.
+    const result=ssTTBusinessGet_(saved,cursor.kind==='replies'?'business/comment/reply/list/':'business/comment/list/',params);
+    if(!Array.isArray(result.comments)||typeof result.has_more!=='boolean') throw new Error('SOURCE_UNAVAILABLE');
+    rows=result.comments.map(item=>{
+      if(item.video_id!==postId||(cursor.parentId&&item.parent_comment_id!==cursor.parentId)) throw new Error('IDENTITY_MISMATCH');
+      return {id:item.comment_id,text:item.text,username:item.username,postedAt:new Date(Number(item.create_time)*1000).toISOString(),likes:ssInteger_(item.likes),replyCount:ssInteger_(item.replies),parentId:item.parent_comment_id||null,visibility:item.status};
+    });
+    more=result.has_more;after=result.cursor;
+    if(more&&!Number.isSafeInteger(after)) throw new Error('SOURCE_UNAVAILABLE');
+    out.scope='api_accessible_comments_including_hidden';
+    out.note='TikTok may repeat comments after the first 500. Deduplicate IDs; deleted/filtered comments cannot be guaranteed.';
+  }
+  const seen=new Set();
+  rows.forEach(item=>{
+    if(typeof item.id!=='string'||!/^\d+$/.test(item.id)||typeof item.text!=='string'||!Number.isFinite(Date.parse(item.postedAt))) throw new Error('SOURCE_UNAVAILABLE');
+    if(seen.has(item.id)) return;
+    seen.add(item.id);
+    item.source=source;
+    item.replyCursor=cursor.kind==='comments'&&(item.replyCount!==0||platform==='instagram')?ssCursor_(channel,platform,postId,'replies','',item.id):null;
+    out.comments.push(item);
+  });
+  if(more&&(after===undefined||after===null||String(after)===cursor.after)) throw new Error('SOURCE_UNAVAILABLE');
+  out.nextCursor=more?ssCursor_(channel,platform,postId,cursor.kind,after,cursor.parentId):null;
+  out.pageComplete=!more;out.allThreadsComplete=false; // Only a client traversal can establish thread coverage.
+  return out;
+}
+function ssTraffic_(channel,platform,options) {
+  const out=ssBackendBase_(channel,platform);out.postId=options.postId||null;out.metrics={};out.unavailable=[];
+  if(platform==='instagram') {
+    const identity=ssIGIdentity_(channel), post=options.postId?ssIGPost_(identity,options.postId):null;
+    const fields=post?['views','reach','shares','saved','total_interactions','ig_reels_avg_watch_time','ig_reels_video_view_total_time']:['views','reach','profile_views','profile_links_taps'];
+    out.source=post?post.permalink:'https://www.instagram.com/'+SS_CHANNELS[channel].instagram+'/';
+    fields.forEach(field=>{
+      try {
+        const params={metric:field};
+        if(!post) {
+          params.period='day';params.since=Math.floor(Date.now()/1000)-(options.days||7)*86400;params.until=Math.floor(Date.now()/1000);
+          if(field!=='reach') params.metric_type='total_value';
+        }
+        const result=ssGraph_((post?post.id:identity.id)+'/insights',identity.token,params);
+        const row=(result.data||[]).find(item=>item.name===field);
+        if(!row||(!row.total_value&&!Array.isArray(row.values))) {out.unavailable.push(field);return;}
+        // Preserve API periods, date buckets and metric identity; do not sum reach or invent attribution.
+        out.metrics[field]={apiMetric:field,period:row.period||null,totalValue:row.total_value||null,values:row.values||null};
+      } catch(error) {out.unavailable.push(field);}
+    });
+    out.note='Insights expose only supported account/media metrics. Reach is unique and must not be summed across posts; unavailable may mean unsupported or missing permission.';
+  } else {
+    if(!options.postId) throw new Error('INVALID_REQUEST');
+    const saved=ssTTBusiness_(channel), fields=['video_views','reach','total_time_watched','average_time_watched','full_video_watched_rate','impression_sources','profile_views','website_clicks'];
+    const post=ssTTBusinessPost_(channel,saved,options.postId,fields);
+    out.source=post.share_url.split('?')[0];
+    fields.forEach(field=>{
+      if(post[field]===undefined||post[field]===null) out.unavailable.push(field);
+      else if(typeof post[field]==='number'&&Number.isFinite(post[field])&&post[field]>=0||field==='impression_sources'&&Array.isArray(post[field])) out.metrics[field]={apiMetric:field,value:post[field]};
+      else out.unavailable.push(field);
+    });
+    out.note='TikTok documents 24-48 hour insights latency. video_views includes organic and paid activity. Website clicks/other fields depend on account entitlements; absent is not zero.';
+  }
+  out.status=Object.keys(out.metrics).length?'partial_or_available':'metrics_unavailable';
+  return out;
+}
+function ssBackend_(request) {
+  const fn={capabilities:ssCapabilities_,posts:ssPosts_,comments:ssComments_,traffic:ssTraffic_}[request.action];
+  if(!fn) throw new Error('INVALID_REQUEST');
+  return fn(request.channel,request.platform,request.options);
+}
 
 function doGet(event) {
   const params=(event||{}).parameter||{};
