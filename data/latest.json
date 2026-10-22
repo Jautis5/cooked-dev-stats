@@ -8,8 +8,8 @@
     "intervalMinutes": 15,
     "cron": "7-59/15 * * * *"
   },
-  "generatedAt": "2026-10-22T12:56:28.237727+00:00",
-  "lastAttemptAt": "2026-10-22T12:56:28.237727+00:00",
+  "generatedAt": "2026-10-22T13:11:49.063120+00:00",
+  "lastAttemptAt": "2026-10-22T13:11:49.063120+00:00",
   "accounts": [
     {
       "id": "instagram",
@@ -32,10 +32,10 @@
           "approximate": false
         }
       },
-      "status": "partial",
-      "lastAttemptAt": "2026-10-22T12:56:28.237727+00:00",
+      "status": "unavailable",
+      "lastAttemptAt": "2026-10-22T13:11:49.063120+00:00",
       "lastSuccessAt": "2026-10-22T12:56:28.237727+00:00",
-      "message": "Atnaujinta 18/18 įrašų. Atskirų rodiklių patikros laikas gali skirtis.",
+      "message": "Viešas šaltinis nepateikė patikimos statistikos.",
       "browserObservedAt": "2026-10-20T09:21:18.311000+00:00"
     },
     {
@@ -45,27 +45,27 @@
       "url": "https://www.tiktok.com/@cooked_dev_",
       "metrics": {
         "followers": {
-          "value": 1109,
-          "at": "2026-10-22T12:56:28.237727+00:00",
+          "value": 1114,
+          "at": "2026-10-22T13:11:49.063120+00:00",
           "source": "https://www.tiktok.com/@cooked_dev_",
           "approximate": false
         },
         "profileLikes": {
-          "value": 26372,
-          "at": "2026-10-22T12:56:28.237727+00:00",
+          "value": 26400,
+          "at": "2026-10-22T13:11:49.063120+00:00",
           "source": "https://www.tiktok.com/@cooked_dev_",
           "approximate": false
         },
         "publishedCount": {
           "value": 19,
-          "at": "2026-10-22T12:56:28.237727+00:00",
+          "at": "2026-10-22T13:11:49.063120+00:00",
           "source": "https://www.tiktok.com/@cooked_dev_",
           "approximate": false
         }
       },
       "status": "ok",
-      "lastAttemptAt": "2026-10-22T12:56:28.237727+00:00",
-      "lastSuccessAt": "2026-10-22T12:56:28.237727+00:00",
+      "lastAttemptAt": "2026-10-22T13:11:49.063120+00:00",
+      "lastSuccessAt": "2026-10-22T13:11:49.063120+00:00",
       "message": "Atnaujinta 19/19 įrašų. Atskirų rodiklių patikros laikas gali skirtis.",
       "browserObservedAt": "2026-10-20T09:20:44.132000+00:00"
     },
@@ -77,7 +77,7 @@
       "metrics": {
         "followers": {
           "value": 35,
-          "at": "2026-10-22T12:56:45.831Z",
+          "at": "2026-10-22T13:12:06.874Z",
           "source": "https://www.youtube.com/channel/UCNPkHyLJotjamsFxts47T2A",
           "approximate": true,
           "method": "official_api",
@@ -85,7 +85,7 @@
         },
         "publishedCount": {
           "value": 7,
-          "at": "2026-10-22T12:56:45.831Z",
+          "at": "2026-10-22T13:12:06.874Z",
           "source": "https://www.youtube.com/channel/UCNPkHyLJotjamsFxts47T2A",
           "approximate": false,
           "method": "official_api",
@@ -93,8 +93,8 @@
         }
       },
       "status": "partial",
-      "lastAttemptAt": "2026-10-22T12:56:45.831Z",
-      "lastSuccessAt": "2026-10-22T12:56:45.831Z",
+      "lastAttemptAt": "2026-10-22T13:12:06.874Z",
+      "lastSuccessAt": "2026-10-22T13:12:06.874Z",
       "message": "Official account data refreshed; missing metrics retain their previous dates.",
       "browserObservedAt": "2026-10-20T09:20:44.185000+00:00"
     },
@@ -106,11 +106,11 @@
       "metrics": {
         "followers": {
           "value": 12,
-          "at": "2026-10-22T12:56:28.237727+00:00",
+          "at": "2026-10-22T13:11:49.063120+00:00",
           "source": "https://x.com/Cooked_Deev",
           "approximate": false,
           "method": "fxembed_public",
-          "via": "https://api.fxtwitter.com/2/status/2112225565633925197",
+          "via": "https://api.fxtwitter.com/2/profile/Cooked_Deev",
           "upstreamObservedAt": null
         },
         "publishedCount": {
@@ -122,8 +122,8 @@
         }
       },
       "status": "partial",
-      "lastAttemptAt": "2026-10-22T12:56:28.237727+00:00",
-      "lastSuccessAt": "2026-10-22T12:56:28.237727+00:00",
+      "lastAttemptAt": "2026-10-22T13:11:49.063120+00:00",
+      "lastSuccessAt": "2026-10-22T13:11:49.063120+00:00",
       "message": "Some public metrics refreshed; publication inventory remains incomplete.",
       "browserObservedAt": "2026-10-20T09:20:09.115000+00:00"
     },
@@ -149,7 +149,7 @@
         }
       },
       "status": "unavailable",
-      "lastAttemptAt": "2026-10-22T12:56:28.237727+00:00",
+      "lastAttemptAt": "2026-10-22T13:11:49.063120+00:00",
       "lastSuccessAt": "2026-10-22T06:13:57.935Z",
       "message": "Automatinė vieša statistika nepasiekiama. Palikti paskutiniai patikrinti duomenys.",
       "browserObservedAt": "2026-10-20T09:21:39.659000+00:00"
@@ -196,31 +196,31 @@
           "metrics": {
             "views": {
               "value": 33500,
-              "at": "2026-10-22T12:56:28.237727+00:00",
+              "at": "2026-10-22T13:11:49.063120+00:00",
               "source": "https://www.tiktok.com/@cooked_dev_/video/7696207619140128022",
               "approximate": false
             },
             "likes": {
-              "value": 1812,
-              "at": "2026-10-22T12:56:28.237727+00:00",
+              "value": 1813,
+              "at": "2026-10-22T13:11:49.063120+00:00",
               "source": "https://www.tiktok.com/@cooked_dev_/video/7696207619140128022",
               "approximate": false
             },
             "comments": {
               "value": 18,
-              "at": "2026-10-22T12:56:28.237727+00:00",
+              "at": "2026-10-22T13:11:49.063120+00:00",
               "source": "https://www.tiktok.com/@cooked_dev_/video/7696207619140128022",
               "approximate": false
             },
             "shares": {
               "value": 73,
-              "at": "2026-10-22T12:56:28.237727+00:00",
+              "at": "2026-10-22T13:11:49.063120+00:00",
               "source": "https://www.tiktok.com/@cooked_dev_/video/7696207619140128022",
               "approximate": false
             },
             "saves": {
               "value": 198,
-              "at": "2026-10-22T12:56:28.237727+00:00",
+              "at": "2026-10-22T13:11:49.063120+00:00",
               "source": "https://www.tiktok.com/@cooked_dev_/video/7696207619140128022",
               "approximate": false
             }
@@ -232,7 +232,7 @@
           "metrics": {
             "comments": {
               "value": 2,
-              "at": "2026-10-22T12:56:45.831Z",
+              "at": "2026-10-22T13:12:06.874Z",
               "source": "https://youtube.com/shorts/V9ewxc1cEkU",
               "approximate": false,
               "method": "official_api",
@@ -240,7 +240,7 @@
             },
             "views": {
               "value": 1382,
-              "at": "2026-10-22T12:56:45.831Z",
+              "at": "2026-10-22T13:12:06.874Z",
               "source": "https://youtube.com/shorts/V9ewxc1cEkU",
               "approximate": false,
               "method": "official_api",
@@ -248,7 +248,7 @@
             },
             "likes": {
               "value": 18,
-              "at": "2026-10-22T12:56:45.831Z",
+              "at": "2026-10-22T13:12:06.874Z",
               "source": "https://youtube.com/shorts/V9ewxc1cEkU",
               "approximate": false,
               "method": "official_api",
@@ -263,7 +263,7 @@
           "metrics": {
             "comments": {
               "value": 0,
-              "at": "2026-10-22T12:56:28.237727+00:00",
+              "at": "2026-10-22T13:11:49.063120+00:00",
               "source": "https://x.com/Cooked_Deev/status/2112225565633925197",
               "approximate": false,
               "method": "fxembed_public",
@@ -272,7 +272,7 @@
             },
             "likes": {
               "value": 2,
-              "at": "2026-10-22T12:56:28.237727+00:00",
+              "at": "2026-10-22T13:11:49.063120+00:00",
               "source": "https://x.com/Cooked_Deev/status/2112225565633925197",
               "approximate": false,
               "method": "fxembed_public",
@@ -281,7 +281,7 @@
             },
             "shares": {
               "value": 1,
-              "at": "2026-10-22T12:56:28.237727+00:00",
+              "at": "2026-10-22T13:11:49.063120+00:00",
               "source": "https://x.com/Cooked_Deev/status/2112225565633925197",
               "approximate": false,
               "method": "fxembed_public",
@@ -290,7 +290,7 @@
             },
             "views": {
               "value": 24,
-              "at": "2026-10-22T12:56:28.237727+00:00",
+              "at": "2026-10-22T13:11:49.063120+00:00",
               "source": "https://x.com/Cooked_Deev/status/2112225565633925197",
               "approximate": false,
               "method": "fxembed_public",
@@ -365,31 +365,31 @@
           "metrics": {
             "views": {
               "value": 96500,
-              "at": "2026-10-22T12:56:28.237727+00:00",
+              "at": "2026-10-22T13:11:49.063120+00:00",
               "source": "https://www.tiktok.com/@cooked_dev_/video/7696263553409436950",
               "approximate": false
             },
             "likes": {
               "value": 4669,
-              "at": "2026-10-22T12:56:28.237727+00:00",
+              "at": "2026-10-22T13:11:49.063120+00:00",
               "source": "https://www.tiktok.com/@cooked_dev_/video/7696263553409436950",
               "approximate": false
             },
             "comments": {
               "value": 28,
-              "at": "2026-10-22T12:56:28.237727+00:00",
+              "at": "2026-10-22T13:11:49.063120+00:00",
               "source": "https://www.tiktok.com/@cooked_dev_/video/7696263553409436950",
               "approximate": false
             },
             "shares": {
               "value": 103,
-              "at": "2026-10-22T12:56:28.237727+00:00",
+              "at": "2026-10-22T13:11:49.063120+00:00",
               "source": "https://www.tiktok.com/@cooked_dev_/video/7696263553409436950",
               "approximate": false
             },
             "saves": {
               "value": 545,
-              "at": "2026-10-22T12:56:28.237727+00:00",
+              "at": "2026-10-22T13:11:49.063120+00:00",
               "source": "https://www.tiktok.com/@cooked_dev_/video/7696263553409436950",
               "approximate": false
             }
@@ -401,7 +401,7 @@
           "metrics": {
             "comments": {
               "value": 0,
-              "at": "2026-10-22T12:56:45.831Z",
+              "at": "2026-10-22T13:12:06.874Z",
               "source": "https://youtube.com/shorts/-1fnH6cj9zc",
               "approximate": false,
               "method": "official_api",
@@ -409,7 +409,7 @@
             },
             "views": {
               "value": 1303,
-              "at": "2026-10-22T12:56:45.831Z",
+              "at": "2026-10-22T13:12:06.874Z",
               "source": "https://youtube.com/shorts/-1fnH6cj9zc",
               "approximate": false,
               "method": "official_api",
@@ -417,7 +417,7 @@
             },
             "likes": {
               "value": 15,
-              "at": "2026-10-22T12:56:45.831Z",
+              "at": "2026-10-22T13:12:06.874Z",
               "source": "https://youtube.com/shorts/-1fnH6cj9zc",
               "approximate": false,
               "method": "official_api",
@@ -431,7 +431,7 @@
           "metrics": {
             "comments": {
               "value": 0,
-              "at": "2026-10-22T12:56:28.237727+00:00",
+              "at": "2026-10-22T13:11:49.063120+00:00",
               "source": "https://x.com/Cooked_Deev/status/2112280122694734281",
               "approximate": false,
               "method": "fxembed_public",
@@ -440,7 +440,7 @@
             },
             "likes": {
               "value": 2,
-              "at": "2026-10-22T12:56:28.237727+00:00",
+              "at": "2026-10-22T13:11:49.063120+00:00",
               "source": "https://x.com/Cooked_Deev/status/2112280122694734281",
               "approximate": false,
               "method": "fxembed_public",
@@ -449,7 +449,7 @@
             },
             "shares": {
               "value": 0,
-              "at": "2026-10-22T12:56:28.237727+00:00",
+              "at": "2026-10-22T13:11:49.063120+00:00",
               "source": "https://x.com/Cooked_Deev/status/2112280122694734281",
               "approximate": false,
               "method": "fxembed_public",
@@ -458,7 +458,7 @@
             },
             "views": {
               "value": 32,
-              "at": "2026-10-22T12:56:28.237727+00:00",
+              "at": "2026-10-22T13:11:49.063120+00:00",
               "source": "https://x.com/Cooked_Deev/status/2112280122694734281",
               "approximate": false,
               "method": "fxembed_public",
@@ -529,32 +529,32 @@
           "url": "https://www.tiktok.com/@cooked_dev_/video/7696458411986177302",
           "metrics": {
             "views": {
-              "value": 9816,
-              "at": "2026-10-22T12:56:28.237727+00:00",
+              "value": 9821,
+              "at": "2026-10-22T13:11:49.063120+00:00",
               "source": "https://www.tiktok.com/@cooked_dev_/video/7696458411986177302",
               "approximate": false
             },
             "likes": {
-              "value": 441,
-              "at": "2026-10-22T12:56:28.237727+00:00",
+              "value": 442,
+              "at": "2026-10-22T13:11:49.063120+00:00",
               "source": "https://www.tiktok.com/@cooked_dev_/video/7696458411986177302",
               "approximate": false
             },
             "comments": {
               "value": 6,
-              "at": "2026-10-22T12:56:28.237727+00:00",
+              "at": "2026-10-22T13:11:49.063120+00:00",
               "source": "https://www.tiktok.com/@cooked_dev_/video/7696458411986177302",
               "approximate": false
             },
             "shares": {
               "value": 17,
-              "at": "2026-10-22T12:56:28.237727+00:00",
+              "at": "2026-10-22T13:11:49.063120+00:00",
               "source": "https://www.tiktok.com/@cooked_dev_/video/7696458411986177302",
               "approximate": false
             },
             "saves": {
               "value": 41,
-              "at": "2026-10-22T12:56:28.237727+00:00",
+              "at": "2026-10-22T13:11:49.063120+00:00",
               "source": "https://www.tiktok.com/@cooked_dev_/video/7696458411986177302",
               "approximate": false
             }
@@ -566,7 +566,7 @@
           "metrics": {
             "comments": {
               "value": 0,
-              "at": "2026-10-22T12:56:45.831Z",
+              "at": "2026-10-22T13:12:06.874Z",
               "source": "https://youtube.com/shorts/tZT50wJu17s",
               "approximate": false,
               "method": "official_api",
@@ -574,7 +574,7 @@
             },
             "views": {
               "value": 1221,
-              "at": "2026-10-22T12:56:45.831Z",
+              "at": "2026-10-22T13:12:06.874Z",
               "source": "https://youtube.com/shorts/tZT50wJu17s",
               "approximate": false,
               "method": "official_api",
@@ -582,7 +582,7 @@
             },
             "likes": {
               "value": 18,
-              "at": "2026-10-22T12:56:45.831Z",
+              "at": "2026-10-22T13:12:06.874Z",
               "source": "https://youtube.com/shorts/tZT50wJu17s",
               "approximate": false,
               "method": "official_api",
@@ -616,7 +616,7 @@
           "metrics": {
             "comments": {
               "value": 2,
-              "at": "2026-10-22T12:56:28.237727+00:00",
+              "at": "2026-10-22T13:11:49.063120+00:00",
               "source": "https://x.com/Cooked_Deev/status/2112465088129171473",
               "approximate": false,
               "method": "fxembed_public",
@@ -625,7 +625,7 @@
             },
             "likes": {
               "value": 3,
-              "at": "2026-10-22T12:56:28.237727+00:00",
+              "at": "2026-10-22T13:11:49.063120+00:00",
               "source": "https://x.com/Cooked_Deev/status/2112465088129171473",
               "approximate": false,
               "method": "fxembed_public",
@@ -634,7 +634,7 @@
             },
             "shares": {
               "value": 0,
-              "at": "2026-10-22T12:56:28.237727+00:00",
+              "at": "2026-10-22T13:11:49.063120+00:00",
               "source": "https://x.com/Cooked_Deev/status/2112465088129171473",
               "approximate": false,
               "method": "fxembed_public",
@@ -642,8 +642,8 @@
               "upstreamObservedAt": null
             },
             "views": {
-              "value": 33,
-              "at": "2026-10-22T12:56:28.237727+00:00",
+              "value": 34,
+              "at": "2026-10-22T13:11:49.063120+00:00",
               "source": "https://x.com/Cooked_Deev/status/2112465088129171473",
               "approximate": false,
               "method": "fxembed_public",
@@ -695,31 +695,31 @@
           "metrics": {
             "views": {
               "value": 16600,
-              "at": "2026-10-22T12:56:28.237727+00:00",
+              "at": "2026-10-22T13:11:49.063120+00:00",
               "source": "https://www.tiktok.com/@cooked_dev_/video/7696540457509211414",
               "approximate": false
             },
             "likes": {
               "value": 608,
-              "at": "2026-10-22T12:56:28.237727+00:00",
+              "at": "2026-10-22T13:11:49.063120+00:00",
               "source": "https://www.tiktok.com/@cooked_dev_/video/7696540457509211414",
               "approximate": false
             },
             "comments": {
               "value": 11,
-              "at": "2026-10-22T12:56:28.237727+00:00",
+              "at": "2026-10-22T13:11:49.063120+00:00",
               "source": "https://www.tiktok.com/@cooked_dev_/video/7696540457509211414",
               "approximate": false
             },
             "shares": {
               "value": 36,
-              "at": "2026-10-22T12:56:28.237727+00:00",
+              "at": "2026-10-22T13:11:49.063120+00:00",
               "source": "https://www.tiktok.com/@cooked_dev_/video/7696540457509211414",
               "approximate": false
             },
             "saves": {
               "value": 61,
-              "at": "2026-10-22T12:56:28.237727+00:00",
+              "at": "2026-10-22T13:11:49.063120+00:00",
               "source": "https://www.tiktok.com/@cooked_dev_/video/7696540457509211414",
               "approximate": false
             }
@@ -730,8 +730,8 @@
           "url": "https://x.com/Cooked_Deev/status/2112589670962155929",
           "metrics": {
             "views": {
-              "value": 27,
-              "at": "2026-10-22T12:56:28.237727+00:00",
+              "value": 28,
+              "at": "2026-10-22T13:11:49.063120+00:00",
               "source": "https://x.com/Cooked_Deev/status/2112589670962155929",
               "approximate": false,
               "method": "fxembed_public",
@@ -740,7 +740,7 @@
             },
             "likes": {
               "value": 5,
-              "at": "2026-10-22T12:56:28.237727+00:00",
+              "at": "2026-10-22T13:11:49.063120+00:00",
               "source": "https://x.com/Cooked_Deev/status/2112589670962155929",
               "approximate": false,
               "method": "fxembed_public",
@@ -749,7 +749,7 @@
             },
             "comments": {
               "value": 6,
-              "at": "2026-10-22T12:56:28.237727+00:00",
+              "at": "2026-10-22T13:11:49.063120+00:00",
               "source": "https://x.com/Cooked_Deev/status/2112589670962155929",
               "approximate": false,
               "method": "fxembed_public",
@@ -758,7 +758,7 @@
             },
             "shares": {
               "value": 0,
-              "at": "2026-10-22T12:56:28.237727+00:00",
+              "at": "2026-10-22T13:11:49.063120+00:00",
               "source": "https://x.com/Cooked_Deev/status/2112589670962155929",
               "approximate": false,
               "method": "fxembed_public",
@@ -790,7 +790,7 @@
           "metrics": {
             "views": {
               "value": 1318,
-              "at": "2026-10-22T12:56:45.831Z",
+              "at": "2026-10-22T13:12:06.874Z",
               "source": "https://www.youtube.com/shorts/YQx-xnW6EF4",
               "approximate": false,
               "method": "official_api",
@@ -798,7 +798,7 @@
             },
             "likes": {
               "value": 16,
-              "at": "2026-10-22T12:56:45.831Z",
+              "at": "2026-10-22T13:12:06.874Z",
               "source": "https://www.youtube.com/shorts/YQx-xnW6EF4",
               "approximate": false,
               "method": "official_api",
@@ -806,7 +806,7 @@
             },
             "comments": {
               "value": 0,
-              "at": "2026-10-22T12:56:45.831Z",
+              "at": "2026-10-22T13:12:06.874Z",
               "source": "https://www.youtube.com/shorts/YQx-xnW6EF4",
               "approximate": false,
               "method": "official_api",
@@ -860,31 +860,31 @@
           "metrics": {
             "views": {
               "value": 26400,
-              "at": "2026-10-22T12:56:28.237727+00:00",
+              "at": "2026-10-22T13:11:49.063120+00:00",
               "source": "https://www.tiktok.com/@cooked_dev_/video/7696836109241830678",
               "approximate": false
             },
             "likes": {
-              "value": 1343,
-              "at": "2026-10-22T12:56:28.237727+00:00",
+              "value": 1346,
+              "at": "2026-10-22T13:11:49.063120+00:00",
               "source": "https://www.tiktok.com/@cooked_dev_/video/7696836109241830678",
               "approximate": false
             },
             "comments": {
               "value": 17,
-              "at": "2026-10-22T12:56:28.237727+00:00",
+              "at": "2026-10-22T13:11:49.063120+00:00",
               "source": "https://www.tiktok.com/@cooked_dev_/video/7696836109241830678",
               "approximate": false
             },
             "shares": {
               "value": 41,
-              "at": "2026-10-22T12:56:28.237727+00:00",
+              "at": "2026-10-22T13:11:49.063120+00:00",
               "source": "https://www.tiktok.com/@cooked_dev_/video/7696836109241830678",
               "approximate": false
             },
             "saves": {
               "value": 144,
-              "at": "2026-10-22T12:56:28.237727+00:00",
+              "at": "2026-10-22T13:11:49.063120+00:00",
               "source": "https://www.tiktok.com/@cooked_dev_/video/7696836109241830678",
               "approximate": false
             }
@@ -911,7 +911,7 @@
           "metrics": {
             "likes": {
               "value": 0,
-              "at": "2026-10-22T12:56:28.237727+00:00",
+              "at": "2026-10-22T13:11:49.063120+00:00",
               "source": "https://x.com/Cooked_Deev/status/2112863966850670783",
               "approximate": false,
               "method": "fxembed_public",
@@ -920,7 +920,7 @@
             },
             "comments": {
               "value": 0,
-              "at": "2026-10-22T12:56:28.237727+00:00",
+              "at": "2026-10-22T13:11:49.063120+00:00",
               "source": "https://x.com/Cooked_Deev/status/2112863966850670783",
               "approximate": false,
               "method": "fxembed_public",
@@ -928,8 +928,8 @@
               "upstreamObservedAt": null
             },
             "views": {
-              "value": 6,
-              "at": "2026-10-22T12:56:28.237727+00:00",
+              "value": 7,
+              "at": "2026-10-22T13:11:49.063120+00:00",
               "source": "https://x.com/Cooked_Deev/status/2112863966850670783",
               "approximate": false,
               "method": "fxembed_public",
@@ -938,7 +938,7 @@
             },
             "shares": {
               "value": 0,
-              "at": "2026-10-22T12:56:28.237727+00:00",
+              "at": "2026-10-22T13:11:49.063120+00:00",
               "source": "https://x.com/Cooked_Deev/status/2112863966850670783",
               "approximate": false,
               "method": "fxembed_public",
@@ -955,7 +955,7 @@
           "metrics": {
             "views": {
               "value": 1252,
-              "at": "2026-10-22T12:56:45.831Z",
+              "at": "2026-10-22T13:12:06.874Z",
               "source": "https://www.youtube.com/shorts/ldpdZuFDBm0",
               "approximate": false,
               "method": "official_api",
@@ -963,7 +963,7 @@
             },
             "likes": {
               "value": 10,
-              "at": "2026-10-22T12:56:45.831Z",
+              "at": "2026-10-22T13:12:06.874Z",
               "source": "https://www.youtube.com/shorts/ldpdZuFDBm0",
               "approximate": false,
               "method": "official_api",
@@ -971,7 +971,7 @@
             },
             "comments": {
               "value": 1,
-              "at": "2026-10-22T12:56:45.831Z",
+              "at": "2026-10-22T13:12:06.874Z",
               "source": "https://www.youtube.com/shorts/ldpdZuFDBm0",
               "approximate": false,
               "method": "official_api",
@@ -1025,31 +1025,31 @@
           "metrics": {
             "views": {
               "value": 14200,
-              "at": "2026-10-22T12:56:28.237727+00:00",
+              "at": "2026-10-22T13:11:49.063120+00:00",
               "source": "https://www.tiktok.com/@cooked_dev_/video/7697006100511526166",
               "approximate": false
             },
             "likes": {
               "value": 765,
-              "at": "2026-10-22T12:56:28.237727+00:00",
+              "at": "2026-10-22T13:11:49.063120+00:00",
               "source": "https://www.tiktok.com/@cooked_dev_/video/7697006100511526166",
               "approximate": false
             },
             "comments": {
               "value": 15,
-              "at": "2026-10-22T12:56:28.237727+00:00",
+              "at": "2026-10-22T13:11:49.063120+00:00",
               "source": "https://www.tiktok.com/@cooked_dev_/video/7697006100511526166",
               "approximate": false
             },
             "shares": {
               "value": 80,
-              "at": "2026-10-22T12:56:28.237727+00:00",
+              "at": "2026-10-22T13:11:49.063120+00:00",
               "source": "https://www.tiktok.com/@cooked_dev_/video/7697006100511526166",
               "approximate": false
             },
             "saves": {
               "value": 75,
-              "at": "2026-10-22T12:56:28.237727+00:00",
+              "at": "2026-10-22T13:11:49.063120+00:00",
               "source": "https://www.tiktok.com/@cooked_dev_/video/7697006100511526166",
               "approximate": false
             }
@@ -1076,7 +1076,7 @@
           "metrics": {
             "likes": {
               "value": 0,
-              "at": "2026-10-22T12:56:28.237727+00:00",
+              "at": "2026-10-22T13:11:49.063120+00:00",
               "source": "https://x.com/Cooked_Deev/status/2112864299194679692",
               "approximate": false,
               "method": "fxembed_public",
@@ -1085,7 +1085,7 @@
             },
             "comments": {
               "value": 0,
-              "at": "2026-10-22T12:56:28.237727+00:00",
+              "at": "2026-10-22T13:11:49.063120+00:00",
               "source": "https://x.com/Cooked_Deev/status/2112864299194679692",
               "approximate": false,
               "method": "fxembed_public",
@@ -1093,8 +1093,8 @@
               "upstreamObservedAt": null
             },
             "views": {
-              "value": 9,
-              "at": "2026-10-22T12:56:28.237727+00:00",
+              "value": 10,
+              "at": "2026-10-22T13:11:49.063120+00:00",
               "source": "https://x.com/Cooked_Deev/status/2112864299194679692",
               "approximate": false,
               "method": "fxembed_public",
@@ -1103,7 +1103,7 @@
             },
             "shares": {
               "value": 0,
-              "at": "2026-10-22T12:56:28.237727+00:00",
+              "at": "2026-10-22T13:11:49.063120+00:00",
               "source": "https://x.com/Cooked_Deev/status/2112864299194679692",
               "approximate": false,
               "method": "fxembed_public",
@@ -1120,7 +1120,7 @@
           "metrics": {
             "views": {
               "value": 1279,
-              "at": "2026-10-22T12:56:45.831Z",
+              "at": "2026-10-22T13:12:06.874Z",
               "source": "https://www.youtube.com/shorts/21kMd2IeRhc",
               "approximate": false,
               "method": "official_api",
@@ -1128,7 +1128,7 @@
             },
             "likes": {
               "value": 8,
-              "at": "2026-10-22T12:56:45.831Z",
+              "at": "2026-10-22T13:12:06.874Z",
               "source": "https://www.youtube.com/shorts/21kMd2IeRhc",
               "approximate": false,
               "method": "official_api",
@@ -1136,7 +1136,7 @@
             },
             "comments": {
               "value": 0,
-              "at": "2026-10-22T12:56:45.831Z",
+              "at": "2026-10-22T13:12:06.874Z",
               "source": "https://www.youtube.com/shorts/21kMd2IeRhc",
               "approximate": false,
               "method": "official_api",
@@ -1189,32 +1189,32 @@
           "url": "https://www.tiktok.com/@cooked_dev_/video/7697268720632171798",
           "metrics": {
             "views": {
-              "value": 9331,
-              "at": "2026-10-22T12:56:28.237727+00:00",
+              "value": 9336,
+              "at": "2026-10-22T13:11:49.063120+00:00",
               "source": "https://www.tiktok.com/@cooked_dev_/video/7697268720632171798",
               "approximate": false
             },
             "likes": {
               "value": 456,
-              "at": "2026-10-22T12:56:28.237727+00:00",
+              "at": "2026-10-22T13:11:49.063120+00:00",
               "source": "https://www.tiktok.com/@cooked_dev_/video/7697268720632171798",
               "approximate": false
             },
             "comments": {
               "value": 4,
-              "at": "2026-10-22T12:56:28.237727+00:00",
+              "at": "2026-10-22T13:11:49.063120+00:00",
               "source": "https://www.tiktok.com/@cooked_dev_/video/7697268720632171798",
               "approximate": false
             },
             "shares": {
               "value": 8,
-              "at": "2026-10-22T12:56:28.237727+00:00",
+              "at": "2026-10-22T13:11:49.063120+00:00",
               "source": "https://www.tiktok.com/@cooked_dev_/video/7697268720632171798",
               "approximate": false
             },
             "saves": {
               "value": 46,
-              "at": "2026-10-22T12:56:28.237727+00:00",
+              "at": "2026-10-22T13:11:49.063120+00:00",
               "source": "https://www.tiktok.com/@cooked_dev_/video/7697268720632171798",
               "approximate": false
             }
@@ -1262,32 +1262,32 @@
           "url": "https://www.tiktok.com/@cooked_dev_/video/7697433933046156566",
           "metrics": {
             "views": {
-              "value": 2455,
-              "at": "2026-10-22T12:56:28.237727+00:00",
+              "value": 2457,
+              "at": "2026-10-22T13:11:49.063120+00:00",
               "source": "https://www.tiktok.com/@cooked_dev_/video/7697433933046156566",
               "approximate": false
             },
             "likes": {
               "value": 116,
-              "at": "2026-10-22T12:56:28.237727+00:00",
+              "at": "2026-10-22T13:11:49.063120+00:00",
               "source": "https://www.tiktok.com/@cooked_dev_/video/7697433933046156566",
               "approximate": false
             },
             "comments": {
               "value": 1,
-              "at": "2026-10-22T12:56:28.237727+00:00",
+              "at": "2026-10-22T13:11:49.063120+00:00",
               "source": "https://www.tiktok.com/@cooked_dev_/video/7697433933046156566",
               "approximate": false
             },
             "shares": {
               "value": 10,
-              "at": "2026-10-22T12:56:28.237727+00:00",
+              "at": "2026-10-22T13:11:49.063120+00:00",
               "source": "https://www.tiktok.com/@cooked_dev_/video/7697433933046156566",
               "approximate": false
             },
             "saves": {
               "value": 14,
-              "at": "2026-10-22T12:56:28.237727+00:00",
+              "at": "2026-10-22T13:11:49.063120+00:00",
               "source": "https://www.tiktok.com/@cooked_dev_/video/7697433933046156566",
               "approximate": false
             }
@@ -1335,32 +1335,32 @@
           "url": "https://www.tiktok.com/@cooked_dev_/video/7697607934666214678",
           "metrics": {
             "views": {
-              "value": 9822,
-              "at": "2026-10-22T12:56:28.237727+00:00",
+              "value": 9824,
+              "at": "2026-10-22T13:11:49.063120+00:00",
               "source": "https://www.tiktok.com/@cooked_dev_/video/7697607934666214678",
               "approximate": false
             },
             "likes": {
               "value": 391,
-              "at": "2026-10-22T12:56:28.237727+00:00",
+              "at": "2026-10-22T13:11:49.063120+00:00",
               "source": "https://www.tiktok.com/@cooked_dev_/video/7697607934666214678",
               "approximate": false
             },
             "comments": {
               "value": 2,
-              "at": "2026-10-22T12:56:28.237727+00:00",
+              "at": "2026-10-22T13:11:49.063120+00:00",
               "source": "https://www.tiktok.com/@cooked_dev_/video/7697607934666214678",
               "approximate": false
             },
             "shares": {
               "value": 6,
-              "at": "2026-10-22T12:56:28.237727+00:00",
+              "at": "2026-10-22T13:11:49.063120+00:00",
               "source": "https://www.tiktok.com/@cooked_dev_/video/7697607934666214678",
               "approximate": false
             },
             "saves": {
               "value": 59,
-              "at": "2026-10-22T12:56:28.237727+00:00",
+              "at": "2026-10-22T13:11:49.063120+00:00",
               "source": "https://www.tiktok.com/@cooked_dev_/video/7697607934666214678",
               "approximate": false
             }
@@ -1408,32 +1408,32 @@
           "url": "https://www.tiktok.com/@cooked_dev_/video/7697693139510906134",
           "metrics": {
             "views": {
-              "value": 19700,
-              "at": "2026-10-22T12:56:28.237727+00:00",
+              "value": 19800,
+              "at": "2026-10-22T13:11:49.063120+00:00",
               "source": "https://www.tiktok.com/@cooked_dev_/video/7697693139510906134",
               "approximate": false
             },
             "likes": {
-              "value": 1072,
-              "at": "2026-10-22T12:56:28.237727+00:00",
+              "value": 1073,
+              "at": "2026-10-22T13:11:49.063120+00:00",
               "source": "https://www.tiktok.com/@cooked_dev_/video/7697693139510906134",
               "approximate": false
             },
             "comments": {
               "value": 19,
-              "at": "2026-10-22T12:56:28.237727+00:00",
+              "at": "2026-10-22T13:11:49.063120+00:00",
               "source": "https://www.tiktok.com/@cooked_dev_/video/7697693139510906134",
               "approximate": false
             },
             "shares": {
               "value": 92,
-              "at": "2026-10-22T12:56:28.237727+00:00",
+              "at": "2026-10-22T13:11:49.063120+00:00",
               "source": "https://www.tiktok.com/@cooked_dev_/video/7697693139510906134",
               "approximate": false
             },
             "saves": {
               "value": 115,
-              "at": "2026-10-22T12:56:28.237727+00:00",
+              "at": "2026-10-22T13:11:49.063120+00:00",
               "source": "https://www.tiktok.com/@cooked_dev_/video/7697693139510906134",
               "approximate": false
             }
@@ -1481,32 +1481,32 @@
           "url": "https://www.tiktok.com/@cooked_dev_/video/7697955584615697686",
           "metrics": {
             "views": {
-              "value": 5730,
-              "at": "2026-10-22T12:56:28.237727+00:00",
+              "value": 5733,
+              "at": "2026-10-22T13:11:49.063120+00:00",
               "source": "https://www.tiktok.com/@cooked_dev_/video/7697955584615697686",
               "approximate": false
             },
             "likes": {
               "value": 268,
-              "at": "2026-10-22T12:56:28.237727+00:00",
+              "at": "2026-10-22T13:11:49.063120+00:00",
               "source": "https://www.tiktok.com/@cooked_dev_/video/7697955584615697686",
               "approximate": false
             },
             "comments": {
               "value": 7,
-              "at": "2026-10-22T12:56:28.237727+00:00",
+              "at": "2026-10-22T13:11:49.063120+00:00",
               "source": "https://www.tiktok.com/@cooked_dev_/video/7697955584615697686",
               "approximate": false
             },
             "shares": {
               "value": 6,
-              "at": "2026-10-22T12:56:28.237727+00:00",
+              "at": "2026-10-22T13:11:49.063120+00:00",
               "source": "https://www.tiktok.com/@cooked_dev_/video/7697955584615697686",
               "approximate": false
             },
             "saves": {
               "value": 102,
-              "at": "2026-10-22T12:56:28.237727+00:00",
+              "at": "2026-10-22T13:11:49.063120+00:00",
               "source": "https://www.tiktok.com/@cooked_dev_/video/7697955584615697686",
               "approximate": false
             }
@@ -1555,31 +1555,31 @@
           "metrics": {
             "views": {
               "value": 11100,
-              "at": "2026-10-22T12:56:28.237727+00:00",
+              "at": "2026-10-22T13:11:49.063120+00:00",
               "source": "https://www.tiktok.com/@cooked_dev_/video/7698028052453887254",
               "approximate": false
             },
             "likes": {
-              "value": 474,
-              "at": "2026-10-22T12:56:28.237727+00:00",
+              "value": 475,
+              "at": "2026-10-22T13:11:49.063120+00:00",
               "source": "https://www.tiktok.com/@cooked_dev_/video/7698028052453887254",
               "approximate": false
             },
             "comments": {
               "value": 7,
-              "at": "2026-10-22T12:56:28.237727+00:00",
+              "at": "2026-10-22T13:11:49.063120+00:00",
               "source": "https://www.tiktok.com/@cooked_dev_/video/7698028052453887254",
               "approximate": false
             },
             "shares": {
               "value": 32,
-              "at": "2026-10-22T12:56:28.237727+00:00",
+              "at": "2026-10-22T13:11:49.063120+00:00",
               "source": "https://www.tiktok.com/@cooked_dev_/video/7698028052453887254",
               "approximate": false
             },
             "saves": {
               "value": 53,
-              "at": "2026-10-22T12:56:28.237727+00:00",
+              "at": "2026-10-22T13:11:49.063120+00:00",
               "source": "https://www.tiktok.com/@cooked_dev_/video/7698028052453887254",
               "approximate": false
             }
@@ -1603,31 +1603,31 @@
           "metrics": {
             "comments": {
               "value": 3,
-              "at": "2026-10-22T12:56:28.237727+00:00",
+              "at": "2026-10-22T13:11:49.063120+00:00",
               "source": "https://www.tiktok.com/@cooked_dev_/video/7698376957733424406",
               "approximate": false
             },
             "likes": {
               "value": 377,
-              "at": "2026-10-22T12:56:28.237727+00:00",
+              "at": "2026-10-22T13:11:49.063120+00:00",
               "source": "https://www.tiktok.com/@cooked_dev_/video/7698376957733424406",
               "approximate": false
             },
             "views": {
-              "value": 7586,
-              "at": "2026-10-22T12:56:28.237727+00:00",
+              "value": 7593,
+              "at": "2026-10-22T13:11:49.063120+00:00",
               "source": "https://www.tiktok.com/@cooked_dev_/video/7698376957733424406",
               "approximate": false
             },
             "shares": {
               "value": 14,
-              "at": "2026-10-22T12:56:28.237727+00:00",
+              "at": "2026-10-22T13:11:49.063120+00:00",
               "source": "https://www.tiktok.com/@cooked_dev_/video/7698376957733424406",
               "approximate": false
             },
             "saves": {
               "value": 49,
-              "at": "2026-10-22T12:56:28.237727+00:00",
+              "at": "2026-10-22T13:11:49.063120+00:00",
               "source": "https://www.tiktok.com/@cooked_dev_/video/7698376957733424406",
               "approximate": false
             }
@@ -1703,31 +1703,31 @@
           "metrics": {
             "comments": {
               "value": 56,
-              "at": "2026-10-22T12:56:28.237727+00:00",
+              "at": "2026-10-22T13:11:49.063120+00:00",
               "source": "https://www.tiktok.com/@cooked_dev_/video/7698448906186673430",
               "approximate": false
             },
             "likes": {
-              "value": 9299,
-              "at": "2026-10-22T12:56:28.237727+00:00",
+              "value": 9328,
+              "at": "2026-10-22T13:11:49.063120+00:00",
               "source": "https://www.tiktok.com/@cooked_dev_/video/7698448906186673430",
               "approximate": false
             },
             "views": {
-              "value": 142000,
-              "at": "2026-10-22T12:56:28.237727+00:00",
+              "value": 142400,
+              "at": "2026-10-22T13:11:49.063120+00:00",
               "source": "https://www.tiktok.com/@cooked_dev_/video/7698448906186673430",
               "approximate": false
             },
             "shares": {
-              "value": 970,
-              "at": "2026-10-22T12:56:28.237727+00:00",
+              "value": 971,
+              "at": "2026-10-22T13:11:49.063120+00:00",
               "source": "https://www.tiktok.com/@cooked_dev_/video/7698448906186673430",
               "approximate": false
             },
             "saves": {
-              "value": 961,
-              "at": "2026-10-22T12:56:28.237727+00:00",
+              "value": 963,
+              "at": "2026-10-22T13:11:49.063120+00:00",
               "source": "https://www.tiktok.com/@cooked_dev_/video/7698448906186673430",
               "approximate": false
             }
@@ -1755,31 +1755,31 @@
           "metrics": {
             "comments": {
               "value": 4,
-              "at": "2026-10-22T12:56:28.237727+00:00",
+              "at": "2026-10-22T13:11:49.063120+00:00",
               "source": "https://www.tiktok.com/@cooked_dev_/video/7698676759847308566",
               "approximate": false
             },
             "likes": {
               "value": 208,
-              "at": "2026-10-22T12:56:28.237727+00:00",
+              "at": "2026-10-22T13:11:49.063120+00:00",
               "source": "https://www.tiktok.com/@cooked_dev_/video/7698676759847308566",
               "approximate": false
             },
             "views": {
-              "value": 4787,
-              "at": "2026-10-22T12:56:28.237727+00:00",
+              "value": 4797,
+              "at": "2026-10-22T13:11:49.063120+00:00",
               "source": "https://www.tiktok.com/@cooked_dev_/video/7698676759847308566",
               "approximate": false
             },
             "shares": {
               "value": 8,
-              "at": "2026-10-22T12:56:28.237727+00:00",
+              "at": "2026-10-22T13:11:49.063120+00:00",
               "source": "https://www.tiktok.com/@cooked_dev_/video/7698676759847308566",
               "approximate": false
             },
             "saves": {
               "value": 23,
-              "at": "2026-10-22T12:56:28.237727+00:00",
+              "at": "2026-10-22T13:11:49.063120+00:00",
               "source": "https://www.tiktok.com/@cooked_dev_/video/7698676759847308566",
               "approximate": false
             }
@@ -1832,7 +1832,7 @@
           "metrics": {
             "views": {
               "value": 1115,
-              "at": "2026-10-22T12:56:45.831Z",
+              "at": "2026-10-22T13:12:06.874Z",
               "source": "https://www.youtube.com/shorts/XDAtAnthGBA",
               "approximate": false,
               "method": "official_api",
@@ -1840,7 +1840,7 @@
             },
             "likes": {
               "value": 19,
-              "at": "2026-10-22T12:56:45.831Z",
+              "at": "2026-10-22T13:12:06.874Z",
               "source": "https://www.youtube.com/shorts/XDAtAnthGBA",
               "approximate": false,
               "method": "official_api",
@@ -1848,7 +1848,7 @@
             },
             "comments": {
               "value": 1,
-              "at": "2026-10-22T12:56:45.831Z",
+              "at": "2026-10-22T13:12:06.874Z",
               "source": "https://www.youtube.com/shorts/XDAtAnthGBA",
               "approximate": false,
               "method": "official_api",
@@ -1863,32 +1863,32 @@
           "url": "https://www.tiktok.com/@cooked_dev_/video/7698756261571038486",
           "metrics": {
             "views": {
-              "value": 59000,
-              "at": "2026-10-22T12:56:28.237727+00:00",
+              "value": 59100,
+              "at": "2026-10-22T13:11:49.063120+00:00",
               "source": "https://www.tiktok.com/@cooked_dev_/video/7698756261571038486",
               "approximate": false
             },
             "likes": {
-              "value": 2901,
-              "at": "2026-10-22T12:56:28.237727+00:00",
+              "value": 2904,
+              "at": "2026-10-22T13:11:49.063120+00:00",
               "source": "https://www.tiktok.com/@cooked_dev_/video/7698756261571038486",
               "approximate": false
             },
             "comments": {
               "value": 16,
-              "at": "2026-10-22T12:56:28.237727+00:00",
+              "at": "2026-10-22T13:11:49.063120+00:00",
               "source": "https://www.tiktok.com/@cooked_dev_/video/7698756261571038486",
               "approximate": false
             },
             "shares": {
-              "value": 340,
-              "at": "2026-10-22T12:56:28.237727+00:00",
+              "value": 343,
+              "at": "2026-10-22T13:11:49.063120+00:00",
               "source": "https://www.tiktok.com/@cooked_dev_/video/7698756261571038486",
               "approximate": false
             },
             "saves": {
-              "value": 256,
-              "at": "2026-10-22T12:56:28.237727+00:00",
+              "value": 257,
+              "at": "2026-10-22T13:11:49.063120+00:00",
               "source": "https://www.tiktok.com/@cooked_dev_/video/7698756261571038486",
               "approximate": false
             }
@@ -1928,8 +1928,8 @@
           "url": "https://x.com/Cooked_Deev/status/2112579560134914054",
           "metrics": {
             "views": {
-              "value": 139,
-              "at": "2026-10-22T12:56:28.237727+00:00",
+              "value": 140,
+              "at": "2026-10-22T13:11:49.063120+00:00",
               "source": "https://x.com/Cooked_Deev/status/2112579560134914054",
               "approximate": false,
               "method": "fxembed_public",
@@ -1938,7 +1938,7 @@
             },
             "likes": {
               "value": 8,
-              "at": "2026-10-22T12:56:28.237727+00:00",
+              "at": "2026-10-22T13:11:49.063120+00:00",
               "source": "https://x.com/Cooked_Deev/status/2112579560134914054",
               "approximate": false,
               "method": "fxembed_public",
@@ -1947,7 +1947,7 @@
             },
             "comments": {
               "value": 6,
-              "at": "2026-10-22T12:56:28.237727+00:00",
+              "at": "2026-10-22T13:11:49.063120+00:00",
               "source": "https://x.com/Cooked_Deev/status/2112579560134914054",
               "approximate": false,
               "method": "fxembed_public",
@@ -1956,7 +1956,7 @@
             },
             "shares": {
               "value": 1,
-              "at": "2026-10-22T12:56:28.237727+00:00",
+              "at": "2026-10-22T13:11:49.063120+00:00",
               "source": "https://x.com/Cooked_Deev/status/2112579560134914054",
               "approximate": false,
               "method": "fxembed_public",
@@ -1999,32 +1999,32 @@
           "url": "https://www.tiktok.com/@cooked_dev_/video/7699166846888578326",
           "metrics": {
             "views": {
-              "value": 13300,
-              "at": "2026-10-22T12:56:28.237727+00:00",
+              "value": 13700,
+              "at": "2026-10-22T13:11:49.063120+00:00",
               "source": "https://www.tiktok.com/@cooked_dev_/video/7699166846888578326",
               "approximate": false
             },
             "likes": {
-              "value": 732,
-              "at": "2026-10-22T12:56:28.237727+00:00",
+              "value": 750,
+              "at": "2026-10-22T13:11:49.063120+00:00",
               "source": "https://www.tiktok.com/@cooked_dev_/video/7699166846888578326",
               "approximate": false
             },
             "comments": {
               "value": 7,
-              "at": "2026-10-22T12:56:28.237727+00:00",
+              "at": "2026-10-22T13:11:49.063120+00:00",
               "source": "https://www.tiktok.com/@cooked_dev_/video/7699166846888578326",
               "approximate": false
             },
             "shares": {
-              "value": 85,
-              "at": "2026-10-22T12:56:28.237727+00:00",
+              "value": 89,
+              "at": "2026-10-22T13:11:49.063120+00:00",
               "source": "https://www.tiktok.com/@cooked_dev_/video/7699166846888578326",
               "approximate": false
             },
             "saves": {
               "value": 86,
-              "at": "2026-10-22T12:56:28.237727+00:00",
+              "at": "2026-10-22T13:11:49.063120+00:00",
               "source": "https://www.tiktok.com/@cooked_dev_/video/7699166846888578326",
               "approximate": false
             }
@@ -2076,32 +2076,32 @@
           "url": "https://www.tiktok.com/@cooked_dev_/video/7699048417036733718",
           "metrics": {
             "views": {
-              "value": 8592,
-              "at": "2026-10-22T12:56:28.237727+00:00",
+              "value": 8612,
+              "at": "2026-10-22T13:11:49.063120+00:00",
               "source": "https://www.tiktok.com/@cooked_dev_/video/7699048417036733718",
               "approximate": false
             },
             "likes": {
-              "value": 386,
-              "at": "2026-10-22T12:56:28.237727+00:00",
+              "value": 387,
+              "at": "2026-10-22T13:11:49.063120+00:00",
               "source": "https://www.tiktok.com/@cooked_dev_/video/7699048417036733718",
               "approximate": false
             },
             "comments": {
               "value": 5,
-              "at": "2026-10-22T12:56:28.237727+00:00",
+              "at": "2026-10-22T13:11:49.063120+00:00",
               "source": "https://www.tiktok.com/@cooked_dev_/video/7699048417036733718",
               "approximate": false
             },
             "shares": {
               "value": 19,
-              "at": "2026-10-22T12:56:28.237727+00:00",
+              "at": "2026-10-22T13:11:49.063120+00:00",
               "source": "https://www.tiktok.com/@cooked_dev_/video/7699048417036733718",
               "approximate": false
             },
             "saves": {
               "value": 33,
-              "at": "2026-10-22T12:56:28.237727+00:00",
+              "at": "2026-10-22T13:11:49.063120+00:00",
               "source": "https://www.tiktok.com/@cooked_dev_/video/7699048417036733718",
               "approximate": false
             }
@@ -2153,32 +2153,32 @@
           "url": "https://www.tiktok.com/@cooked_dev_/video/7699417816889380118",
           "metrics": {
             "views": {
-              "value": 982,
-              "at": "2026-10-22T12:56:28.237727+00:00",
+              "value": 1059,
+              "at": "2026-10-22T13:11:49.063120+00:00",
               "source": "https://www.tiktok.com/@cooked_dev_/video/7699417816889380118",
               "approximate": false
             },
             "likes": {
-              "value": 54,
-              "at": "2026-10-22T12:56:28.237727+00:00",
+              "value": 59,
+              "at": "2026-10-22T13:11:49.063120+00:00",
               "source": "https://www.tiktok.com/@cooked_dev_/video/7699417816889380118",
               "approximate": false
             },
             "comments": {
-              "value": 2,
-              "at": "2026-10-22T12:56:28.237727+00:00",
+              "value": 3,
+              "at": "2026-10-22T13:11:49.063120+00:00",
               "source": "https://www.tiktok.com/@cooked_dev_/video/7699417816889380118",
               "approximate": false
             },
             "shares": {
-              "value": 8,
-              "at": "2026-10-22T12:56:28.237727+00:00",
+              "value": 9,
+              "at": "2026-10-22T13:11:49.063120+00:00",
               "source": "https://www.tiktok.com/@cooked_dev_/video/7699417816889380118",
               "approximate": false
             },
             "saves": {
-              "value": 6,
-              "at": "2026-10-22T12:56:28.237727+00:00",
+              "value": 7,
+              "at": "2026-10-22T13:11:49.063120+00:00",
               "source": "https://www.tiktok.com/@cooked_dev_/video/7699417816889380118",
               "approximate": false
             }
@@ -4602,6 +4602,15 @@
         "tiktok",
         "youtube"
       ]
+    },
+    {
+      "at": "2026-10-22T13:11:49.063120+00:00",
+      "views": 544745,
+      "posts": 58,
+      "updatedPlatforms": [
+        "tiktok",
+        "youtube"
+      ]
     }
   ],
   "assetLibrary": {
@@ -4612,48 +4621,49 @@
   },
   "mcpMergedAt": "2026-10-20T09:22:29.266077+00:00",
   "changes24h": {
-    "at": "2026-10-22T12:56:28.237727+00:00",
-    "baselineAt": "2026-10-21T12:55:20.143269+00:00",
+    "at": "2026-10-22T13:11:49.063120+00:00",
+    "baselineAt": "2026-10-21T13:10:41.672511+00:00",
     "views": null,
     "likes": null,
     "followers": null
   },
   "cloudCollection": {
-    "at": "2026-10-22T12:56:28.237727+00:00",
+    "at": "2026-10-22T13:11:49.063120+00:00",
     "method": "public_cloud",
     "metricsUpdated": {
-      "instagram": 36,
+      "instagram": 0,
       "tiktok": 98,
       "youtube": 23,
       "x": 29,
       "facebook": 0
     },
-    "runUrl": "https://github.com/jonass-pandos/cooked-dev-stats/actions/runs/39782496133"
+    "runUrl": "https://github.com/jonass-pandos/cooked-dev-stats/actions/runs/39784691665"
   },
   "discovery": {
     "youtube": {
       "status": "complete",
       "method": "official_api",
       "complete": true,
-      "checkedAt": "2026-10-22T12:56:45.831Z",
+      "checkedAt": "2026-10-22T13:12:06.874Z",
       "listedPosts": 7,
       "newVideos": 0,
-      "lastCompleteAt": "2026-10-22T12:56:45.831Z"
+      "lastCompleteAt": "2026-10-22T13:12:06.874Z"
     },
     "instagram": {
       "status": "session_required",
-      "checkedAt": "2026-10-22T12:56:28.237727+00:00",
+      "checkedAt": "2026-10-22T13:11:49.063120+00:00",
       "complete": false,
       "message": "New-publication discovery requires an authorized account list; a successful metrics check is not a complete list.",
       "lastCompleteAt": "2026-10-22T06:12:33.027Z"
     },
     "tiktok": {
-      "status": "unavailable",
-      "error": "HTTP Error 429: Too Many Requests",
+      "status": "partial",
+      "method": "public_creator_embed",
+      "newVideos": 4,
+      "listedPosts": 11,
       "complete": false,
-      "checkedAt": "2026-10-22T12:56:28.237727+00:00",
-      "feedStatus": "unavailable",
-      "newVideos": 4
+      "checkedAt": "2026-10-22T13:11:49.063120+00:00",
+      "feedStatus": "unavailable"
     },
     "x": {
       "status": "partial",
@@ -4663,11 +4673,11 @@
       "pages": 2,
       "complete": false,
       "message": "Third-party public timeline; upstream completeness and cache age are not guaranteed.",
-      "checkedAt": "2026-10-22T12:56:28.237727+00:00"
+      "checkedAt": "2026-10-22T13:11:49.063120+00:00"
     },
     "facebook": {
       "status": "session_required",
-      "checkedAt": "2026-10-22T12:56:28.237727+00:00",
+      "checkedAt": "2026-10-22T13:11:49.063120+00:00",
       "complete": false,
       "message": "New-publication discovery requires an authorized account list; a successful metrics check is not a complete list.",
       "lastCompleteAt": "2026-10-22T06:13:57.935Z"
