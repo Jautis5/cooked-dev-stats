@@ -16,10 +16,18 @@ indiaanbuilds; X is IndiaanBuilds. Never mix channel IDs or Facebook Page IDs.
 The cloud collector runs every 15 minutes without an owner computer. TikTok's
 ordinary profile response can omit its video list; the public creator embed is
 an additional bounded discovery source. YouTube's feed can fail; the exact
-owner's Shorts tab also refreshes known public view counts. X's public embed
-refreshes known-video likes and replies only. It exposes no views or reposts.
+owner's Shorts tab also refreshes known public view counts. X now also uses
+the anonymous FxEmbed public API for profile followers, attached-video discovery
+and known-post views/likes/replies/reposts. Resolve the verified handle to its
+numeric profile ID before reading the media timeline. Every returned post must
+match the registered author and contain its own public attached video. At most
+three timeline pages are read; the result stays partial. A 404 is not an empty
+account. Null counters preserve prior observations. Metrics retain the canonical
+post source plus `method=fxembed_public`, the actual `via` endpoint and an unknown
+`upstreamObservedAt`: the service does not guarantee upstream cache freshness.
+X's official public embed remains a fallback for likes and replies only.
 
-Instagram and Facebook full inventory, Instagram grid views, and X views/full
+Instagram and Facebook full inventory, Instagram grid views, and guaranteed X
 inventory need the authorized browser or supported account access. The cloud
 job cannot create that access. A completed process is not complete coverage.
 `health.json` records view freshness separately from other metrics and discovery.

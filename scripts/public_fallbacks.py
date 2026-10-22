@@ -2,6 +2,7 @@
 import datetime, json, re
 import collect as base
 from snapshot_merge import timestamp
+import public_x
 
 
 def add_post(data, platform, identity, url, caption, published=None):
@@ -107,14 +108,25 @@ def refresh_fallbacks(data):
             discovery[platform] = dict(result or {'status':'unavailable', 'error':error, 'complete':False}, checkedAt=base.NOW,
                                        feedStatus=prior.get('status'), newVideos=(result or {}).get('newVideos', 0)+prior.get('newVideos', 0))
             if prior.get('lastCompleteAt'): discovery[platform]['lastCompleteAt'] = prior['lastCompleteAt']
-        elif platform in ['instagram', 'facebook', 'x']:
+        elif platform == 'x':
+            result, error = base.attempt(public_x.discover, data, account, add_post)
+            previous = discovery.get(platform, {})
+            discovery[platform] = dict(result or {'status':'unavailable', 'error':error, 'complete':False}, checkedAt=base.NOW)
+            if previous.get('lastCompleteAt'): discovery[platform]['lastCompleteAt'] = previous['lastCompleteAt']
+        elif platform in ['instagram', 'facebook']:
             previous = discovery.get(platform, {})
             discovery[platform] = {'status':'session_required', 'checkedAt':base.NOW, 'complete':False,
                                    'message':'New-publication discovery requires an authorized account list; a successful metrics check is not a complete list.'}
             if previous.get('lastCompleteAt'): discovery[platform]['lastCompleteAt'] = previous['lastCompleteAt']
         if platform == 'x':
             for video in data['videos']:
-                if 'x' in video['posts']: base.attempt(x_public, video['posts']['x'], account)
+                if 'x' not in video['posts']: continue
+                post = video['posts']['x']
+                # The timeline already supplies recent posts; query older known posts separately.
+                if post.get('metrics', {}).get('views', {}).get('at') != base.NOW:
+                    base.attempt(public_x.known_post, post, account)
+                if not any(post.get('metrics', {}).get(k, {}).get('at') == base.NOW for k in ['likes', 'comments']):
+                    base.attempt(x_public, post, account)
         fresh = any(m.get('at') == base.NOW for obj in [account]+[v['posts'][platform] for v in data['videos'] if platform in v['posts']] for m in obj.get('metrics', {}).values())
         if fresh and account.get('status') == 'unavailable':
             account.update(status='partial', lastSuccessAt=base.NOW, message='Some public metrics refreshed; publication inventory remains incomplete.')
