@@ -10,10 +10,10 @@ from refresh_all import metric_health
 def fixture():
     at = datetime.datetime.now(datetime.timezone.utc).isoformat()
     data = {'version': 1, 'channelId': 'indian-builds', 'tracking': {'startedAt': '2026-10-20T00:00:00Z'},
-            'accounts': [{'id': 'tiktok', 'name': 'TikTok', 'expectedHandle': 'indiaanbuilds', 'url': 'https://www.tiktok.com/@indiaanbuilds', 'metrics': {}, 'status': 'partial'}], 'videos': []}
-    observation = {'version': 1, 'channelId': 'indian-builds', 'platform': 'tiktok', 'owner': {'handle': 'indiaanbuilds'}, 'checkedAt': at,
+            'accounts': [{'id': 'tiktok', 'name': 'TikTok', 'expectedHandle': 'indian_builds', 'url': 'https://www.tiktok.com/@indian_builds', 'metrics': {}, 'status': 'partial'}], 'videos': []}
+    observation = {'version': 1, 'channelId': 'indian-builds', 'platform': 'tiktok', 'owner': {'handle': 'indian_builds'}, 'checkedAt': at,
         'inventory': {'complete': True, 'scope': 'since_tracking_start'}, 'accountMetrics': {'followers': {'value': 0, 'apiMetric': 'follower_count'}},
-        'posts': [{'id': '123', 'url': 'https://www.tiktok.com/@indiaanbuilds/video/123', 'title': 'New video', 'publishedAt': '2026-10-21T12:00:00Z', 'metrics': {'views': {'value': 0, 'apiMetric': 'view_count'}}}]}
+        'posts': [{'id': '123', 'url': 'https://www.tiktok.com/@indian_builds/video/123', 'title': 'New video', 'publishedAt': '2026-10-21T12:00:00Z', 'metrics': {'views': {'value': 0, 'apiMetric': 'view_count'}}}]}
     return data, observation
 
 

@@ -66,8 +66,8 @@ function runtime(values={}) {
     if(url.includes('/oauth/token/')) result={access_token:'next-access',refresh_token:'next-refresh',open_id:'owner',expires_in:86400};
     else if(url.includes('/user/info/')) {
       assert.equal(JSON.parse(properties.get('TIKTOK_indian-builds')).refresh_token,'next-refresh');
-      result={data:{user:{open_id:'owner',username:'indiaanbuilds',follower_count:0}},error:{code:'ok'}};
-    } else result={data:{videos:[{id:'123',share_url:'https://www.tiktok.com/@indiaanbuilds/video/123',create_time:1792594934,view_count:0,like_count:2}],has_more:false},error:{code:'ok'}};
+      result={data:{user:{open_id:'owner',username:'indian_builds',follower_count:0}},error:{code:'ok'}};
+    } else result={data:{videos:[{id:'123',share_url:'https://www.tiktok.com/@indian_builds/video/123',create_time:1792594934,view_count:0,like_count:2}],has_more:false},error:{code:'ok'}};
     return {getResponseCode:()=>200,getContentText:()=>JSON.stringify(result)};
   }};
   const out=context.ssTikTok_('indian-builds',[]);

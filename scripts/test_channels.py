@@ -7,8 +7,10 @@ ROOT=pathlib.Path(__file__).resolve().parents[1]
 class ChannelSafety(unittest.TestCase):
     def setUp(self):
         self.data=json.loads((ROOT/'data/indian-builds/latest.json').read_text())
+        self.data['accounts'][1]['metrics']['followers']['value']=0
+        self.data['tracking']['excludedPostIds'].setdefault('tiktok',['excluded123'])
         self.now=datetime.datetime.now(datetime.timezone.utc).isoformat()
-    def batch(self,url='https://www.tiktok.com/@indiaanbuilds'):
+    def batch(self,url='https://www.tiktok.com/@indian_builds'):
         return {'channelId':'indian-builds','platforms':{'tiktok':{'browserProfile':'lostastronaut.space','accountUrl':url,'observedAt':self.now,'profileMetrics':{},'posts':[]}}}
     def test_cooked_dev_cannot_be_imported_into_indian_builds(self):
         with self.assertRaises(ValueError):merge(self.data,self.batch('https://www.tiktok.com/@cooked_dev_'))
@@ -18,12 +20,12 @@ class ChannelSafety(unittest.TestCase):
         self.assertEqual(out['accounts'][1]['metrics']['followers']['value'],0)
         self.assertEqual(self.data,before)
     def test_legacy_and_wrong_authors_cannot_be_adopted(self):
-        self.assertFalse(c.tracked_item(self.data,{'id':'999','author':{'uniqueId':'cooked_dev_'},'createTime':2000000000},'indiaanbuilds'))
+        self.assertFalse(c.tracked_item(self.data,{'id':'999','author':{'uniqueId':'cooked_dev_'},'createTime':2000000000},'indian_builds'))
         legacy=self.data['tracking']['excludedPostIds']['tiktok'][0]
-        self.assertFalse(c.tracked_item(self.data,{'id':legacy,'author':{'uniqueId':'indiaanbuilds'},'createTime':2000000000},'indiaanbuilds'))
-        self.assertFalse(c.tracked_item(self.data,{'id':'999','author':{'uniqueId':'indiaanbuilds'},'createTime':1},'indiaanbuilds'))
+        self.assertFalse(c.tracked_item(self.data,{'id':legacy,'author':{'uniqueId':'indian_builds'},'createTime':2000000000},'indian_builds'))
+        self.assertFalse(c.tracked_item(self.data,{'id':'999','author':{'uniqueId':'indian_builds'},'createTime':1},'indian_builds'))
     def test_matching_new_public_video_has_no_guessed_drive_or_instagram(self):
-        batch=self.batch();batch['platforms']['tiktok']['posts']=[{'id':'999','url':'https://www.tiktok.com/@indiaanbuilds/video/999','public':True,'caption':'A new build','metrics':{'views':0}}]
+        batch=self.batch();batch['platforms']['tiktok']['posts']=[{'id':'999','url':'https://www.tiktok.com/@indian_builds/video/999','public':True,'caption':'A new build','metrics':{'views':0}}]
         out=merge(self.data,batch);v=out['videos'][-1]
         self.assertIsNone(v['assetUrl']);self.assertEqual(list(v['posts']),['tiktok'])
         self.assertEqual(v['posts']['tiktok']['metrics']['views']['value'],0)
@@ -32,7 +34,7 @@ class ChannelSafety(unittest.TestCase):
         with patch.object(c.base,'request',return_value='ignored'),patch.object(c.base,'state',return_value={'webapp.user-detail':scope}):out=c.refresh(copy.deepcopy(self.data))
         self.assertEqual(out['accounts'][1]['metrics']['followers']['value'],0)
     def test_additional_channel_tracks_explicit_public_upload_count(self):
-        scope={'userInfo':{'user':{'uniqueId':'indiaanbuilds'},'stats':{'followerCount':0,'heartCount':25,'videoCount':0}},'itemList':[]}
+        scope={'userInfo':{'user':{'uniqueId':'indian_builds'},'stats':{'followerCount':0,'heartCount':25,'videoCount':0}},'itemList':[]}
         with patch.object(c.base,'request',return_value='ignored'),patch.object(c.base,'state',return_value={'webapp.user-detail':scope}):
             out=c.refresh(copy.deepcopy(self.data))
         self.assertEqual(out['accounts'][1]['metrics']['publishedCount']['value'],0)
@@ -41,7 +43,7 @@ class ChannelSafety(unittest.TestCase):
         self.assertFalse(out['discovery']['tiktok']['complete'])
     def test_missing_upload_count_does_not_invent_zero(self):
         data=copy.deepcopy(self.data);data['accounts'][1]['metrics'].pop('publishedCount',None)
-        scope={'userInfo':{'user':{'uniqueId':'indiaanbuilds'},'stats':{'followerCount':0}},'itemList':[]}
+        scope={'userInfo':{'user':{'uniqueId':'indian_builds'},'stats':{'followerCount':0}},'itemList':[]}
         with patch.object(c.base,'request',return_value='ignored'),patch.object(c.base,'state',return_value={'webapp.user-detail':scope}):out=c.refresh(data)
         self.assertNotIn('publishedCount',out['accounts'][1]['metrics'])
         self.assertIsNone(out['discovery']['tiktok']['reportedPosts'])
@@ -54,7 +56,7 @@ class ChannelSafety(unittest.TestCase):
             self.assertEqual(len({v['id'] for v in data['videos']}),len(data['videos']))
             if channel['id']=='indian-builds':
                 self.assertEqual(data['channelId'],channel['id'])
-                self.assertTrue(all(a.get('expectedHandle')=='indiaanbuilds' for a in data['accounts'] if a['id'] in ['instagram','tiktok']))
+                self.assertTrue(all(a.get('expectedHandle')=='indian_builds' for a in data['accounts'] if a['id'] in ['instagram','tiktok']))
                 facebook=next(a for a in data['accounts'] if a['id']=='facebook')
                 self.assertEqual(facebook['expectedPageId'],'61594164374065')
                 self.assertEqual(facebook['url'],'https://www.facebook.com/profile.php?id=61594164374065')

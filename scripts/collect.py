@@ -158,6 +158,7 @@ def update_changes(data, snapshots=None,directory=None):
  for key in ['views','likes','followers']:
   if key=='followers':
    if {a['id'] for a in base['accounts']}!={a['id'] for a in data['accounts']}:continue
+   if {a['id']:a.get('url') for a in base['accounts']}!={a['id']:a.get('url') for a in data['accounts']}:continue
    left=measured(base['accounts'],key,before);right=measured(data['accounts'],key,now)
   else:
    if not same_publications:continue

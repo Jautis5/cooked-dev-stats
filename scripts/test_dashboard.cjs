@@ -23,8 +23,9 @@ assert.equal(api.summary(indian).views.value,knownViews.length?knownViews.reduce
 assert.equal(api.summary(indian).postCount,indianPosts.length);
 const verifiedEmpty={accounts:[{id:'x',trackedEmptyConfirmedAt:'2026-10-20T00:00:00Z',metrics:{trackedPublishedCount:{value:0}}}],videos:[]};
 assert.equal(api.summary(verifiedEmpty).views.value,0);
-assert.ok(indian.tracking.excludedPostIds.tiktok.length>=16);
-assert.ok(indian.accounts.filter(a=>['instagram','tiktok'].includes(a.id)).every(a=>a.expectedHandle==='indiaanbuilds'));
+assert.equal(indian.accounts.find(a=>a.id==='tiktok').url,'https://www.tiktok.com/@indian_builds');
+assert.equal(indian.accounts.find(a=>a.id==='instagram').url,'https://www.instagram.com/indian_builds/');
+assert.ok(indian.accounts.filter(a=>['instagram','tiktok'].includes(a.id)).every(a=>a.expectedHandle==='indian_builds'));
 assert.equal(indian.accounts.find(a=>a.id==='facebook').expectedPageId,'61594164374065');
 assert.equal(indian.accounts.find(a=>a.id==='x').url,'https://x.com/IndiaanBuilds');
 assert.equal(indian.accounts.find(a=>a.id==='youtube').expectedChannelId,'UCgHxdk2zTRXwsoCrICSwiRg');

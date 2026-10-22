@@ -1,7 +1,7 @@
 /** Social Stats official read broker. Private project; never log or return credentials. */
 const SS_CHANNELS = {
   'cooked-dev': {youtube:'UCNPkHyLJotjamsFxts47T2A',instagram:'cooked_dev',tiktok:'cooked_dev_',facebook:'61595564490107',since:'2026-10-19T00:00:00Z'},
-  'indian-builds': {youtube:'UCgHxdk2zTRXwsoCrICSwiRg',instagram:'indiaanbuilds',tiktok:'indiaanbuilds',facebook:'61594164374065',since:'2026-10-20T00:00:00Z'},
+  'indian-builds': {youtube:'UCgHxdk2zTRXwsoCrICSwiRg',instagram:'indian_builds',tiktok:'indian_builds',facebook:'61594164374065',since:'2026-10-20T00:00:00Z'},
   'dont-get-traced': {youtube:'UCqsTDLISgGhzA_xiQT3E9yg',instagram:'dontgettraced',tiktok:'dontgettraceed',facebook:'61595574064670',since:'2026-10-21T00:00:00Z'}
 };
 const SS_PLATFORMS = ['youtube','tiktok','instagram','facebook'];

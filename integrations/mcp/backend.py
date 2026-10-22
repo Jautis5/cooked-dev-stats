@@ -16,7 +16,7 @@ import urllib.request
 
 CHANNELS = {
     'cooked-dev': {'instagram': 'cooked_dev', 'tiktok': 'cooked_dev_'},
-    'indian-builds': {'instagram': 'indiaanbuilds', 'tiktok': 'indiaanbuilds'},
+    'indian-builds': {'instagram': 'indian_builds', 'tiktok': 'indian_builds'},
     'dont-get-traced': {'instagram': 'dontgettraced', 'tiktok': 'dontgettraceed'},
 }
 ERRORS = {'CONFIGURATION_REQUIRED', 'UNAUTHORIZED', 'INVALID_REQUEST', 'REPLAY_REJECTED',
