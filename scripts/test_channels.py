@@ -31,6 +31,20 @@ class ChannelSafety(unittest.TestCase):
         scope={'userInfo':{'user':{'uniqueId':'cooked_dev_'},'stats':{'followerCount':999}}}
         with patch.object(c.base,'request',return_value='ignored'),patch.object(c.base,'state',return_value={'webapp.user-detail':scope}):out=c.refresh(copy.deepcopy(self.data))
         self.assertEqual(out['accounts'][1]['metrics']['followers']['value'],0)
+    def test_additional_channel_tracks_explicit_public_upload_count(self):
+        scope={'userInfo':{'user':{'uniqueId':'indiaanbuilds'},'stats':{'followerCount':0,'heartCount':25,'videoCount':0}},'itemList':[]}
+        with patch.object(c.base,'request',return_value='ignored'),patch.object(c.base,'state',return_value={'webapp.user-detail':scope}):
+            out=c.refresh(copy.deepcopy(self.data))
+        self.assertEqual(out['accounts'][1]['metrics']['publishedCount']['value'],0)
+        self.assertEqual(out['accounts'][1]['metrics']['publishedCount']['at'],c.base.NOW)
+        self.assertEqual(out['discovery']['tiktok']['reportedPosts'],0)
+        self.assertFalse(out['discovery']['tiktok']['complete'])
+    def test_missing_upload_count_does_not_invent_zero(self):
+        data=copy.deepcopy(self.data);data['accounts'][1]['metrics'].pop('publishedCount',None)
+        scope={'userInfo':{'user':{'uniqueId':'indiaanbuilds'},'stats':{'followerCount':0}},'itemList':[]}
+        with patch.object(c.base,'request',return_value='ignored'),patch.object(c.base,'state',return_value={'webapp.user-detail':scope}):out=c.refresh(data)
+        self.assertNotIn('publishedCount',out['accounts'][1]['metrics'])
+        self.assertIsNone(out['discovery']['tiktok']['reportedPosts'])
     def test_registry_separates_sources(self):
         registry=json.loads((ROOT/'data/channels.json').read_text())['channels']
         self.assertEqual(len({r['id'] for r in registry}),len(registry))

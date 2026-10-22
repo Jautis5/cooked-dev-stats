@@ -102,12 +102,19 @@ def refresh_fallbacks(data):
     for account in data['accounts']:
         platform = account['id']
         if platform in ['tiktok', 'youtube']:
+            prior = discovery.get(platform, {})
+            # An owner-matched public profile can explicitly report zero uploads.
+            # Avoid a second embed request when there are no known videos, while
+            # retaining that this is a reported count, not an exhaustive API list.
+            if platform == 'tiktok' and prior.get('checkedAt') == base.NOW and prior.get('reportedPosts') == 0 and not any('tiktok' in v['posts'] for v in data['videos']):
+                continue
             fn = tiktok_embed if platform == 'tiktok' else youtube_shorts
             result, error = base.attempt(fn, data, account)
             prior = discovery.get(platform, {})
             discovery[platform] = dict(result or {'status':'unavailable', 'error':error, 'complete':False}, checkedAt=base.NOW,
                                        feedStatus=prior.get('status'), newVideos=(result or {}).get('newVideos', 0)+prior.get('newVideos', 0))
             if prior.get('lastCompleteAt'): discovery[platform]['lastCompleteAt'] = prior['lastCompleteAt']
+            if 'reportedPosts' in prior: discovery[platform]['reportedPosts'] = prior['reportedPosts']
         elif platform == 'x':
             result, error = base.attempt(public_x.discover, data, account, add_post)
             previous = discovery.get(platform, {})

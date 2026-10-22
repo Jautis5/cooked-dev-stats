@@ -51,10 +51,19 @@ function combine(list){
  return out;
 }
 function statusText(a){
+ if(a.emptyConfirmedAt&&a.metrics?.publishedCount?.value===0)return 'No public uploads observed · checked '+time(a.emptyConfirmedAt)+'.';
+ if(a.trackedEmptyConfirmedAt&&a.metrics?.trackedPublishedCount?.value===0)return 'No videos in the tracked scope · checked '+time(a.trackedEmptyConfirmedAt)+'.';
  if(a.id==='youtube'&&a.status==='unavailable')return 'Content access needs verification. Last verified metrics are preserved.';
  if(a.status==='ok')return 'Public account and content list checked.';
  if(a.status==='partial')return 'Some metrics updated. Each number keeps its own observation time.';
  return 'Source unavailable. Showing the last verified metrics.';
+}
+function missingPublication(account,data){
+ const known=data.videos.some(v=>v.posts[account.id]);
+ const checked=account.emptyConfirmedAt||account.trackedEmptyConfirmedAt;
+ if(!known&&checked&&(account.metrics?.publishedCount?.value===0||account.metrics?.trackedPublishedCount?.value===0))
+  return '<span class="post-link unconfirmed" title="'+esc(account.name+' · no public videos in scope when checked '+time(checked))+'">'+esc(ABBR[account.id]||account.name)+' · empty</span>';
+ return '<span class="post-link unconfirmed" title="'+esc(account.name)+' · publication not confirmed">'+esc(ABBR[account.id]||account.name)+' —</span>';
 }
 function metricTitle(m){return `${m?.approximate?'Approximately ':''}${full(m?.value)} · Observed ${time(m?.at||m?.oldest)}`;}
 function metricCell(m,date=true){
@@ -365,7 +374,7 @@ function renderVideos(){
  $('clear-filter').hidden=!opts.term&&active==='all'&&opts.coverage==='all'&&(selected()||opts.channel==='all')&&opts.sort==='views';
  $('videos').innerHTML=vs.map((r,i)=>{
   const v=r.video,count=coverageFor(r),date=Date.parse(v.publishedAt);
-  return '<tr><td><div class="video-info">'+(v.thumbnail?'<img class="thumb" src="'+safe(v.thumbnail)+'" alt="" loading="lazy" onerror="this.hidden=true">':'<span class="thumb" aria-hidden="true"></span>')+'<div><button class="video-title" data-row="'+i+'">'+esc(videoTitle(v))+'</button><div class="video-meta">'+channelBadge(r.channel)+(Number.isFinite(date)?'<time datetime="'+esc(v.publishedAt)+'">'+esc(new Intl.DateTimeFormat('en-GB',{day:'2-digit',month:'short',timeZone:'Europe/Vilnius'}).format(new Date(date)))+'</time>':'')+'</div>'+assetLink(v)+'</div></div></td><td><div class="post-links">'+r.data.accounts.map(a=>{const p=v.posts[a.id];return p?.url?'<a class="post-link" href="'+safe(p.url)+'" target="_blank" rel="noopener" title="'+esc(a.name)+' · confirmed post">'+esc(ABBR[a.id]||a.name)+' ↗</a>':'<span class="post-link unconfirmed" title="'+esc(a.name)+' · publication not confirmed">'+esc(ABBR[a.id]||a.name)+' —</span>';}).join('')+'</div><p class="coverage-caption">'+count.confirmed+' / '+count.total+' platforms confirmed</p></td>'+['views','likes','comments','shares'].map(k=>'<td class="number">'+metricCell(total(postsFor(v),k))+'</td>').join('')+'</tr>';
+  return '<tr><td><div class="video-info">'+(v.thumbnail?'<img class="thumb" src="'+safe(v.thumbnail)+'" alt="" loading="lazy" onerror="this.hidden=true">':'<span class="thumb" aria-hidden="true"></span>')+'<div><button class="video-title" data-row="'+i+'">'+esc(videoTitle(v))+'</button><div class="video-meta">'+channelBadge(r.channel)+(Number.isFinite(date)?'<time datetime="'+esc(v.publishedAt)+'">'+esc(new Intl.DateTimeFormat('en-GB',{day:'2-digit',month:'short',timeZone:'Europe/Vilnius'}).format(new Date(date)))+'</time>':'')+'</div>'+assetLink(v)+'</div></div></td><td><div class="post-links">'+r.data.accounts.map(a=>{const p=v.posts[a.id];return p?.url?'<a class="post-link" href="'+safe(p.url)+'" target="_blank" rel="noopener" title="'+esc(a.name)+' · confirmed post">'+esc(ABBR[a.id]||a.name)+' ↗</a>':missingPublication(a,r.data);}).join('')+'</div><p class="coverage-caption">'+count.confirmed+' / '+count.total+' platforms confirmed</p></td>'+['views','likes','comments','shares'].map(k=>'<td class="number">'+metricCell(total(postsFor(v),k))+'</td>').join('')+'</tr>';
  }).join('');
  $('videos').querySelectorAll('[data-row]').forEach(b=>b.addEventListener('click',()=>{const r=vs[Number(b.dataset.row)];detail(r.channel.id,r.video.id);}));
  $('empty').hidden=vs.length>0;

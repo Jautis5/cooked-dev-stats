@@ -60,7 +60,15 @@ def refresh(data):
                 base.setmetric(account,'followers',stats.get('followerCount'),account['url'])
                 # Account-wide likes include legacy content and never enter tracked-video likes.
                 base.setmetric(account,'profileLikes',stats.get('heartCount'),account['url'])
+                # Account-wide uploads are distinct from the tracked rebrand scope.
+                # Previously this field was omitted outside Cooked Dev, leaving a
+                # stale zero and making an empty account look like a failed scan.
+                base.setmetric(account,'publishedCount',stats.get('videoCount'),account['url'])
                 account.update(status='partial',lastSuccessAt=now,message='Profile checked; tracked content excludes legacy posts.')
+                reported=base.num(stats.get('videoCount'))
+                data.setdefault('discovery',{})['tiktok']={'status':'profile_checked','checkedAt':now,'complete':False,
+                    'method':'public_profile','reportedPosts':reported,
+                    'message':'The profile reports no public uploads.' if reported==0 else 'Profile counters checked; video-list coverage requires a separate scan.'}
                 for item in (scope or {}).get('itemList',[]):
                     if not isinstance(item,dict) or not tracked_item(data,item,expected):continue
                     if any(v['posts'].get('tiktok',{}).get('id')==str(item['id']) for v in data['videos']):continue
