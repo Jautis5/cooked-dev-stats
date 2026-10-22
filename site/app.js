@@ -54,7 +54,7 @@ function statusText(a){
  if(a.emptyConfirmedAt&&a.metrics?.publishedCount?.value===0)return 'No public uploads observed · checked '+time(a.emptyConfirmedAt)+'.';
  if(a.trackedEmptyConfirmedAt&&a.metrics?.trackedPublishedCount?.value===0)return 'No videos in the tracked scope · checked '+time(a.trackedEmptyConfirmedAt)+'.';
  if(a.id==='youtube'&&a.status==='unavailable')return 'Content access needs verification. Last verified metrics are preserved.';
- if(a.status==='ok')return 'Public account and content list checked.';
+ if(a.status==='ok')return 'Available metrics for known publications refreshed. Inventory is checked separately.';
  if(a.status==='partial')return 'Some metrics updated. Each number keeps its own observation time.';
  return 'Source unavailable. Showing the last verified metrics.';
 }
@@ -303,10 +303,21 @@ function renderComparison(){
  }).join('');
 }
 function platformSummary(data,a){return summary(data,a.id);}
+function inventoryAudit(data,account,now=Date.now()){
+ const report=data.discovery?.[account.id]||{},at=report.complete?report.checkedAt:report.lastCompleteAt;
+ const age=now-Date.parse(at),overdue=!Number.isFinite(age)||age>2*3600000;
+ return {at,overdue,complete:report.complete===true&&!overdue};
+}
+function accountState(data,a){
+ const inventory=inventoryAudit(data,a);
+ if(inventory.overdue)return {label:'New-video check overdue',warning:true};
+ if(!inventory.complete)return {label:'Inventory incomplete',warning:true};
+ return {label:a.status==='ok'?'Checked':a.status==='partial'?'Partial metrics':'Source limited',warning:a.status!=='ok'};
+}
 function renderChannel(c,data){
  $('platforms').innerHTML=data.accounts.map(a=>{
-  const s=platformSummary(data,a);
-  return '<button class="platform" data-platform="'+esc(a.id)+'" aria-label="View '+esc(a.name)+' video tracking"><div class="platform-head"><span class="platform-name">'+esc(a.name)+'</span><span class="sub">'+s.postCount+' posts ↗</span></div><div class="big" title="'+esc(metricTitle(s.views))+'">'+approx(s.views)+compact(s.views.value)+'</div><div class="sub">views · '+compact(a.metrics?.followers?.value)+' followers</div><div class="status" title="'+esc(statusText(a))+'"><span class="dot '+(a.status==='ok'?'ok':'partial')+'"></span>'+(a.status==='ok'?'Checked':a.status==='partial'?'Partial metrics':'Source limited')+'</div></button>';
+  const s=platformSummary(data,a),state=accountState(data,a);
+  return '<button class="platform" data-platform="'+esc(a.id)+'" aria-label="View '+esc(a.name)+' video tracking"><div class="platform-head"><span class="platform-name">'+esc(a.name)+'</span><span class="sub">'+s.postCount+' posts ↗</span></div><div class="big" title="'+esc(metricTitle(s.views))+'">'+approx(s.views)+compact(s.views.value)+'</div><div class="sub">views · '+compact(a.metrics?.followers?.value)+' followers</div><div class="status" title="'+esc(statusText(a))+'"><span class="dot '+(state.warning?'partial':'ok')+'"></span>'+esc(state.label)+'</div></button>';
  }).join('');
  $('platforms').querySelectorAll('[data-platform]').forEach(b=>b.addEventListener('click',()=>{active=b.dataset.platform;location.hash=scopeHref(c.id,'videos');}));
  $('channel-accounts-link').href=scopeHref(c.id,'accounts');
@@ -320,6 +331,8 @@ function issuesFor(config,records){
   if(e.fallback)issues.push({channel:c,title:'Saved snapshot in use',text:'The live feed could not be reached. The last verified observations are preserved.'});
   const blocked=d.accounts.filter(a=>['unavailable','snapshot'].includes(a.status));
   if(blocked.length)issues.push({channel:c,title:'Source access needs a check',text:blocked.map(a=>a.name).join(', ')+': current collection is limited. Earlier metric values may still be visible.'});
+  const overdue=d.accounts.filter(a=>inventoryAudit(d,a).overdue);
+  if(overdue.length)issues.push({channel:c,title:'New-video discovery overdue',text:overdue.map(a=>a.name).join(', ')+': no complete publication list verified within 2 hours. Metric refreshes cannot confirm that new videos were found.'});
   const posts=d.videos.flatMap(v=>Object.values(v.posts)),missing=posts.filter(p=>!valid(p.metrics?.views)).length;
   if(missing)issues.push({channel:c,title:missing+' posts have no view count',text:'These are confirmed publications with an unavailable view metric. Shared views include only known values.'});
   if(d.accounts.some(a=>a.status==='partial'))issues.push({channel:c,title:'Some metrics have different update times',text:'A successful feed check does not refresh every metric. Check the observation times before comparing growth.'});
@@ -412,15 +425,15 @@ function inventoryText(data,account){
  const report=data.discovery?.[account.id],known=data.videos.filter(v=>v.posts[account.id]).length;
  const expected=account.metrics?.publishedCount;
  const gap=valid(expected)&&expected.value>known?' · profile reported '+expected.value+' posts; '+known+' linked':'';
- const label=report?.complete?'Complete list verified':report?.status==='session_required'?'New-post discovery needs account access':'Recent public list only · full inventory unverified';
+ const label=inventoryAudit(data,account).overdue?'New-video discovery overdue':report?.complete?'Complete list verified':report?.status==='session_required'?'New-post discovery needs account access':'Recent public list only · full inventory unverified';
  return label+gap+(report?.lastCompleteAt?' · last full list: '+time(report.lastCompleteAt):'');
 }
 function renderAccounts(){
  $('account-groups').innerHTML=scopedChannels().map(c=>{
   const entry=entries.get(c.id),d=entry?.data;
   return '<article class="account-group"><div class="account-group-head"><img src="'+safe(c.logo)+'" alt=""><div><h3>'+esc(c.name)+'</h3><p>'+esc(time(checkedAt(d)))+' · feed check</p></div><a href="'+scopeHref(c.id)+'">Overview ↗</a></div>'+(d?d.accounts.map(a=>{
-   const s=platformSummary(d,a),state=a.status==='ok'?'Checked':a.status==='partial'?'Partial metrics':'Source limited';
-   return '<div class="account-row"><div class="account-row-top"><div><a class="account-name" href="'+safe(a.url)+'" target="_blank" rel="noopener">'+esc(a.name)+' ↗</a><p class="account-handle">'+esc(accountHandle(a))+'</p></div><span class="status-badge '+(a.status==='ok'?'':'warning')+'"><span class="dot '+(a.status==='ok'?'ok':'partial')+'"></span>'+state+'</span></div><div class="account-metrics"><div><strong>'+metricCell(a.metrics?.followers,false)+'</strong><small>Followers</small></div><div><strong>'+metricCell(s.views,false)+'</strong><small>Tracked views</small></div><div><strong>'+s.postCount+'</strong><small>Confirmed video posts</small></div></div><p class="account-check">Source check: '+esc(time(a.lastAttemptAt))+' · followers observed: '+esc(time(a.metrics?.followers?.at))+' · oldest views: '+esc(time(s.views.oldest))+'</p><p class="account-note">'+esc(inventoryText(d,a))+'</p><p class="account-note">'+esc(statusText(a))+'</p></div>';
+   const s=platformSummary(d,a),state=accountState(d,a);
+   return '<div class="account-row"><div class="account-row-top"><div><a class="account-name" href="'+safe(a.url)+'" target="_blank" rel="noopener">'+esc(a.name)+' ↗</a><p class="account-handle">'+esc(accountHandle(a))+'</p></div><span class="status-badge '+(state.warning?'warning':'')+'"><span class="dot '+(state.warning?'partial':'ok')+'"></span>'+esc(state.label)+'</span></div><div class="account-metrics"><div><strong>'+metricCell(a.metrics?.followers,false)+'</strong><small>Followers</small></div><div><strong>'+metricCell(s.views,false)+'</strong><small>Tracked views</small></div><div><strong>'+s.postCount+'</strong><small>Confirmed video posts</small></div></div><p class="account-check">Source check: '+esc(time(a.lastAttemptAt))+' · followers observed: '+esc(time(a.metrics?.followers?.at))+' · oldest views: '+esc(time(s.views.oldest))+'</p><p class="account-note">'+esc(inventoryText(d,a))+'</p><p class="account-note">'+esc(statusText(a))+'</p></div>';
   }).join(''):'<p class="empty">Source unavailable. No values are assumed.</p>')+(d?.tracking?.note?'<p class="account-scope-note">'+esc(d.tracking.note)+'</p>':'')+'<div class="account-resources">'+(c.assetLibraryUrl?'<a href="'+safe(c.assetLibraryUrl)+'" target="_blank" rel="noopener">Video library ↗</a>':'')+(c.sheetUrl?'<a href="'+safe(c.sheetUrl)+'" target="_blank" rel="noopener">Channel Sheet ↗</a>':'')+'<a href="'+safe(c.dataUrl)+'" target="_blank" rel="noopener">Source data ↗</a></div></article>';
  }).join('');
 }

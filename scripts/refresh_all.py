@@ -4,6 +4,7 @@ import collect as base
 import collect_channels as extra
 from snapshot_merge import validate, timestamp
 from publications import reconcile
+from inventory_health import inventory_health
 from public_fallbacks import refresh_fallbacks
 import official_broker
 ROOT = pathlib.Path(__file__).resolve().parents[1]
@@ -45,6 +46,7 @@ def metric_health(data, observed_at):
             'inventoryStatus': inventory.get('status', 'unverified'),
             'inventoryComplete': inventory.get('complete') is True,
             'inventoryCheckedAt': inventory.get('checkedAt'),
+            'inventoryAudit': inventory_health(data, account, observed_at),
             'reportedPostCount': account.get('metrics', {}).get('publishedCount'),
             'latestMetricAt': max((m['at'] for m in metrics), key=timestamp, default=None),
             'access': 'authorized_cloud' if inventory.get('method') == 'official_api' else 'authorization_required' if account['id'] in ['instagram','facebook'] and inventory.get('status') == 'session_required' else 'public_cloud',
@@ -99,6 +101,7 @@ def refresh(root=ROOT):
             health['channels'][config['id']] = {'status': 'failed', 'checkedAt': started, 'error': type(error).__name__, 'platforms': metric_health(previous, started), 'metricsUpdated': 0}
             print('::warning::Cloud collection failed for ' + config['id'] + '; original metric dates retained.')
     health['completedAt'] = datetime.datetime.now(datetime.timezone.utc).isoformat()
+    health['inventoryAttentionRequired'] = any(p['inventoryAudit']['overdue'] for c in health['channels'].values() for p in c['platforms'].values())
     gaps = any(not p.get('inventoryComplete') or (p['postsKnown'] and p['viewsUpdated'] < p['postsKnown'])
                for channel in health['channels'].values() for p in channel['platforms'].values())
     health['status'] = 'completed_with_errors' if failed else 'completed_with_gaps' if gaps else 'completed'

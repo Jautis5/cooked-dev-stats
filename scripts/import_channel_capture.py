@@ -15,6 +15,13 @@ def merge(data,capture):
         if batch.get('status')=='unavailable':
             account.update(status='unavailable',lastAttemptAt=at,message='Source unavailable; previous observations and dates preserved.')
             continue
+        if batch.get('completeList') is True:
+            identities = [str(p['id']) for p in batch.get('posts', [])]
+            if len(identities) != len(set(identities)):
+                raise ValueError('Complete inventory contains duplicate publications')
+            expected = batch.get('reportedVideoCount')
+            if expected is not None and (type(expected) is not int or expected < 0 or expected != len(identities)):
+                raise ValueError('Complete inventory does not match the observed video count')
         def metrics(target,measurements,url):
             for key,raw in measurements.items():
                 raw=raw if isinstance(raw,dict) else {'value':raw}
@@ -59,7 +66,7 @@ def merge(data,capture):
             account['trackedEmptyConfirmedAt']=at
             metrics(account,{'trackedPublishedCount':0},account['url'])
         if batch.get('completeList') is True:
-            result.setdefault('discovery',{})[platform]={'status':'checked','complete':True,'method':'browser_bulk','checkedAt':at,'lastCompleteAt':at,'listedPosts':active}
+            result.setdefault('discovery',{})[platform]={'status':'checked','complete':True,'method':'browser_bulk','checkedAt':at,'lastCompleteAt':at,'listedPosts':active,'lastCompletePostCount':active}
         account.update(status='partial',lastAttemptAt=at,lastSuccessAt=at,message='Visible profile and video list checked; legacy posts excluded.')
     times=[b['observedAt'] for b in capture.get('platforms',{}).values()]
     if times:result['lastAttemptAt']=result['generatedAt']=max(times)

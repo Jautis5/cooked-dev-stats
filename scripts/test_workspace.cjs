@@ -5,7 +5,7 @@ const vm=require('node:vm');
 const root=path.resolve(__dirname,'..','site');
 const src=fs.readFileSync(path.join(root,'app.js'),'utf8').split("window.addEventListener('hashchange'")[0];
 const location={href:'https://example.com/',hash:''};
-const api=vm.runInNewContext(src+'\n({currentId,currentView,scopeHref,collectVideoRows,filterVideoRows,coverageFor,videoCsv,issuesFor,collectorStatus,clockStatus,newestSnapshot,newestHealth,scheduleState,missingPublication})',{Intl,URL,Date,location});
+const api=vm.runInNewContext(src+'\n({currentId,currentView,scopeHref,collectVideoRows,filterVideoRows,coverageFor,videoCsv,issuesFor,collectorStatus,clockStatus,newestSnapshot,newestHealth,scheduleState,missingPublication,inventoryAudit,accountState})',{Intl,URL,Date,location});
 location.hash='#channel/indian-builds/videos';
 assert.equal(api.currentId(),'indian-builds');assert.equal(api.currentView(),'videos');
 location.hash='#accounts';assert.equal(api.currentId(),'');assert.equal(api.currentView(),'accounts');
@@ -74,6 +74,14 @@ assert.equal(api.scheduleState({status:'scheduled',scheduledAt:'2026-10-23T16:10
 assert.equal(api.scheduleState({status:'scheduled',scheduledAt:'2026-10-21T16:10:00Z'},scheduleNow).label,'Due · verify publication');
 assert.equal(api.scheduleState({status:'scheduled'},scheduleNow).warning,true);
 console.log('PASS: planned and submitted posts stay unconfirmed; elapsed schedules never become published automatically.');
+const inventoryNow=Date.parse('2026-10-22T18:00:00Z');
+const inventoryData={discovery:{instagram:{complete:false,checkedAt:'2026-10-22T18:00:00Z',lastCompleteAt:'2026-10-22T06:00:00Z'}}};
+assert.equal(api.inventoryAudit(inventoryData,{id:'instagram'},inventoryNow).overdue,true);
+inventoryData.discovery.instagram.lastCompleteAt='2026-10-22T17:00:00Z';
+assert.equal(api.inventoryAudit(inventoryData,{id:'instagram'},inventoryNow).overdue,false);
+assert.equal(api.inventoryAudit(inventoryData,{id:'instagram'},inventoryNow).complete,false);
+assert.notEqual(api.accountState({discovery:{}},{id:'instagram',status:'ok'}).label,'Checked','Known-post metrics cannot imply successful new-post discovery');
+console.log('PASS: fresh likes do not conceal overdue or incomplete publication discovery.');
 
 const emptyAccount={id:'tiktok',name:'TikTok',emptyConfirmedAt:'2026-10-22T13:40:00Z',metrics:{publishedCount:{value:0}}};
 assert.ok(api.missingPublication(emptyAccount,{videos:[]}).includes('TT · empty'));
