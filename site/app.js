@@ -8,6 +8,7 @@ const ICONS = {
  posts:'<rect x="3" y="3" width="18" height="18" rx="4"/><path d="m10 8 6 4-6 4Z"/>'
 };
 let channels=[],entries=new Map(),active='all',loading=false,chartRange='24h',chartScope='all',renderedScope='all',cloudHealth=null,cloudConfig={},clockRuns=null;
+let publishingQueue=null;
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const full=n=>n==null?'—':new Intl.NumberFormat('en-US').format(n);
 function compact(n) {
@@ -355,6 +356,7 @@ function renderVideoFilters(){
  $('video-platform').value=active;
 }
 function renderVideos(){
+ renderSchedule();
  const vs=visibleVideoRows(),scope=scopedChannels(),allCount=collectVideoRows(scope,entries).length,opts=trackerOptions();
  $('video-count').textContent='('+vs.length+' of '+allCount+')';
  const channelName=channels.find(c=>c.id===opts.channel)?.name||'All channels',platformName=active==='all'?'All platforms':ABBR[active]||active;
@@ -371,6 +373,29 @@ function renderVideos(){
 }
 function renderResources(){
  $('video-resources').innerHTML=scopedChannels().map(c=>'<article class="resource-card"><h3>'+esc(c.name)+' · source files & tracking</h3>'+(c.assetLibraryUrl?'<a href="'+safe(c.assetLibraryUrl)+'" target="_blank" rel="noopener">Open video library ↗</a>':'')+(c.sheetUrl?'<a href="'+safe(c.sheetUrl)+'" target="_blank" rel="noopener">Open channel Sheet ↗</a>':'')+'<p>Original files and publication records are separate. A file in Drive is not a confirmed post.</p></article>').join('');
+}
+function scheduleState(post,now=Date.now()){
+ if(!post)return {label:'Not scheduled',warning:true};
+ if(post.status==='scheduled'){
+  const at=Date.parse(post.scheduledAt);
+  if(!Number.isFinite(at))return {label:'Verify saved time',warning:true};
+  return at<=now?{label:'Due · verify publication',warning:true}:{label:'Scheduled',warning:false};
+ }
+ return {label:post.status==='save_submitted'?'Verify saved schedule':post.status==='awaiting_original'?'Waiting for original':'Not scheduled',warning:true};
+}
+function renderSchedule(){
+ const block=$('schedule-block');
+ if(!block)return;
+ const ids=scopedChannels().map(c=>c.id);
+ block.hidden=!publishingQueue||!ids.includes(publishingQueue.channelId);
+ if(block.hidden)return;
+ const q=publishingQueue,scheduled=q.items.flatMap(v=>Object.values(v.posts)).filter(p=>p.status==='scheduled').length;
+ $('schedule-summary').textContent=q.items.length+' source videos · '+scheduled+' confirmed saved schedules · target: 2 videos per day per platform · Vilnius time';
+ $('schedule-note').textContent='Checked '+time(q.updatedAt)+'. Scheduled videos are excluded from published counts and performance totals. '+(q.missingAssets?.length?'Waiting for original: '+q.missingAssets.map(v=>v.caption).join(', '):'');
+ $('schedule-rows').innerHTML=q.items.map(v=>'<tr><td><strong>'+esc(v.caption)+'</strong><div class="tiny"><a href="'+safe(v.assetUrl)+'" target="_blank" rel="noopener">'+esc(v.filename)+' ↗</a></div></td>'+['youtube','x','facebook'].map(p=>{
+  const post=v.posts[p],state=scheduleState(post);
+  return '<td><span class="status-badge '+(state.warning?'warning':'')+'">'+esc(state.label)+'</span><div class="tiny">'+(post?.status==='pending'?'Planned: ':'')+(post?.scheduledAt?esc(time(post.scheduledAt)):esc(post?.scheduledLocal||'No saved date'))+'</div>'+(post?.url&&post.status!=='pending'?'<a class="tiny" href="'+safe(post.url)+'" target="_blank" rel="noopener">Open '+(p==='youtube'?'video':'queue')+' ↗</a>':'')+'</td>';
+ }).join('')+'</tr>').join('');
 }
 function accountHandle(a){const handle=a.expectedHandle||a.handle;return handle?(/\s/.test(handle)?handle:'@'+handle):a.expectedPageId?'Page '+a.expectedPageId:a.expectedChannelId?'Channel '+a.expectedChannelId:'Profile linked below';}
 function inventoryText(data,account){
@@ -433,6 +458,9 @@ async function load(manual=false){
    const results=await Promise.allSettled(urls.map(async url=>{const r=await fetch(url+'?v='+Date.now(),{cache:'no-store',signal:AbortSignal.timeout(8000)});if(!r.ok)throw Error('Health unavailable');return r.json();}));
    cloudHealth=newestHealth([...results.flatMap(r=>r.status==='fulfilled'?[r.value]:[]),...(cloudHealth?[cloudHealth]:[])]);
   })();
+  const scheduleTask=(async()=>{
+   try{const r=await fetch('data/schedules.json?v='+Date.now(),{cache:'no-store',signal:AbortSignal.timeout(8000)});if(!r.ok)return;const q=await r.json();if(q.version===1&&Array.isArray(q.items))publishingQueue=q;}catch{}
+  })();
   await Promise.all(channels.map(async c=>{
    const previous=entries.get(c.id),results=await Promise.allSettled([fetchData(c.dataUrl,manual),fetchData(c.fallbackUrl,manual)]);
    const candidates=results.flatMap((r,i)=>r.status==='fulfilled'?[{data:r.value,fallback:i===1}]:[]);
@@ -441,7 +469,7 @@ async function load(manual=false){
    if(chosen){chosen.fallbackReason=chosen.fallback&&results[0].status==='fulfilled'?'newer_snapshot':'unreachable';entries.set(c.id,chosen);}
    else entries.set(c.id,{data:null,fallback:true});
   }));
-  await healthTask;render();void loadClock();
+  await Promise.all([healthTask,scheduleTask]);render();void loadClock();
  }catch{$('notice').textContent='Could not load the channel list. Please try refreshing.';$('notice').hidden=false;}
  finally{loading=false;$('reload').disabled=false;}
 }

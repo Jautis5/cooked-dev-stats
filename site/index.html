@@ -7,8 +7,8 @@
   <meta name="description" content="Separate workspaces for Cooked Dev, Indian Builds and DontGetTraced, with shared stats, video tracking and account sources.">
   <title>All channels · Social Stats</title>
   <link rel="icon" href="assets/logo.jpg">
-  <link rel="stylesheet" href="styles.css?v=dd9239f2df18">
-  <script src="app.js?v=4aaf6bab7349" defer></script>
+  <link rel="stylesheet" href="styles.css?v=a40516c70db0">
+  <script src="app.js?v=bd7408233645" defer></script>
 </head>
 <body>
 <header>
@@ -57,6 +57,11 @@
     <section class="block attention-block" id="attention-section" aria-labelledby="attention-title"><div class="block-head"><div><p class="eyebrow">KEEP TRACK</p><h2 id="attention-title">What needs a check</h2></div><a class="text-link" id="attention-accounts-link" href="#accounts">View sources ↗</a></div><div id="attention-list"></div></section>
   </div>
   <section id="video-section" hidden aria-labelledby="videos-title">
+    <section class="block" id="schedule-block" hidden aria-labelledby="schedule-title">
+      <div class="block-head"><div><p class="eyebrow">PUBLISHING QUEUE</p><h2 id="schedule-title">Scheduled videos</h2><p class="muted" id="schedule-summary"></p></div><a class="btn" href="https://docs.google.com/spreadsheets/d/1sT8AqlGMMqnJUCcA697DaVcLvRqsJhCT4xMIdl52WYY/edit#gid=102226" target="_blank" rel="noopener">Open schedule ↗</a></div>
+      <p class="muted" id="schedule-note"></p>
+      <div class="table-wrap"><table class="video-table"><thead><tr><th>Video / original</th><th>YouTube</th><th>X</th><th>Facebook</th></tr></thead><tbody id="schedule-rows"></tbody></table></div>
+    </section>
     <section class="block" id="video-block">
       <div class="block-head"><div><p class="eyebrow">PUBLICATION TRACKER</p><h2 id="videos-title">Videos <span class="muted" id="video-count"></span></h2><p class="filter muted" id="active-filter">All channels · all platforms</p></div><button class="btn" id="export-csv">Export CSV ↓</button></div>
       <div class="tracker-filters">
