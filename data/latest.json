@@ -8,8 +8,8 @@
     "intervalMinutes": 15,
     "cron": "7-59/15 * * * *"
   },
-  "generatedAt": "2026-10-23T08:06:03.446781+00:00",
-  "lastAttemptAt": "2026-10-23T08:06:03.446781+00:00",
+  "generatedAt": "2026-10-23T08:12:06.364Z",
+  "lastAttemptAt": "2026-10-23T08:12:06.364Z",
   "accounts": [
     {
       "id": "instagram",
@@ -176,10 +176,10 @@
           "approximate": false
         }
       },
-      "status": "unavailable",
-      "lastAttemptAt": "2026-10-23T08:06:03.446781+00:00",
-      "lastSuccessAt": "2026-10-23T07:44:13.936Z",
-      "message": "Automatinė vieša statistika nepasiekiama. Palikti paskutiniai patikrinti duomenys.",
+      "status": "partial",
+      "lastAttemptAt": "2026-10-23T08:12:06.364Z",
+      "lastSuccessAt": "2026-10-23T08:12:06.364Z",
+      "message": "All confirmed public Reels checked; visible reactions, comments and shares retained with separate observation times. A hidden reaction count remains unknown.",
       "browserObservedAt": "2026-10-20T09:21:39.659000+00:00"
     }
   ],
@@ -335,10 +335,11 @@
           "metrics": {
             "comments": {
               "value": 0,
-              "at": "2026-10-20T11:10:57.586000+00:00",
+              "at": "2026-10-23T08:10:36.355Z",
               "source": "https://www.facebook.com/reel/1083659674446042",
               "method": "browser_bulk",
-              "approximate": false
+              "approximate": false,
+              "definition": "facebook_public_comment_count"
             },
             "views": {
               "value": 234,
@@ -347,6 +348,22 @@
               "method": "browser_bulk",
               "approximate": false,
               "definition": "facebook_reels_profile_grid_views"
+            },
+            "likes": {
+              "value": 1,
+              "at": "2026-10-23T08:10:36.355Z",
+              "source": "https://www.facebook.com/reel/1083659674446042",
+              "method": "browser_bulk",
+              "approximate": false,
+              "definition": "facebook_visible_reactions"
+            },
+            "shares": {
+              "value": 0,
+              "at": "2026-10-23T08:10:36.355Z",
+              "source": "https://www.facebook.com/reel/1083659674446042",
+              "method": "browser_bulk",
+              "approximate": false,
+              "definition": "facebook_public_share_count"
             }
           },
           "publicationVerifiedAt": "2026-10-19T16:56:04.621540+00:00"
@@ -502,10 +519,11 @@
           "metrics": {
             "comments": {
               "value": 0,
-              "at": "2026-10-20T11:10:57.586000+00:00",
+              "at": "2026-10-23T08:10:48.489Z",
               "source": "https://www.facebook.com/reel/1110516211335577",
               "method": "browser_bulk",
-              "approximate": false
+              "approximate": false,
+              "definition": "facebook_public_comment_count"
             },
             "views": {
               "value": 45,
@@ -514,6 +532,14 @@
               "method": "browser_bulk",
               "approximate": false,
               "definition": "facebook_reels_profile_grid_views"
+            },
+            "shares": {
+              "value": 0,
+              "at": "2026-10-23T08:10:48.489Z",
+              "source": "https://www.facebook.com/reel/1110516211335577",
+              "method": "browser_bulk",
+              "approximate": false,
+              "definition": "facebook_public_share_count"
             }
           }
         }
@@ -626,10 +652,11 @@
           "metrics": {
             "comments": {
               "value": 0,
-              "at": "2026-10-20T11:10:57.586000+00:00",
+              "at": "2026-10-23T08:11:05.334Z",
               "source": "https://www.facebook.com/reel/1478429110840610",
               "method": "browser_bulk",
-              "approximate": false
+              "approximate": false,
+              "definition": "facebook_public_comment_count"
             },
             "views": {
               "value": 277,
@@ -638,6 +665,22 @@
               "method": "browser_bulk",
               "approximate": false,
               "definition": "facebook_reels_profile_grid_views"
+            },
+            "likes": {
+              "value": 3,
+              "at": "2026-10-23T08:11:05.334Z",
+              "source": "https://www.facebook.com/reel/1478429110840610",
+              "method": "browser_bulk",
+              "approximate": false,
+              "definition": "facebook_visible_reactions"
+            },
+            "shares": {
+              "value": 0,
+              "at": "2026-10-23T08:11:05.334Z",
+              "source": "https://www.facebook.com/reel/1478429110840610",
+              "method": "browser_bulk",
+              "approximate": false,
+              "definition": "facebook_public_share_count"
             }
           }
         },
@@ -811,6 +854,22 @@
               "method": "browser_bulk",
               "approximate": false,
               "definition": "facebook_reels_profile_grid_views"
+            },
+            "comments": {
+              "value": 0,
+              "at": "2026-10-23T08:12:06.364Z",
+              "source": "https://www.facebook.com/reel/1987587828602453/",
+              "method": "browser_bulk",
+              "approximate": false,
+              "definition": "facebook_public_comment_count"
+            },
+            "shares": {
+              "value": 0,
+              "at": "2026-10-23T08:12:06.364Z",
+              "source": "https://www.facebook.com/reel/1987587828602453/",
+              "method": "browser_bulk",
+              "approximate": false,
+              "definition": "facebook_public_share_count"
             }
           },
           "publicationVerifiedAt": "2026-10-22T06:12:33.027Z",
@@ -933,6 +992,30 @@
               "method": "browser_bulk",
               "approximate": false,
               "definition": "facebook_reels_profile_grid_views"
+            },
+            "likes": {
+              "value": 2,
+              "at": "2026-10-23T08:12:08.080Z",
+              "source": "https://www.facebook.com/reel/1936071671111207/",
+              "method": "browser_bulk",
+              "approximate": false,
+              "definition": "facebook_visible_reactions"
+            },
+            "comments": {
+              "value": 0,
+              "at": "2026-10-23T08:12:08.080Z",
+              "source": "https://www.facebook.com/reel/1936071671111207/",
+              "method": "browser_bulk",
+              "approximate": false,
+              "definition": "facebook_public_comment_count"
+            },
+            "shares": {
+              "value": 0,
+              "at": "2026-10-23T08:12:08.080Z",
+              "source": "https://www.facebook.com/reel/1936071671111207/",
+              "method": "browser_bulk",
+              "approximate": false,
+              "definition": "facebook_public_share_count"
             }
           },
           "publicationVerifiedAt": "2026-10-21T14:13:13.128614+03:00",
@@ -1099,6 +1182,22 @@
               "method": "browser_bulk",
               "approximate": false,
               "definition": "facebook_reels_profile_grid_views"
+            },
+            "comments": {
+              "value": 0,
+              "at": "2026-10-23T08:12:09.933Z",
+              "source": "https://www.facebook.com/reel/1526787982543387/",
+              "method": "browser_bulk",
+              "approximate": false,
+              "definition": "facebook_public_comment_count"
+            },
+            "shares": {
+              "value": 0,
+              "at": "2026-10-23T08:12:09.933Z",
+              "source": "https://www.facebook.com/reel/1526787982543387/",
+              "method": "browser_bulk",
+              "approximate": false,
+              "definition": "facebook_public_share_count"
             }
           },
           "publicationVerifiedAt": "2026-10-21T14:13:13.128614+03:00",
@@ -2012,6 +2111,22 @@
               "method": "browser_bulk",
               "approximate": false,
               "definition": "facebook_reels_profile_grid_views"
+            },
+            "comments": {
+              "value": 0,
+              "at": "2026-10-23T08:12:12.182Z",
+              "source": "https://www.facebook.com/reel/1090555450355572/",
+              "method": "browser_bulk",
+              "approximate": false,
+              "definition": "facebook_public_comment_count"
+            },
+            "shares": {
+              "value": 0,
+              "at": "2026-10-23T08:12:12.182Z",
+              "source": "https://www.facebook.com/reel/1090555450355572/",
+              "method": "browser_bulk",
+              "approximate": false,
+              "definition": "facebook_public_share_count"
             }
           },
           "publicationVerifiedAt": "2026-10-22T06:12:33.027Z",
@@ -5632,6 +5747,13 @@
         "tiktok",
         "youtube"
       ]
+    },
+    {
+      "at": "2026-10-23T08:12:06.364Z",
+      "views": 598222,
+      "posts": 61,
+      "approximate": true,
+      "partial": false
     }
   ],
   "assetLibrary": {
@@ -5642,8 +5764,8 @@
   },
   "mcpMergedAt": "2026-10-20T09:22:29.266077+00:00",
   "changes24h": {
-    "at": "2026-10-23T08:06:03.446781+00:00",
-    "baselineAt": "2026-10-22T08:05:21.480714+00:00",
+    "at": "2026-10-23T08:12:06.364Z",
+    "baselineAt": "2026-10-22T08:12:37.057127+00:00",
     "views": null,
     "likes": null,
     "followers": null
