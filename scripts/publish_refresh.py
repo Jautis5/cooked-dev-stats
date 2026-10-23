@@ -35,6 +35,8 @@ def publish(root=ROOT, before_push=None, retries=4):
             git(root, 'worktree', 'add', '--detach', str(checkout), remote_head)
             try:
                 allowed = {c['dataPath'] for c in json.loads((checkout / 'data/channels.json').read_text())['channels']}
+                ledger_path = checkout / 'data/publications.json'
+                ledger = json.loads(ledger_path.read_text()) if ledger_path.exists() else None
                 for relative, content in archives.items():
                     path = checkout / relative
                     if not path.is_relative_to(checkout / 'data'):
@@ -51,9 +53,15 @@ def publish(root=ROOT, before_push=None, retries=4):
                         continue
                     path = checkout / relative
                     remote = json.loads(path.read_text())
-                    data = merge_snapshot(remote, candidate, baseline[relative])
-                    ledger = checkout / 'data/publications.json'
-                    if ledger.exists(): reconcile(data, json.loads(ledger.read_text()))
+                    incoming = copy.deepcopy(candidate)
+                    # A verified post may have moved from a discovery row to its
+                    # original video. Align both snapshots before deduplication
+                    # so observations on that post are still merged by time.
+                    if ledger is not None:
+                        reconcile(remote, ledger)
+                        reconcile(incoming, ledger)
+                    data = merge_snapshot(remote, incoming, baseline[relative])
+                    if ledger is not None: reconcile(data, ledger)
                     validate(data)
                     base.update_changes(data, directory=path.parent)
                     path.write_text(json.dumps(data, ensure_ascii=False, indent=2) + '\n')

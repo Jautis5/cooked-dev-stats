@@ -81,6 +81,45 @@ class MergeTests(unittest.TestCase):
             self.assertEqual(git(remote, 'rev-parse', 'main'), commit)
             self.assertEqual(json.loads((writer / 'data/latest.json').read_text()), candidate, 'Caller checkout must remain unchanged')
 
+    def test_publication_moves_keep_new_metrics_and_measured_zero(self):
+        for candidate_already_joined in [False, True]:
+            with self.subTest(candidate_already_joined=candidate_already_joined), tempfile.TemporaryDirectory() as folder:
+                from publications import reconcile
+                def git(root, *args):
+                    return subprocess.run(['git', '-C', str(root), *args], check=True, capture_output=True, text=True).stdout.strip()
+                root = pathlib.Path(folder); remote = root / 'remote.git'; writer = root / 'writer'
+                subprocess.run(['git', 'init', '--bare', '--initial-branch=main', str(remote)], check=True, capture_output=True)
+                subprocess.run(['git', 'clone', str(remote), str(writer)], check=True, capture_output=True)
+                git(writer, 'config', 'user.name', 'Test'); git(writer, 'config', 'user.email', 'test@example.com')
+                data = fixture()
+                data['channelId'] = 'cooked-dev'
+                data['accounts'].append({'id':'x', 'name':'X', 'handle':'right', 'url':'https://x.com/right', 'status':'partial', 'metrics':{}})
+                url = 'https://x.com/right/status/123'
+                data['videos'].append({'id':'cloud-x', 'number':2, 'title':'New public post', 'posts':{'x':{'id':'123', 'url':url, 'metrics':{
+                    'views':metric(10, '2026-10-20T09:00:00Z', url), 'likes':metric(9, '2026-10-20T11:00:00Z', url)}}}})
+                ledger = {'groups':[{'id':'verified-original', 'channelId':'cooked-dev', 'videoId':'v1', 'number':1,
+                    'caption':'A video', 'verifiedAt':'2026-10-20T09:30:00Z', 'evidence':'Original clip verified',
+                    'owners':{'x':'right'}, 'posts':{'x':url}}]}
+                (writer / 'data').mkdir()
+                (writer / 'data/channels.json').write_text(json.dumps({'channels':[{'id':'cooked-dev', 'dataPath':'data/latest.json'}]}))
+                (writer / 'data/latest.json').write_text(json.dumps(data))
+                (writer / 'data/publications.json').write_text(json.dumps(ledger))
+                git(writer, 'add', '.'); git(writer, 'commit', '-m', 'verified ledger awaiting reconciliation'); git(writer, 'push', 'origin', 'main')
+                candidate = copy.deepcopy(data)
+                if candidate_already_joined: reconcile(candidate, ledger)
+                post = next(v['posts']['x'] for v in candidate['videos'] if 'x' in v['posts'])
+                post['metrics'].update(views=metric(25, '2026-10-20T10:00:00Z', url),
+                    likes=metric(1, '2026-10-20T08:00:00Z', url), saves=metric(0, '2026-10-20T10:00:00Z', url))
+                (writer / 'data/latest.json').write_text(json.dumps(candidate))
+                publish(writer)
+                output = json.loads(git(remote, 'show', 'main:data/latest.json'))
+                self.assertEqual(len(output['videos']), 1)
+                observed = output['videos'][0]['posts']['x']['metrics']
+                self.assertEqual(observed['views'], metric(25, '2026-10-20T10:00:00Z', url))
+                self.assertEqual(observed['likes'], metric(9, '2026-10-20T11:00:00Z', url))
+                self.assertEqual(observed['saves'], metric(0, '2026-10-20T10:00:00Z', url))
+                self.assertEqual(json.loads((writer / 'data/latest.json').read_text()), candidate)
+
 
 if __name__ == '__main__': unittest.main()
 
