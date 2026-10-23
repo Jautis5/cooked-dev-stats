@@ -6,8 +6,8 @@
   },
   "sheetUrl": "https://docs.google.com/spreadsheets/d/1sT8AqlGMMqnJUCcA697DaVcLvRqsJhCT4xMIdl52WYY/edit#gid=785807837",
   "sourceUrl": "https://drive.google.com/drive/folders/1WEHFKQCzbjUcPzm7nYB3PthPngxLXYGR",
-  "generatedAt": "2026-10-23T07:36:51.664Z",
-  "lastAttemptAt": "2026-10-23T07:36:51.664Z",
+  "generatedAt": "2026-10-23T07:49:11.913Z",
+  "lastAttemptAt": "2026-10-23T07:49:11.913Z",
   "schedule": {
     "provider": "GitHub Actions",
     "intervalMinutes": 15,
@@ -91,11 +91,11 @@
       "name": "Facebook",
       "url": "https://www.facebook.com/profile.php?id=61594164374065",
       "expectedPageId": "61594164374065",
-      "status": "unavailable",
+      "status": "partial",
       "metrics": {
         "followers": {
           "value": 0,
-          "at": "2026-10-22T06:12:33.027Z",
+          "at": "2026-10-23T07:44:13.951Z",
           "source": "https://www.facebook.com/profile.php?id=61594164374065",
           "method": "browser_bulk",
           "approximate": false
@@ -106,11 +106,18 @@
           "source": "https://www.facebook.com/profile.php?id=61594164374065",
           "method": "browser_bulk",
           "approximate": false
+        },
+        "trackedPublishedCount": {
+          "value": 1,
+          "at": "2026-10-23T07:44:13.951Z",
+          "source": "https://www.facebook.com/profile.php?id=61594164374065",
+          "method": "browser_bulk",
+          "approximate": false
         }
       },
-      "lastAttemptAt": "2026-10-23T07:35:23.291039+00:00",
-      "lastSuccessAt": "2026-10-22T06:12:33.027Z",
-      "message": "Facebook list metrics need the connected Lost Chrome session; previous observations preserved."
+      "lastAttemptAt": "2026-10-23T07:44:13.951Z",
+      "lastSuccessAt": "2026-10-23T07:44:13.951Z",
+      "message": "Visible profile and video list checked; legacy posts excluded."
     },
     {
       "id": "x",
@@ -121,17 +128,29 @@
       "metrics": {
         "followers": {
           "value": 0,
-          "at": "2026-10-23T07:35:23.291039+00:00",
+          "at": "2026-10-23T07:49:11.900Z",
           "source": "https://x.com/IndiaanBuilds",
-          "approximate": false,
-          "method": "fxembed_public",
-          "via": "https://api.fxtwitter.com/2/status/2112922413596115454",
-          "upstreamObservedAt": null
+          "method": "browser_bulk",
+          "approximate": false
+        },
+        "trackedPublishedCount": {
+          "value": 1,
+          "at": "2026-10-23T07:49:11.913Z",
+          "source": "https://x.com/IndiaanBuilds",
+          "method": "browser_bulk",
+          "approximate": false
+        },
+        "publishedCount": {
+          "value": 1,
+          "at": "2026-10-23T07:49:11.913Z",
+          "source": "https://x.com/IndiaanBuilds",
+          "method": "browser_bulk",
+          "approximate": false
         }
       },
-      "lastAttemptAt": "2026-10-23T07:35:23.291039+00:00",
-      "lastSuccessAt": "2026-10-23T07:35:23.291039+00:00",
-      "message": "Some public metrics refreshed; publication inventory remains incomplete."
+      "lastAttemptAt": "2026-10-23T07:49:11.913Z",
+      "lastSuccessAt": "2026-10-23T07:49:11.913Z",
+      "message": "Visible profile and video list checked; legacy posts excluded."
     },
     {
       "id": "youtube",
@@ -210,11 +229,12 @@
           "url": "https://www.facebook.com/reel/2392321408243345",
           "metrics": {
             "views": {
-              "value": 430,
-              "at": "2026-10-22T06:12:33.027Z",
+              "value": 436,
+              "at": "2026-10-23T07:44:13.951Z",
               "source": "https://www.facebook.com/reel/2392321408243345",
               "method": "browser_bulk",
-              "approximate": false
+              "approximate": false,
+              "definition": "facebook_reels_profile_grid_views"
             },
             "likes": {
               "value": 1,
@@ -247,39 +267,32 @@
           "metrics": {
             "likes": {
               "value": 0,
-              "at": "2026-10-23T07:35:23.291039+00:00",
+              "at": "2026-10-23T07:49:11.900Z",
               "source": "https://x.com/IndiaanBuilds/status/2112922413596115454",
-              "approximate": false,
-              "method": "fxembed_public",
-              "via": "https://api.fxtwitter.com/2/profile/id:2112484311718932480/media?count=100",
-              "upstreamObservedAt": null
+              "method": "browser_bulk",
+              "approximate": false
             },
             "comments": {
               "value": 0,
-              "at": "2026-10-23T07:35:23.291039+00:00",
+              "at": "2026-10-23T07:49:11.900Z",
               "source": "https://x.com/IndiaanBuilds/status/2112922413596115454",
-              "approximate": false,
-              "method": "fxembed_public",
-              "via": "https://api.fxtwitter.com/2/profile/id:2112484311718932480/media?count=100",
-              "upstreamObservedAt": null
+              "method": "browser_bulk",
+              "approximate": false
             },
             "views": {
-              "value": 7,
-              "at": "2026-10-23T07:35:23.291039+00:00",
+              "value": 8,
+              "at": "2026-10-23T07:49:11.900Z",
               "source": "https://x.com/IndiaanBuilds/status/2112922413596115454",
+              "method": "browser_bulk",
               "approximate": false,
-              "method": "fxembed_public",
-              "via": "https://api.fxtwitter.com/2/profile/id:2112484311718932480/media?count=100",
-              "upstreamObservedAt": null
+              "definition": "x_public_post_impressions"
             },
             "shares": {
               "value": 0,
-              "at": "2026-10-23T07:35:23.291039+00:00",
+              "at": "2026-10-23T07:49:11.900Z",
               "source": "https://x.com/IndiaanBuilds/status/2112922413596115454",
-              "approximate": false,
-              "method": "fxembed_public",
-              "via": "https://api.fxtwitter.com/2/profile/id:2112484311718932480/media?count=100",
-              "upstreamObservedAt": null
+              "method": "browser_bulk",
+              "approximate": false
             }
           },
           "publicationVerifiedAt": "2026-10-22T21:34:23.190703+00:00",
@@ -2541,6 +2554,34 @@
       "posts": 7,
       "approximate": false,
       "partial": false
+    },
+    {
+      "at": "2026-10-23T07:44:13.951Z",
+      "views": 6428,
+      "posts": 7,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-23T07:47:20.409Z",
+      "views": 6428,
+      "posts": 7,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-23T07:49:11.900Z",
+      "views": 6429,
+      "posts": 7,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-23T07:49:11.913Z",
+      "views": 6429,
+      "posts": 7,
+      "approximate": false,
+      "partial": false
     }
   ],
   "tracking": {
@@ -2562,8 +2603,8 @@
     "summary": "Indian Summary"
   },
   "changes24h": {
-    "at": "2026-10-23T07:36:51.664Z",
-    "baselineAt": "2026-10-22T07:34:39.008229+00:00",
+    "at": "2026-10-23T07:49:11.913Z",
+    "baselineAt": "2026-10-22T07:49:58.187956+00:00",
     "views": null,
     "likes": null,
     "followers": null
@@ -2591,21 +2632,22 @@
       "lastCompleteAt": "2026-10-23T07:35:47.824Z"
     },
     "facebook": {
-      "status": "session_required",
-      "checkedAt": "2026-10-23T07:35:23.291039+00:00",
-      "complete": false,
-      "message": "New-publication discovery requires an authorized account list; a successful metrics check is not a complete list.",
-      "lastCompleteAt": "2026-10-22T06:12:33.027Z"
+      "status": "checked",
+      "complete": true,
+      "method": "browser_bulk",
+      "checkedAt": "2026-10-23T07:44:13.951Z",
+      "lastCompleteAt": "2026-10-23T07:44:13.951Z",
+      "listedPosts": 1,
+      "lastCompletePostCount": 1
     },
     "x": {
-      "status": "partial",
-      "method": "fxembed_public",
-      "newVideos": 0,
+      "status": "checked",
+      "complete": true,
+      "method": "browser_bulk",
+      "checkedAt": "2026-10-23T07:49:11.913Z",
+      "lastCompleteAt": "2026-10-23T07:49:11.913Z",
       "listedPosts": 1,
-      "pages": 2,
-      "complete": false,
-      "message": "Third-party public timeline; upstream completeness and cache age are not guaranteed.",
-      "checkedAt": "2026-10-23T07:35:23.291039+00:00"
+      "lastCompletePostCount": 1
     },
     "instagram": {
       "status": "checked",

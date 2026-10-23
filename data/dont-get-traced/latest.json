@@ -5,8 +5,8 @@
     "name": "DontGetTraced"
   },
   "sheetUrl": "https://docs.google.com/spreadsheets/d/1sT8AqlGMMqnJUCcA697DaVcLvRqsJhCT4xMIdl52WYY/edit#gid=1732102601",
-  "generatedAt": "2026-10-23T07:36:51.806Z",
-  "lastAttemptAt": "2026-10-23T07:36:51.806Z",
+  "generatedAt": "2026-10-23T07:49:11.913Z",
+  "lastAttemptAt": "2026-10-23T07:49:11.913Z",
   "schedule": {
     "provider": "GitHub Actions",
     "intervalMinutes": 15,
@@ -114,34 +114,33 @@
       "url": "https://x.com/DontGetTraced",
       "expectedHandle": "DontGetTraced",
       "status": "partial",
-      "message": "Some public metrics refreshed; publication inventory remains incomplete.",
-      "lastAttemptAt": "2026-10-23T07:35:23.291039+00:00",
-      "lastSuccessAt": "2026-10-23T07:35:23.291039+00:00",
+      "message": "Visible profile and video list checked; legacy posts excluded.",
+      "lastAttemptAt": "2026-10-23T07:49:11.913Z",
+      "lastSuccessAt": "2026-10-23T07:49:11.913Z",
       "metrics": {
         "followers": {
           "value": 0,
-          "at": "2026-10-23T07:35:23.291039+00:00",
+          "at": "2026-10-23T07:49:11.911Z",
           "source": "https://x.com/DontGetTraced",
-          "approximate": false,
-          "method": "fxembed_public",
-          "via": "https://api.fxtwitter.com/2/profile/DontGetTraced",
-          "upstreamObservedAt": null
+          "method": "browser_bulk",
+          "approximate": false
         },
         "publishedCount": {
           "value": 0,
-          "at": "2026-10-22T06:12:33.027Z",
+          "at": "2026-10-23T07:49:11.913Z",
           "source": "https://x.com/DontGetTraced",
           "method": "browser_bulk",
           "approximate": false
         },
         "trackedPublishedCount": {
           "value": 0,
-          "at": "2026-10-22T06:12:33.027Z",
+          "at": "2026-10-23T07:49:11.913Z",
           "source": "https://x.com/DontGetTraced",
           "method": "browser_bulk",
           "approximate": false
         }
-      }
+      },
+      "trackedEmptyConfirmedAt": "2026-10-23T07:49:11.913Z"
     },
     {
       "id": "youtube",
@@ -1102,6 +1101,27 @@
       "posts": 2,
       "approximate": false,
       "partial": false
+    },
+    {
+      "at": "2026-10-23T07:47:20.426Z",
+      "views": 4556,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-23T07:49:11.911Z",
+      "views": 4556,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-23T07:49:11.913Z",
+      "views": 4556,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
     }
   ],
   "tracking": {
@@ -1125,8 +1145,8 @@
     "runUrl": "https://github.com/jonass-pandos/cooked-dev-stats/actions/runs/39918727701"
   },
   "changes24h": {
-    "at": "2026-10-23T07:36:51.806Z",
-    "baselineAt": "2026-10-22T07:34:39.008229+00:00",
+    "at": "2026-10-23T07:49:11.913Z",
+    "baselineAt": "2026-10-22T07:49:58.187956+00:00",
     "views": null,
     "likes": null,
     "followers": null
@@ -1157,15 +1177,13 @@
       "message": "New-publication discovery requires an authorized account list; a successful metrics check is not a complete list."
     },
     "x": {
-      "status": "partial",
-      "method": "fxembed_public",
-      "newVideos": 0,
+      "status": "checked",
+      "complete": true,
+      "method": "browser_bulk",
+      "checkedAt": "2026-10-23T07:49:11.913Z",
+      "lastCompleteAt": "2026-10-23T07:49:11.913Z",
       "listedPosts": 0,
-      "pages": 1,
-      "complete": false,
-      "message": "Third-party public timeline; upstream completeness and cache age are not guaranteed.",
-      "checkedAt": "2026-10-23T07:35:23.291039+00:00",
-      "lastCompleteAt": "2026-10-22T06:12:33.027Z"
+      "lastCompletePostCount": 0
     },
     "tiktok": {
       "status": "checked",
