@@ -4,7 +4,7 @@ import collect as base
 import collect_channels as extra
 from snapshot_merge import validate, timestamp
 from publications import reconcile
-from inventory_health import inventory_health
+from inventory_health import inventory_health, preserve_verified_inventory
 from public_fallbacks import refresh_fallbacks
 import official_broker
 ROOT = pathlib.Path(__file__).resolve().parents[1]
@@ -80,6 +80,7 @@ def refresh(root=ROOT):
             refresh_fallbacks(data)
             official_broker.refresh(data)
             reconcile(data)
+            preserve_verified_inventory(data, previous)
             # Include fallback measurements in the same run's actual update count.
             data['cloudCollection']['metricsUpdated'] = {p:h['metricsUpdated'] for p,h in metric_health(data, started).items()}
             data['schedule'] = {'provider': 'GitHub Actions' if run_url else 'local_verification', 'intervalMinutes': policy['intervalMinutes'], 'cron': policy['cron']}

@@ -1,5 +1,5 @@
 import copy, unittest
-from inventory_health import inventory_health
+from inventory_health import inventory_health, preserve_verified_inventory
 from import_channel_capture import merge
 
 
@@ -19,6 +19,24 @@ class InventoryHealthTests(unittest.TestCase):
 
     def test_no_full_pass_is_not_a_success(self):
         self.assertEqual(inventory_health({}, {'id': 'instagram'}, '2026-10-22T18:00:00Z')['state'], 'unverified')
+
+    def test_partial_profile_refresh_retains_verification_in_health(self):
+        from refresh_all import metric_health
+        account = {'id': 'tiktok', 'name': 'TikTok', 'url': 'https://www.tiktok.com/@dontgettraced', 'status': 'partial'}
+        previous = {'accounts': [account], 'discovery': {'tiktok': {'complete': True, 'checkedAt': '2026-10-23T07:36:51Z'}}}
+        data = {'accounts': [account], 'videos': [], 'discovery': {'tiktok': {'complete': False, 'checkedAt': '2026-10-23T08:06:03Z'}}}
+        preserve_verified_inventory(data, previous)
+        health = metric_health(data, '2026-10-23T08:06:03Z')['tiktok']
+        self.assertFalse(health['inventoryComplete'])
+        self.assertFalse(health['inventoryAudit']['overdue'])
+        self.assertEqual(health['inventoryAudit']['lastVerifiedAt'], '2026-10-23T07:36:51Z')
+        self.assertEqual(data['discovery']['tiktok']['checkedAt'], '2026-10-23T08:06:03Z')
+
+    def test_verification_does_not_transfer_to_another_account(self):
+        previous = {'accounts': [{'id': 'tiktok', 'url': 'https://www.tiktok.com/@old'}], 'discovery': {'tiktok': {'complete': True, 'checkedAt': '2026-10-23T07:36:51Z'}}}
+        data = {'accounts': [{'id': 'tiktok', 'url': 'https://www.tiktok.com/@new'}], 'discovery': {'tiktok': {'complete': False}}}
+        preserve_verified_inventory(data, previous)
+        self.assertNotIn('lastCompleteAt', data['discovery']['tiktok'])
 
     def test_truncated_or_duplicate_capture_cannot_claim_complete(self):
         import datetime

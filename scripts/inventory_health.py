@@ -4,6 +4,25 @@ from snapshot_merge import timestamp
 MAX_AGE_SECONDS = 2 * 3600
 
 
+def preserve_verified_inventory(data, previous):
+    """A partial collector result cannot erase a same-account full verification."""
+    prior_accounts = {a['id']: a for a in previous.get('accounts', [])}
+    for account in data.get('accounts', []):
+        prior_account = prior_accounts.get(account['id'])
+        if not prior_account or prior_account.get('url') != account.get('url'):
+            continue
+        prior = previous.get('discovery', {}).get(account['id'], {})
+        report = data.setdefault('discovery', {}).setdefault(account['id'], {})
+        candidates = [prior.get('lastCompleteAt'), report.get('lastCompleteAt')]
+        if prior.get('complete') is True:
+            candidates.append(prior.get('checkedAt'))
+        if report.get('complete') is True:
+            candidates.append(report.get('checkedAt'))
+        verified = max(candidates, key=timestamp)
+        if timestamp(verified):
+            report['lastCompleteAt'] = verified
+
+
 def inventory_health(data, account, observed_at):
     report = data.get('discovery', {}).get(account['id'], {})
     verified = report.get('checkedAt') if report.get('complete') is True else report.get('lastCompleteAt')
