@@ -5,7 +5,7 @@ const vm=require('node:vm');
 const root=path.resolve(__dirname,'..','site');
 const src=fs.readFileSync(path.join(root,'app.js'),'utf8').split("window.addEventListener('hashchange'")[0];
 const location={href:'https://example.com/',hash:''};
-const api=vm.runInNewContext(src+'\n({currentId,currentView,scopeHref,collectVideoRows,filterVideoRows,coverageFor,videoCsv,issuesFor,collectorStatus,clockStatus,newestSnapshot,newestHealth,scheduleState,missingPublication,inventoryAudit,accountState})',{Intl,URL,Date,location});
+const api=vm.runInNewContext(src+'\n({currentId,currentView,scopeHref,collectVideoRows,filterVideoRows,coverageFor,videoCsv,issuesFor,collectorStatus,clockStatus,newestSnapshot,newestHealth,scheduleState,missingPublication,inventoryAudit,accountState,inventoryText})',{Intl,URL,Date,location});
 location.hash='#channel/indian-builds/videos';
 assert.equal(api.currentId(),'indian-builds');assert.equal(api.currentView(),'videos');
 location.hash='#accounts';assert.equal(api.currentId(),'');assert.equal(api.currentView(),'accounts');
@@ -80,6 +80,11 @@ assert.equal(api.inventoryAudit(inventoryData,{id:'instagram'},inventoryNow).ove
 inventoryData.discovery.instagram.lastCompleteAt='2026-10-22T17:00:00Z';
 assert.equal(api.inventoryAudit(inventoryData,{id:'instagram'},inventoryNow).overdue,false);
 assert.equal(api.inventoryAudit(inventoryData,{id:'instagram'},inventoryNow).complete,false);
+const recentInventory={...inventoryData,videos:[]};
+assert.equal(api.accountState(recentInventory,{id:'instagram',status:'partial'},inventoryNow).label,'Full list recently checked','A later partial cloud check must not erase a recent full browser verification');
+assert.equal(api.accountState(recentInventory,{id:'instagram',status:'partial'},inventoryNow).warning,true,'Recent inventory verification must not imply all metrics refreshed');
+assert.ok(api.inventoryText(recentInventory,{id:'instagram'},inventoryNow).includes('latest source check was partial'));
+assert.equal(api.accountState(recentInventory,{id:'instagram'},inventoryNow+2*3600000).label,'New-video check overdue');
 assert.notEqual(api.accountState({discovery:{}},{id:'instagram',status:'ok'}).label,'Checked','Known-post metrics cannot imply successful new-post discovery');
 console.log('PASS: fresh likes do not conceal overdue or incomplete publication discovery.');
 

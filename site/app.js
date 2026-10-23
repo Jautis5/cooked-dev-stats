@@ -308,10 +308,10 @@ function inventoryAudit(data,account,now=Date.now()){
  const age=now-Date.parse(at),overdue=!Number.isFinite(age)||age>2*3600000;
  return {at,overdue,complete:report.complete===true&&!overdue};
 }
-function accountState(data,a){
- const inventory=inventoryAudit(data,a);
+function accountState(data,a,now=Date.now()){
+ const inventory=inventoryAudit(data,a,now);
  if(inventory.overdue)return {label:'New-video check overdue',warning:true};
- if(!inventory.complete)return {label:'Inventory incomplete',warning:true};
+ if(!inventory.complete)return {label:'Full list recently checked',warning:true};
  return {label:a.status==='ok'?'Checked':a.status==='partial'?'Partial metrics':'Source limited',warning:a.status!=='ok'};
 }
 function renderChannel(c,data){
@@ -421,11 +421,12 @@ function renderSchedule(){
  }).join('')+'</tr>').join('');
 }
 function accountHandle(a){const handle=a.expectedHandle||a.handle;return handle?(/\s/.test(handle)?handle:'@'+handle):a.expectedPageId?'Page '+a.expectedPageId:a.expectedChannelId?'Channel '+a.expectedChannelId:'Profile linked below';}
-function inventoryText(data,account){
+function inventoryText(data,account,now=Date.now()){
  const report=data.discovery?.[account.id],known=data.videos.filter(v=>v.posts[account.id]).length;
  const expected=account.metrics?.publishedCount;
  const gap=valid(expected)&&expected.value>known?' · profile reported '+expected.value+' posts; '+known+' linked':'';
- const label=inventoryAudit(data,account).overdue?'New-video discovery overdue':report?.complete?'Complete list verified':report?.status==='session_required'?'New-post discovery needs account access':'Recent public list only · full inventory unverified';
+ const inventory=inventoryAudit(data,account,now);
+ const label=inventory.overdue?'New-video discovery overdue':inventory.complete?'Complete list verified':'Full list verified recently · latest source check was partial';
  return label+gap+(report?.lastCompleteAt?' · last full list: '+time(report.lastCompleteAt):'');
 }
 function renderAccounts(){
