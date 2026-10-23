@@ -6,8 +6,8 @@
   },
   "sheetUrl": "https://docs.google.com/spreadsheets/d/1sT8AqlGMMqnJUCcA697DaVcLvRqsJhCT4xMIdl52WYY/edit#gid=785807837",
   "sourceUrl": "https://drive.google.com/drive/folders/1WEHFKQCzbjUcPzm7nYB3PthPngxLXYGR",
-  "generatedAt": "2026-10-23T17:38:26.488Z",
-  "lastAttemptAt": "2026-10-23T17:38:26.488Z",
+  "generatedAt": "2026-10-23T17:48:16.736815+00:00",
+  "lastAttemptAt": "2026-10-23T17:48:16.736815+00:00",
   "schedule": {
     "provider": "GitHub Actions",
     "intervalMinutes": 15,
@@ -21,7 +21,7 @@
       "expectedHandle": "indian_builds",
       "status": "partial",
       "message": "Public video metrics updated; per-metric dates retained.",
-      "lastAttemptAt": "2026-10-23T17:32:54.861437+00:00",
+      "lastAttemptAt": "2026-10-23T17:48:16.736815+00:00",
       "metrics": {
         "followers": {
           "value": 8,
@@ -45,7 +45,7 @@
           "approximate": false
         }
       },
-      "lastSuccessAt": "2026-10-23T17:32:54.861437+00:00"
+      "lastSuccessAt": "2026-10-23T17:48:16.736815+00:00"
     },
     {
       "id": "tiktok",
@@ -54,23 +54,23 @@
       "expectedHandle": "indian_builds",
       "status": "partial",
       "message": "Public video metrics updated; per-metric dates retained.",
-      "lastAttemptAt": "2026-10-23T17:32:54.861437+00:00",
+      "lastAttemptAt": "2026-10-23T17:48:16.736815+00:00",
       "metrics": {
         "followers": {
           "value": 10,
-          "at": "2026-10-23T17:32:54.861437+00:00",
+          "at": "2026-10-23T17:48:16.736815+00:00",
           "source": "https://www.tiktok.com/@indian_builds",
           "approximate": false
         },
         "profileLikes": {
           "value": 69,
-          "at": "2026-10-23T17:32:54.861437+00:00",
+          "at": "2026-10-23T17:48:16.736815+00:00",
           "source": "https://www.tiktok.com/@indian_builds",
           "approximate": false
         },
         "publishedCount": {
           "value": 3,
-          "at": "2026-10-23T17:32:54.861437+00:00",
+          "at": "2026-10-23T17:48:16.736815+00:00",
           "source": "https://www.tiktok.com/@indian_builds",
           "approximate": false
         },
@@ -89,14 +89,14 @@
           "approximate": false
         }
       },
-      "lastSuccessAt": "2026-10-23T17:32:54.861437+00:00"
+      "lastSuccessAt": "2026-10-23T17:48:16.736815+00:00"
     },
     {
       "id": "facebook",
       "name": "Facebook",
       "url": "https://www.facebook.com/profile.php?id=61594164374065",
       "expectedPageId": "61594164374065",
-      "status": "partial",
+      "status": "unavailable",
       "metrics": {
         "followers": {
           "value": 0,
@@ -120,9 +120,9 @@
           "approximate": false
         }
       },
-      "lastAttemptAt": "2026-10-23T17:38:26.488Z",
+      "lastAttemptAt": "2026-10-23T17:48:16.736815+00:00",
       "lastSuccessAt": "2026-10-23T17:38:26.488Z",
-      "message": "Visible profile and video list checked; legacy posts excluded."
+      "message": "Facebook list metrics need the connected Lost Chrome session; previous observations preserved."
     },
     {
       "id": "x",
@@ -133,10 +133,12 @@
       "metrics": {
         "followers": {
           "value": 0,
-          "at": "2026-10-23T17:35:36.110Z",
+          "at": "2026-10-23T17:48:16.736815+00:00",
           "source": "https://x.com/IndiaanBuilds",
-          "method": "browser_bulk",
-          "approximate": false
+          "approximate": false,
+          "method": "fxembed_public",
+          "via": "https://api.fxtwitter.com/2/profile/IndiaanBuilds",
+          "upstreamObservedAt": null
         },
         "trackedPublishedCount": {
           "value": 1,
@@ -153,9 +155,9 @@
           "approximate": false
         }
       },
-      "lastAttemptAt": "2026-10-23T17:35:36.110Z",
-      "lastSuccessAt": "2026-10-23T17:35:36.110Z",
-      "message": "Visible profile and video list checked; legacy posts excluded."
+      "lastAttemptAt": "2026-10-23T17:48:16.736815+00:00",
+      "lastSuccessAt": "2026-10-23T17:48:16.736815+00:00",
+      "message": "Some public metrics refreshed; publication inventory remains incomplete."
     },
     {
       "id": "youtube",
@@ -167,7 +169,7 @@
       "metrics": {
         "followers": {
           "value": 0,
-          "at": "2026-10-23T17:33:23.325Z",
+          "at": "2026-10-23T17:48:45.480Z",
           "source": "https://www.youtube.com/channel/UCgHxdk2zTRXwsoCrICSwiRg",
           "approximate": true,
           "method": "official_api",
@@ -175,7 +177,7 @@
         },
         "publishedCount": {
           "value": 1,
-          "at": "2026-10-23T17:33:23.325Z",
+          "at": "2026-10-23T17:48:45.480Z",
           "source": "https://www.youtube.com/channel/UCgHxdk2zTRXwsoCrICSwiRg",
           "approximate": false,
           "method": "official_api",
@@ -189,9 +191,9 @@
           "approximate": false
         }
       },
-      "lastAttemptAt": "2026-10-23T17:37:52.337Z",
-      "lastSuccessAt": "2026-10-23T17:37:52.337Z",
-      "message": "Visible profile and video list checked; legacy posts excluded."
+      "lastAttemptAt": "2026-10-23T17:48:45.480Z",
+      "lastSuccessAt": "2026-10-23T17:48:45.480Z",
+      "message": "Official account data refreshed; missing metrics retain their previous dates."
     }
   ],
   "videos": [
@@ -210,14 +212,15 @@
           "metrics": {
             "views": {
               "value": 143,
-              "at": "2026-10-23T17:37:52.337Z",
+              "at": "2026-10-23T17:48:45.480Z",
               "source": "https://www.youtube.com/shorts/_wtrSJFWlJc",
-              "method": "browser_bulk",
-              "approximate": false
+              "approximate": false,
+              "method": "official_api",
+              "apiMetric": "viewCount"
             },
             "comments": {
               "value": 1,
-              "at": "2026-10-23T17:33:23.325Z",
+              "at": "2026-10-23T17:48:45.480Z",
               "source": "https://www.youtube.com/shorts/_wtrSJFWlJc",
               "approximate": false,
               "method": "official_api",
@@ -225,7 +228,7 @@
             },
             "likes": {
               "value": 0,
-              "at": "2026-10-23T17:33:23.325Z",
+              "at": "2026-10-23T17:48:45.480Z",
               "source": "https://www.youtube.com/shorts/_wtrSJFWlJc",
               "approximate": false,
               "method": "official_api",
@@ -289,32 +292,39 @@
           "metrics": {
             "likes": {
               "value": 0,
-              "at": "2026-10-23T17:35:36.110Z",
+              "at": "2026-10-23T17:48:16.736815+00:00",
               "source": "https://x.com/IndiaanBuilds/status/2112922413596115454",
-              "method": "browser_bulk",
-              "approximate": false
+              "approximate": false,
+              "method": "fxembed_public",
+              "via": "https://api.fxtwitter.com/2/profile/id:2112484311718932480/media?count=100",
+              "upstreamObservedAt": null
             },
             "comments": {
               "value": 0,
-              "at": "2026-10-23T17:35:36.110Z",
+              "at": "2026-10-23T17:48:16.736815+00:00",
               "source": "https://x.com/IndiaanBuilds/status/2112922413596115454",
-              "method": "browser_bulk",
-              "approximate": false
+              "approximate": false,
+              "method": "fxembed_public",
+              "via": "https://api.fxtwitter.com/2/profile/id:2112484311718932480/media?count=100",
+              "upstreamObservedAt": null
             },
             "views": {
-              "value": 15,
-              "at": "2026-10-23T17:35:36.110Z",
+              "value": 16,
+              "at": "2026-10-23T17:48:16.736815+00:00",
               "source": "https://x.com/IndiaanBuilds/status/2112922413596115454",
-              "method": "browser_bulk",
               "approximate": false,
-              "definition": "x_public_post_impressions"
+              "method": "fxembed_public",
+              "via": "https://api.fxtwitter.com/2/profile/id:2112484311718932480/media?count=100",
+              "upstreamObservedAt": null
             },
             "shares": {
               "value": 0,
-              "at": "2026-10-23T17:35:36.110Z",
+              "at": "2026-10-23T17:48:16.736815+00:00",
               "source": "https://x.com/IndiaanBuilds/status/2112922413596115454",
-              "method": "browser_bulk",
-              "approximate": false
+              "approximate": false,
+              "method": "fxembed_public",
+              "via": "https://api.fxtwitter.com/2/profile/id:2112484311718932480/media?count=100",
+              "upstreamObservedAt": null
             }
           },
           "publicationVerifiedAt": "2026-10-22T21:34:23.190703+00:00",
@@ -334,13 +344,13 @@
             },
             "likes": {
               "value": 36,
-              "at": "2026-10-23T17:32:54.861437+00:00",
+              "at": "2026-10-23T17:48:16.736815+00:00",
               "source": "https://www.instagram.com/indian_builds/reel/DewrDSzty4y/",
               "approximate": false
             },
             "comments": {
               "value": 2,
-              "at": "2026-10-23T17:32:54.861437+00:00",
+              "at": "2026-10-23T17:48:16.736815+00:00",
               "source": "https://www.instagram.com/indian_builds/reel/DewrDSzty4y/",
               "approximate": false
             }
@@ -374,13 +384,13 @@
             },
             "likes": {
               "value": 36,
-              "at": "2026-10-23T17:32:54.861437+00:00",
+              "at": "2026-10-23T17:48:16.736815+00:00",
               "source": "https://www.instagram.com/indian_builds/reel/Dew6Iz2t5Nr/",
               "approximate": false
             },
             "comments": {
               "value": 2,
-              "at": "2026-10-23T17:32:54.861437+00:00",
+              "at": "2026-10-23T17:48:16.736815+00:00",
               "source": "https://www.instagram.com/indian_builds/reel/Dew6Iz2t5Nr/",
               "approximate": false
             }
@@ -402,32 +412,32 @@
           "url": "https://www.tiktok.com/@indian_builds/video/7699168385237601558",
           "metrics": {
             "views": {
-              "value": 976,
-              "at": "2026-10-23T17:32:54.861437+00:00",
+              "value": 977,
+              "at": "2026-10-23T17:48:16.736815+00:00",
               "source": "https://www.tiktok.com/@indian_builds/video/7699168385237601558",
               "approximate": false
             },
             "likes": {
               "value": 25,
-              "at": "2026-10-23T17:32:54.861437+00:00",
+              "at": "2026-10-23T17:48:16.736815+00:00",
               "source": "https://www.tiktok.com/@indian_builds/video/7699168385237601558",
               "approximate": false
             },
             "comments": {
               "value": 2,
-              "at": "2026-10-23T17:32:54.861437+00:00",
+              "at": "2026-10-23T17:48:16.736815+00:00",
               "source": "https://www.tiktok.com/@indian_builds/video/7699168385237601558",
               "approximate": false
             },
             "shares": {
               "value": 6,
-              "at": "2026-10-23T17:32:54.861437+00:00",
+              "at": "2026-10-23T17:48:16.736815+00:00",
               "source": "https://www.tiktok.com/@indian_builds/video/7699168385237601558",
               "approximate": false
             },
             "saves": {
               "value": 5,
-              "at": "2026-10-23T17:32:54.861437+00:00",
+              "at": "2026-10-23T17:48:16.736815+00:00",
               "source": "https://www.tiktok.com/@indian_builds/video/7699168385237601558",
               "approximate": false
             },
@@ -457,32 +467,32 @@
           "url": "https://www.tiktok.com/@indian_builds/video/7699133855617371414",
           "metrics": {
             "views": {
-              "value": 923,
-              "at": "2026-10-23T17:32:54.861437+00:00",
+              "value": 924,
+              "at": "2026-10-23T17:48:16.736815+00:00",
               "source": "https://www.tiktok.com/@indian_builds/video/7699133855617371414",
               "approximate": false
             },
             "likes": {
               "value": 37,
-              "at": "2026-10-23T17:32:54.861437+00:00",
+              "at": "2026-10-23T17:48:16.736815+00:00",
               "source": "https://www.tiktok.com/@indian_builds/video/7699133855617371414",
               "approximate": false
             },
             "comments": {
               "value": 3,
-              "at": "2026-10-23T17:32:54.861437+00:00",
+              "at": "2026-10-23T17:48:16.736815+00:00",
               "source": "https://www.tiktok.com/@indian_builds/video/7699133855617371414",
               "approximate": false
             },
             "shares": {
               "value": 9,
-              "at": "2026-10-23T17:32:54.861437+00:00",
+              "at": "2026-10-23T17:48:16.736815+00:00",
               "source": "https://www.tiktok.com/@indian_builds/video/7699133855617371414",
               "approximate": false
             },
             "saves": {
               "value": 11,
-              "at": "2026-10-23T17:32:54.861437+00:00",
+              "at": "2026-10-23T17:48:16.736815+00:00",
               "source": "https://www.tiktok.com/@indian_builds/video/7699133855617371414",
               "approximate": false
             },
@@ -512,8 +522,8 @@
           "url": "https://www.tiktok.com/@indian_builds/video/7699869811639110934",
           "metrics": {
             "views": {
-              "value": 200,
-              "at": "2026-10-23T17:32:54.861437+00:00",
+              "value": 214,
+              "at": "2026-10-23T17:48:16.736815+00:00",
               "source": "https://www.tiktok.com/@indian_builds/video/7699869811639110934",
               "approximate": false
             },
@@ -527,25 +537,25 @@
             },
             "likes": {
               "value": 7,
-              "at": "2026-10-23T17:32:54.861437+00:00",
+              "at": "2026-10-23T17:48:16.736815+00:00",
               "source": "https://www.tiktok.com/@indian_builds/video/7699869811639110934",
               "approximate": false
             },
             "comments": {
               "value": 1,
-              "at": "2026-10-23T17:32:54.861437+00:00",
+              "at": "2026-10-23T17:48:16.736815+00:00",
               "source": "https://www.tiktok.com/@indian_builds/video/7699869811639110934",
               "approximate": false
             },
             "saves": {
               "value": 3,
-              "at": "2026-10-23T17:32:54.861437+00:00",
+              "at": "2026-10-23T17:48:16.736815+00:00",
               "source": "https://www.tiktok.com/@indian_builds/video/7699869811639110934",
               "approximate": false
             },
             "shares": {
               "value": 0,
-              "at": "2026-10-23T17:32:54.861437+00:00",
+              "at": "2026-10-23T17:48:16.736815+00:00",
               "source": "https://www.tiktok.com/@indian_builds/video/7699869811639110934",
               "approximate": false
             }
@@ -576,13 +586,13 @@
             },
             "likes": {
               "value": 8,
-              "at": "2026-10-23T17:32:54.861437+00:00",
+              "at": "2026-10-23T17:48:16.736815+00:00",
               "source": "https://www.instagram.com/indian_builds/reel/De1xjZhtIPD/",
               "approximate": false
             },
             "comments": {
               "value": 1,
-              "at": "2026-10-23T17:32:54.861437+00:00",
+              "at": "2026-10-23T17:48:16.736815+00:00",
               "source": "https://www.instagram.com/indian_builds/reel/De1xjZhtIPD/",
               "approximate": false
             }
@@ -3064,6 +3074,13 @@
       "posts": 9,
       "approximate": false,
       "partial": false
+    },
+    {
+      "at": "2026-10-23T17:48:16.736815+00:00",
+      "views": 7536,
+      "posts": 9,
+      "approximate": false,
+      "partial": false
     }
   ],
   "tracking": {
@@ -3085,14 +3102,14 @@
     "summary": "Indian Summary"
   },
   "changes24h": {
-    "at": "2026-10-23T17:38:26.488Z",
-    "baselineAt": "2026-10-22T17:32:28.490304+00:00",
+    "at": "2026-10-23T17:48:16.736815+00:00",
+    "baselineAt": "2026-10-22T17:47:47.044171+00:00",
     "views": null,
     "likes": null,
     "followers": null
   },
   "cloudCollection": {
-    "at": "2026-10-23T17:32:54.861437+00:00",
+    "at": "2026-10-23T17:48:16.736815+00:00",
     "method": "public_cloud",
     "metricsUpdated": {
       "instagram": 6,
@@ -3101,39 +3118,39 @@
       "x": 5,
       "youtube": 5
     },
-    "runUrl": "https://github.com/jonass-pandos/cooked-dev-stats/actions/runs/39995917617"
+    "runUrl": "https://github.com/jonass-pandos/cooked-dev-stats/actions/runs/39998011269"
   },
   "discovery": {
     "youtube": {
-      "status": "checked",
+      "status": "complete",
+      "method": "official_api",
       "complete": true,
-      "method": "browser_bulk",
-      "checkedAt": "2026-10-23T17:37:52.337Z",
-      "lastCompleteAt": "2026-10-23T17:37:52.337Z",
+      "checkedAt": "2026-10-23T17:48:45.480Z",
       "listedPosts": 1,
-      "lastCompletePostCount": 1
+      "newVideos": 0,
+      "lastCompleteAt": "2026-10-23T17:48:45.480Z"
     },
     "facebook": {
-      "status": "checked",
-      "complete": true,
-      "method": "browser_bulk",
-      "checkedAt": "2026-10-23T17:33:20.909Z",
-      "lastCompleteAt": "2026-10-23T17:33:20.909Z",
-      "listedPosts": 1,
-      "lastCompletePostCount": 1
+      "status": "session_required",
+      "checkedAt": "2026-10-23T17:48:16.736815+00:00",
+      "complete": false,
+      "message": "New-publication discovery requires an authorized account list; a successful metrics check is not a complete list.",
+      "lastCompleteAt": "2026-10-23T17:33:20.909Z"
     },
     "x": {
-      "status": "checked",
-      "complete": true,
-      "method": "browser_bulk",
-      "checkedAt": "2026-10-23T17:35:36.110Z",
-      "lastCompleteAt": "2026-10-23T17:35:36.110Z",
+      "status": "partial",
+      "method": "fxembed_public",
+      "newVideos": 0,
       "listedPosts": 1,
-      "lastCompletePostCount": 1
+      "pages": 2,
+      "complete": false,
+      "message": "Third-party public timeline; upstream completeness and cache age are not guaranteed.",
+      "checkedAt": "2026-10-23T17:48:16.736815+00:00",
+      "lastCompleteAt": "2026-10-23T17:35:36.110Z"
     },
     "instagram": {
       "status": "session_required",
-      "checkedAt": "2026-10-23T17:32:54.861437+00:00",
+      "checkedAt": "2026-10-23T17:48:16.736815+00:00",
       "complete": false,
       "message": "New-publication discovery requires an authorized account list; a successful metrics check is not a complete list.",
       "lastCompleteAt": "2026-10-23T17:31:05.702Z"
@@ -3144,7 +3161,7 @@
       "newVideos": 0,
       "listedPosts": 3,
       "complete": false,
-      "checkedAt": "2026-10-23T17:32:54.861437+00:00",
+      "checkedAt": "2026-10-23T17:48:16.736815+00:00",
       "feedStatus": "profile_checked",
       "reportedPosts": 3,
       "lastCompleteAt": "2026-10-23T17:31:30.805Z"
