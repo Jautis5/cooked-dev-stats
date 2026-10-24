@@ -5,8 +5,8 @@
     "name": "DontGetTraced"
   },
   "sheetUrl": "https://docs.google.com/spreadsheets/d/1sT8AqlGMMqnJUCcA697DaVcLvRqsJhCT4xMIdl52WYY/edit#gid=1732102601",
-  "generatedAt": "2026-10-24T18:19:13.707283+00:00",
-  "lastAttemptAt": "2026-10-24T18:19:13.707283+00:00",
+  "generatedAt": "2026-10-24T18:34:37.940354+00:00",
+  "lastAttemptAt": "2026-10-24T18:34:37.940354+00:00",
   "schedule": {
     "provider": "GitHub Actions",
     "intervalMinutes": 15,
@@ -19,9 +19,9 @@
       "handle": "dontgettraced",
       "url": "https://www.instagram.com/dontgettraced/",
       "expectedHandle": "dontgettraced",
-      "status": "partial",
-      "message": "Public video metrics updated; per-metric dates retained.",
-      "lastAttemptAt": "2026-10-24T18:19:13.707283+00:00",
+      "status": "unavailable",
+      "message": "Public source unavailable; previous observations preserved.",
+      "lastAttemptAt": "2026-10-24T18:34:37.940354+00:00",
       "lastSuccessAt": "2026-10-24T18:19:13.707283+00:00",
       "metrics": {
         "followers": {
@@ -55,23 +55,23 @@
       "expectedHandle": "dontgettraced",
       "status": "partial",
       "message": "Public video metrics updated; per-metric dates retained.",
-      "lastAttemptAt": "2026-10-24T18:19:13.707283+00:00",
+      "lastAttemptAt": "2026-10-24T18:34:37.940354+00:00",
       "metrics": {
         "followers": {
           "value": 6,
-          "at": "2026-10-24T18:19:13.707283+00:00",
+          "at": "2026-10-24T18:34:37.940354+00:00",
           "source": "https://www.tiktok.com/@dontgettraced",
           "approximate": false
         },
         "profileLikes": {
           "value": 14,
-          "at": "2026-10-24T18:19:13.707283+00:00",
+          "at": "2026-10-24T18:34:37.940354+00:00",
           "source": "https://www.tiktok.com/@dontgettraced",
           "approximate": false
         },
         "publishedCount": {
           "value": 1,
-          "at": "2026-10-24T18:19:13.707283+00:00",
+          "at": "2026-10-24T18:34:37.940354+00:00",
           "source": "https://www.tiktok.com/@dontgettraced",
           "approximate": false
         },
@@ -90,7 +90,7 @@
           "approximate": false
         }
       },
-      "lastSuccessAt": "2026-10-24T18:19:13.707283+00:00"
+      "lastSuccessAt": "2026-10-24T18:34:37.940354+00:00"
     },
     {
       "id": "facebook",
@@ -100,7 +100,7 @@
       "expectedPageId": "61595574064670",
       "status": "unavailable",
       "message": "Facebook list metrics need the connected Lost Chrome session; previous observations preserved.",
-      "lastAttemptAt": "2026-10-24T18:19:13.707283+00:00",
+      "lastAttemptAt": "2026-10-24T18:34:37.940354+00:00",
       "lastSuccessAt": "2026-10-23T17:33:53.564Z",
       "metrics": {
         "followers": {
@@ -120,12 +120,12 @@
       "expectedHandle": "DontGetTraced",
       "status": "partial",
       "message": "Some public metrics refreshed; publication inventory remains incomplete.",
-      "lastAttemptAt": "2026-10-24T18:19:13.707283+00:00",
-      "lastSuccessAt": "2026-10-24T18:19:13.707283+00:00",
+      "lastAttemptAt": "2026-10-24T18:34:37.940354+00:00",
+      "lastSuccessAt": "2026-10-24T18:34:37.940354+00:00",
       "metrics": {
         "followers": {
           "value": 0,
-          "at": "2026-10-24T18:19:13.707283+00:00",
+          "at": "2026-10-24T18:34:37.940354+00:00",
           "source": "https://x.com/DontGetTraced",
           "approximate": false,
           "method": "fxembed_public",
@@ -157,18 +157,18 @@
       "expectedChannelId": "UCqsTDLISgGhzA_xiQT3E9yg",
       "status": "partial",
       "message": "Official account data refreshed; missing metrics retain their previous dates.",
-      "lastAttemptAt": "2026-10-24T18:19:56.368Z",
-      "lastSuccessAt": "2026-10-24T18:19:56.368Z",
+      "lastAttemptAt": "2026-10-24T18:35:16.914Z",
+      "lastSuccessAt": "2026-10-24T18:35:16.914Z",
       "metrics": {
         "trackedPublishedCount": {
           "value": 0,
-          "at": "2026-10-24T18:19:13.707283+00:00",
+          "at": "2026-10-24T18:34:37.940354+00:00",
           "source": "https://www.youtube.com/channel/UCqsTDLISgGhzA_xiQT3E9yg",
           "approximate": false
         },
         "publishedCount": {
           "value": 0,
-          "at": "2026-10-24T18:19:56.368Z",
+          "at": "2026-10-24T18:35:16.914Z",
           "source": "https://www.youtube.com/channel/UCqsTDLISgGhzA_xiQT3E9yg",
           "approximate": false,
           "method": "official_api",
@@ -176,14 +176,14 @@
         },
         "followers": {
           "value": 0,
-          "at": "2026-10-24T18:19:56.368Z",
+          "at": "2026-10-24T18:35:16.914Z",
           "source": "https://www.youtube.com/channel/UCqsTDLISgGhzA_xiQT3E9yg",
           "approximate": true,
           "method": "official_api",
           "apiMetric": "subscriberCount"
         }
       },
-      "trackedEmptyConfirmedAt": "2026-10-24T18:19:13.707283+00:00"
+      "trackedEmptyConfirmedAt": "2026-10-24T18:34:37.940354+00:00"
     }
   ],
   "videos": [
@@ -242,31 +242,31 @@
           "metrics": {
             "views": {
               "value": 685,
-              "at": "2026-10-24T18:19:13.707283+00:00",
+              "at": "2026-10-24T18:34:37.940354+00:00",
               "source": "https://www.tiktok.com/@dontgettraced/video/7699148170604924182",
               "approximate": false
             },
             "likes": {
               "value": 14,
-              "at": "2026-10-24T18:19:13.707283+00:00",
+              "at": "2026-10-24T18:34:37.940354+00:00",
               "source": "https://www.tiktok.com/@dontgettraced/video/7699148170604924182",
               "approximate": false
             },
             "comments": {
               "value": 4,
-              "at": "2026-10-24T18:19:13.707283+00:00",
+              "at": "2026-10-24T18:34:37.940354+00:00",
               "source": "https://www.tiktok.com/@dontgettraced/video/7699148170604924182",
               "approximate": false
             },
             "shares": {
               "value": 0,
-              "at": "2026-10-24T18:19:13.707283+00:00",
+              "at": "2026-10-24T18:34:37.940354+00:00",
               "source": "https://www.tiktok.com/@dontgettraced/video/7699148170604924182",
               "approximate": false
             },
             "saves": {
               "value": 1,
-              "at": "2026-10-24T18:19:13.707283+00:00",
+              "at": "2026-10-24T18:34:37.940354+00:00",
               "source": "https://www.tiktok.com/@dontgettraced/video/7699148170604924182",
               "approximate": false
             },
@@ -2208,6 +2208,13 @@
       "posts": 2,
       "approximate": false,
       "partial": false
+    },
+    {
+      "at": "2026-10-24T18:34:37.940354+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
     }
   ],
   "tracking": {
@@ -2219,25 +2226,25 @@
     "files": []
   },
   "cloudCollection": {
-    "at": "2026-10-24T18:19:13.707283+00:00",
+    "at": "2026-10-24T18:34:37.940354+00:00",
     "method": "public_cloud",
     "metricsUpdated": {
-      "instagram": 2,
+      "instagram": 0,
       "tiktok": 8,
       "facebook": 0,
       "x": 1,
       "youtube": 3
     },
-    "runUrl": "https://github.com/jonass-pandos/cooked-dev-stats/actions/runs/40120113080"
+    "runUrl": "https://github.com/jonass-pandos/cooked-dev-stats/actions/runs/40121298853"
   },
   "changes24h": {
-    "at": "2026-10-24T18:19:13.707283+00:00",
-    "baselineAt": "2026-10-23T18:20:17.542147+00:00",
+    "at": "2026-10-24T18:34:37.940354+00:00",
+    "baselineAt": "2026-10-23T18:35:35.743401+00:00",
     "views": null,
     "likes": {
       "value": 4,
-      "at": "2026-10-24T18:19:13.707283+00:00",
-      "baselineAt": "2026-10-23T18:20:17.542147+00:00",
+      "at": "2026-10-24T18:34:37.940354+00:00",
+      "baselineAt": "2026-10-23T18:35:35.743401+00:00",
       "periodHours": 23.98,
       "comparable": true,
       "approximate": false
@@ -2249,21 +2256,21 @@
       "status": "complete",
       "method": "official_api",
       "complete": true,
-      "checkedAt": "2026-10-24T18:19:56.368Z",
+      "checkedAt": "2026-10-24T18:35:16.914Z",
       "listedPosts": 0,
       "newVideos": 0,
-      "lastCompleteAt": "2026-10-24T18:19:56.368Z"
+      "lastCompleteAt": "2026-10-24T18:35:16.914Z"
     },
     "instagram": {
       "status": "session_required",
-      "checkedAt": "2026-10-24T18:19:13.707283+00:00",
+      "checkedAt": "2026-10-24T18:34:37.940354+00:00",
       "complete": false,
       "message": "New-publication discovery requires an authorized account list; a successful metrics check is not a complete list.",
       "lastCompleteAt": "2026-10-23T17:31:30.804Z"
     },
     "facebook": {
       "status": "session_required",
-      "checkedAt": "2026-10-24T18:19:13.707283+00:00",
+      "checkedAt": "2026-10-24T18:34:37.940354+00:00",
       "complete": false,
       "message": "New-publication discovery requires an authorized account list; a successful metrics check is not a complete list."
     },
@@ -2275,7 +2282,7 @@
       "pages": 1,
       "complete": false,
       "message": "Third-party public timeline; upstream completeness and cache age are not guaranteed.",
-      "checkedAt": "2026-10-24T18:19:13.707283+00:00",
+      "checkedAt": "2026-10-24T18:34:37.940354+00:00",
       "lastCompleteAt": "2026-10-23T17:36:55.637Z"
     },
     "tiktok": {
@@ -2284,7 +2291,7 @@
       "newVideos": 0,
       "listedPosts": 1,
       "complete": false,
-      "checkedAt": "2026-10-24T18:19:13.707283+00:00",
+      "checkedAt": "2026-10-24T18:34:37.940354+00:00",
       "feedStatus": "profile_checked",
       "reportedPosts": 1,
       "lastCompleteAt": "2026-10-23T17:32:15.427Z"
