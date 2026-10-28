@@ -4,8 +4,8 @@
   "brand": {
     "name": "DUMB LUCK"
   },
-  "generatedAt": "2026-10-28T13:19:02.721295+00:00",
-  "lastAttemptAt": "2026-10-28T13:19:02.721295+00:00",
+  "generatedAt": "2026-10-28T13:23:32.980Z",
+  "lastAttemptAt": "2026-10-28T13:23:32.980Z",
   "schedule": {
     "provider": "GitHub Actions",
     "intervalMinutes": 15,
@@ -18,10 +18,27 @@
       "handle": "duumb_luck",
       "expectedHandle": "duumb_luck",
       "url": "https://www.instagram.com/duumb_luck/",
-      "status": "unavailable",
-      "message": "Public source unavailable; previous observations preserved.",
-      "metrics": {},
-      "lastAttemptAt": "2026-10-28T13:19:02.721295+00:00"
+      "status": "partial",
+      "message": "Visible profile and video list checked; legacy posts excluded.",
+      "metrics": {
+        "followers": {
+          "value": 0,
+          "at": "2026-10-28T13:23:32.980Z",
+          "source": "https://www.instagram.com/duumb_luck/",
+          "method": "browser_bulk",
+          "approximate": false
+        },
+        "trackedPublishedCount": {
+          "value": 0,
+          "at": "2026-10-28T13:23:32.980Z",
+          "source": "https://www.instagram.com/duumb_luck/",
+          "method": "browser_bulk",
+          "approximate": false
+        }
+      },
+      "lastAttemptAt": "2026-10-28T13:23:32.980Z",
+      "trackedEmptyConfirmedAt": "2026-10-28T13:23:32.980Z",
+      "lastSuccessAt": "2026-10-28T13:23:32.980Z"
     },
     {
       "id": "tiktok",
@@ -105,10 +122,13 @@
       "message": "The profile reports no public uploads."
     },
     "instagram": {
-      "status": "session_required",
-      "checkedAt": "2026-10-28T13:19:02.721295+00:00",
-      "complete": false,
-      "message": "New-publication discovery requires an authorized account list; a successful metrics check is not a complete list."
+      "status": "checked",
+      "complete": true,
+      "method": "browser_bulk",
+      "checkedAt": "2026-10-28T13:23:32.980Z",
+      "lastCompleteAt": "2026-10-28T13:23:32.980Z",
+      "listedPosts": 0,
+      "lastCompletePostCount": 0
     }
   },
   "cloudCollection": {
@@ -122,7 +142,7 @@
     "runUrl": "https://github.com/Jautis5/cooked-dev-stats/actions/runs/40695201080"
   },
   "changes24h": {
-    "at": "2026-10-28T13:19:02.721295+00:00",
+    "at": "2026-10-28T13:23:32.980Z",
     "baselineAt": null,
     "views": null,
     "likes": null,

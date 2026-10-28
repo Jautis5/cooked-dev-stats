@@ -20,12 +20,12 @@
       "url": "https://www.instagram.com/indian_builds/",
       "expectedHandle": "indian_builds",
       "status": "partial",
-      "message": "Public video metrics updated; per-metric dates retained.",
-      "lastAttemptAt": "2026-10-28T13:19:02.721295+00:00",
+      "message": "Visible profile and video list checked; legacy posts excluded.",
+      "lastAttemptAt": "2026-10-28T13:23:10.882Z",
       "metrics": {
         "followers": {
-          "value": 13,
-          "at": "2026-10-28T09:24:09.459Z",
+          "value": 14,
+          "at": "2026-10-28T13:23:02Z",
           "source": "https://www.instagram.com/indian_builds/",
           "method": "browser_bulk",
           "approximate": false
@@ -52,7 +52,7 @@
           "approximate": false
         }
       },
-      "lastSuccessAt": "2026-10-28T13:19:02.721295+00:00"
+      "lastSuccessAt": "2026-10-28T13:23:10.882Z"
     },
     {
       "id": "tiktok",
@@ -384,10 +384,11 @@
           "metrics": {
             "views": {
               "value": 1663,
-              "at": "2026-10-28T09:24:09.459Z",
+              "at": "2026-10-28T13:23:02Z",
               "source": "https://www.instagram.com/indian_builds/reel/DewrDSzty4y/",
               "method": "browser_bulk",
-              "approximate": false
+              "approximate": false,
+              "via": "https://www.instagram.com/indian_builds/reels/"
             },
             "likes": {
               "value": 37,
@@ -422,11 +423,12 @@
           "url": "https://www.instagram.com/indian_builds/reel/Dew6Iz2t5Nr/",
           "metrics": {
             "views": {
-              "value": 2580,
-              "at": "2026-10-28T09:24:09.459Z",
+              "value": 2582,
+              "at": "2026-10-28T13:23:02Z",
               "source": "https://www.instagram.com/indian_builds/reel/Dew6Iz2t5Nr/",
               "method": "browser_bulk",
-              "approximate": false
+              "approximate": false,
+              "via": "https://www.instagram.com/indian_builds/reels/"
             },
             "likes": {
               "value": 36,
@@ -624,10 +626,11 @@
           "metrics": {
             "views": {
               "value": 1641,
-              "at": "2026-10-28T09:24:09.459Z",
+              "at": "2026-10-28T13:23:02Z",
               "source": "https://www.instagram.com/indian_builds/reel/De1xjZhtIPD/",
               "method": "browser_bulk",
-              "approximate": false
+              "approximate": false,
+              "via": "https://www.instagram.com/indian_builds/reels/"
             },
             "likes": {
               "value": 20,
@@ -717,10 +720,11 @@
           "metrics": {
             "views": {
               "value": 1616,
-              "at": "2026-10-28T09:24:09.459Z",
+              "at": "2026-10-28T13:23:02Z",
               "source": "https://www.instagram.com/indian_builds/reel/De2JSYZN1hC/",
               "method": "browser_bulk",
-              "approximate": false
+              "approximate": false,
+              "via": "https://www.instagram.com/indian_builds/reels/"
             },
             "likes": {
               "value": 10,
@@ -5617,11 +5621,13 @@
       "lastCompleteAt": "2026-10-28T09:31:26.297Z"
     },
     "instagram": {
-      "status": "session_required",
-      "checkedAt": "2026-10-28T13:19:02.721295+00:00",
-      "complete": false,
-      "message": "New-publication discovery requires an authorized account list; a successful metrics check is not a complete list.",
-      "lastCompleteAt": "2026-10-28T09:24:09.459Z"
+      "status": "checked",
+      "complete": true,
+      "method": "browser_bulk",
+      "checkedAt": "2026-10-28T13:23:10.882Z",
+      "lastCompleteAt": "2026-10-28T13:23:10.882Z",
+      "listedPosts": 4,
+      "lastCompletePostCount": 4
     },
     "tiktok": {
       "status": "checked",

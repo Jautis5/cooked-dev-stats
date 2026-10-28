@@ -20,13 +20,13 @@
       "url": "https://www.instagram.com/dontgettraced/",
       "expectedHandle": "dontgettraced",
       "status": "partial",
-      "message": "Public video metrics updated; per-metric dates retained.",
-      "lastAttemptAt": "2026-10-28T13:19:02.721295+00:00",
-      "lastSuccessAt": "2026-10-28T13:19:02.721295+00:00",
+      "message": "Visible profile and video list checked; legacy posts excluded.",
+      "lastAttemptAt": "2026-10-28T13:23:22.132Z",
+      "lastSuccessAt": "2026-10-28T13:23:22.132Z",
       "metrics": {
         "followers": {
           "value": 42,
-          "at": "2026-10-28T09:24:10.257Z",
+          "at": "2026-10-28T13:23:22.132Z",
           "source": "https://www.instagram.com/dontgettraced/",
           "method": "browser_bulk",
           "approximate": false
@@ -230,11 +230,12 @@
           "url": "https://www.instagram.com/dontgettraced/reel/Deww_L4IhFJ/",
           "metrics": {
             "views": {
-              "value": 4443,
-              "at": "2026-10-28T09:24:10.257Z",
+              "value": 4456,
+              "at": "2026-10-28T13:23:22.132Z",
               "source": "https://www.instagram.com/dontgettraced/reel/Deww_L4IhFJ/",
               "method": "browser_bulk",
-              "approximate": false
+              "approximate": false,
+              "via": "https://www.instagram.com/dontgettraced/reels/"
             },
             "likes": {
               "value": 142,
@@ -3879,11 +3880,13 @@
       "lastCompleteAt": "2026-10-28T09:29:58.199Z"
     },
     "instagram": {
-      "status": "session_required",
-      "checkedAt": "2026-10-28T13:19:02.721295+00:00",
-      "complete": false,
-      "message": "New-publication discovery requires an authorized account list; a successful metrics check is not a complete list.",
-      "lastCompleteAt": "2026-10-28T09:24:10.257Z"
+      "status": "checked",
+      "complete": true,
+      "method": "browser_bulk",
+      "checkedAt": "2026-10-28T13:23:22.132Z",
+      "lastCompleteAt": "2026-10-28T13:23:22.132Z",
+      "listedPosts": 1,
+      "lastCompletePostCount": 1
     },
     "facebook": {
       "status": "session_required",
