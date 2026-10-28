@@ -4,8 +4,8 @@
   "brand": {
     "name": "DUMB LUCK"
   },
-  "generatedAt": "2026-10-28T14:23:45.499Z",
-  "lastAttemptAt": "2026-10-28T14:23:45.499Z",
+  "generatedAt": "2026-10-28T14:29:26.904Z",
+  "lastAttemptAt": "2026-10-28T14:29:26.904Z",
   "schedule": {
     "provider": "GitHub Actions",
     "intervalMinutes": 15,
@@ -86,10 +86,10 @@
       "expectedChannelId": "UCB-BqPU60vRfUWGalt6fRtQ",
       "url": "https://www.youtube.com/channel/UCB-BqPU60vRfUWGalt6fRtQ",
       "status": "partial",
-      "message": "Public video metrics updated; per-metric dates retained.",
+      "message": "Visible profile and video list checked; legacy posts excluded.",
       "metrics": {},
-      "lastAttemptAt": "2026-10-28T14:20:28.599867+00:00",
-      "lastSuccessAt": "2026-10-28T14:20:28.599867+00:00"
+      "lastAttemptAt": "2026-10-28T14:29:26.904Z",
+      "lastSuccessAt": "2026-10-28T14:29:26.904Z"
     }
   ],
   "videos": [
@@ -146,12 +146,12 @@
           "url": "https://www.youtube.com/shorts/pPlrf8Whqvg",
           "metrics": {
             "views": {
-              "value": 0,
-              "at": "2026-10-28T14:20:28.599867+00:00",
+              "value": 1,
+              "at": "2026-10-28T14:29:26.904Z",
               "source": "https://www.youtube.com/shorts/pPlrf8Whqvg",
+              "method": "browser_bulk",
               "approximate": false,
-              "method": "public_channel_feed",
-              "evidenceUrl": "https://www.youtube.com/feeds/videos.xml?channel_id=UCB-BqPU60vRfUWGalt6fRtQ"
+              "via": "https://www.youtube.com/channel/UCB-BqPU60vRfUWGalt6fRtQ/shorts"
             }
           },
           "publicationVerifiedAt": "2026-10-28T13:38:10.128470+00:00",
@@ -224,6 +224,13 @@
       "posts": 3,
       "approximate": false,
       "partial": false
+    },
+    {
+      "at": "2026-10-28T14:29:26.904Z",
+      "views": 100,
+      "posts": 3,
+      "approximate": false,
+      "partial": false
     }
   ],
   "tracking": {
@@ -232,13 +239,13 @@
   },
   "discovery": {
     "youtube": {
-      "status": "partial",
-      "method": "public_shorts_tab",
-      "newVideos": 0,
+      "status": "checked",
+      "complete": true,
+      "method": "browser_bulk",
+      "checkedAt": "2026-10-28T14:29:26.904Z",
+      "lastCompleteAt": "2026-10-28T14:29:26.904Z",
       "listedPosts": 1,
-      "complete": false,
-      "checkedAt": "2026-10-28T14:20:28.599867+00:00",
-      "feedStatus": "checked"
+      "lastCompletePostCount": 1
     },
     "tiktok": {
       "status": "checked",
@@ -270,7 +277,7 @@
     "runUrl": "https://github.com/Jautis5/cooked-dev-stats/actions/runs/40704803593"
   },
   "changes24h": {
-    "at": "2026-10-28T14:23:45.499Z",
+    "at": "2026-10-28T14:29:26.904Z",
     "baselineAt": null,
     "views": null,
     "likes": null,

@@ -8,8 +8,8 @@
     "intervalMinutes": 15,
     "cron": "7-59/15 * * * *"
   },
-  "generatedAt": "2026-10-28T14:22:54.307Z",
-  "lastAttemptAt": "2026-10-28T14:22:54.307Z",
+  "generatedAt": "2026-10-28T14:29:00.284Z",
+  "lastAttemptAt": "2026-10-28T14:29:00.284Z",
   "accounts": [
     {
       "id": "instagram",
@@ -129,8 +129,9 @@
       "metrics": {
         "followers": {
           "value": 37,
-          "at": "2026-10-28T14:20:28.599867+00:00",
+          "at": "2026-10-28T14:29:00.284Z",
           "source": "https://www.youtube.com/channel/UCNPkHyLJotjamsFxts47T2A",
+          "method": "browser_bulk",
           "approximate": false
         },
         "publishedCount": {
@@ -149,9 +150,9 @@
         }
       },
       "status": "partial",
-      "lastAttemptAt": "2026-10-28T14:20:28.599867+00:00",
-      "lastSuccessAt": "2026-10-28T14:20:28.599867+00:00",
-      "message": "Profilis pasiekiamas. Visas publikacijų sąrašas nepatvirtintas.",
+      "lastAttemptAt": "2026-10-28T14:29:00.284Z",
+      "lastSuccessAt": "2026-10-28T14:29:00.284Z",
+      "message": "Visible profile and video list checked; legacy posts excluded.",
       "browserObservedAt": "2026-10-20T09:20:44.185000+00:00"
     },
     {
@@ -162,12 +163,11 @@
       "metrics": {
         "followers": {
           "value": 10,
-          "at": "2026-10-28T14:20:28.599867+00:00",
+          "at": "2026-10-28T14:27:23.245Z",
           "source": "https://x.com/Cooked_Deev",
+          "method": "browser_bulk",
           "approximate": false,
-          "method": "fxembed_public",
-          "via": "https://api.fxtwitter.com/2/profile/Cooked_Deev",
-          "upstreamObservedAt": null
+          "via": "https://x.com/Cooked_Deev/media"
         },
         "publishedCount": {
           "value": 7,
@@ -185,9 +185,9 @@
         }
       },
       "status": "partial",
-      "lastAttemptAt": "2026-10-28T14:20:28.599867+00:00",
-      "lastSuccessAt": "2026-10-28T14:20:28.599867+00:00",
-      "message": "Some public metrics refreshed; publication inventory remains incomplete.",
+      "lastAttemptAt": "2026-10-28T14:27:39.859Z",
+      "lastSuccessAt": "2026-10-28T14:27:39.859Z",
+      "message": "Visible profile and video list checked; legacy posts excluded.",
       "browserObservedAt": "2026-10-20T09:20:09.115000+00:00"
     },
     {
@@ -198,10 +198,11 @@
       "metrics": {
         "followers": {
           "value": 2,
-          "at": "2026-10-28T09:28:45.854Z",
+          "at": "2026-10-28T14:25:38.674Z",
           "source": "https://www.facebook.com/profile.php?id=61595564490107",
           "method": "browser_bulk",
-          "approximate": false
+          "approximate": false,
+          "via": "https://www.facebook.com/profile.php?id=61595564490107"
         },
         "publishedCount": {
           "value": 7,
@@ -218,10 +219,10 @@
           "approximate": false
         }
       },
-      "status": "unavailable",
-      "lastAttemptAt": "2026-10-28T14:20:28.599867+00:00",
-      "lastSuccessAt": "2026-10-28T09:28:45.854Z",
-      "message": "Automatinė vieša statistika nepasiekiama. Palikti paskutiniai patikrinti duomenys.",
+      "status": "partial",
+      "lastAttemptAt": "2026-10-28T14:25:38.674Z",
+      "lastSuccessAt": "2026-10-28T14:25:38.674Z",
+      "message": "Visible profile and video list checked; legacy posts excluded.",
       "browserObservedAt": "2026-10-20T09:21:39.659000+00:00"
     }
   ],
@@ -353,21 +354,19 @@
           "metrics": {
             "comments": {
               "value": 0,
-              "at": "2026-10-28T14:20:28.599867+00:00",
+              "at": "2026-10-28T14:27:39.859Z",
               "source": "https://x.com/Cooked_Deev/status/2112225565633925197",
+              "method": "browser_bulk",
               "approximate": false,
-              "method": "fxembed_public",
-              "via": "https://api.fxtwitter.com/2/profile/id:2112114970594861056/media?count=100",
-              "upstreamObservedAt": null
+              "via": "https://x.com/Cooked_Deev/media"
             },
             "likes": {
               "value": 2,
-              "at": "2026-10-28T14:20:28.599867+00:00",
+              "at": "2026-10-28T14:27:39.859Z",
               "source": "https://x.com/Cooked_Deev/status/2112225565633925197",
+              "method": "browser_bulk",
               "approximate": false,
-              "method": "fxembed_public",
-              "via": "https://api.fxtwitter.com/2/profile/id:2112114970594861056/media?count=100",
-              "upstreamObservedAt": null
+              "via": "https://x.com/Cooked_Deev/media"
             },
             "shares": {
               "value": 1,
@@ -389,10 +388,19 @@
             },
             "reposts": {
               "value": 1,
-              "at": "2026-10-28T09:31:20.243Z",
+              "at": "2026-10-28T14:27:39.859Z",
               "source": "https://x.com/Cooked_Deev/status/2112225565633925197",
               "method": "browser_bulk",
-              "approximate": false
+              "approximate": false,
+              "via": "https://x.com/Cooked_Deev/media"
+            },
+            "postViews": {
+              "value": 36,
+              "at": "2026-10-28T14:27:39.859Z",
+              "source": "https://x.com/Cooked_Deev/status/2112225565633925197",
+              "method": "browser_bulk",
+              "approximate": false,
+              "via": "https://x.com/Cooked_Deev/media"
             }
           },
           "publishedAt": "2026-10-19T16:53:12+00:00",
@@ -574,21 +582,19 @@
           "metrics": {
             "comments": {
               "value": 0,
-              "at": "2026-10-28T14:20:28.599867+00:00",
+              "at": "2026-10-28T14:27:39.859Z",
               "source": "https://x.com/Cooked_Deev/status/2112280122694734281",
+              "method": "browser_bulk",
               "approximate": false,
-              "method": "fxembed_public",
-              "via": "https://api.fxtwitter.com/2/profile/id:2112114970594861056/media?count=100",
-              "upstreamObservedAt": null
+              "via": "https://x.com/Cooked_Deev/media"
             },
             "likes": {
               "value": 2,
-              "at": "2026-10-28T14:20:28.599867+00:00",
+              "at": "2026-10-28T14:27:39.859Z",
               "source": "https://x.com/Cooked_Deev/status/2112280122694734281",
+              "method": "browser_bulk",
               "approximate": false,
-              "method": "fxembed_public",
-              "via": "https://api.fxtwitter.com/2/profile/id:2112114970594861056/media?count=100",
-              "upstreamObservedAt": null
+              "via": "https://x.com/Cooked_Deev/media"
             },
             "shares": {
               "value": 0,
@@ -610,10 +616,19 @@
             },
             "reposts": {
               "value": 0,
-              "at": "2026-10-28T09:31:20.243Z",
+              "at": "2026-10-28T14:27:39.859Z",
               "source": "https://x.com/Cooked_Deev/status/2112280122694734281",
               "method": "browser_bulk",
-              "approximate": false
+              "approximate": false,
+              "via": "https://x.com/Cooked_Deev/media"
+            },
+            "postViews": {
+              "value": 44,
+              "at": "2026-10-28T14:27:39.859Z",
+              "source": "https://x.com/Cooked_Deev/status/2112280122694734281",
+              "method": "browser_bulk",
+              "approximate": false,
+              "via": "https://x.com/Cooked_Deev/media"
             }
           }
         },
@@ -830,21 +845,19 @@
           "metrics": {
             "comments": {
               "value": 2,
-              "at": "2026-10-28T14:20:28.599867+00:00",
+              "at": "2026-10-28T14:27:39.859Z",
               "source": "https://x.com/Cooked_Deev/status/2112465088129171473",
+              "method": "browser_bulk",
               "approximate": false,
-              "method": "fxembed_public",
-              "via": "https://api.fxtwitter.com/2/profile/id:2112114970594861056/media?count=100",
-              "upstreamObservedAt": null
+              "via": "https://x.com/Cooked_Deev/media"
             },
             "likes": {
               "value": 3,
-              "at": "2026-10-28T14:20:28.599867+00:00",
+              "at": "2026-10-28T14:27:39.859Z",
               "source": "https://x.com/Cooked_Deev/status/2112465088129171473",
+              "method": "browser_bulk",
               "approximate": false,
-              "method": "fxembed_public",
-              "via": "https://api.fxtwitter.com/2/profile/id:2112114970594861056/media?count=100",
-              "upstreamObservedAt": null
+              "via": "https://x.com/Cooked_Deev/media"
             },
             "shares": {
               "value": 0,
@@ -866,10 +879,19 @@
             },
             "reposts": {
               "value": 0,
-              "at": "2026-10-28T09:31:20.243Z",
+              "at": "2026-10-28T14:27:39.859Z",
               "source": "https://x.com/Cooked_Deev/status/2112465088129171473",
               "method": "browser_bulk",
-              "approximate": false
+              "approximate": false,
+              "via": "https://x.com/Cooked_Deev/media"
+            },
+            "postViews": {
+              "value": 45,
+              "at": "2026-10-28T14:27:39.859Z",
+              "source": "https://x.com/Cooked_Deev/status/2112465088129171473",
+              "method": "browser_bulk",
+              "approximate": false,
+              "via": "https://x.com/Cooked_Deev/media"
             }
           }
         }
@@ -970,21 +992,19 @@
             },
             "likes": {
               "value": 5,
-              "at": "2026-10-28T14:20:28.599867+00:00",
+              "at": "2026-10-28T14:27:36.009Z",
               "source": "https://x.com/Cooked_Deev/status/2112589670962155929",
+              "method": "browser_bulk",
               "approximate": false,
-              "method": "fxembed_public",
-              "via": "https://api.fxtwitter.com/2/profile/id:2112114970594861056/media?count=100",
-              "upstreamObservedAt": null
+              "via": "https://x.com/Cooked_Deev/media"
             },
             "comments": {
               "value": 6,
-              "at": "2026-10-28T14:20:28.599867+00:00",
+              "at": "2026-10-28T14:27:36.009Z",
               "source": "https://x.com/Cooked_Deev/status/2112589670962155929",
+              "method": "browser_bulk",
               "approximate": false,
-              "method": "fxembed_public",
-              "via": "https://api.fxtwitter.com/2/profile/id:2112114970594861056/media?count=100",
-              "upstreamObservedAt": null
+              "via": "https://x.com/Cooked_Deev/media"
             },
             "shares": {
               "value": 0,
@@ -997,10 +1017,19 @@
             },
             "reposts": {
               "value": 0,
-              "at": "2026-10-28T09:31:20.243Z",
+              "at": "2026-10-28T14:27:36.009Z",
               "source": "https://x.com/Cooked_Deev/status/2112589670962155929",
               "method": "browser_bulk",
-              "approximate": false
+              "approximate": false,
+              "via": "https://x.com/Cooked_Deev/media"
+            },
+            "postViews": {
+              "value": 35,
+              "at": "2026-10-28T14:27:36.009Z",
+              "source": "https://x.com/Cooked_Deev/status/2112589670962155929",
+              "method": "browser_bulk",
+              "approximate": false,
+              "via": "https://x.com/Cooked_Deev/media"
             }
           },
           "publicationVerifiedAt": "2026-10-22T06:12:33.027Z",
@@ -1226,21 +1255,19 @@
           "metrics": {
             "likes": {
               "value": 0,
-              "at": "2026-10-28T14:20:28.599867+00:00",
+              "at": "2026-10-28T14:27:36.009Z",
               "source": "https://x.com/Cooked_Deev/status/2112863966850670783",
+              "method": "browser_bulk",
               "approximate": false,
-              "method": "fxembed_public",
-              "via": "https://api.fxtwitter.com/2/profile/id:2112114970594861056/media?count=100",
-              "upstreamObservedAt": null
+              "via": "https://x.com/Cooked_Deev/media"
             },
             "comments": {
               "value": 0,
-              "at": "2026-10-28T14:20:28.599867+00:00",
+              "at": "2026-10-28T14:27:36.009Z",
               "source": "https://x.com/Cooked_Deev/status/2112863966850670783",
+              "method": "browser_bulk",
               "approximate": false,
-              "method": "fxembed_public",
-              "via": "https://api.fxtwitter.com/2/profile/id:2112114970594861056/media?count=100",
-              "upstreamObservedAt": null
+              "via": "https://x.com/Cooked_Deev/media"
             },
             "views": {
               "value": 14,
@@ -1262,10 +1289,19 @@
             },
             "reposts": {
               "value": 0,
-              "at": "2026-10-28T09:31:20.243Z",
+              "at": "2026-10-28T14:27:36.009Z",
               "source": "https://x.com/Cooked_Deev/status/2112863966850670783",
               "method": "browser_bulk",
-              "approximate": false
+              "approximate": false,
+              "via": "https://x.com/Cooked_Deev/media"
+            },
+            "postViews": {
+              "value": 14,
+              "at": "2026-10-28T14:27:36.009Z",
+              "source": "https://x.com/Cooked_Deev/status/2112863966850670783",
+              "method": "browser_bulk",
+              "approximate": false,
+              "via": "https://x.com/Cooked_Deev/media"
             }
           },
           "publicationVerifiedAt": "2026-10-21T14:13:13.128614+03:00",
@@ -1443,21 +1479,19 @@
           "metrics": {
             "likes": {
               "value": 0,
-              "at": "2026-10-28T14:20:28.599867+00:00",
+              "at": "2026-10-28T14:27:36.009Z",
               "source": "https://x.com/Cooked_Deev/status/2112864299194679692",
+              "method": "browser_bulk",
               "approximate": false,
-              "method": "fxembed_public",
-              "via": "https://api.fxtwitter.com/2/profile/id:2112114970594861056/media?count=100",
-              "upstreamObservedAt": null
+              "via": "https://x.com/Cooked_Deev/media"
             },
             "comments": {
               "value": 0,
-              "at": "2026-10-28T14:20:28.599867+00:00",
+              "at": "2026-10-28T14:27:36.009Z",
               "source": "https://x.com/Cooked_Deev/status/2112864299194679692",
+              "method": "browser_bulk",
               "approximate": false,
-              "method": "fxembed_public",
-              "via": "https://api.fxtwitter.com/2/profile/id:2112114970594861056/media?count=100",
-              "upstreamObservedAt": null
+              "via": "https://x.com/Cooked_Deev/media"
             },
             "views": {
               "value": 22,
@@ -1479,10 +1513,19 @@
             },
             "reposts": {
               "value": 0,
-              "at": "2026-10-28T09:31:18.965Z",
+              "at": "2026-10-28T14:27:36.009Z",
               "source": "https://x.com/Cooked_Deev/status/2112864299194679692",
               "method": "browser_bulk",
-              "approximate": false
+              "approximate": false,
+              "via": "https://x.com/Cooked_Deev/media"
+            },
+            "postViews": {
+              "value": 22,
+              "at": "2026-10-28T14:27:36.009Z",
+              "source": "https://x.com/Cooked_Deev/status/2112864299194679692",
+              "method": "browser_bulk",
+              "approximate": false,
+              "via": "https://x.com/Cooked_Deev/media"
             }
           },
           "publicationVerifiedAt": "2026-10-21T14:13:13.128614+03:00",
@@ -1716,21 +1759,19 @@
             },
             "likes": {
               "value": 0,
-              "at": "2026-10-28T14:20:28.599867+00:00",
+              "at": "2026-10-28T14:27:27.956Z",
               "source": "https://x.com/Cooked_Deev/status/2113666004869911014",
+              "method": "browser_bulk",
               "approximate": false,
-              "method": "fxembed_public",
-              "via": "https://api.fxtwitter.com/2/profile/id:2112114970594861056/media?count=100",
-              "upstreamObservedAt": null
+              "via": "https://x.com/Cooked_Deev/media"
             },
             "comments": {
               "value": 0,
-              "at": "2026-10-28T14:20:28.599867+00:00",
+              "at": "2026-10-28T14:27:27.956Z",
               "source": "https://x.com/Cooked_Deev/status/2113666004869911014",
+              "method": "browser_bulk",
               "approximate": false,
-              "method": "fxembed_public",
-              "via": "https://api.fxtwitter.com/2/profile/id:2112114970594861056/media?count=100",
-              "upstreamObservedAt": null
+              "via": "https://x.com/Cooked_Deev/media"
             },
             "shares": {
               "value": 0,
@@ -1750,10 +1791,19 @@
             },
             "reposts": {
               "value": 0,
-              "at": "2026-10-28T09:31:18.965Z",
+              "at": "2026-10-28T14:27:27.956Z",
               "source": "https://x.com/Cooked_Deev/status/2113666004869911014",
               "method": "browser_bulk",
-              "approximate": false
+              "approximate": false,
+              "via": "https://x.com/Cooked_Deev/media"
+            },
+            "postViews": {
+              "value": 7,
+              "at": "2026-10-28T14:27:27.956Z",
+              "source": "https://x.com/Cooked_Deev/status/2113666004869911014",
+              "method": "browser_bulk",
+              "approximate": false,
+              "via": "https://x.com/Cooked_Deev/media"
             }
           },
           "publicationVerifiedAt": "2026-10-23T16:40:41.022822+00:00",
@@ -1895,21 +1945,19 @@
           "metrics": {
             "likes": {
               "value": 0,
-              "at": "2026-10-28T14:20:28.599867+00:00",
+              "at": "2026-10-28T14:27:23.245Z",
               "source": "https://x.com/Cooked_Deev/status/2113733952448102863",
+              "method": "browser_bulk",
               "approximate": false,
-              "method": "fxembed_public",
-              "via": "https://api.fxtwitter.com/2/profile/id:2112114970594861056/media?count=100",
-              "upstreamObservedAt": null
+              "via": "https://x.com/Cooked_Deev/media"
             },
             "comments": {
               "value": 0,
-              "at": "2026-10-28T14:20:28.599867+00:00",
+              "at": "2026-10-28T14:27:23.245Z",
               "source": "https://x.com/Cooked_Deev/status/2113733952448102863",
+              "method": "browser_bulk",
               "approximate": false,
-              "method": "fxembed_public",
-              "via": "https://api.fxtwitter.com/2/profile/id:2112114970594861056/media?count=100",
-              "upstreamObservedAt": null
+              "via": "https://x.com/Cooked_Deev/media"
             },
             "shares": {
               "value": 0,
@@ -1938,10 +1986,19 @@
             },
             "reposts": {
               "value": 0,
-              "at": "2026-10-28T09:31:18.965Z",
+              "at": "2026-10-28T14:27:23.245Z",
               "source": "https://x.com/Cooked_Deev/status/2113733952448102863",
               "method": "browser_bulk",
-              "approximate": false
+              "approximate": false,
+              "via": "https://x.com/Cooked_Deev/media"
+            },
+            "postViews": {
+              "value": 3,
+              "at": "2026-10-28T14:27:23.245Z",
+              "source": "https://x.com/Cooked_Deev/status/2113733952448102863",
+              "method": "browser_bulk",
+              "approximate": false,
+              "via": "https://x.com/Cooked_Deev/media"
             }
           },
           "publicationVerifiedAt": "2026-10-26T10:00:04.981558+00:00",
@@ -2123,21 +2180,19 @@
           "metrics": {
             "likes": {
               "value": 0,
-              "at": "2026-10-28T14:20:28.599867+00:00",
+              "at": "2026-10-28T14:27:23.245Z",
               "source": "https://x.com/Cooked_Deev/status/2114014551804940399",
+              "method": "browser_bulk",
               "approximate": false,
-              "method": "fxembed_public",
-              "via": "https://api.fxtwitter.com/2/profile/id:2112114970594861056/media?count=100",
-              "upstreamObservedAt": null
+              "via": "https://x.com/Cooked_Deev/media"
             },
             "comments": {
               "value": 0,
-              "at": "2026-10-28T14:20:28.599867+00:00",
+              "at": "2026-10-28T14:27:23.245Z",
               "source": "https://x.com/Cooked_Deev/status/2114014551804940399",
+              "method": "browser_bulk",
               "approximate": false,
-              "method": "fxembed_public",
-              "via": "https://api.fxtwitter.com/2/profile/id:2112114970594861056/media?count=100",
-              "upstreamObservedAt": null
+              "via": "https://x.com/Cooked_Deev/media"
             },
             "shares": {
               "value": 0,
@@ -2166,10 +2221,19 @@
             },
             "reposts": {
               "value": 0,
-              "at": "2026-10-28T09:31:18.965Z",
+              "at": "2026-10-28T14:27:23.245Z",
               "source": "https://x.com/Cooked_Deev/status/2114014551804940399",
               "method": "browser_bulk",
-              "approximate": false
+              "approximate": false,
+              "via": "https://x.com/Cooked_Deev/media"
+            },
+            "postViews": {
+              "value": 5,
+              "at": "2026-10-28T14:27:23.245Z",
+              "source": "https://x.com/Cooked_Deev/status/2114014551804940399",
+              "method": "browser_bulk",
+              "approximate": false,
+              "via": "https://x.com/Cooked_Deev/media"
             }
           },
           "publicationVerifiedAt": "2026-10-26T10:00:04.981691+00:00",
@@ -11761,6 +11825,13 @@
       "posts": 102,
       "approximate": false,
       "partial": true
+    },
+    {
+      "at": "2026-10-28T14:29:00.284Z",
+      "views": 792513,
+      "posts": 102,
+      "approximate": false,
+      "partial": true
     }
   ],
   "assetLibrary": {
@@ -11771,7 +11842,7 @@
   },
   "mcpMergedAt": "2026-10-20T09:22:29.266077+00:00",
   "changes24h": {
-    "at": "2026-10-28T14:22:54.307Z",
+    "at": "2026-10-28T14:29:00.284Z",
     "baselineAt": null,
     "views": null,
     "likes": null,
@@ -11791,14 +11862,13 @@
   },
   "discovery": {
     "youtube": {
-      "status": "partial",
-      "method": "public_shorts_tab",
-      "newVideos": 0,
+      "status": "checked",
+      "complete": true,
+      "method": "browser_bulk",
+      "checkedAt": "2026-10-28T14:29:00.284Z",
+      "lastCompleteAt": "2026-10-28T14:29:00.284Z",
       "listedPosts": 13,
-      "complete": false,
-      "checkedAt": "2026-10-28T14:20:28.599867+00:00",
-      "feedStatus": "checked",
-      "lastCompleteAt": "2026-10-28T09:29:56.337Z"
+      "lastCompletePostCount": 13
     },
     "instagram": {
       "status": "checked",
@@ -11830,11 +11900,13 @@
       "lastCompleteAt": "2026-10-28T09:31:21.526Z"
     },
     "facebook": {
-      "status": "session_required",
-      "checkedAt": "2026-10-28T14:20:28.599867+00:00",
-      "complete": false,
-      "message": "New-publication discovery requires an authorized account list; a successful metrics check is not a complete list.",
-      "lastCompleteAt": "2026-10-28T09:28:45.854Z"
+      "status": "checked",
+      "complete": true,
+      "method": "browser_bulk",
+      "checkedAt": "2026-10-28T14:25:38.674Z",
+      "lastCompleteAt": "2026-10-28T14:25:38.674Z",
+      "listedPosts": 17,
+      "lastCompletePostCount": 17
     }
   },
   "localCollection": {
