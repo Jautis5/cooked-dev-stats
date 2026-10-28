@@ -78,4 +78,4 @@ if __name__=='__main__':
     path=pathlib.Path(args.dashboard)
     data=merge(json.loads(path.read_text()),json.loads(pathlib.Path(args.input).read_text()))
     collect_channels.record(data,path.parent)
-    print(json.dumps({'channel':data['channelId'],'videos':len(data['videos'])}))
+    print(json.dumps({'channel':data.get('channelId','cooked-dev'),'videos':len(data['videos'])}))

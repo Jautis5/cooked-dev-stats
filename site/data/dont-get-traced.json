@@ -5,68 +5,128 @@
     "name": "DontGetTraced"
   },
   "sheetUrl": "https://docs.google.com/spreadsheets/d/1sT8AqlGMMqnJUCcA697DaVcLvRqsJhCT4xMIdl52WYY/edit#gid=1732102601",
-  "generatedAt": "2026-10-21T11:34:30.310Z",
-  "lastAttemptAt": "2026-10-21T11:34:30.310Z",
+  "generatedAt": "2026-10-28T09:39:31.452327+00:00",
+  "lastAttemptAt": "2026-10-28T09:39:31.452327+00:00",
   "schedule": {
     "provider": "GitHub Actions",
-    "intervalMinutes": 15
+    "intervalMinutes": 15,
+    "cron": "7-59/15 * * * *"
   },
   "accounts": [
     {
       "id": "instagram",
       "name": "Instagram",
-      "handle": "dongettraced",
-      "url": "https://www.instagram.com/dongettraced/",
-      "expectedHandle": "dongettraced",
+      "handle": "dontgettraced",
+      "url": "https://www.instagram.com/dontgettraced/",
+      "expectedHandle": "dontgettraced",
       "status": "partial",
-      "message": "Signed-in profile identity verified; only visible metrics recorded.",
-      "lastAttemptAt": "2026-10-21T11:34:30.310Z",
-      "lastSuccessAt": "2026-10-21T11:34:30.310Z",
+      "message": "Visible profile and video list checked; legacy posts excluded.",
+      "lastAttemptAt": "2026-10-28T09:24:10.257Z",
+      "lastSuccessAt": "2026-10-28T09:24:10.257Z",
       "metrics": {
         "followers": {
-          "value": 0,
-          "at": "2026-10-21T11:34:30.310Z",
-          "source": "https://www.instagram.com/dongettraced/",
-          "method": "browser_profile",
+          "value": 42,
+          "at": "2026-10-28T09:24:10.257Z",
+          "source": "https://www.instagram.com/dontgettraced/",
+          "method": "browser_bulk",
+          "approximate": false
+        },
+        "publishedCount": {
+          "value": 1,
+          "at": "2026-10-28T09:24:10.257Z",
+          "source": "https://www.instagram.com/dontgettraced/",
+          "method": "browser_bulk",
           "approximate": false
         },
         "trackedPublishedCount": {
-          "value": 0,
-          "at": "2026-10-21T11:34:30.310Z",
-          "source": "https://www.instagram.com/dongettraced/",
-          "method": "browser_profile",
+          "value": 1,
+          "at": "2026-10-28T09:24:10.257Z",
+          "source": "https://www.instagram.com/dontgettraced/",
+          "method": "browser_bulk",
+          "approximate": false
+        },
+        "following": {
+          "value": 1,
+          "at": "2026-10-28T09:24:10.257Z",
+          "source": "https://www.instagram.com/dontgettraced/",
+          "method": "browser_bulk",
           "approximate": false
         }
-      },
-      "trackedEmptyConfirmedAt": "2026-10-21T11:34:30.310Z"
+      }
     },
     {
       "id": "tiktok",
       "name": "TikTok",
-      "handle": "dontgettraceed",
-      "url": "https://www.tiktok.com/@dontgettraceed",
-      "expectedHandle": "dontgettraceed",
+      "handle": "dontgettraced",
+      "url": "https://www.tiktok.com/@dontgettraced",
+      "expectedHandle": "dontgettraced",
       "status": "partial",
-      "message": "Signed-in profile identity verified; only visible metrics recorded.",
-      "lastAttemptAt": "2026-10-21T11:34:30.310Z",
-      "lastSuccessAt": "2026-10-21T11:34:30.310Z",
+      "message": "Visible profile and video list checked; legacy posts excluded.",
+      "lastAttemptAt": "2026-10-28T09:26:33.179Z",
       "metrics": {
         "followers": {
-          "value": 0,
-          "at": "2026-10-21T11:34:30.310Z",
-          "source": "https://www.tiktok.com/@dontgettraceed",
-          "method": "browser_profile",
+          "value": 6,
+          "at": "2026-10-28T09:26:33.179Z",
+          "source": "https://www.tiktok.com/@dontgettraced",
+          "method": "browser_bulk",
+          "approximate": false
+        },
+        "profileLikes": {
+          "value": 14,
+          "at": "2026-10-28T09:26:33.179Z",
+          "source": "https://www.tiktok.com/@dontgettraced",
+          "method": "browser_bulk",
+          "approximate": false
+        },
+        "publishedCount": {
+          "value": 1,
+          "at": "2026-10-28T09:23:00.361556+00:00",
+          "source": "https://www.tiktok.com/@dontgettraced",
+          "via": "https://www.tiktok.com/@dontgettraced/video/7699148170604924182",
+          "approximate": false,
+          "method": "public_video_detail_author_stats",
+          "apiMetric": "authorStats.videoCount",
+          "definition": "tiktok_public_authorStats_videoCount",
+          "upstreamObservedAt": null
+        },
+        "following": {
+          "value": 1,
+          "at": "2026-10-28T09:26:33.179Z",
+          "source": "https://www.tiktok.com/@dontgettraced",
+          "method": "browser_bulk",
           "approximate": false
         },
         "trackedPublishedCount": {
-          "value": 0,
-          "at": "2026-10-21T11:34:30.310Z",
-          "source": "https://www.tiktok.com/@dontgettraceed",
-          "method": "browser_profile",
+          "value": 1,
+          "at": "2026-10-28T09:26:33.179Z",
+          "source": "https://www.tiktok.com/@dontgettraced",
+          "method": "browser_bulk",
           "approximate": false
+        },
+        "diggCount": {
+          "value": 0,
+          "at": "2026-10-28T09:23:00.361556+00:00",
+          "source": "https://www.tiktok.com/@dontgettraced",
+          "via": "https://www.tiktok.com/@dontgettraced/video/7699148170604924182",
+          "approximate": false,
+          "method": "public_video_detail_author_stats",
+          "apiMetric": "authorStats.diggCount",
+          "definition": "tiktok_public_authorStats_diggCount",
+          "upstreamObservedAt": null
+        },
+        "friendCount": {
+          "value": 0,
+          "at": "2026-10-28T09:23:00.361556+00:00",
+          "source": "https://www.tiktok.com/@dontgettraced",
+          "via": "https://www.tiktok.com/@dontgettraced/video/7699148170604924182",
+          "approximate": false,
+          "method": "public_video_detail_author_stats",
+          "apiMetric": "authorStats.friendCount",
+          "definition": "tiktok_public_authorStats_friendCount",
+          "upstreamObservedAt": null
         }
       },
-      "trackedEmptyConfirmedAt": "2026-10-21T11:34:30.310Z"
+      "lastSuccessAt": "2026-10-28T09:26:33.179Z"
     },
     {
       "id": "facebook",
@@ -75,15 +135,15 @@
       "url": "https://www.facebook.com/profile.php?id=61595574064670",
       "expectedPageId": "61595574064670",
       "status": "partial",
-      "message": "Signed-in profile identity verified; only visible metrics recorded.",
-      "lastAttemptAt": "2026-10-21T11:34:30.310Z",
-      "lastSuccessAt": "2026-10-21T11:34:30.310Z",
+      "message": "Public follower count checked in the existing Lost browser; no public Reels section was exposed, so the video inventory remains unverified.",
+      "lastAttemptAt": "2026-10-28T09:27:17.849Z",
+      "lastSuccessAt": "2026-10-28T09:27:17.849Z",
       "metrics": {
         "followers": {
           "value": 0,
-          "at": "2026-10-21T11:34:30.310Z",
+          "at": "2026-10-28T09:27:17.849Z",
           "source": "https://www.facebook.com/profile.php?id=61595574064670",
-          "method": "browser_profile",
+          "method": "browser_bulk",
           "approximate": false
         }
       }
@@ -95,10 +155,33 @@
       "url": "https://x.com/DontGetTraced",
       "expectedHandle": "DontGetTraced",
       "status": "partial",
-      "message": "Signed-in profile identity verified; only visible metrics recorded.",
-      "lastAttemptAt": "2026-10-21T11:34:30.310Z",
-      "lastSuccessAt": "2026-10-21T11:34:30.310Z",
-      "metrics": {}
+      "message": "Visible profile and video list checked; legacy posts excluded.",
+      "lastAttemptAt": "2026-10-28T09:31:42.365Z",
+      "lastSuccessAt": "2026-10-28T09:31:42.365Z",
+      "metrics": {
+        "followers": {
+          "value": 0,
+          "at": "2026-10-28T09:31:42.365Z",
+          "source": "https://x.com/DontGetTraced",
+          "method": "browser_bulk",
+          "approximate": false
+        },
+        "publishedCount": {
+          "value": 0,
+          "at": "2026-10-23T09:26:59.552Z",
+          "source": "https://x.com/DontGetTraced",
+          "method": "browser_bulk",
+          "approximate": false
+        },
+        "trackedPublishedCount": {
+          "value": 0,
+          "at": "2026-10-28T09:31:42.365Z",
+          "source": "https://x.com/DontGetTraced",
+          "method": "browser_bulk",
+          "approximate": false
+        }
+      },
+      "trackedEmptyConfirmedAt": "2026-10-28T09:31:42.365Z"
     },
     {
       "id": "youtube",
@@ -107,29 +190,3684 @@
       "url": "https://www.youtube.com/channel/UCqsTDLISgGhzA_xiQT3E9yg",
       "expectedChannelId": "UCqsTDLISgGhzA_xiQT3E9yg",
       "status": "partial",
-      "message": "Signed-in profile identity verified; only visible metrics recorded.",
-      "lastAttemptAt": "2026-10-21T11:34:30.310Z",
-      "lastSuccessAt": "2026-10-21T11:34:30.310Z",
+      "message": "Visible profile and video list checked; legacy posts excluded.",
+      "lastAttemptAt": "2026-10-28T09:29:58.199Z",
+      "lastSuccessAt": "2026-10-28T09:29:58.199Z",
       "metrics": {
         "trackedPublishedCount": {
           "value": 0,
-          "at": "2026-10-21T11:34:30.310Z",
+          "at": "2026-10-28T09:29:58.199Z",
           "source": "https://www.youtube.com/channel/UCqsTDLISgGhzA_xiQT3E9yg",
-          "method": "browser_profile",
+          "method": "browser_bulk",
           "approximate": false
+        },
+        "publishedCount": {
+          "value": 0,
+          "at": "2026-10-26T14:14:38.172Z",
+          "source": "https://www.youtube.com/channel/UCqsTDLISgGhzA_xiQT3E9yg",
+          "approximate": false,
+          "method": "official_api",
+          "apiMetric": "videoCount"
+        },
+        "followers": {
+          "value": 0,
+          "at": "2026-10-26T14:14:38.172Z",
+          "source": "https://www.youtube.com/channel/UCqsTDLISgGhzA_xiQT3E9yg",
+          "approximate": true,
+          "method": "official_api",
+          "apiMetric": "subscriberCount"
         }
       },
-      "trackedEmptyConfirmedAt": "2026-10-21T11:34:30.310Z"
+      "trackedEmptyConfirmedAt": "2026-10-28T09:29:58.199Z"
     }
   ],
-  "videos": [],
-  "history": [],
+  "videos": [
+    {
+      "id": "instagram-Deww_L4IhFJ",
+      "number": 1,
+      "title": "You just hacked a trillion-dollar company. 💻 You weren't the only one logged in. 👀 Comment ANSWER or RUN. The majority writes Part 2.",
+      "caption": "You just hacked a trillion-dollar company. 💻 You weren't the only one logged in. 👀 Comment ANSWER or RUN. The majority writes Part 2.",
+      "publishedAt": "2026-10-21T15:48:46.000Z",
+      "thumbnail": null,
+      "assetUrl": null,
+      "posts": {
+        "instagram": {
+          "id": "Deww_L4IhFJ",
+          "url": "https://www.instagram.com/dontgettraced/reel/Deww_L4IhFJ/",
+          "metrics": {
+            "views": {
+              "value": 4443,
+              "at": "2026-10-28T09:24:10.257Z",
+              "source": "https://www.instagram.com/dontgettraced/reel/Deww_L4IhFJ/",
+              "method": "browser_bulk",
+              "approximate": false
+            },
+            "likes": {
+              "value": 142,
+              "at": "2026-10-28T09:39:31.452145+00:00",
+              "source": "https://www.instagram.com/dontgettraced/reel/Deww_L4IhFJ/",
+              "approximate": false,
+              "method": "public_metadata_yt_dlp",
+              "apiMetric": "like_count"
+            },
+            "comments": {
+              "value": 17,
+              "at": "2026-10-28T09:39:31.452145+00:00",
+              "source": "https://www.instagram.com/dontgettraced/reel/Deww_L4IhFJ/",
+              "approximate": false,
+              "method": "public_metadata_yt_dlp",
+              "apiMetric": "comment_count"
+            }
+          },
+          "publicationVerifiedAt": "2026-10-22T06:13:57.935Z",
+          "verificationEvidence": "Live exact dontgettraced profile and owned public Reel reviewed on 22 Oct 2026."
+        }
+      },
+      "publicationGroupId": "trace-zero-episode-01"
+    },
+    {
+      "id": "tiktok-7699148170604924182",
+      "number": 2,
+      "title": "You just hacked a trillion-dollar company. 💻 You weren't the only one logged in. 👀 Comment ANSWER or RUN. The majority writes Part 2.",
+      "caption": "You just hacked a trillion-dollar company. 💻 You weren't the only one logged in. 👀 Comment ANSWER or RUN. The majority writes Part 2.",
+      "publishedAt": "2026-10-21T15:47:09+00:00",
+      "thumbnail": null,
+      "assetUrl": null,
+      "posts": {
+        "tiktok": {
+          "id": "7699148170604924182",
+          "url": "https://www.tiktok.com/@dontgettraced/video/7699148170604924182",
+          "metrics": {
+            "views": {
+              "value": 686,
+              "at": "2026-10-28T09:39:29.858897+00:00",
+              "source": "https://www.tiktok.com/@dontgettraced/video/7699148170604924182",
+              "approximate": false,
+              "method": "public_video_detail",
+              "apiMetric": "playCount"
+            },
+            "likes": {
+              "value": 14,
+              "at": "2026-10-28T09:39:29.858897+00:00",
+              "source": "https://www.tiktok.com/@dontgettraced/video/7699148170604924182",
+              "approximate": false,
+              "method": "public_video_detail",
+              "apiMetric": "diggCount"
+            },
+            "comments": {
+              "value": 4,
+              "at": "2026-10-28T09:39:29.858897+00:00",
+              "source": "https://www.tiktok.com/@dontgettraced/video/7699148170604924182",
+              "approximate": false,
+              "method": "public_video_detail",
+              "apiMetric": "commentCount"
+            },
+            "shares": {
+              "value": 0,
+              "at": "2026-10-28T09:39:29.858897+00:00",
+              "source": "https://www.tiktok.com/@dontgettraced/video/7699148170604924182",
+              "approximate": false,
+              "method": "public_video_detail",
+              "apiMetric": "shareCount"
+            },
+            "saves": {
+              "value": 1,
+              "at": "2026-10-28T09:39:29.858897+00:00",
+              "source": "https://www.tiktok.com/@dontgettraced/video/7699148170604924182",
+              "approximate": false,
+              "method": "public_video_detail",
+              "apiMetric": "collectCount"
+            },
+            "publicGridViews": {
+              "value": 685,
+              "at": "2026-10-26T09:49:49.279145+00:00",
+              "source": "https://www.tiktok.com/@dontgettraced/video/7699148170604924182",
+              "method": "browser_bulk",
+              "approximate": false,
+              "definition": "tiktok_profile_grid_video_views"
+            }
+          }
+        }
+      }
+    }
+  ],
+  "history": [
+    {
+      "at": "2026-10-22T06:13:57.935Z",
+      "views": 2344,
+      "posts": 1,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-22T06:20:27.512656+00:00",
+      "views": 2344,
+      "posts": 1,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-22T06:33:24.589526+00:00",
+      "views": 2344,
+      "posts": 1,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-22T06:43:59.291143+00:00",
+      "views": 2344,
+      "posts": 1,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-22T06:45:53.352022+00:00",
+      "views": 2344,
+      "posts": 1,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-22T06:46:36.445931+00:00",
+      "views": 2344,
+      "posts": 1,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-22T06:47:26.206164+00:00",
+      "views": 2344,
+      "posts": 1,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-22T06:48:46.164781+00:00",
+      "views": 2344,
+      "posts": 1,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-22T07:04:04.893719+00:00",
+      "views": 2344,
+      "posts": 1,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-22T07:19:23.705525+00:00",
+      "views": 2344,
+      "posts": 1,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-22T07:30:36.159307+00:00",
+      "views": 2344,
+      "posts": 1,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-22T07:34:39.008229+00:00",
+      "views": 2344,
+      "posts": 1,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-22T07:49:58.187956+00:00",
+      "views": 2344,
+      "posts": 1,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-22T08:05:21.480714+00:00",
+      "views": 2344,
+      "posts": 1,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-22T08:12:37.057127+00:00",
+      "views": 2344,
+      "posts": 1,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-22T08:20:35.407470+00:00",
+      "views": 2344,
+      "posts": 1,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-22T08:35:57.146335+00:00",
+      "views": 2344,
+      "posts": 1,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-22T08:51:19.523931+00:00",
+      "views": 2344,
+      "posts": 1,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-22T09:06:58.612264+00:00",
+      "views": 2344,
+      "posts": 1,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-22T09:21:55.000795+00:00",
+      "views": 2344,
+      "posts": 1,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-22T09:37:17.325454+00:00",
+      "views": 2344,
+      "posts": 1,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-22T09:52:42.013419+00:00",
+      "views": 2344,
+      "posts": 1,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-22T10:07:55.504321+00:00",
+      "views": 2344,
+      "posts": 1,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-22T10:23:13.999071+00:00",
+      "views": 2344,
+      "posts": 1,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-22T10:31:40.952585+00:00",
+      "views": 2344,
+      "posts": 1,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-22T10:38:40.547895+00:00",
+      "views": 2344,
+      "posts": 1,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-22T10:53:51.173221+00:00",
+      "views": 2344,
+      "posts": 1,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-22T11:09:11.547174+00:00",
+      "views": 2344,
+      "posts": 1,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-22T11:24:28.172624+00:00",
+      "views": 2344,
+      "posts": 1,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-22T11:39:54.830077+00:00",
+      "views": 2344,
+      "posts": 1,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-22T11:55:28.410488+00:00",
+      "views": 2344,
+      "posts": 1,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-22T12:10:32.298394+00:00",
+      "views": 2344,
+      "posts": 1,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-22T12:25:50.785049+00:00",
+      "views": 2344,
+      "posts": 1,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-22T12:41:09.736229+00:00",
+      "views": 2344,
+      "posts": 1,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-22T12:56:28.237727+00:00",
+      "views": 2344,
+      "posts": 1,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-22T13:11:49.063120+00:00",
+      "views": 2344,
+      "posts": 1,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-22T13:17:47.619273+00:00",
+      "views": 2344,
+      "posts": 1,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-22T13:27:06.514697+00:00",
+      "views": 2344,
+      "posts": 1,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-22T13:42:28.723223+00:00",
+      "views": 2344,
+      "posts": 1,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-22T13:51:04.052032+00:00",
+      "views": 2344,
+      "posts": 1,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-22T13:51:37.442388+00:00",
+      "views": 2344,
+      "posts": 1,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-22T13:56:43.013143+00:00",
+      "views": 2344,
+      "posts": 1,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-22T14:10:22.503Z",
+      "views": 3027,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-22T14:10:26.625823+00:00",
+      "views": 3027,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-22T14:28:24.112406+00:00",
+      "views": 3027,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-22T14:43:45.134258+00:00",
+      "views": 3027,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-22T14:59:04.187717+00:00",
+      "views": 3028,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-22T15:14:34.989727+00:00",
+      "views": 3028,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-22T15:29:49.458201+00:00",
+      "views": 3028,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-22T15:31:45.662641+00:00",
+      "views": 3028,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-22T15:45:07.788855+00:00",
+      "views": 3028,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-22T16:00:33.533764+00:00",
+      "views": 3028,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-22T16:15:44.054876+00:00",
+      "views": 3028,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-22T16:31:07.662958+00:00",
+      "views": 3028,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-22T16:46:27.764196+00:00",
+      "views": 3028,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-22T17:01:59.452654+00:00",
+      "views": 3028,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-22T17:17:12.654495+00:00",
+      "views": 3028,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-22T17:32:28.490304+00:00",
+      "views": 3028,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-22T17:47:47.044171+00:00",
+      "views": 3028,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-22T18:03:04.697923+00:00",
+      "views": 3028,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-22T18:18:36.143769+00:00",
+      "views": 3028,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-22T18:33:53.622877+00:00",
+      "views": 3028,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-22T18:49:06.683432+00:00",
+      "views": 3028,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-22T19:04:53.988099+00:00",
+      "views": 3028,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-22T19:19:59.413348+00:00",
+      "views": 3028,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-22T19:23:19.550833+00:00",
+      "views": 3028,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-22T19:35:20.329310+00:00",
+      "views": 3028,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-22T19:50:38.669783+00:00",
+      "views": 3028,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-22T20:05:57.840362+00:00",
+      "views": 3028,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-22T20:21:23.604696+00:00",
+      "views": 3028,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-22T20:36:42.396377+00:00",
+      "views": 3028,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-22T20:51:59.304375+00:00",
+      "views": 3028,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-22T21:07:30.011776+00:00",
+      "views": 3028,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-22T21:22:43.166386+00:00",
+      "views": 3028,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-22T21:38:09.319877+00:00",
+      "views": 3028,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-22T21:53:31.322948+00:00",
+      "views": 3028,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-22T22:08:44.091217+00:00",
+      "views": 3028,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-22T22:24:04.040761+00:00",
+      "views": 3028,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-22T22:39:26.508283+00:00",
+      "views": 3028,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-22T22:40:43.511598+00:00",
+      "views": 3028,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-22T22:54:43.037760+00:00",
+      "views": 3028,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-22T23:09:59.443744+00:00",
+      "views": 3028,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-22T23:25:22.923052+00:00",
+      "views": 3028,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-22T23:40:40.957190+00:00",
+      "views": 3028,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-22T23:55:54.009388+00:00",
+      "views": 3028,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-23T00:11:15.111816+00:00",
+      "views": 3028,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-23T00:26:31.746363+00:00",
+      "views": 3028,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-23T00:41:50.802352+00:00",
+      "views": 3028,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-23T00:57:07.895213+00:00",
+      "views": 3028,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-23T00:59:45.074527+00:00",
+      "views": 3028,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-23T01:12:34.804934+00:00",
+      "views": 3028,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-23T01:27:56.053801+00:00",
+      "views": 3028,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-23T01:43:08.274840+00:00",
+      "views": 3028,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-23T01:58:30.301974+00:00",
+      "views": 3028,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-23T02:13:51.684549+00:00",
+      "views": 3028,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-23T02:29:02.487178+00:00",
+      "views": 3028,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-23T02:44:24.462697+00:00",
+      "views": 3028,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-23T02:59:39.138492+00:00",
+      "views": 3028,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-23T03:15:00.304020+00:00",
+      "views": 3028,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-23T03:30:21.132754+00:00",
+      "views": 3028,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-23T03:45:42.091129+00:00",
+      "views": 3028,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-23T04:01:00.649984+00:00",
+      "views": 3028,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-23T04:16:23.553455+00:00",
+      "views": 3028,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-23T04:31:37.181779+00:00",
+      "views": 3028,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-23T04:46:58.595418+00:00",
+      "views": 3028,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-23T05:02:19.062740+00:00",
+      "views": 3028,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-23T05:17:54.251355+00:00",
+      "views": 3028,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-23T05:32:56.595572+00:00",
+      "views": 3028,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-23T05:48:17.841349+00:00",
+      "views": 3028,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-23T05:53:48.166461+00:00",
+      "views": 3028,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-23T06:03:33.543260+00:00",
+      "views": 3028,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-23T06:18:47.018217+00:00",
+      "views": 3028,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-23T06:34:00.309056+00:00",
+      "views": 3028,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-23T06:49:23.245184+00:00",
+      "views": 3028,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-23T07:04:46.503117+00:00",
+      "views": 3028,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-23T07:20:06.014904+00:00",
+      "views": 3028,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-23T07:35:23.291039+00:00",
+      "views": 3028,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-23T07:35:27.596Z",
+      "views": 4556,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-23T07:36:51.806Z",
+      "views": 4556,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-23T07:47:20.426Z",
+      "views": 4556,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-23T07:49:11.911Z",
+      "views": 4556,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-23T07:49:11.913Z",
+      "views": 4556,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-23T07:50:41.213299+00:00",
+      "views": 4556,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-23T08:03:45.032Z",
+      "views": 4556,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-23T08:06:03.446781+00:00",
+      "views": 4556,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-23T08:21:18.054926+00:00",
+      "views": 4556,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-23T08:30:11.860Z",
+      "views": 4568,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-23T08:36:40.168480+00:00",
+      "views": 4568,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-23T08:51:54.373437+00:00",
+      "views": 4568,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-23T09:07:13.055470+00:00",
+      "views": 4568,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-23T09:22:30.054019+00:00",
+      "views": 4568,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-23T09:26:59.552Z",
+      "views": 4590,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-23T09:37:51.844872+00:00",
+      "views": 4590,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-23T09:53:11.959851+00:00",
+      "views": 4590,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-23T10:08:35.198888+00:00",
+      "views": 4590,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-23T10:23:46.602955+00:00",
+      "views": 4590,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-23T10:39:08.656075+00:00",
+      "views": 4590,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-23T10:54:29.282526+00:00",
+      "views": 4590,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-23T11:09:46.434278+00:00",
+      "views": 4591,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-23T11:25:07.200544+00:00",
+      "views": 4591,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-23T11:26:16.361638+00:00",
+      "views": 4591,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-23T11:40:18.834782+00:00",
+      "views": 4591,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-23T11:55:39.348981+00:00",
+      "views": 4591,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-23T12:11:00.652966+00:00",
+      "views": 4591,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-23T12:26:18.936247+00:00",
+      "views": 4591,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-23T12:41:36.478868+00:00",
+      "views": 4591,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-23T12:56:55.066868+00:00",
+      "views": 4591,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-23T13:12:15.694548+00:00",
+      "views": 4591,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-23T13:27:34.296501+00:00",
+      "views": 4591,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-23T13:42:53.483322+00:00",
+      "views": 4591,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-23T13:58:11.747175+00:00",
+      "views": 4591,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-23T14:13:30.271149+00:00",
+      "views": 4591,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-23T14:17:16.750Z",
+      "views": 4672,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-23T14:28:52.884188+00:00",
+      "views": 4672,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-23T14:36:54.013Z",
+      "views": 4684,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-23T14:44:15.973493+00:00",
+      "views": 4684,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-23T14:59:31.771329+00:00",
+      "views": 4684,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-23T15:14:52.358421+00:00",
+      "views": 4684,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-23T15:28:30.337Z",
+      "views": 4713,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-23T15:30:21.008973+00:00",
+      "views": 4713,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-23T15:45:39.190638+00:00",
+      "views": 4713,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-23T15:51:54.878516+00:00",
+      "views": 4713,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-23T16:01:01.471840+00:00",
+      "views": 4713,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-23T16:16:27.432455+00:00",
+      "views": 4713,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-23T16:31:43.745909+00:00",
+      "views": 4713,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-23T16:31:54.477Z",
+      "views": 4726,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-23T16:47:19.501292+00:00",
+      "views": 4726,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-23T17:02:23.725997+00:00",
+      "views": 4726,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-23T17:17:43.431644+00:00",
+      "views": 4726,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-23T17:32:54.861437+00:00",
+      "views": 4726,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-23T17:38:40.513Z",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-23T17:48:16.736815+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-23T18:05:06.796724+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-23T18:20:17.542147+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-23T18:35:35.743401+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-23T18:50:53.652030+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-23T19:06:29.234612+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-23T19:21:28.109599+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-23T19:34:42.722984+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-23T19:36:54.023783+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-23T19:52:20.685221+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-23T20:07:36.105879+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-23T20:22:56.017911+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-23T20:38:09.152635+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-23T20:53:35.418372+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-23T21:08:50.882844+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-23T21:24:01.928362+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-23T21:39:22.279585+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-23T21:54:43.028710+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-23T22:10:34.183991+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-23T22:25:27.196400+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-23T22:34:35.560621+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-23T22:40:39.212726+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-23T22:55:59.965133+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-23T23:11:11.922108+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-23T23:26:37.212492+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-23T23:42:06.467476+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-23T23:57:11.062003+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-24T00:12:36.608160+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-24T00:27:50.986845+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-24T00:43:10.002170+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-24T00:58:22.889550+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-24T01:00:30.206938+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-24T01:13:43.559221+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-24T01:29:06.563112+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-24T01:44:18.621008+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-24T01:59:37.907186+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-24T02:15:18.290614+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-24T02:30:11.583859+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-24T02:45:30.960985+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-24T03:00:55.009975+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-24T03:16:13.352400+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-24T03:31:31.248506+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-24T03:46:49.896200+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-24T04:02:06.542770+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-24T04:17:23.623823+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-24T04:32:47.082775+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-24T04:48:18.242315+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-24T05:03:25.969369+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-24T05:18:44.181084+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-24T05:34:02.742257+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-24T05:37:42.667107+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-24T05:49:27.318240+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-24T06:04:44.604249+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-24T06:20:01.167258+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-24T06:35:21.325058+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-24T06:50:45.359991+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-24T07:05:58.825246+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-24T07:21:15.256713+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-24T07:36:36.578507+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-24T07:51:56.962432+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-24T08:07:16.731375+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-24T08:22:40.169032+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-24T08:37:52.598199+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-24T08:53:10.947756+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-24T09:08:32.170706+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-24T09:23:45.909883+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-24T09:39:02.882678+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-24T09:49:24.932822+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-24T09:54:22.342420+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-24T10:09:49.543247+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-24T10:24:54.985981+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-24T10:40:20.159881+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-24T10:55:41.127939+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-24T11:10:51.116523+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-24T11:26:09.717056+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-24T11:41:38.279494+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-24T11:56:47.232774+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-24T12:12:05.288546+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-24T12:27:27.812401+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-24T12:42:50.514238+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-24T12:58:00.642890+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-24T13:13:28.657960+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-24T13:28:42.264074+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-24T13:38:50.272825+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-24T13:43:59.728803+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-24T13:59:18.518376+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-24T14:14:34.829377+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-24T14:29:49.586069+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-24T14:45:00.451378+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-24T15:00:23.325083+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-24T15:15:38.729885+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-24T15:30:52.235902+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-24T15:46:14.418315+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-24T16:01:38.661150+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-24T16:16:53.126369+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-24T16:32:07.348570+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-24T16:47:28.005193+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-24T17:01:03.142063+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-24T17:02:45.230731+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-24T17:17:59.678350+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-24T17:33:25.012930+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-24T17:48:34.972505+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-24T18:03:54.450916+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-24T18:19:13.707283+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-24T18:34:37.940354+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-24T18:50:00.315410+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-24T19:05:18.463561+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-24T19:20:37.919207+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-24T19:23:21.027087+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-24T19:35:50.892195+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-24T19:51:08.064044+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-24T20:06:23.091711+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-24T20:21:44.190199+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-24T20:37:05.455510+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-24T20:52:23.831966+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-24T21:07:46.417794+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-24T21:23:07.255225+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-24T21:38:22.822241+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-24T21:49:20.759321+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-24T21:53:40.046836+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-24T22:08:58.427090+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-24T22:24:14.075414+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-24T22:39:34.272213+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-24T22:54:45.972757+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-24T23:10:09.943473+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-24T23:25:33.154272+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-24T23:40:50.527339+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-24T23:47:27.816297+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-24T23:56:17.373349+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-25T00:11:28.120700+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-25T00:26:39.083617+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-25T00:41:56.136826+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-25T00:57:16.605998+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-25T01:12:33.949395+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-25T01:27:52.537830+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-25T01:42:56.421381+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-25T01:58:32.115414+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-25T02:13:46.701869+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-25T02:29:05.894170+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-25T02:44:21.950824+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-25T02:59:49.685464+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-25T03:15:05.249683+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-25T03:30:19.544401+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-25T03:45:37.777724+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-25T04:00:51.143688+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-25T04:16:11.899775+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-25T04:31:33.879434+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-25T04:46:51.865342+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-25T05:02:13.517649+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-25T05:17:25.235965+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-25T05:32:51.687810+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-25T05:48:06.035282+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-25T06:03:24.756851+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-25T06:18:36.026066+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-25T06:33:59.926597+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-25T06:49:18.005982+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-25T06:56:25.003994+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-25T07:04:36.011502+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-25T07:19:53.083517+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-25T07:35:01.201654+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-25T07:50:25.154033+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-25T08:05:41.332370+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-25T08:20:56.527196+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-25T08:36:21.775995+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-25T08:51:42.783164+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-25T09:06:50.601309+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-25T09:22:16.656253+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-25T09:37:29.866076+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-25T09:52:52.862735+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-25T10:08:06.182920+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-25T10:23:30.990725+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-25T10:38:43.251405+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-25T10:54:07.404492+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-25T11:09:24.925713+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-25T11:24:38.860000+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-25T11:40:08.974636+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-25T11:55:36.737644+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-25T12:10:48.340549+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-25T12:26:11.366801+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-25T12:28:42.584117+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-25T12:41:30.236187+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-25T12:56:44.951169+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-25T13:12:12.527385+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-25T13:27:31.157441+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-25T13:42:40.803929+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-25T13:57:52.402477+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-25T14:13:27.195067+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-25T14:28:48.518079+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-25T14:44:01.909744+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-25T14:59:07.714361+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-25T15:14:33.338294+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-25T15:29:52.092759+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-25T15:45:10.293165+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-25T16:00:30.469355+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-25T16:15:46.380306+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-25T16:31:01.142656+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-25T16:43:36.977393+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-25T16:46:31.988681+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-25T17:01:43.812608+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-25T17:17:03.812336+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-25T17:32:30.412696+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-25T17:47:41.545381+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-25T18:03:01.800447+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-25T18:18:22.159153+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-25T18:33:38.750401+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-25T18:49:00.894485+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-25T19:04:18.159874+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-25T19:18:06.258126+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-25T19:34:51.695950+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-25T19:50:13.323474+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-25T20:05:26.170237+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-25T20:20:41.787285+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-25T20:36:06.779437+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-25T20:51:28.342815+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-25T21:06:48.542903+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-25T21:22:06.175278+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-25T21:37:45.106836+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-25T21:52:46.651096+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-25T22:08:01.260355+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-25T22:23:23.264184+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-25T22:38:51.945991+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-25T23:09:19.324154+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-25T23:24:52.908970+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-25T23:40:03.575030+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-25T23:55:25.959751+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-26T00:10:32.424014+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-26T00:26:17.192437+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-26T00:41:20.091238+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-26T00:56:37.295680+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-26T01:11:58.214106+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-26T01:27:06.989516+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-26T01:42:38.054616+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-26T01:57:54.338195+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-26T02:13:14.422267+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-26T02:28:48.461232+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-26T02:43:48.857803+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-26T02:59:08.008083+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-26T03:14:35.027767+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-26T03:29:44.441290+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-26T03:45:03.789305+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-26T04:00:22.916789+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-26T04:15:42.414428+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-26T04:31:07.146890+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-26T04:46:19.718977+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-26T05:01:35.656815+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-26T05:16:56.802620+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-26T05:32:25.811527+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-26T05:47:39.461008+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-26T06:03:00.961418+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-26T06:18:22.134932+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-26T06:33:37.993629+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-26T06:48:53.116610+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-26T07:04:19.282198+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-26T07:19:34.150875+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-26T07:34:47.290512+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-26T07:50:05.254805+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-26T08:05:28.302188+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-26T08:20:50.338756+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-26T08:36:10.483970+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-26T08:51:25.132137+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-26T09:06:48.002945+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-26T09:22:10.601767+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-26T09:37:37.204097+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-26T09:52:55.613325+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-26T09:56:22.693Z",
+      "views": 4987,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-26T10:08:17.147763+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-26T10:23:51.675315+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-26T10:39:00.605052+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-26T10:54:31.016506+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-26T11:09:45.913107+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-26T11:25:06.925317+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-26T11:40:27.068061+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-26T11:55:48.514756+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-26T12:11:14.111946+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-26T12:26:22.957534+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-26T12:41:43.564126+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-26T12:57:14.843192+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-26T13:12:30.975663+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-26T13:35:18.940119+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-26T13:43:18.394392+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-26T13:58:35.193259+00:00",
+      "views": 4738,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-26T14:14:00.001144+00:00",
+      "views": 4987,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-26T20:01:17.210131+00:00",
+      "views": 4987,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-26T20:22:45.281130+00:00",
+      "views": 4987,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-26T21:22:50.343928+00:00",
+      "views": 4987,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-27T08:14:58.781300+00:00",
+      "views": 4988,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-27T09:24:00.855786+00:00",
+      "views": 4988,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-27T10:22:37.037530+00:00",
+      "views": 4988,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-27T12:12:19.251631+00:00",
+      "views": 4988,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-27T13:20:36.973217+00:00",
+      "views": 4988,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-27T14:26:18.203579+00:00",
+      "views": 4988,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-27T15:29:15.504725+00:00",
+      "views": 4988,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-27T16:24:03.362171+00:00",
+      "views": 4988,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-27T17:24:51.208816+00:00",
+      "views": 4988,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-27T18:23:29.356034+00:00",
+      "views": 4988,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-27T19:25:13.829276+00:00",
+      "views": 4988,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-27T20:26:00.401943+00:00",
+      "views": 4988,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-27T21:27:29.583975+00:00",
+      "views": 4988,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-27T22:26:06.173078+00:00",
+      "views": 4988,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-27T23:24:18.733458+00:00",
+      "views": 4988,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-28T00:19:47.837935+00:00",
+      "views": 4988,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-28T01:22:52.315644+00:00",
+      "views": 4988,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-28T02:19:13.806934+00:00",
+      "views": 4988,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-28T03:28:33.404679+00:00",
+      "views": 4988,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-28T04:22:54.767629+00:00",
+      "views": 4988,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-28T05:18:51.305148+00:00",
+      "views": 4988,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-28T06:25:52.121894+00:00",
+      "views": 4988,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-28T07:26:58.965515+00:00",
+      "views": 4988,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-28T08:04:01.713777+00:00",
+      "views": 4988,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-28T08:12:05.217Z",
+      "views": 5123,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-28T08:13:44.378Z",
+      "views": 5123,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-28T08:16:37.056Z",
+      "views": 5123,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-28T08:22:27.384Z",
+      "views": 5123,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-28T08:28:55.804Z",
+      "views": 5123,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-28T09:23:00.375535+00:00",
+      "views": 5123,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-28T09:24:10.257Z",
+      "views": 5129,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-28T09:26:33.179Z",
+      "views": 5129,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-28T09:27:17.849Z",
+      "views": 5123,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-28T09:29:58.199Z",
+      "views": 5129,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-28T09:31:42.365Z",
+      "views": 5129,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-28T09:39:31.452327+00:00",
+      "views": 5129,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    }
+  ],
   "tracking": {
     "startedAt": "2026-10-21T11:34:30.310Z",
-    "note": "New channel registered on 21 Oct 2026. Five profile identities verified; no publication links recorded yet.",
+    "note": "DontGetTraced publications tracked from 21 Oct 2026. Owner-confirmed profiles: Instagram and TikTok @dontgettraced; obsolete TikTok @dontgettraceed observations excluded.",
     "excludedPostIds": {}
   },
   "assetLibrary": {
     "files": []
+  },
+  "cloudCollection": {
+    "at": "2026-10-26T14:14:00.001144+00:00",
+    "method": "public_cloud",
+    "metricsUpdated": {
+      "instagram": 2,
+      "tiktok": 8,
+      "facebook": 0,
+      "x": 1,
+      "youtube": 3
+    },
+    "runUrl": "https://github.com/jonass-pandos/cooked-dev-stats/actions/runs/40337604109"
+  },
+  "changes24h": {
+    "at": "2026-10-28T09:39:31.452327+00:00",
+    "baselineAt": null,
+    "views": null,
+    "likes": null,
+    "followers": null
+  },
+  "discovery": {
+    "youtube": {
+      "status": "checked",
+      "complete": true,
+      "method": "browser_bulk",
+      "checkedAt": "2026-10-28T09:29:58.199Z",
+      "lastCompleteAt": "2026-10-28T09:29:58.199Z",
+      "listedPosts": 0
+    },
+    "instagram": {
+      "status": "checked",
+      "complete": true,
+      "method": "browser_bulk",
+      "checkedAt": "2026-10-28T09:24:10.257Z",
+      "lastCompleteAt": "2026-10-28T09:24:10.257Z",
+      "listedPosts": 1
+    },
+    "facebook": {
+      "status": "public_video_section_not_exposed",
+      "complete": false,
+      "method": "browser_profile",
+      "checkedAt": "2026-10-28T09:27:17.849Z",
+      "lastCompleteAt": null,
+      "listedPosts": null,
+      "message": "Authorized Lost profile opened the correct public account; no public Reels section was exposed. Empty video inventory is not inferred."
+    },
+    "x": {
+      "status": "checked",
+      "complete": true,
+      "method": "browser_bulk",
+      "checkedAt": "2026-10-28T09:31:42.365Z",
+      "lastCompleteAt": "2026-10-28T09:31:42.365Z",
+      "listedPosts": 0
+    },
+    "tiktok": {
+      "status": "checked",
+      "complete": true,
+      "method": "browser_bulk",
+      "checkedAt": "2026-10-28T09:26:33.179Z",
+      "lastCompleteAt": "2026-10-28T09:26:33.179Z",
+      "listedPosts": 1
+    }
+  },
+  "identityCorrections": [
+    {
+      "at": "2026-10-22T14:08:55.652114+00:00",
+      "platforms": [
+        "tiktok"
+      ],
+      "from": "dontgettraceed",
+      "to": "dontgettraced",
+      "evidence": "Owner supplied exact TikTok profile URL."
+    }
+  ],
+  "localCollection": {
+    "startedAt": "2026-10-28T09:22:30.184608+00:00",
+    "completedAt": "2026-10-28T09:40:02.997229+00:00",
+    "method": "authorized_browser_and_public_http",
+    "published": false,
+    "fullInventoryPlatforms": [
+      "youtube",
+      "instagram",
+      "x",
+      "tiktok"
+    ]
   }
 }

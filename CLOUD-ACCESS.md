@@ -18,7 +18,7 @@ can recover the numeric owner ID from an already verified video. It never
 imports quoted media, recommendations or another author's repost.
 
 Successful hosted verification:
-https://github.com/jonass-pandos/cooked-dev-stats/actions/runs/39736067833
+https://github.com/Jautis5/cooked-dev-stats/actions/runs/39736067833
 
 At 06:47 UTC this run refreshed views for 18 TikTok, 8 YouTube and 8 X posts
 across the three brands. It also refreshed some Instagram engagement counters.

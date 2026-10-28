@@ -128,7 +128,7 @@ class Backend:
         if channel not in CHANNELS or not re.fullmatch(r'latest\.json|archive/\d{4}-\d{2}\.jsonl', suffix):
             raise BackendError('INVALID_REQUEST')
         folder = {'cooked-dev': 'data', 'indian-builds': 'data/indian-builds', 'dont-get-traced': 'data/dont-get-traced'}[channel]
-        url = 'https://raw.githubusercontent.com/jonass-pandos/cooked-dev-stats/main/' + folder + '/' + suffix
+        url = 'https://raw.githubusercontent.com/Jautis5/cooked-dev-stats/main/' + folder + '/' + suffix
         try:
             request = urllib.request.Request(url, headers={'User-Agent': 'Social-Stats-Read-Only-MCP'})
             with urllib.request.urlopen(request, timeout=30) as response:

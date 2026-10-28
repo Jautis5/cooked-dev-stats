@@ -5,7 +5,7 @@
       "id": "cooked-dev",
       "name": "Cooked Dev",
       "logo": "assets/logo.jpg",
-      "dataUrl": "https://raw.githubusercontent.com/jonass-pandos/cooked-dev-stats/main/data/latest.json",
+      "dataUrl": "https://raw.githubusercontent.com/Jautis5/cooked-dev-stats/main/data/latest.json",
       "fallbackUrl": "data/latest.json",
       "assetLibraryUrl": "https://drive.google.com/drive/folders/1ydKVLUydkJepT9m-BQymF-2rifKf3lSA",
       "sheetUrl": "https://docs.google.com/spreadsheets/d/1sT8AqlGMMqnJUCcA697DaVcLvRqsJhCT4xMIdl52WYY/edit"
@@ -14,7 +14,7 @@
       "id": "indian-builds",
       "name": "Indian Builds",
       "logo": "assets/indian-builds.png",
-      "dataUrl": "https://raw.githubusercontent.com/jonass-pandos/cooked-dev-stats/main/data/indian-builds/latest.json",
+      "dataUrl": "https://raw.githubusercontent.com/Jautis5/cooked-dev-stats/main/data/indian-builds/latest.json",
       "fallbackUrl": "data/indian-builds.json",
       "assetLibraryUrl": "https://drive.google.com/drive/folders/1WEHFKQCzbjUcPzm7nYB3PthPngxLXYGR",
       "sheetUrl": "https://docs.google.com/spreadsheets/d/1sT8AqlGMMqnJUCcA697DaVcLvRqsJhCT4xMIdl52WYY/edit#gid=785807837"
@@ -23,7 +23,7 @@
       "id": "dont-get-traced",
       "name": "DontGetTraced",
       "logo": "assets/dont-get-traced.png",
-      "dataUrl": "https://raw.githubusercontent.com/jonass-pandos/cooked-dev-stats/main/data/dont-get-traced/latest.json",
+      "dataUrl": "https://raw.githubusercontent.com/Jautis5/cooked-dev-stats/main/data/dont-get-traced/latest.json",
       "fallbackUrl": "data/dont-get-traced.json",
       "sheetUrl": "https://docs.google.com/spreadsheets/d/1sT8AqlGMMqnJUCcA697DaVcLvRqsJhCT4xMIdl52WYY/edit#gid=1732102601",
       "assetLibraryUrl": "https://drive.google.com/drive/folders/1Oml5iynOfs4DUi8gh1B0L4Lbe--N0nUO",
@@ -56,10 +56,10 @@
     }
   ],
   "collector": {
-    "healthUrl": "https://raw.githubusercontent.com/jonass-pandos/cooked-dev-stats/main/data/health.json",
-    "runsUrl": "https://github.com/jonass-pandos/cooked-dev-stats/actions/workflows/refresh.yml",
-    "independentUrl": "https://jonass-pandos.github.io/cooked-dev-stats/",
+    "healthUrl": "https://raw.githubusercontent.com/Jautis5/cooked-dev-stats/main/data/health.json",
+    "runsUrl": "https://github.com/Jautis5/cooked-dev-stats/actions/workflows/refresh.yml",
+    "independentUrl": "https://jautis5.github.io/cooked-dev-stats/",
     "intervalMinutes": 15,
-    "watchdogUrl": "https://github.com/jonass-pandos/cooked-dev-stats/actions/workflows/watchdog.yml"
+    "watchdogUrl": "https://github.com/Jautis5/cooked-dev-stats/actions/workflows/watchdog.yml"
   }
 }

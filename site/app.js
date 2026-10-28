@@ -209,7 +209,7 @@ function renderCloudHealth(){
  const records=scope.map(c=>cloudHealth?.channels?.[c.id]).filter(Boolean),count=records.reduce((n,c)=>n+(c.metricsUpdated||0),0);
  const platforms=records.flatMap(c=>Object.values(c.platforms||{})),updated=platforms.filter(p=>p.metricsUpdated>0).length;
  const viewsUpdated=platforms.reduce((n,p)=>n+(p.viewsUpdated||0),0),postsKnown=platforms.reduce((n,p)=>n+(p.postsKnown||0),0);
- $('cloud-health').innerHTML='<div><span class="cloud-label">AUTONOMOUS COLLECTOR</span><strong><span class="dot '+(state.warning?'partial':'ok')+'"></span>'+esc(state.label)+'</strong><small>'+esc(time(cloudHealth?.completedAt))+'</small></div><div><span class="cloud-label">LATEST RUN</span><strong>'+full(count)+' metrics updated</strong><small>'+records.length+' of '+scope.length+' channel reports · earlier metric dates are retained</small></div><div><span class="cloud-label">VIEW COUNTS REFRESHED</span><strong>'+viewsUpdated+' / '+postsKnown+' known posts</strong><small>'+updated+' / '+platforms.length+' accounts supplied any new metric · full inventory checked separately</small></div><div class="cloud-links"><a href="'+safe(cloudHealth?.runUrl||cloudConfig.runsUrl||'https://github.com/jonass-pandos/cooked-dev-stats/actions/workflows/refresh.yml')+'" target="_blank" rel="noopener">Run details ↗</a><a href="'+safe(cloudConfig.watchdogUrl||'https://github.com/jonass-pandos/cooked-dev-stats/actions/workflows/watchdog.yml')+'" target="_blank" rel="noopener">Auto-recovery ↗</a><a href="'+safe(cloudConfig.independentUrl||'https://jonass-pandos.github.io/cooked-dev-stats/')+'" target="_blank" rel="noopener">Independent site ↗</a></div>';
+ $('cloud-health').innerHTML='<div><span class="cloud-label">AUTONOMOUS COLLECTOR</span><strong><span class="dot '+(state.warning?'partial':'ok')+'"></span>'+esc(state.label)+'</strong><small>'+esc(time(cloudHealth?.completedAt))+'</small></div><div><span class="cloud-label">LATEST RUN</span><strong>'+full(count)+' metrics updated</strong><small>'+records.length+' of '+scope.length+' channel reports · earlier metric dates are retained</small></div><div><span class="cloud-label">VIEW COUNTS REFRESHED</span><strong>'+viewsUpdated+' / '+postsKnown+' known posts</strong><small>'+updated+' / '+platforms.length+' accounts supplied any new metric · full inventory checked separately</small></div><div class="cloud-links"><a href="'+safe(cloudHealth?.runUrl||cloudConfig.runsUrl||'https://github.com/Jautis5/cooked-dev-stats/actions/workflows/refresh.yml')+'" target="_blank" rel="noopener">Run details ↗</a><a href="'+safe(cloudConfig.watchdogUrl||'https://github.com/Jautis5/cooked-dev-stats/actions/workflows/watchdog.yml')+'" target="_blank" rel="noopener">Auto-recovery ↗</a><a href="'+safe(cloudConfig.independentUrl||'https://jautis5.github.io/cooked-dev-stats/')+'" target="_blank" rel="noopener">Independent site ↗</a></div>';
 }
 function clockStatus(runs,now=Date.now()){
  if(!Array.isArray(runs))return {label:'Checking the next cloud update…',warning:true};
@@ -222,16 +222,16 @@ function clockStatus(runs,now=Date.now()){
 }
 function renderClock(){
  const state=clockStatus(clockRuns),target=state.targetAt?' · target '+time(state.targetAt):'';
- $('cloud-clock').innerHTML='<span><span class="dot '+(state.warning?'partial':'ok')+'"></span><strong>'+esc(state.label)+'</strong>'+esc(target)+'</span><a href="'+safe(state.url||'https://github.com/jonass-pandos/cooked-dev-stats/actions/workflows/clock.yml')+'" target="_blank" rel="noopener">Timed updates ↗</a>';
+ $('cloud-clock').innerHTML='<span><span class="dot '+(state.warning?'partial':'ok')+'"></span><strong>'+esc(state.label)+'</strong>'+esc(target)+'</span><a href="'+safe(state.url||'https://github.com/Jautis5/cooked-dev-stats/actions/workflows/clock.yml')+'" target="_blank" rel="noopener">Timed updates ↗</a>';
 }
 async function loadClock(){
  try{
-  const response=await fetch('https://api.github.com/repos/jonass-pandos/cooked-dev-stats/actions/workflows/clock.yml/runs?per_page=10',{cache:'no-store',signal:AbortSignal.timeout(8000)});
+  const response=await fetch('https://api.github.com/repos/Jautis5/cooked-dev-stats/actions/workflows/clock.yml/runs?per_page=10',{cache:'no-store',signal:AbortSignal.timeout(8000)});
   if(!response.ok)throw Error('Queue status unavailable');
   const data=await response.json();if(!Array.isArray(data.workflow_runs))throw Error('Invalid queue');
   clockRuns=data.workflow_runs;renderClock();
  }catch{
-  $('cloud-clock').innerHTML='<span><span class="dot partial"></span>Queue status unavailable · saved statistics remain visible</span><a href="https://github.com/jonass-pandos/cooked-dev-stats/actions/workflows/clock.yml" target="_blank" rel="noopener">Timed updates ↗</a>';
+  $('cloud-clock').innerHTML='<span><span class="dot partial"></span>Queue status unavailable · saved statistics remain visible</span><a href="https://github.com/Jautis5/cooked-dev-stats/actions/workflows/clock.yml" target="_blank" rel="noopener">Timed updates ↗</a>';
  }
 }
 function sourceState(entry){
@@ -478,7 +478,7 @@ async function load(manual=false){
  try{
   if(!channels.length){const r=await fetch('data/channels.json',{cache:'no-store',signal:AbortSignal.timeout(15000)});if(!r.ok)throw Error('Channel list unavailable');const config=await r.json();if(config.version!==1||!Array.isArray(config.channels))throw Error('Invalid channels');channels=config.channels;cloudConfig=config.collector||{};}
   const healthTask=(async()=>{
-   const urls=[cloudConfig.healthUrl||'https://raw.githubusercontent.com/jonass-pandos/cooked-dev-stats/main/data/health.json','data/health.json'];
+   const urls=[cloudConfig.healthUrl||'https://raw.githubusercontent.com/Jautis5/cooked-dev-stats/main/data/health.json','data/health.json'];
    const results=await Promise.allSettled(urls.map(async url=>{const r=await fetch(url+'?v='+Date.now(),{cache:'no-store',signal:AbortSignal.timeout(8000)});if(!r.ok)throw Error('Health unavailable');return r.json();}));
    cloudHealth=newestHealth([...results.flatMap(r=>r.status==='fulfilled'?[r.value]:[]),...(cloudHealth?[cloudHealth]:[])]);
   })();

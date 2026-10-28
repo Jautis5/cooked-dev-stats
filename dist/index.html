@@ -21,7 +21,7 @@
 <dialog id="detail" aria-labelledby="detail-title"><div class="modal-head"><div><h2 id="detail-title"></h2><p class="muted" id="detail-caption"></p></div><button class="close" id="close-modal" aria-label="Uždaryti">×</button></div><div class="table-wrap"><table><thead><tr><th>Platforma</th><th class="number">Peržiūros</th><th class="number">Patiktukai</th><th class="number">Komentarai</th><th class="number">Pasidalinimai</th></tr></thead><tbody id="detail-rows"></tbody></table></div><div class="modal-foot">Užvesk ant skaičiaus, kad matytum jo patikros laiką. Spausk platformos pavadinimą, kad atidarytum publikaciją.</div></dialog><div class="toast" role="status" id="toast">Nuoroda nukopijuota</div>
 <script>
 'use strict';
-const DATA_URL='https://raw.githubusercontent.com/jonass-pandos/cooked-dev-stats/main/data/latest.json';
+const DATA_URL='https://raw.githubusercontent.com/Jautis5/cooked-dev-stats/main/data/latest.json';
 const PLATFORMS={instagram:'IG',tiktok:'TT',youtube:'YT',x:'X',facebook:'FB'};
 let state=null,active='all';
 const $=id=>document.getElementById(id);

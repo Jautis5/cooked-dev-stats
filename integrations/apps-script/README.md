@@ -96,7 +96,7 @@ steps. Update the handoff state after each; local tests alone are not live acces
 Instagram is the first priority, TikTok second (owner instruction 2026-10-22).
 The Google broker is deployed and rejects unsigned requests. One real YouTube
 read was verified. The hosted GitHub run
-https://github.com/jonass-pandos/cooked-dev-stats/actions/runs/39740943535
+https://github.com/Jautis5/cooked-dev-stats/actions/runs/39740943535
 then verified official reads of all 7 Cooked Dev and the Indian Builds video.
 Meta developer terms were accepted with explicit owner confirmation. Enrollment
 now requires an owner-entered mobile number and SMS verification. No Meta app

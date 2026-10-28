@@ -1,6 +1,6 @@
 # Social Stats collection and reconciliation
 
-Canonical repository: `jonass-pandos/cooked-dev-stats`, branch `main`.
+Canonical repository: `Jautis5/cooked-dev-stats`, branch `main`.
 Local maintenance checkout: `/Users/jonassendzikasdarbas/Documents/lOSTaSTRONOUT/work/cooked-dev-stats-autonomous`.
 The earlier `work/cooked-dev-stats-cloud` checkout is obsolete for maintenance.
 Dashboard source lives in `site/`; Sites is a published mirror of this source.
@@ -128,3 +128,22 @@ the canonical Cooked feed while preserving the original metric dates. The
 hourly browser heartbeat complements the 15-minute cloud collector only while
 the authorized desktop session is available. Neither can fabricate inaccessible
 Instagram/Facebook analytics. Scheduled social posts stay outside public totals.
+
+## GitHub ownership and browser delivery — 28 October 2026
+
+The canonical repository and website belong to **Jautis5**. The owner explicitly
+retired the previous workplace account. Do not use its saved CLI authentication,
+old repository, old Pages URL, or upstream synchronization for ongoing work.
+Historical source/run URLs remain historical evidence only.
+
+The existing verified Jautis5 browser session owns the repository. No new login,
+OAuth scope, cookie/token extraction, or paid service is needed. When the local
+CLI has no verified Jautis5 credential, publish the normalized public-only feed
+bundle through that existing browser to `incoming/browser-capture.json`. The
+`Import verified browser observations` workflow validates channel identities and
+merges snapshots through `scripts/publish_refresh.py`, preserving concurrent cloud
+updates and original metric dates. Never upload private raw browser captures.
+
+The GitHub cloud collector uses only its built-in temporary repository token.
+Check public JSON, Actions results and the next clock successor anonymously or
+through the existing Jautis5 browser; do not fall back to the old CLI account.
