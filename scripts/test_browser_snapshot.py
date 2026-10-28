@@ -40,13 +40,24 @@ class BrowserBundleTests(unittest.TestCase):
             root=pathlib.Path(folder);bundle=self.fixture(root)
             other=root/'data/indian-builds/latest.json';before=other.read_bytes()
             previous={'completedAt':'2026-10-28T08:00:00Z','channels':{'indian-builds':{'checkedAt':'2026-10-28T08:00:00Z','metricsUpdated':7}}}
-            (root/'data/health.json').write_text(json.dumps(previous))
+            (root/'data/browser-health.json').write_text(json.dumps(previous))
             bundle['channels']={'cooked-dev':bundle['channels']['cooked-dev']}
             merge_bundle(root,bundle)
-            health=json.loads((root/'data/health.json').read_text())
+            health=json.loads((root/'data/browser-health.json').read_text())
             self.assertEqual(other.read_bytes(),before)
             self.assertEqual(health['channels']['indian-builds'],previous['channels']['indian-builds'])
             self.assertEqual(health['channels']['cooked-dev']['checkedAt'],bundle['capturedAt'])
+
+    def test_browser_capture_preserves_cloud_health(self):
+        with tempfile.TemporaryDirectory() as folder:
+            root=pathlib.Path(folder);bundle=self.fixture(root)
+            cloud={'version':1,'provider':'GitHub Actions','status':'completed_with_gaps','completedAt':'2026-10-28T08:00:00Z','channels':{}}
+            (root/'data/health.json').write_text(json.dumps(cloud))
+            merge_bundle(root,bundle)
+            self.assertEqual(json.loads((root/'data/health.json').read_text()),cloud)
+            browser=json.loads((root/'data/browser-health.json').read_text())
+            self.assertEqual(browser['provider'],'authorized_local_browser')
+            self.assertEqual(browser['completedAt'],bundle['capturedAt'])
 
     def test_unknown_channel_does_not_partially_write(self):
         with tempfile.TemporaryDirectory() as folder:
