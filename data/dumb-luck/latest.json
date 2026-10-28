@@ -4,8 +4,8 @@
   "brand": {
     "name": "DUMB LUCK"
   },
-  "generatedAt": "2026-10-28T11:40:18.158719+00:00",
-  "lastAttemptAt": null,
+  "generatedAt": "2026-10-28T12:02:43.432874+00:00",
+  "lastAttemptAt": "2026-10-28T12:02:43.432874+00:00",
   "schedule": {
     "provider": "GitHub Actions",
     "intervalMinutes": 15,
@@ -19,8 +19,9 @@
       "expectedHandle": "duumb_luck",
       "url": "https://www.instagram.com/duumb_luck/",
       "status": "unavailable",
-      "message": "Awaiting first public observation.",
-      "metrics": {}
+      "message": "Public source unavailable; previous observations preserved.",
+      "metrics": {},
+      "lastAttemptAt": "2026-10-28T12:02:43.432874+00:00"
     },
     {
       "id": "tiktok",
@@ -28,9 +29,30 @@
       "handle": "duumbluck",
       "expectedHandle": "duumbluck",
       "url": "https://www.tiktok.com/@duumbluck",
-      "status": "unavailable",
-      "message": "Awaiting first public observation.",
-      "metrics": {}
+      "status": "partial",
+      "message": "Profile checked; tracked content excludes legacy posts.",
+      "metrics": {
+        "followers": {
+          "value": 0,
+          "at": "2026-10-28T12:02:43.432874+00:00",
+          "source": "https://www.tiktok.com/@duumbluck",
+          "approximate": false
+        },
+        "profileLikes": {
+          "value": 0,
+          "at": "2026-10-28T12:02:43.432874+00:00",
+          "source": "https://www.tiktok.com/@duumbluck",
+          "approximate": false
+        },
+        "publishedCount": {
+          "value": 0,
+          "at": "2026-10-28T12:02:43.432874+00:00",
+          "source": "https://www.tiktok.com/@duumbluck",
+          "approximate": false
+        }
+      },
+      "lastAttemptAt": "2026-10-28T12:02:43.432874+00:00",
+      "lastSuccessAt": "2026-10-28T12:02:43.432874+00:00"
     },
     {
       "id": "youtube",
@@ -38,9 +60,25 @@
       "handle": "DUUMBLUCK",
       "expectedChannelId": "UCB-BqPU60vRfUWGalt6fRtQ",
       "url": "https://www.youtube.com/channel/UCB-BqPU60vRfUWGalt6fRtQ",
-      "status": "unavailable",
-      "message": "Awaiting first public observation.",
-      "metrics": {}
+      "status": "partial",
+      "message": "Verified YouTube profile checked; metric observation dates retained.",
+      "metrics": {
+        "publishedCount": {
+          "value": 0,
+          "at": "2026-10-28T12:02:43.432874+00:00",
+          "source": "https://www.youtube.com/channel/UCB-BqPU60vRfUWGalt6fRtQ",
+          "approximate": false
+        },
+        "trackedPublishedCount": {
+          "value": 0,
+          "at": "2026-10-28T12:02:43.432874+00:00",
+          "source": "https://www.youtube.com/channel/UCB-BqPU60vRfUWGalt6fRtQ",
+          "approximate": false
+        }
+      },
+      "lastAttemptAt": "2026-10-28T12:02:43.432874+00:00",
+      "trackedEmptyConfirmedAt": "2026-10-28T12:02:43.432874+00:00",
+      "lastSuccessAt": "2026-10-28T12:02:43.432874+00:00"
     }
   ],
   "videos": [],
@@ -49,5 +87,45 @@
     "note": "Only confirmed public DUMB LUCK publications and measured metrics are included. Scheduled or unpublished uploads are not public posts.",
     "excludedPostIds": {}
   },
-  "discovery": {}
+  "discovery": {
+    "youtube": {
+      "status": "unavailable",
+      "error": "Channel did not expose its own Shorts tab",
+      "complete": false,
+      "checkedAt": "2026-10-28T12:02:43.432874+00:00",
+      "feedStatus": "checked",
+      "newVideos": 0
+    },
+    "tiktok": {
+      "status": "profile_checked",
+      "checkedAt": "2026-10-28T12:02:43.432874+00:00",
+      "complete": false,
+      "method": "public_profile",
+      "reportedPosts": 0,
+      "message": "The profile reports no public uploads."
+    },
+    "instagram": {
+      "status": "session_required",
+      "checkedAt": "2026-10-28T12:02:43.432874+00:00",
+      "complete": false,
+      "message": "New-publication discovery requires an authorized account list; a successful metrics check is not a complete list."
+    }
+  },
+  "cloudCollection": {
+    "at": "2026-10-28T12:02:43.432874+00:00",
+    "method": "public_cloud",
+    "metricsUpdated": {
+      "instagram": 0,
+      "tiktok": 3,
+      "youtube": 2
+    },
+    "runUrl": "https://github.com/Jautis5/cooked-dev-stats/actions/runs/40684512166"
+  },
+  "changes24h": {
+    "at": "2026-10-28T12:02:43.432874+00:00",
+    "baselineAt": null,
+    "views": null,
+    "likes": null,
+    "followers": null
+  }
 }
