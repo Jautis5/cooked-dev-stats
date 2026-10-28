@@ -4,8 +4,8 @@
   "brand": {
     "name": "DUMB LUCK"
   },
-  "generatedAt": "2026-10-28T15:21:59.614664+00:00",
-  "lastAttemptAt": "2026-10-28T15:21:59.614664+00:00",
+  "generatedAt": "2026-10-28T15:27:37.821Z",
+  "lastAttemptAt": "2026-10-28T15:27:37.821Z",
   "schedule": {
     "provider": "GitHub Actions",
     "intervalMinutes": 15,
@@ -19,18 +19,18 @@
       "expectedHandle": "duumb_luck",
       "url": "https://www.instagram.com/duumb_luck/",
       "status": "partial",
-      "message": "Public video metrics updated; per-metric dates retained.",
+      "message": "Visible profile and video list checked; legacy posts excluded.",
       "metrics": {
         "followers": {
           "value": 1,
-          "at": "2026-10-28T14:23:41.373Z",
+          "at": "2026-10-28T15:25:57.180Z",
           "source": "https://www.instagram.com/duumb_luck/",
           "method": "browser_bulk",
           "approximate": false
         }
       },
-      "lastAttemptAt": "2026-10-28T15:21:59.614664+00:00",
-      "lastSuccessAt": "2026-10-28T15:21:59.614664+00:00"
+      "lastAttemptAt": "2026-10-28T15:27:37.821Z",
+      "lastSuccessAt": "2026-10-28T15:27:37.821Z"
     },
     {
       "id": "tiktok",
@@ -39,18 +39,20 @@
       "expectedHandle": "duumbluck",
       "url": "https://www.tiktok.com/@duumbluck",
       "status": "partial",
-      "message": "Public video metrics updated; per-metric dates retained.",
+      "message": "Visible profile and video list checked; legacy posts excluded.",
       "metrics": {
         "followers": {
           "value": 1,
-          "at": "2026-10-28T15:21:59.614664+00:00",
+          "at": "2026-10-28T15:25:23.611Z",
           "source": "https://www.tiktok.com/@duumbluck",
+          "method": "browser_bulk",
           "approximate": false
         },
         "profileLikes": {
           "value": 1,
-          "at": "2026-10-28T15:21:59.614664+00:00",
+          "at": "2026-10-28T15:25:23.611Z",
           "source": "https://www.tiktok.com/@duumbluck",
+          "method": "browser_bulk",
           "approximate": false
         },
         "publishedCount": {
@@ -61,7 +63,7 @@
         },
         "following": {
           "value": 0,
-          "at": "2026-10-28T14:23:45.499Z",
+          "at": "2026-10-28T15:25:23.611Z",
           "source": "https://www.tiktok.com/@duumbluck",
           "method": "browser_bulk",
           "approximate": false
@@ -74,8 +76,8 @@
           "approximate": false
         }
       },
-      "lastAttemptAt": "2026-10-28T15:21:59.614664+00:00",
-      "lastSuccessAt": "2026-10-28T15:21:59.614664+00:00"
+      "lastAttemptAt": "2026-10-28T15:25:23.611Z",
+      "lastSuccessAt": "2026-10-28T15:25:23.611Z"
     },
     {
       "id": "youtube",
@@ -84,10 +86,10 @@
       "expectedChannelId": "UCB-BqPU60vRfUWGalt6fRtQ",
       "url": "https://www.youtube.com/channel/UCB-BqPU60vRfUWGalt6fRtQ",
       "status": "partial",
-      "message": "Public video metrics updated; per-metric dates retained.",
+      "message": "Visible profile and video list checked; legacy posts excluded.",
       "metrics": {},
-      "lastAttemptAt": "2026-10-28T15:21:59.614664+00:00",
-      "lastSuccessAt": "2026-10-28T15:21:59.614664+00:00"
+      "lastAttemptAt": "2026-10-28T15:27:30.631Z",
+      "lastSuccessAt": "2026-10-28T15:27:30.631Z"
     }
   ],
   "videos": [
@@ -106,8 +108,9 @@
           "metrics": {
             "views": {
               "value": 2,
-              "at": "2026-10-28T15:21:59.614664+00:00",
+              "at": "2026-10-28T15:25:41.780Z",
               "source": "https://www.tiktok.com/@duumbluck/video/7701700141719293206",
+              "method": "browser_bulk",
               "approximate": false
             },
             "likes": {
@@ -143,12 +146,11 @@
           "url": "https://www.youtube.com/shorts/pPlrf8Whqvg",
           "metrics": {
             "views": {
-              "value": 2,
-              "at": "2026-10-28T15:21:59.614664+00:00",
+              "value": 4,
+              "at": "2026-10-28T15:27:30.631Z",
               "source": "https://www.youtube.com/shorts/pPlrf8Whqvg",
-              "approximate": false,
-              "method": "public_channel_feed",
-              "evidenceUrl": "https://www.youtube.com/feeds/videos.xml?channel_id=UCB-BqPU60vRfUWGalt6fRtQ"
+              "method": "browser_bulk",
+              "approximate": false
             }
           },
           "publicationVerifiedAt": "2026-10-28T13:38:10.128470+00:00",
@@ -171,8 +173,8 @@
               "approximate": false
             },
             "views": {
-              "value": 98,
-              "at": "2026-10-28T14:23:41.373Z",
+              "value": 105,
+              "at": "2026-10-28T15:25:57.180Z",
               "source": "https://www.instagram.com/duumb_luck/reel/DfCi0b9Eqv7/",
               "method": "browser_bulk",
               "approximate": false,
@@ -200,8 +202,9 @@
           "metrics": {
             "views": {
               "value": 1,
-              "at": "2026-10-28T15:21:59.614664+00:00",
+              "at": "2026-10-28T15:25:41.780Z",
               "source": "https://www.tiktok.com/@duumbluck/video/7701699895652125974",
+              "method": "browser_bulk",
               "approximate": false
             },
             "likes": {
@@ -229,8 +232,8 @@
               "approximate": false
             }
           },
-          "publicationVerifiedAt": "2026-10-28T14:35:16Z",
-          "verificationEvidence": "The same owner-supplied EP02_Center_It.mp4 was uploaded to the verified DUMB LUCK YouTube and TikTok accounts, as recorded in the upload metadata. Studio readback confirmed the YouTube video Public at 14:35:06 UTC and the TikTok video Public at 14:35:16 UTC on 2026-10-28. Matching is based on the original file and verified upload records, not caption similarity."
+          "publicationVerifiedAt": "2026-10-28T15:28:13.150Z",
+          "verificationEvidence": "The same owner-supplied EP02_Center_It.mp4 was uploaded to the verified DUMB LUCK YouTube and TikTok accounts, as recorded in the upload metadata. Studio readback confirmed the YouTube video Public at 14:35:06 UTC and the TikTok video Public at 14:35:16 UTC on 2026-10-28. Matching is based on the original file and verified upload records, not caption similarity. On 28 October 2026 the public owned Instagram Reel DfCptX5iWzL was visually checked against the owner-supplied EP02 original: the unique USAGE LIMIT REACHED screen frame matches. The match is based on this visual evidence, not the caption."
         },
         "youtube": {
           "id": "kox7mv7eznc",
@@ -238,11 +241,10 @@
           "metrics": {
             "views": {
               "value": 0,
-              "at": "2026-10-28T15:21:59.614664+00:00",
+              "at": "2026-10-28T15:27:30.631Z",
               "source": "https://www.youtube.com/shorts/kox7mv7eznc",
-              "approximate": false,
-              "method": "public_channel_feed",
-              "evidenceUrl": "https://www.youtube.com/feeds/videos.xml?channel_id=UCB-BqPU60vRfUWGalt6fRtQ"
+              "method": "browser_bulk",
+              "approximate": false
             },
             "comments": {
               "value": 0,
@@ -252,8 +254,40 @@
               "approximate": false
             }
           },
-          "publicationVerifiedAt": "2026-10-28T14:35:16Z",
-          "verificationEvidence": "The same owner-supplied EP02_Center_It.mp4 was uploaded to the verified DUMB LUCK YouTube and TikTok accounts, as recorded in the upload metadata. Studio readback confirmed the YouTube video Public at 14:35:06 UTC and the TikTok video Public at 14:35:16 UTC on 2026-10-28. Matching is based on the original file and verified upload records, not caption similarity."
+          "publicationVerifiedAt": "2026-10-28T15:28:13.150Z",
+          "verificationEvidence": "The same owner-supplied EP02_Center_It.mp4 was uploaded to the verified DUMB LUCK YouTube and TikTok accounts, as recorded in the upload metadata. Studio readback confirmed the YouTube video Public at 14:35:06 UTC and the TikTok video Public at 14:35:16 UTC on 2026-10-28. Matching is based on the original file and verified upload records, not caption similarity. On 28 October 2026 the public owned Instagram Reel DfCptX5iWzL was visually checked against the owner-supplied EP02 original: the unique USAGE LIMIT REACHED screen frame matches. The match is based on this visual evidence, not the caption."
+        },
+        "instagram": {
+          "id": "DfCptX5iWzL",
+          "url": "https://www.instagram.com/duumb_luck/reel/DfCptX5iWzL/",
+          "metrics": {
+            "views": {
+              "value": 129,
+              "at": "2026-10-28T15:25:57.180Z",
+              "source": "https://www.instagram.com/duumb_luck/reel/DfCptX5iWzL/",
+              "method": "browser_bulk",
+              "approximate": false,
+              "via": "https://www.instagram.com/duumb_luck/reels/"
+            },
+            "likes": {
+              "value": 5,
+              "at": "2026-10-28T15:27:37.821Z",
+              "source": "https://www.instagram.com/duumb_luck/reel/DfCptX5iWzL/",
+              "method": "browser_bulk",
+              "approximate": false,
+              "via": "https://www.instagram.com/duumb_luck/reel/DfCptX5iWzL/"
+            },
+            "comments": {
+              "value": 0,
+              "at": "2026-10-28T15:27:37.821Z",
+              "source": "https://www.instagram.com/duumb_luck/reel/DfCptX5iWzL/",
+              "method": "browser_bulk",
+              "approximate": false,
+              "via": "https://www.instagram.com/duumb_luck/reel/DfCptX5iWzL/"
+            }
+          },
+          "publicationVerifiedAt": "2026-10-28T15:28:13.150Z",
+          "verificationEvidence": "The same owner-supplied EP02_Center_It.mp4 was uploaded to the verified DUMB LUCK YouTube and TikTok accounts, as recorded in the upload metadata. Studio readback confirmed the YouTube video Public at 14:35:06 UTC and the TikTok video Public at 14:35:16 UTC on 2026-10-28. Matching is based on the original file and verified upload records, not caption similarity. On 28 October 2026 the public owned Instagram Reel DfCptX5iWzL was visually checked against the owner-supplied EP02 original: the unique USAGE LIMIT REACHED screen frame matches. The match is based on this visual evidence, not the caption."
         }
       },
       "publicationGroupId": "dumb-luck-ep02"
@@ -329,6 +363,13 @@
       "posts": 5,
       "approximate": false,
       "partial": false
+    },
+    {
+      "at": "2026-10-28T15:27:37.821Z",
+      "views": 241,
+      "posts": 6,
+      "approximate": false,
+      "partial": false
     }
   ],
   "tracking": {
@@ -337,32 +378,31 @@
   },
   "discovery": {
     "youtube": {
-      "status": "partial",
-      "method": "public_shorts_tab",
-      "newVideos": 0,
+      "status": "checked",
+      "complete": true,
+      "method": "browser_bulk",
+      "checkedAt": "2026-10-28T15:27:30.631Z",
+      "lastCompleteAt": "2026-10-28T15:27:30.631Z",
       "listedPosts": 2,
-      "complete": false,
-      "checkedAt": "2026-10-28T15:21:59.614664+00:00",
-      "feedStatus": "checked",
-      "lastCompleteAt": "2026-10-28T14:29:26.904Z"
+      "lastCompletePostCount": 2
     },
     "tiktok": {
-      "status": "partial",
-      "method": "public_creator_embed",
-      "newVideos": 0,
+      "status": "checked",
+      "complete": true,
+      "method": "browser_bulk",
+      "checkedAt": "2026-10-28T15:25:41.780Z",
+      "lastCompleteAt": "2026-10-28T15:25:41.780Z",
       "listedPosts": 2,
-      "complete": false,
-      "checkedAt": "2026-10-28T15:21:59.614664+00:00",
-      "feedStatus": "profile_checked",
-      "reportedPosts": 2,
-      "lastCompleteAt": "2026-10-28T14:23:45.499Z"
+      "lastCompletePostCount": 2
     },
     "instagram": {
-      "status": "session_required",
-      "checkedAt": "2026-10-28T15:21:59.614664+00:00",
-      "complete": false,
-      "message": "New-publication discovery requires an authorized account list; a successful metrics check is not a complete list.",
-      "lastCompleteAt": "2026-10-28T14:23:41.373Z"
+      "status": "checked",
+      "complete": true,
+      "method": "browser_bulk",
+      "checkedAt": "2026-10-28T15:25:57.180Z",
+      "lastCompleteAt": "2026-10-28T15:25:57.180Z",
+      "listedPosts": 2,
+      "lastCompletePostCount": 2
     }
   },
   "cloudCollection": {
@@ -376,7 +416,7 @@
     "runUrl": "https://github.com/Jautis5/cooked-dev-stats/actions/runs/40715008543"
   },
   "changes24h": {
-    "at": "2026-10-28T15:21:59.614664+00:00",
+    "at": "2026-10-28T15:27:37.821Z",
     "baselineAt": null,
     "views": null,
     "likes": null,
