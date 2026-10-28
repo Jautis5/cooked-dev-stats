@@ -1,0 +1,56 @@
+name: Install verified account migration
+on:
+  workflow_dispatch:
+permissions:
+  contents: write
+  actions: write
+concurrency:
+  group: account-migration
+  cancel-in-progress: false
+jobs:
+  migrate:
+    if: github.repository == 'Jautis5/cooked-dev-stats'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: main
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install the reviewed public repository bundle
+        run: |
+          python - <<'PY'
+          import hashlib,json,pathlib,zipfile
+          root=pathlib.Path('.').resolve()
+          with zipfile.ZipFile('account-migration.zip') as z:
+              manifest=json.loads(z.read('migration-manifest.json'))
+              assert manifest['repository']=='Jautis5/cooked-dev-stats'
+              for name,digest in manifest['files'].items():
+                  p=root/name
+                  assert p.resolve().is_relative_to(root) and not name.startswith(('.git/','.github/'))
+                  blob=z.read(name);assert hashlib.sha256(blob).hexdigest()==digest
+                  p.parent.mkdir(parents=True,exist_ok=True);p.write_bytes(blob)
+          pathlib.Path('account-migration.zip').unlink()
+          PY
+      - name: Check channel separation, publication merging and dashboard
+        run: |
+          python -m unittest discover -s scripts -p 'test_*.py'
+          node scripts/test_dashboard.cjs
+          node scripts/test_chart.cjs
+          node scripts/test_workspace.cjs
+          node scripts/test_official_broker.cjs
+          python scripts/build_pages.py
+      - name: Commit migration under the verified owner
+        run: |
+          git config user.name Jautis5
+          git config user.email 181078337+Jautis5@users.noreply.github.com
+          git add --all -- . ':!.github'
+          git diff --cached --quiet || git commit -m "Move Social Stats delivery and current public observations to Jautis5"
+          git push origin HEAD:main
+      - name: Build the public website
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run pages.yml --repo "$GITHUB_REPOSITORY" --ref main

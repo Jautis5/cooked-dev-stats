@@ -1,0 +1,31 @@
+name: Import verified browser observations
+on:
+  push:
+    branches: [main]
+    paths: ['incoming/browser-capture.json']
+  workflow_dispatch:
+permissions:
+  contents: write
+  actions: write
+concurrency:
+  group: public-stats-browser-import
+  cancel-in-progress: false
+jobs:
+  import:
+    if: github.repository == 'Jautis5/cooked-dev-stats' && github.event.repository.private == false
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: main
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Validate and merge actual public observations
+        run: python scripts/import_browser_snapshot.py
+      - name: Publish dashboard fallback
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run pages.yml --repo "$GITHUB_REPOSITORY" --ref main
