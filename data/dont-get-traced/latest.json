@@ -22,11 +22,11 @@
       "status": "unavailable",
       "message": "Public source unavailable; previous observations preserved.",
       "lastAttemptAt": "2026-10-28T18:26:33.551487+00:00",
-      "lastSuccessAt": "2026-10-28T18:11:02.854103+00:00",
+      "lastSuccessAt": "2026-10-28T18:22:22.318Z",
       "metrics": {
         "followers": {
           "value": 42,
-          "at": "2026-10-28T17:19:07.836Z",
+          "at": "2026-10-28T18:22:22.318Z",
           "source": "https://www.instagram.com/dontgettraced/",
           "method": "browser_bulk",
           "approximate": false
@@ -84,7 +84,7 @@
         },
         "following": {
           "value": 1,
-          "at": "2026-10-28T17:18:52.719Z",
+          "at": "2026-10-28T18:22:07.724Z",
           "source": "https://www.tiktok.com/@dontgettraced",
           "method": "browser_bulk",
           "approximate": false
@@ -130,11 +130,11 @@
       "status": "unavailable",
       "message": "Facebook list metrics need the connected Lost Chrome session; previous observations preserved.",
       "lastAttemptAt": "2026-10-28T18:26:33.551487+00:00",
-      "lastSuccessAt": "2026-10-28T17:20:38.631Z",
+      "lastSuccessAt": "2026-10-28T18:25:38.147Z",
       "metrics": {
         "followers": {
           "value": 0,
-          "at": "2026-10-28T17:20:38.631Z",
+          "at": "2026-10-28T18:25:38.147Z",
           "source": "https://www.facebook.com/profile.php?id=61595574064670",
           "method": "browser_bulk",
           "approximate": false
@@ -150,16 +150,14 @@
       "status": "unavailable",
       "message": "X list metrics need the connected Lost Chrome session; previous observations preserved.",
       "lastAttemptAt": "2026-10-28T18:26:33.551487+00:00",
-      "lastSuccessAt": "2026-10-28T18:11:02.854103+00:00",
+      "lastSuccessAt": "2026-10-28T18:25:45.520Z",
       "metrics": {
         "followers": {
           "value": 0,
-          "at": "2026-10-28T18:11:02.854103+00:00",
+          "at": "2026-10-28T18:25:45.520Z",
           "source": "https://x.com/DontGetTraced",
-          "approximate": false,
-          "method": "fxembed_public",
-          "via": "https://api.fxtwitter.com/2/profile/DontGetTraced",
-          "upstreamObservedAt": null
+          "method": "browser_bulk",
+          "approximate": false
         },
         "publishedCount": {
           "value": 0,
@@ -170,7 +168,7 @@
         },
         "trackedPublishedCount": {
           "value": 0,
-          "at": "2026-10-28T17:20:38.946Z",
+          "at": "2026-10-28T18:25:45.520Z",
           "source": "https://x.com/DontGetTraced",
           "method": "browser_bulk",
           "approximate": false
@@ -229,7 +227,7 @@
           "metrics": {
             "views": {
               "value": 4466,
-              "at": "2026-10-28T17:19:07.836Z",
+              "at": "2026-10-28T18:22:22.318Z",
               "source": "https://www.instagram.com/dontgettraced/reel/Deww_L4IhFJ/",
               "method": "browser_bulk",
               "approximate": false
@@ -4021,6 +4019,13 @@
       "partial": false
     },
     {
+      "at": "2026-10-28T18:25:45.520Z",
+      "views": 5152,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
       "at": "2026-10-28T18:26:33.551487+00:00",
       "views": 5152,
       "posts": 2,
@@ -4063,14 +4068,14 @@
       "checkedAt": "2026-10-28T18:26:33.551487+00:00",
       "feedStatus": "checked",
       "newVideos": 0,
-      "lastCompleteAt": "2026-10-28T17:20:11.386Z"
+      "lastCompleteAt": "2026-10-28T18:22:55.154Z"
     },
     "instagram": {
       "status": "session_required",
       "checkedAt": "2026-10-28T18:26:33.551487+00:00",
       "complete": false,
       "message": "New-publication discovery requires an authorized account list; a successful metrics check is not a complete list.",
-      "lastCompleteAt": "2026-10-28T17:19:07.836Z"
+      "lastCompleteAt": "2026-10-28T18:22:22.318Z"
     },
     "facebook": {
       "status": "session_required",
@@ -4083,7 +4088,7 @@
       "error": "HTTP Error 404: Not Found",
       "complete": false,
       "checkedAt": "2026-10-28T18:26:33.551487+00:00",
-      "lastCompleteAt": "2026-10-28T17:20:38.946Z"
+      "lastCompleteAt": "2026-10-28T18:25:45.520Z"
     },
     "tiktok": {
       "status": "partial",
@@ -4094,7 +4099,7 @@
       "checkedAt": "2026-10-28T18:26:33.551487+00:00",
       "feedStatus": "profile_checked",
       "reportedPosts": 1,
-      "lastCompleteAt": "2026-10-28T17:18:52.719Z"
+      "lastCompleteAt": "2026-10-28T18:22:07.724Z"
     }
   },
   "identityCorrections": [
