@@ -4,8 +4,8 @@
   "brand": {
     "name": "DUMB LUCK"
   },
-  "generatedAt": "2026-10-28T16:24:04.865768+00:00",
-  "lastAttemptAt": "2026-10-28T16:24:04.865768+00:00",
+  "generatedAt": "2026-10-28T16:24:58.544Z",
+  "lastAttemptAt": "2026-10-28T16:24:58.544Z",
   "schedule": {
     "provider": "GitHub Actions",
     "intervalMinutes": 15,
@@ -19,18 +19,18 @@
       "expectedHandle": "duumb_luck",
       "url": "https://www.instagram.com/duumb_luck/",
       "status": "partial",
-      "message": "Public video metrics updated; per-metric dates retained.",
+      "message": "Visible profile and video list checked; legacy posts excluded.",
       "metrics": {
         "followers": {
-          "value": 1,
-          "at": "2026-10-28T15:25:57.180Z",
+          "value": 2,
+          "at": "2026-10-28T16:24:01.781Z",
           "source": "https://www.instagram.com/duumb_luck/",
           "method": "browser_bulk",
           "approximate": false
         }
       },
-      "lastAttemptAt": "2026-10-28T16:24:04.865768+00:00",
-      "lastSuccessAt": "2026-10-28T16:24:04.865768+00:00"
+      "lastAttemptAt": "2026-10-28T16:24:58.544Z",
+      "lastSuccessAt": "2026-10-28T16:24:58.544Z"
     },
     {
       "id": "tiktok",
@@ -61,7 +61,7 @@
         },
         "following": {
           "value": 0,
-          "at": "2026-10-28T15:25:23.611Z",
+          "at": "2026-10-28T16:23:02.732Z",
           "source": "https://www.tiktok.com/@duumbluck",
           "method": "browser_bulk",
           "approximate": false
@@ -160,23 +160,26 @@
           "metrics": {
             "likes": {
               "value": 3,
-              "at": "2026-10-28T16:24:04.865768+00:00",
+              "at": "2026-10-28T16:25:04.712Z",
               "source": "https://www.instagram.com/duumb_luck/reel/DfCi0b9Eqv7/",
-              "approximate": false
+              "method": "profile_grid_hover",
+              "approximate": false,
+              "via": "https://www.instagram.com/duumb_luck/reels/"
             },
             "comments": {
               "value": 0,
-              "at": "2026-10-28T16:24:04.865768+00:00",
+              "at": "2026-10-28T16:25:04.712Z",
               "source": "https://www.instagram.com/duumb_luck/reel/DfCi0b9Eqv7/",
-              "approximate": false
-            },
-            "views": {
-              "value": 105,
-              "at": "2026-10-28T15:25:57.180Z",
-              "source": "https://www.instagram.com/duumb_luck/reel/DfCi0b9Eqv7/",
-              "method": "browser_bulk",
+              "method": "profile_grid_hover",
               "approximate": false,
               "via": "https://www.instagram.com/duumb_luck/reels/"
+            },
+            "views": {
+              "value": 110,
+              "at": "2026-10-28T16:24:01.781Z",
+              "source": "https://www.instagram.com/duumb_luck/reel/DfCi0b9Eqv7/",
+              "method": "browser_bulk",
+              "approximate": false
             }
           },
           "publicationVerifiedAt": "2026-10-28T13:38:10.128470+00:00",
@@ -260,24 +263,27 @@
           "url": "https://www.instagram.com/duumb_luck/reel/DfCptX5iWzL/",
           "metrics": {
             "views": {
-              "value": 129,
-              "at": "2026-10-28T15:25:57.180Z",
+              "value": 183,
+              "at": "2026-10-28T16:24:01.781Z",
               "source": "https://www.instagram.com/duumb_luck/reel/DfCptX5iWzL/",
               "method": "browser_bulk",
-              "approximate": false,
-              "via": "https://www.instagram.com/duumb_luck/reels/"
+              "approximate": false
             },
             "likes": {
               "value": 6,
-              "at": "2026-10-28T16:24:04.865768+00:00",
+              "at": "2026-10-28T16:24:58.544Z",
               "source": "https://www.instagram.com/duumb_luck/reel/DfCptX5iWzL/",
-              "approximate": false
+              "method": "profile_grid_hover",
+              "approximate": false,
+              "via": "https://www.instagram.com/duumb_luck/reels/"
             },
             "comments": {
               "value": 0,
-              "at": "2026-10-28T16:24:04.865768+00:00",
+              "at": "2026-10-28T16:24:58.544Z",
               "source": "https://www.instagram.com/duumb_luck/reel/DfCptX5iWzL/",
-              "approximate": false
+              "method": "profile_grid_hover",
+              "approximate": false,
+              "via": "https://www.instagram.com/duumb_luck/reels/"
             }
           },
           "publicationVerifiedAt": "2026-10-28T15:28:13.150Z",
@@ -472,6 +478,13 @@
       "posts": 8,
       "approximate": false,
       "partial": false
+    },
+    {
+      "at": "2026-10-28T16:24:58.544Z",
+      "views": 383,
+      "posts": 8,
+      "approximate": false,
+      "partial": false
     }
   ],
   "tracking": {
@@ -487,7 +500,7 @@
       "complete": false,
       "checkedAt": "2026-10-28T16:24:04.865768+00:00",
       "feedStatus": "checked",
-      "lastCompleteAt": "2026-10-28T15:27:30.631Z"
+      "lastCompleteAt": "2026-10-28T16:23:50.389Z"
     },
     "tiktok": {
       "status": "partial",
@@ -498,14 +511,14 @@
       "checkedAt": "2026-10-28T16:24:04.865768+00:00",
       "feedStatus": "profile_checked",
       "reportedPosts": 3,
-      "lastCompleteAt": "2026-10-28T15:25:41.780Z"
+      "lastCompleteAt": "2026-10-28T16:23:02.732Z"
     },
     "instagram": {
       "status": "session_required",
       "checkedAt": "2026-10-28T16:24:04.865768+00:00",
       "complete": false,
       "message": "New-publication discovery requires an authorized account list; a successful metrics check is not a complete list.",
-      "lastCompleteAt": "2026-10-28T15:25:57.180Z"
+      "lastCompleteAt": "2026-10-28T16:24:01.781Z"
     }
   },
   "cloudCollection": {
@@ -519,7 +532,7 @@
     "runUrl": "https://github.com/Jautis5/cooked-dev-stats/actions/runs/40725333620"
   },
   "changes24h": {
-    "at": "2026-10-28T16:24:04.865768+00:00",
+    "at": "2026-10-28T16:24:58.544Z",
     "baselineAt": null,
     "views": null,
     "likes": null,
