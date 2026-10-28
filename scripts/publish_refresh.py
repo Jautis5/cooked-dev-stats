@@ -24,7 +24,9 @@ def publish(root=ROOT, before_push=None, retries=4):
     collected = {c['dataPath']: json.loads((root / c['dataPath']).read_text()) for c in config}
     baseline = {path: json_at(root, 'HEAD', path) for path in collected}
     archives = {str(p.relative_to(root)): p.read_text() for p in (root / 'data').rglob('*.jsonl')}
-    health = json.loads((root / 'data/health.json').read_text()) if (root / 'data/health.json').exists() else None
+    health_reports = {name: json.loads((root / 'data' / name).read_text())
+                      for name in ('health.json', 'browser-health.json')
+                      if (root / 'data' / name).exists()}
     for candidate in collected.values():
         validate(candidate)
     for attempt in range(retries):
@@ -66,8 +68,8 @@ def publish(root=ROOT, before_push=None, retries=4):
                     base.update_changes(data, directory=path.parent)
                     path.write_text(json.dumps(data, ensure_ascii=False, indent=2) + '\n')
                     base.exports(data, path.parent)
-                if health:
-                    path = checkout / 'data/health.json'
+                for name, health in health_reports.items():
+                    path = checkout / 'data' / name
                     prior = json.loads(path.read_text()) if path.exists() else {}
                     if timestamp(health.get('completedAt')) > timestamp(prior.get('completedAt')):
                         path.write_text(json.dumps(health, ensure_ascii=False, indent=2) + '\n')
