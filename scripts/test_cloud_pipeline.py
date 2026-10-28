@@ -81,6 +81,27 @@ class MergeTests(unittest.TestCase):
             self.assertEqual(git(remote, 'rev-parse', 'main'), commit)
             self.assertEqual(json.loads((writer / 'data/latest.json').read_text()), candidate, 'Caller checkout must remain unchanged')
 
+    def test_cloud_and_browser_health_survive_concurrent_publish(self):
+        def git(root,*args):
+            return subprocess.run(['git','-C',str(root),*args],check=True,capture_output=True,text=True).stdout.strip()
+        with tempfile.TemporaryDirectory() as folder:
+            root=pathlib.Path(folder);remote=root/'remote.git';writer=root/'writer';other=root/'other'
+            subprocess.run(['git','init','--bare','--initial-branch=main',str(remote)],check=True,capture_output=True)
+            subprocess.run(['git','clone',str(remote),str(writer)],check=True,capture_output=True)
+            for key,val in [('user.name','Test'),('user.email','test@example.com')]:git(writer,'config',key,val)
+            (writer/'data').mkdir();(writer/'data/channels.json').write_text(json.dumps({'channels':[{'id':'cooked-dev','dataPath':'data/latest.json'}]}));(writer/'data/latest.json').write_text(json.dumps(fixture()))
+            old={'provider':'GitHub Actions','completedAt':'2026-10-20T09:00:00Z'};(writer/'data/health.json').write_text(json.dumps(old))
+            git(writer,'add','.');git(writer,'commit','-m','seed');git(writer,'push','origin','main')
+            subprocess.run(['git','clone',str(remote),str(other)],check=True,capture_output=True)
+            for key,val in [('user.name','Other'),('user.email','other@example.com')]:git(other,'config',key,val)
+            browser={'provider':'authorized_local_browser','completedAt':'2026-10-20T10:00:00Z'};(writer/'data/browser-health.json').write_text(json.dumps(browser))
+            def race(attempt):
+                if attempt:return
+                newer={'provider':'GitHub Actions','completedAt':'2026-10-20T11:00:00Z'};(other/'data/health.json').write_text(json.dumps(newer));git(other,'add','.');git(other,'commit','-m','new cloud');git(other,'push','origin','main')
+            publish(writer,before_push=race)
+            self.assertEqual(json.loads(git(remote,'show','main:data/health.json'))['completedAt'],'2026-10-20T11:00:00Z')
+            self.assertEqual(json.loads(git(remote,'show','main:data/browser-health.json')),browser)
+
     def test_publication_moves_keep_new_metrics_and_measured_zero(self):
         for candidate_already_joined in [False, True]:
             with self.subTest(candidate_already_joined=candidate_already_joined), tempfile.TemporaryDirectory() as folder:
