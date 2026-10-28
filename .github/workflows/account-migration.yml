@@ -32,7 +32,17 @@ jobs:
                   p=root/name
                   assert p.resolve().is_relative_to(root) and not name.startswith(('.git/','.github/'))
                   blob=z.read(name);assert hashlib.sha256(blob).hexdigest()==digest
+                  # The fork already contains newer inventory-validation fixes.
+                  # Preserve existing upstream code; add only new bundle scripts.
+                  if p.exists() and name.startswith('scripts/'):
+                      continue
+                  if p.exists() and name in ['site/app.js','site/index.html','site/styles.css']:
+                      text=p.read_text().replace('jonass-pandos/cooked-dev-stats','Jautis5/cooked-dev-stats').replace('jonass-pandos.github.io/cooked-dev-stats','jautis5.github.io/cooked-dev-stats')
+                      p.write_text(text)
+                      continue
                   p.parent.mkdir(parents=True,exist_ok=True);p.write_bytes(blob)
+          importer=root/'scripts/import_channel_capture.py'
+          importer.write_text(importer.read_text().replace("{'channel':data['channelId'],'videos':len(data['videos'])}","{'channel':data.get('channelId','cooked-dev'),'videos':len(data['videos'])}"))
           pathlib.Path('account-migration.zip').unlink()
           PY
       - name: Check channel separation, publication merging and dashboard
