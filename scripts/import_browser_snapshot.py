@@ -47,7 +47,8 @@ def merge_bundle(root, bundle):
                 state['access'] = 'authorized_browser'
         health['channels'][cid] = {'status':'completed_with_gaps', 'checkedAt':bundle['capturedAt'],
                                   'platforms':platforms, 'metricsUpdated':sum(p['metricsUpdated'] for p in platforms.values())}
-    health_path = root/'data/health.json'
+    # Browser coverage must never replace the independent cloud collector report.
+    health_path = root/'data/browser-health.json'
     previous = json.loads(health_path.read_text()) if health_path.exists() else {}
     if timestamp(health['completedAt']) > timestamp(previous.get('completedAt')):
         # Retain independently dated reports for registered channels absent from
