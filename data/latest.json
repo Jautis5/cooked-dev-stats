@@ -8,8 +8,8 @@
     "intervalMinutes": 15,
     "cron": "7-59/15 * * * *"
   },
-  "generatedAt": "2026-10-28T13:19:02.721295+00:00",
-  "lastAttemptAt": "2026-10-28T13:19:02.721295+00:00",
+  "generatedAt": "2026-10-28T13:22:26.221Z",
+  "lastAttemptAt": "2026-10-28T13:22:26.221Z",
   "accounts": [
     {
       "id": "instagram",
@@ -60,15 +60,17 @@
       "metrics": {
         "followers": {
           "value": 1850,
-          "at": "2026-10-28T13:19:02.721295+00:00",
+          "at": "2026-10-28T13:22:26.221Z",
           "source": "https://www.tiktok.com/@cooked_dev_",
+          "method": "browser_bulk",
           "approximate": false
         },
         "profileLikes": {
-          "value": 37868,
-          "at": "2026-10-28T13:19:02.721295+00:00",
+          "value": 37900,
+          "at": "2026-10-28T13:22:26.221Z",
           "source": "https://www.tiktok.com/@cooked_dev_",
-          "approximate": false
+          "method": "browser_bulk",
+          "approximate": true
         },
         "publishedCount": {
           "value": 31,
@@ -78,14 +80,14 @@
         },
         "following": {
           "value": 4,
-          "at": "2026-10-28T09:26:27.810Z",
+          "at": "2026-10-28T13:22:26.221Z",
           "source": "https://www.tiktok.com/@cooked_dev_",
           "method": "browser_bulk",
           "approximate": false
         },
         "trackedPublishedCount": {
-          "value": 30,
-          "at": "2026-10-28T09:26:27.810Z",
+          "value": 31,
+          "at": "2026-10-28T13:22:26.221Z",
           "source": "https://www.tiktok.com/@cooked_dev_",
           "method": "browser_bulk",
           "approximate": false
@@ -113,10 +115,10 @@
           "upstreamObservedAt": null
         }
       },
-      "status": "ok",
-      "lastAttemptAt": "2026-10-28T13:19:02.721295+00:00",
-      "lastSuccessAt": "2026-10-28T13:19:02.721295+00:00",
-      "message": "Atnaujinta 31/31 įrašų. Atskirų rodiklių patikros laikas gali skirtis.",
+      "status": "partial",
+      "lastAttemptAt": "2026-10-28T13:22:26.221Z",
+      "lastSuccessAt": "2026-10-28T13:22:26.221Z",
+      "message": "Visible profile and video list checked; legacy posts excluded.",
       "browserObservedAt": "2026-10-20T09:20:44.132000+00:00"
     },
     {
@@ -11618,6 +11620,13 @@
         "tiktok",
         "youtube"
       ]
+    },
+    {
+      "at": "2026-10-28T13:22:26.221Z",
+      "views": 788702,
+      "posts": 101,
+      "approximate": false,
+      "partial": true
     }
   ],
   "assetLibrary": {
@@ -11628,7 +11637,7 @@
   },
   "mcpMergedAt": "2026-10-20T09:22:29.266077+00:00",
   "changes24h": {
-    "at": "2026-10-28T13:19:02.721295+00:00",
+    "at": "2026-10-28T13:22:26.221Z",
     "baselineAt": null,
     "views": null,
     "likes": null,
@@ -11665,13 +11674,13 @@
       "lastCompleteAt": "2026-10-28T09:24:02.041Z"
     },
     "tiktok": {
-      "status": "unavailable",
-      "error": "HTTP Error 429: Too Many Requests",
-      "complete": false,
-      "checkedAt": "2026-10-28T13:19:02.721295+00:00",
-      "feedStatus": "partial",
-      "newVideos": 1,
-      "lastCompleteAt": "2026-10-28T09:26:27.810Z"
+      "status": "checked",
+      "complete": true,
+      "method": "browser_bulk",
+      "checkedAt": "2026-10-28T13:22:26.221Z",
+      "lastCompleteAt": "2026-10-28T13:22:26.221Z",
+      "listedPosts": 31,
+      "lastCompletePostCount": 31
     },
     "x": {
       "status": "partial",

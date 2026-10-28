@@ -5,8 +5,8 @@
     "name": "DontGetTraced"
   },
   "sheetUrl": "https://docs.google.com/spreadsheets/d/1sT8AqlGMMqnJUCcA697DaVcLvRqsJhCT4xMIdl52WYY/edit#gid=1732102601",
-  "generatedAt": "2026-10-28T13:19:02.721295+00:00",
-  "lastAttemptAt": "2026-10-28T13:19:02.721295+00:00",
+  "generatedAt": "2026-10-28T13:24:08.985Z",
+  "lastAttemptAt": "2026-10-28T13:24:08.985Z",
   "schedule": {
     "provider": "GitHub Actions",
     "intervalMinutes": 15,
@@ -61,19 +61,21 @@
       "url": "https://www.tiktok.com/@dontgettraced",
       "expectedHandle": "dontgettraced",
       "status": "partial",
-      "message": "Public video metrics updated; per-metric dates retained.",
-      "lastAttemptAt": "2026-10-28T13:19:02.721295+00:00",
+      "message": "Visible profile and video list checked; legacy posts excluded.",
+      "lastAttemptAt": "2026-10-28T13:24:08.985Z",
       "metrics": {
         "followers": {
           "value": 6,
-          "at": "2026-10-28T13:19:02.721295+00:00",
+          "at": "2026-10-28T13:24:08.985Z",
           "source": "https://www.tiktok.com/@dontgettraced",
+          "method": "browser_bulk",
           "approximate": false
         },
         "profileLikes": {
           "value": 14,
-          "at": "2026-10-28T13:19:02.721295+00:00",
+          "at": "2026-10-28T13:24:08.985Z",
           "source": "https://www.tiktok.com/@dontgettraced",
+          "method": "browser_bulk",
           "approximate": false
         },
         "publishedCount": {
@@ -84,14 +86,14 @@
         },
         "following": {
           "value": 1,
-          "at": "2026-10-28T09:26:33.179Z",
+          "at": "2026-10-28T13:24:08.985Z",
           "source": "https://www.tiktok.com/@dontgettraced",
           "method": "browser_bulk",
           "approximate": false
         },
         "trackedPublishedCount": {
           "value": 1,
-          "at": "2026-10-28T09:26:33.179Z",
+          "at": "2026-10-28T13:24:08.985Z",
           "source": "https://www.tiktok.com/@dontgettraced",
           "method": "browser_bulk",
           "approximate": false
@@ -119,7 +121,7 @@
           "upstreamObservedAt": null
         }
       },
-      "lastSuccessAt": "2026-10-28T13:19:02.721295+00:00"
+      "lastSuccessAt": "2026-10-28T13:24:08.985Z"
     },
     {
       "id": "facebook",
@@ -3830,6 +3832,13 @@
       "posts": 2,
       "approximate": false,
       "partial": false
+    },
+    {
+      "at": "2026-10-28T13:24:08.985Z",
+      "views": 5129,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
     }
   ],
   "tracking": {
@@ -3853,7 +3862,7 @@
     "runUrl": "https://github.com/Jautis5/cooked-dev-stats/actions/runs/40695201080"
   },
   "changes24h": {
-    "at": "2026-10-28T13:19:02.721295+00:00",
+    "at": "2026-10-28T13:24:08.985Z",
     "baselineAt": null,
     "views": null,
     "likes": null,
@@ -3894,15 +3903,13 @@
       "lastCompleteAt": "2026-10-28T09:31:42.365Z"
     },
     "tiktok": {
-      "status": "partial",
-      "method": "public_creator_embed",
-      "newVideos": 0,
+      "status": "checked",
+      "complete": true,
+      "method": "browser_bulk",
+      "checkedAt": "2026-10-28T13:24:08.985Z",
+      "lastCompleteAt": "2026-10-28T13:24:08.985Z",
       "listedPosts": 1,
-      "complete": false,
-      "checkedAt": "2026-10-28T13:19:02.721295+00:00",
-      "feedStatus": "profile_checked",
-      "reportedPosts": 1,
-      "lastCompleteAt": "2026-10-28T09:26:33.179Z"
+      "lastCompletePostCount": 1
     }
   },
   "identityCorrections": [
