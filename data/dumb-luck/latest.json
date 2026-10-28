@@ -4,8 +4,8 @@
   "brand": {
     "name": "DUMB LUCK"
   },
-  "generatedAt": "2026-10-28T14:29:26.904Z",
-  "lastAttemptAt": "2026-10-28T14:29:26.904Z",
+  "generatedAt": "2026-10-28T14:35:43.278170+00:00",
+  "lastAttemptAt": "2026-10-28T14:35:43.278170+00:00",
   "schedule": {
     "provider": "GitHub Actions",
     "intervalMinutes": 15,
@@ -19,7 +19,7 @@
       "expectedHandle": "duumb_luck",
       "url": "https://www.instagram.com/duumb_luck/",
       "status": "partial",
-      "message": "Visible profile and video list checked; legacy posts excluded.",
+      "message": "Public video metrics updated; per-metric dates retained.",
       "metrics": {
         "followers": {
           "value": 1,
@@ -29,8 +29,8 @@
           "approximate": false
         }
       },
-      "lastAttemptAt": "2026-10-28T14:23:41.373Z",
-      "lastSuccessAt": "2026-10-28T14:23:41.373Z"
+      "lastAttemptAt": "2026-10-28T14:35:43.278170+00:00",
+      "lastSuccessAt": "2026-10-28T14:35:43.278170+00:00"
     },
     {
       "id": "tiktok",
@@ -39,25 +39,23 @@
       "expectedHandle": "duumbluck",
       "url": "https://www.tiktok.com/@duumbluck",
       "status": "partial",
-      "message": "Visible profile and video list checked; legacy posts excluded.",
+      "message": "Public video metrics updated; per-metric dates retained.",
       "metrics": {
         "followers": {
           "value": 1,
-          "at": "2026-10-28T14:23:45.499Z",
+          "at": "2026-10-28T14:35:43.278170+00:00",
           "source": "https://www.tiktok.com/@duumbluck",
-          "method": "browser_bulk",
           "approximate": false
         },
         "profileLikes": {
           "value": 1,
-          "at": "2026-10-28T14:23:45.499Z",
+          "at": "2026-10-28T14:35:43.278170+00:00",
           "source": "https://www.tiktok.com/@duumbluck",
-          "method": "browser_bulk",
           "approximate": false
         },
         "publishedCount": {
           "value": 1,
-          "at": "2026-10-28T14:20:28.599867+00:00",
+          "at": "2026-10-28T14:35:43.278170+00:00",
           "source": "https://www.tiktok.com/@duumbluck",
           "approximate": false
         },
@@ -76,8 +74,8 @@
           "approximate": false
         }
       },
-      "lastAttemptAt": "2026-10-28T14:23:45.499Z",
-      "lastSuccessAt": "2026-10-28T14:23:45.499Z"
+      "lastAttemptAt": "2026-10-28T14:35:43.278170+00:00",
+      "lastSuccessAt": "2026-10-28T14:35:43.278170+00:00"
     },
     {
       "id": "youtube",
@@ -86,10 +84,10 @@
       "expectedChannelId": "UCB-BqPU60vRfUWGalt6fRtQ",
       "url": "https://www.youtube.com/channel/UCB-BqPU60vRfUWGalt6fRtQ",
       "status": "partial",
-      "message": "Visible profile and video list checked; legacy posts excluded.",
+      "message": "Public video metrics updated; per-metric dates retained.",
       "metrics": {},
-      "lastAttemptAt": "2026-10-28T14:29:26.904Z",
-      "lastSuccessAt": "2026-10-28T14:29:26.904Z"
+      "lastAttemptAt": "2026-10-28T14:35:43.278170+00:00",
+      "lastSuccessAt": "2026-10-28T14:35:43.278170+00:00"
     }
   ],
   "videos": [
@@ -108,32 +106,31 @@
           "metrics": {
             "views": {
               "value": 1,
-              "at": "2026-10-28T14:23:45.499Z",
+              "at": "2026-10-28T14:35:43.278170+00:00",
               "source": "https://www.tiktok.com/@duumbluck/video/7701700141719293206",
-              "method": "browser_bulk",
               "approximate": false
             },
             "likes": {
               "value": 1,
-              "at": "2026-10-28T14:20:28.599867+00:00",
+              "at": "2026-10-28T14:35:43.278170+00:00",
               "source": "https://www.tiktok.com/@duumbluck/video/7701700141719293206",
               "approximate": false
             },
             "comments": {
               "value": 0,
-              "at": "2026-10-28T14:20:28.599867+00:00",
+              "at": "2026-10-28T14:35:43.278170+00:00",
               "source": "https://www.tiktok.com/@duumbluck/video/7701700141719293206",
               "approximate": false
             },
             "shares": {
               "value": 0,
-              "at": "2026-10-28T14:20:28.599867+00:00",
+              "at": "2026-10-28T14:35:43.278170+00:00",
               "source": "https://www.tiktok.com/@duumbluck/video/7701700141719293206",
               "approximate": false
             },
             "saves": {
               "value": 2,
-              "at": "2026-10-28T14:20:28.599867+00:00",
+              "at": "2026-10-28T14:35:43.278170+00:00",
               "source": "https://www.tiktok.com/@duumbluck/video/7701700141719293206",
               "approximate": false
             }
@@ -146,12 +143,12 @@
           "url": "https://www.youtube.com/shorts/pPlrf8Whqvg",
           "metrics": {
             "views": {
-              "value": 1,
-              "at": "2026-10-28T14:29:26.904Z",
+              "value": 0,
+              "at": "2026-10-28T14:35:43.278170+00:00",
               "source": "https://www.youtube.com/shorts/pPlrf8Whqvg",
-              "method": "browser_bulk",
               "approximate": false,
-              "via": "https://www.youtube.com/channel/UCB-BqPU60vRfUWGalt6fRtQ/shorts"
+              "method": "public_channel_feed",
+              "evidenceUrl": "https://www.youtube.com/feeds/videos.xml?channel_id=UCB-BqPU60vRfUWGalt6fRtQ"
             }
           },
           "publicationVerifiedAt": "2026-10-28T13:38:10.128470+00:00",
@@ -163,13 +160,13 @@
           "metrics": {
             "likes": {
               "value": 2,
-              "at": "2026-10-28T14:20:28.599867+00:00",
+              "at": "2026-10-28T14:35:43.278170+00:00",
               "source": "https://www.instagram.com/duumb_luck/reel/DfCi0b9Eqv7/",
               "approximate": false
             },
             "comments": {
               "value": 0,
-              "at": "2026-10-28T14:20:28.599867+00:00",
+              "at": "2026-10-28T14:35:43.278170+00:00",
               "source": "https://www.instagram.com/duumb_luck/reel/DfCi0b9Eqv7/",
               "approximate": false
             },
@@ -187,6 +184,52 @@
         }
       },
       "publicationGroupId": "dumb-luck-ep01"
+    },
+    {
+      "id": "tiktok-7701699895652125974",
+      "number": 2,
+      "title": "He spent eight hours centering a button. His assistant has questions. 💻",
+      "caption": "He spent eight hours centering a button. His assistant has questions. 💻",
+      "publishedAt": null,
+      "thumbnail": null,
+      "assetUrl": null,
+      "posts": {
+        "tiktok": {
+          "id": "7701699895652125974",
+          "url": "https://www.tiktok.com/@duumbluck/video/7701699895652125974",
+          "metrics": {
+            "views": {
+              "value": 0,
+              "at": "2026-10-28T14:35:43.278170+00:00",
+              "source": "https://www.tiktok.com/@duumbluck/video/7701699895652125974",
+              "approximate": false
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "youtube-kox7mv7eznc",
+      "number": 3,
+      "title": "Centering a Div Shouldn’t Take Eight Hours #Shorts",
+      "caption": "Centering a Div Shouldn’t Take Eight Hours #Shorts",
+      "publishedAt": null,
+      "thumbnail": null,
+      "assetUrl": null,
+      "posts": {
+        "youtube": {
+          "id": "kox7mv7eznc",
+          "url": "https://www.youtube.com/shorts/kox7mv7eznc",
+          "metrics": {
+            "views": {
+              "value": 0,
+              "at": "2026-10-28T14:35:43.278170+00:00",
+              "source": "https://www.youtube.com/shorts/kox7mv7eznc",
+              "approximate": false
+            }
+          }
+        }
+      }
     }
   ],
   "history": [
@@ -231,6 +274,13 @@
       "posts": 3,
       "approximate": false,
       "partial": false
+    },
+    {
+      "at": "2026-10-28T14:35:43.278170+00:00",
+      "views": 99,
+      "posts": 5,
+      "approximate": false,
+      "partial": false
     }
   ],
   "tracking": {
@@ -239,45 +289,46 @@
   },
   "discovery": {
     "youtube": {
-      "status": "checked",
-      "complete": true,
-      "method": "browser_bulk",
-      "checkedAt": "2026-10-28T14:29:26.904Z",
-      "lastCompleteAt": "2026-10-28T14:29:26.904Z",
-      "listedPosts": 1,
-      "lastCompletePostCount": 1
+      "status": "partial",
+      "method": "public_shorts_tab",
+      "newVideos": 1,
+      "listedPosts": 2,
+      "complete": false,
+      "checkedAt": "2026-10-28T14:35:43.278170+00:00",
+      "feedStatus": "checked",
+      "lastCompleteAt": "2026-10-28T14:29:26.904Z"
     },
     "tiktok": {
-      "status": "checked",
-      "complete": true,
-      "method": "browser_bulk",
-      "checkedAt": "2026-10-28T14:23:45.499Z",
-      "lastCompleteAt": "2026-10-28T14:23:45.499Z",
-      "listedPosts": 1,
-      "lastCompletePostCount": 1
+      "status": "partial",
+      "method": "public_creator_embed",
+      "newVideos": 1,
+      "listedPosts": 2,
+      "complete": false,
+      "checkedAt": "2026-10-28T14:35:43.278170+00:00",
+      "feedStatus": "profile_checked",
+      "reportedPosts": 1,
+      "lastCompleteAt": "2026-10-28T14:23:45.499Z"
     },
     "instagram": {
-      "status": "checked",
-      "complete": true,
-      "method": "browser_bulk",
-      "checkedAt": "2026-10-28T14:23:41.373Z",
-      "lastCompleteAt": "2026-10-28T14:23:41.373Z",
-      "listedPosts": 1,
-      "lastCompletePostCount": 1
+      "status": "session_required",
+      "checkedAt": "2026-10-28T14:35:43.278170+00:00",
+      "complete": false,
+      "message": "New-publication discovery requires an authorized account list; a successful metrics check is not a complete list.",
+      "lastCompleteAt": "2026-10-28T14:23:41.373Z"
     }
   },
   "cloudCollection": {
-    "at": "2026-10-28T14:20:28.599867+00:00",
+    "at": "2026-10-28T14:35:43.278170+00:00",
     "method": "public_cloud",
     "metricsUpdated": {
       "instagram": 2,
-      "tiktok": 8,
-      "youtube": 1
+      "tiktok": 9,
+      "youtube": 2
     },
-    "runUrl": "https://github.com/Jautis5/cooked-dev-stats/actions/runs/40704803593"
+    "runUrl": "https://github.com/Jautis5/cooked-dev-stats/actions/runs/40707342049"
   },
   "changes24h": {
-    "at": "2026-10-28T14:29:26.904Z",
+    "at": "2026-10-28T14:35:43.278170+00:00",
     "baselineAt": null,
     "views": null,
     "likes": null,
