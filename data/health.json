@@ -1,10 +1,11 @@
 {
   "version": 1,
-  "startedAt": "2026-10-28T17:24:57.757677+00:00",
-  "provider": "GitHub Actions",
-  "trigger": "workflow_dispatch",
+  "provider": "authorized_local_browser",
+  "trigger": "verified_browser_bundle",
+  "startedAt": "2026-10-28T17:19:07.955Z",
+  "completedAt": "2026-10-28T17:29:19.025018+00:00",
   "intervalMinutes": 15,
-  "runUrl": "https://github.com/Jautis5/cooked-dev-stats/actions/runs/40735358270",
+  "status": "completed_with_gaps",
   "channels": {
     "cooked-dev": {
       "status": "completed",
@@ -939,56 +940,56 @@
       "metricsUpdated": 13
     },
     "dumb-luck": {
-      "status": "completed",
-      "checkedAt": "2026-10-28T17:24:57.757677+00:00",
+      "status": "completed_with_gaps",
+      "checkedAt": "2026-10-28T17:29:19.025018+00:00",
       "platforms": {
         "instagram": {
           "name": "Instagram",
           "status": "partial",
-          "metricsUpdated": 4,
-          "metricsKnown": 7,
-          "viewsUpdated": 0,
-          "postsKnown": 2,
-          "viewsKnown": 2,
+          "metricsUpdated": 10,
+          "metricsKnown": 10,
+          "viewsUpdated": 3,
+          "postsKnown": 3,
+          "viewsKnown": 3,
           "metricCoverage": {
             "comments": {
-              "known": 2,
-              "updated": 2,
+              "known": 3,
+              "updated": 3,
               "missing": 0,
               "oldestAt": "2026-10-28T17:24:57.757677+00:00"
             },
             "likes": {
-              "known": 2,
-              "updated": 2,
+              "known": 3,
+              "updated": 3,
               "missing": 0,
               "oldestAt": "2026-10-28T17:24:57.757677+00:00"
             },
             "shares": {
               "known": 0,
               "updated": 0,
-              "missing": 2,
+              "missing": 3,
               "oldestAt": null
             },
             "views": {
-              "known": 2,
-              "updated": 0,
+              "known": 3,
+              "updated": 3,
               "missing": 0,
-              "oldestAt": "2026-10-28T16:24:01.781Z"
+              "oldestAt": "2026-10-28T17:19:07.955Z"
             }
           },
-          "oldestViewAt": "2026-10-28T16:24:01.781Z",
+          "oldestViewAt": "2026-10-28T17:19:07.955Z",
           "inventoryStatus": "session_required",
           "inventoryComplete": false,
           "inventoryCheckedAt": "2026-10-28T17:24:57.757677+00:00",
           "inventoryAudit": {
-            "lastVerifiedAt": "2026-10-28T16:24:01.781Z",
-            "ageMinutes": 60.9,
+            "lastVerifiedAt": "2026-10-28T17:19:07.955Z",
+            "ageMinutes": 0.0,
             "overdue": false,
             "state": "current",
             "maxAgeMinutes": 120
           },
           "reportedPostCount": null,
-          "latestMetricAt": "2026-10-28T17:24:57.757677+00:00",
+          "latestMetricAt": "2026-10-28T17:29:19.025018+00:00",
           "access": "authorization_required"
         },
         "tiktok": {
@@ -1036,8 +1037,8 @@
           "inventoryComplete": false,
           "inventoryCheckedAt": "2026-10-28T17:24:57.757677+00:00",
           "inventoryAudit": {
-            "lastVerifiedAt": "2026-10-28T16:23:02.732Z",
-            "ageMinutes": 61.9,
+            "lastVerifiedAt": "2026-10-28T17:18:52.818Z",
+            "ageMinutes": 0.3,
             "overdue": false,
             "state": "current",
             "maxAgeMinutes": 120
@@ -1090,8 +1091,8 @@
           "inventoryComplete": false,
           "inventoryCheckedAt": "2026-10-28T17:24:57.757677+00:00",
           "inventoryAudit": {
-            "lastVerifiedAt": "2026-10-28T16:23:50.389Z",
-            "ageMinutes": 61.1,
+            "lastVerifiedAt": "2026-10-28T17:20:11.491Z",
+            "ageMinutes": 0.0,
             "overdue": false,
             "state": "current",
             "maxAgeMinutes": 120
@@ -1101,13 +1102,7 @@
           "access": "public_cloud"
         }
       },
-      "metricsUpdated": 31
+      "metricsUpdated": 37
     }
-  },
-  "initiator": "continuous_clock",
-  "clockRunUrl": "https://github.com/Jautis5/cooked-dev-stats/actions/runs/40732875512",
-  "clockDriver": "environment_wait_timer",
-  "completedAt": "2026-10-28T17:25:48.800046+00:00",
-  "inventoryAttentionRequired": true,
-  "status": "completed_with_gaps"
+  }
 }
