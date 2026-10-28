@@ -4,8 +4,8 @@
   "brand": {
     "name": "DUMB LUCK"
   },
-  "generatedAt": "2026-10-28T16:24:58.544Z",
-  "lastAttemptAt": "2026-10-28T16:24:58.544Z",
+  "generatedAt": "2026-10-28T16:31:27.754Z",
+  "lastAttemptAt": "2026-10-28T16:31:27.754Z",
   "schedule": {
     "provider": "GitHub Actions",
     "intervalMinutes": 15,
@@ -39,7 +39,7 @@
       "expectedHandle": "duumbluck",
       "url": "https://www.tiktok.com/@duumbluck",
       "status": "partial",
-      "message": "Public video metrics updated; per-metric dates retained.",
+      "message": "Visible profile and video list checked; legacy posts excluded.",
       "metrics": {
         "followers": {
           "value": 2,
@@ -74,8 +74,8 @@
           "approximate": false
         }
       },
-      "lastAttemptAt": "2026-10-28T16:24:04.865768+00:00",
-      "lastSuccessAt": "2026-10-28T16:24:04.865768+00:00"
+      "lastAttemptAt": "2026-10-28T16:31:27.754Z",
+      "lastSuccessAt": "2026-10-28T16:31:27.754Z"
     },
     {
       "id": "youtube",
@@ -84,10 +84,10 @@
       "expectedChannelId": "UCB-BqPU60vRfUWGalt6fRtQ",
       "url": "https://www.youtube.com/channel/UCB-BqPU60vRfUWGalt6fRtQ",
       "status": "partial",
-      "message": "Public video metrics updated; per-metric dates retained.",
+      "message": "Visible profile and video list checked; legacy posts excluded.",
       "metrics": {},
-      "lastAttemptAt": "2026-10-28T16:24:04.865768+00:00",
-      "lastSuccessAt": "2026-10-28T16:24:04.865768+00:00"
+      "lastAttemptAt": "2026-10-28T16:31:27.651Z",
+      "lastSuccessAt": "2026-10-28T16:31:27.651Z"
     }
   ],
   "videos": [
@@ -364,6 +364,69 @@
         }
       },
       "publicationGroupId": "dumb-luck-ep03"
+    },
+    {
+      "id": "tiktok-7701700809595161878",
+      "number": 4,
+      "title": "Eight hours, new drivers, a cleared queue… and one very simple problem. 🖨️",
+      "caption": "Eight hours, new drivers, a cleared queue… and one very simple problem. 🖨️",
+      "publishedAt": null,
+      "thumbnail": null,
+      "assetUrl": null,
+      "posts": {
+        "tiktok": {
+          "id": "7701700809595161878",
+          "url": "https://www.tiktok.com/@duumbluck/video/7701700809595161878",
+          "metrics": {
+            "views": {
+              "value": 0,
+              "at": "2026-10-28T16:31:27.754Z",
+              "source": "https://www.tiktok.com/@duumbluck/video/7701700809595161878",
+              "method": "browser_bulk",
+              "approximate": false
+            },
+            "likes": {
+              "value": 0,
+              "at": "2026-10-28T16:31:27.754Z",
+              "source": "https://www.tiktok.com/@duumbluck/video/7701700809595161878",
+              "method": "browser_bulk",
+              "approximate": false
+            },
+            "comments": {
+              "value": 0,
+              "at": "2026-10-28T16:31:27.754Z",
+              "source": "https://www.tiktok.com/@duumbluck/video/7701700809595161878",
+              "method": "browser_bulk",
+              "approximate": false
+            }
+          },
+          "publicationVerifiedAt": "2026-10-28T16:31:27.754Z",
+          "verificationEvidence": "The same owner-supplied EP04_Dead_Printer.mp4 was uploaded to the verified DUMB LUCK YouTube and TikTok accounts, as recorded in the upload metadata. Studio readback confirmed the exact YouTube video Public at 16:31:27.651 UTC and the TikTok video Public at 16:31:27.754 UTC on 28 October 2026. Matching is based on the original file and verified upload records, not caption similarity."
+        },
+        "youtube": {
+          "id": "P-wbffLrlbE",
+          "url": "https://www.youtube.com/shorts/P-wbffLrlbE",
+          "metrics": {
+            "views": {
+              "value": 0,
+              "at": "2026-10-28T16:31:27.651Z",
+              "source": "https://www.youtube.com/shorts/P-wbffLrlbE",
+              "method": "browser_bulk",
+              "approximate": false
+            },
+            "comments": {
+              "value": 0,
+              "at": "2026-10-28T16:31:27.651Z",
+              "source": "https://www.youtube.com/shorts/P-wbffLrlbE",
+              "method": "browser_bulk",
+              "approximate": false
+            }
+          },
+          "publicationVerifiedAt": "2026-10-28T16:31:27.754Z",
+          "verificationEvidence": "The same owner-supplied EP04_Dead_Printer.mp4 was uploaded to the verified DUMB LUCK YouTube and TikTok accounts, as recorded in the upload metadata. Studio readback confirmed the exact YouTube video Public at 16:31:27.651 UTC and the TikTok video Public at 16:31:27.754 UTC on 28 October 2026. Matching is based on the original file and verified upload records, not caption similarity."
+        }
+      },
+      "publicationGroupId": "dumb-luck-ep04"
     }
   ],
   "history": [
@@ -485,6 +548,13 @@
       "posts": 8,
       "approximate": false,
       "partial": false
+    },
+    {
+      "at": "2026-10-28T16:31:27.754Z",
+      "views": 383,
+      "posts": 10,
+      "approximate": false,
+      "partial": false
     }
   ],
   "tracking": {
@@ -532,7 +602,7 @@
     "runUrl": "https://github.com/Jautis5/cooked-dev-stats/actions/runs/40725333620"
   },
   "changes24h": {
-    "at": "2026-10-28T16:24:58.544Z",
+    "at": "2026-10-28T16:31:27.754Z",
     "baselineAt": null,
     "views": null,
     "likes": null,
