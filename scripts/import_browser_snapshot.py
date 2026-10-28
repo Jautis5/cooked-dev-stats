@@ -17,13 +17,14 @@ def merge_bundle(root, bundle):
     config = json.loads((root/'data/channels.json').read_text())['channels']
     by_id = {c['id']: c for c in config}
     incoming = bundle.get('channels', {})
-    if set(incoming) != set(by_id):
-        raise ValueError('All three channel identities are required')
+    if not incoming or not set(incoming).issubset(by_id):
+        raise ValueError('Browser bundle contains no channels or an unknown channel')
     ledger = json.loads((root/'data/publications.json').read_text())
     staged = {}
-    for cid, c in by_id.items():
+    for cid, candidate in incoming.items():
+        c = by_id[cid]
         path = root/c['dataPath']
-        current = json.loads(path.read_text()); candidate = copy.deepcopy(incoming[cid])
+        current = json.loads(path.read_text()); candidate = copy.deepcopy(candidate)
         if candidate.get('channelId', 'cooked-dev') != cid:
             raise ValueError('Cross-channel snapshot rejected')
         expected = {a['id']: a['url'] for a in current['accounts']}
@@ -49,6 +50,9 @@ def merge_bundle(root, bundle):
     health_path = root/'data/health.json'
     previous = json.loads(health_path.read_text()) if health_path.exists() else {}
     if timestamp(health['completedAt']) > timestamp(previous.get('completedAt')):
+        # Retain independently dated reports for registered channels absent from
+        # this partial capture. Do not call their older metrics freshly checked.
+        health['channels'] = {**previous.get('channels', {}), **health['channels']}
         health_path.write_text(json.dumps(health,ensure_ascii=False,indent=2)+'\n')
     return staged
 

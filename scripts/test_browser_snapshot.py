@@ -35,4 +35,36 @@ class BrowserBundleTests(unittest.TestCase):
             with self.assertRaises(ValueError):merge_bundle(root,bundle)
             self.assertEqual((root/'data/latest.json').read_bytes(),before)
 
+    def test_subset_keeps_other_channels_and_older_health_report(self):
+        with tempfile.TemporaryDirectory() as folder:
+            root=pathlib.Path(folder);bundle=self.fixture(root)
+            other=root/'data/indian-builds/latest.json';before=other.read_bytes()
+            previous={'completedAt':'2026-10-28T08:00:00Z','channels':{'indian-builds':{'checkedAt':'2026-10-28T08:00:00Z','metricsUpdated':7}}}
+            (root/'data/health.json').write_text(json.dumps(previous))
+            bundle['channels']={'cooked-dev':bundle['channels']['cooked-dev']}
+            merge_bundle(root,bundle)
+            health=json.loads((root/'data/health.json').read_text())
+            self.assertEqual(other.read_bytes(),before)
+            self.assertEqual(health['channels']['indian-builds'],previous['channels']['indian-builds'])
+            self.assertEqual(health['channels']['cooked-dev']['checkedAt'],bundle['capturedAt'])
+
+    def test_unknown_channel_does_not_partially_write(self):
+        with tempfile.TemporaryDirectory() as folder:
+            root=pathlib.Path(folder);bundle=self.fixture(root);before=(root/'data/latest.json').read_bytes()
+            bundle['channels']['unregistered']=copy.deepcopy(bundle['channels']['cooked-dev'])
+            with self.assertRaises(ValueError):merge_bundle(root,bundle)
+            self.assertEqual((root/'data/latest.json').read_bytes(),before)
+
+    def test_three_channel_capture_still_works_after_fourth_registered(self):
+        with tempfile.TemporaryDirectory() as folder:
+            root=pathlib.Path(folder);bundle=self.fixture(root)
+            registry=json.loads((root/'data/channels.json').read_text())
+            extra=root/'data/dumb-luck';extra.mkdir()
+            fourth=copy.deepcopy(bundle['channels']['indian-builds']);fourth['channelId']='dumb-luck'
+            (extra/'latest.json').write_text(json.dumps(fourth));before=(extra/'latest.json').read_bytes()
+            registry['channels'].append({'id':'dumb-luck','dataPath':'data/dumb-luck/latest.json'})
+            (root/'data/channels.json').write_text(json.dumps(registry))
+            self.assertEqual(len(merge_bundle(root,bundle)),3)
+            self.assertEqual((extra/'latest.json').read_bytes(),before)
+
 if __name__=='__main__':unittest.main()

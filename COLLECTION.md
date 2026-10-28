@@ -8,8 +8,8 @@ Dashboard source lives in `site/`; Sites is a published mirror of this source.
 ## Sources and identities
 
 `data/channels.json` identifies every channel feed. Read each feed's `accounts`
-and `tracking` settings before collecting. There are three channels: Cooked Dev,
-Indian Builds and DontGetTraced. DontGetTraced Instagram is **dontgettraced**;
+and `tracking` settings before collecting. There are four channels: Cooked Dev,
+Indian Builds, DontGetTraced and DUMB LUCK. DontGetTraced Instagram is **dontgettraced**;
 the old dongettraced handle was wrong. Indian Builds Instagram/TikTok is
 indian_builds; X is IndiaanBuilds. The former indiaanbuilds Instagram/TikTok
 identity was corrected on 22 October. Read the feed rather than restoring an
@@ -42,7 +42,7 @@ native windows, play audio, extract cookies/tokens, start new OAuth/developer
 registrations, buy APIs, send messages, or publish social posts. A verification
 challenge blocks that source only. Continue the other accounts.
 
-Read all three channels independently. Collect actual publication IDs and URLs,
+Read all registered channels independently. Collect actual publication IDs and URLs,
 owner identity, public visibility, visible metrics, observation times and any
 rounding. Mark `completeList` only after the entire relevant list was checked.
 For Indian Builds exclude `tracking.excludedPostIds` and legacy White Hack.
@@ -147,3 +147,7 @@ updates and original metric dates. Never upload private raw browser captures.
 The GitHub cloud collector uses only its built-in temporary repository token.
 Check public JSON, Actions results and the next clock successor anonymously or
 through the existing Jautis5 browser; do not fall back to the old CLI account.
+
+## DUMB LUCK — 28 October 2026
+
+Owner-confirmed profiles: Instagram `duumb_luck`, TikTok `duumbluck`, YouTube channel `UCB-BqPU60vRfUWGalt6fRtQ`. Only measured public posts and metrics belong in the feed; scheduled uploads are not public posts. The public collector and browser bundle support this fourth channel. Missing measurements stay unknown, and per-metric timestamps are preserved.
