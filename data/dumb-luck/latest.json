@@ -4,8 +4,8 @@
   "brand": {
     "name": "DUMB LUCK"
   },
-  "generatedAt": "2026-10-28T13:23:32.980Z",
-  "lastAttemptAt": "2026-10-28T13:23:32.980Z",
+  "generatedAt": "2026-10-28T13:34:26.895256+00:00",
+  "lastAttemptAt": "2026-10-28T13:34:26.895256+00:00",
   "schedule": {
     "provider": "GitHub Actions",
     "intervalMinutes": 15,
@@ -18,8 +18,8 @@
       "handle": "duumb_luck",
       "expectedHandle": "duumb_luck",
       "url": "https://www.instagram.com/duumb_luck/",
-      "status": "partial",
-      "message": "Visible profile and video list checked; legacy posts excluded.",
+      "status": "unavailable",
+      "message": "Public source unavailable; previous observations preserved.",
       "metrics": {
         "followers": {
           "value": 0,
@@ -36,7 +36,7 @@
           "approximate": false
         }
       },
-      "lastAttemptAt": "2026-10-28T13:23:32.980Z",
+      "lastAttemptAt": "2026-10-28T13:34:26.895256+00:00",
       "trackedEmptyConfirmedAt": "2026-10-28T13:23:32.980Z",
       "lastSuccessAt": "2026-10-28T13:23:32.980Z"
     },
@@ -51,25 +51,25 @@
       "metrics": {
         "followers": {
           "value": 0,
-          "at": "2026-10-28T13:19:02.721295+00:00",
+          "at": "2026-10-28T13:34:26.895256+00:00",
           "source": "https://www.tiktok.com/@duumbluck",
           "approximate": false
         },
         "profileLikes": {
           "value": 0,
-          "at": "2026-10-28T13:19:02.721295+00:00",
+          "at": "2026-10-28T13:34:26.895256+00:00",
           "source": "https://www.tiktok.com/@duumbluck",
           "approximate": false
         },
         "publishedCount": {
-          "value": 0,
-          "at": "2026-10-28T13:19:02.721295+00:00",
+          "value": 1,
+          "at": "2026-10-28T13:34:26.895256+00:00",
           "source": "https://www.tiktok.com/@duumbluck",
           "approximate": false
         }
       },
-      "lastAttemptAt": "2026-10-28T13:19:02.721295+00:00",
-      "lastSuccessAt": "2026-10-28T13:19:02.721295+00:00"
+      "lastAttemptAt": "2026-10-28T13:34:26.895256+00:00",
+      "lastSuccessAt": "2026-10-28T13:34:26.895256+00:00"
     },
     {
       "id": "youtube",
@@ -78,71 +78,113 @@
       "expectedChannelId": "UCB-BqPU60vRfUWGalt6fRtQ",
       "url": "https://www.youtube.com/channel/UCB-BqPU60vRfUWGalt6fRtQ",
       "status": "partial",
-      "message": "Verified YouTube profile checked; metric observation dates retained.",
-      "metrics": {
-        "publishedCount": {
-          "value": 0,
-          "at": "2026-10-28T13:19:02.721295+00:00",
-          "source": "https://www.youtube.com/channel/UCB-BqPU60vRfUWGalt6fRtQ",
-          "approximate": false
-        },
-        "trackedPublishedCount": {
-          "value": 0,
-          "at": "2026-10-28T13:19:02.721295+00:00",
-          "source": "https://www.youtube.com/channel/UCB-BqPU60vRfUWGalt6fRtQ",
-          "approximate": false
-        }
-      },
-      "lastAttemptAt": "2026-10-28T13:19:02.721295+00:00",
-      "trackedEmptyConfirmedAt": "2026-10-28T13:19:02.721295+00:00",
-      "lastSuccessAt": "2026-10-28T13:19:02.721295+00:00"
+      "message": "Some public metrics refreshed; publication inventory remains incomplete.",
+      "metrics": {},
+      "lastAttemptAt": "2026-10-28T13:34:26.895256+00:00",
+      "lastSuccessAt": "2026-10-28T13:34:26.895256+00:00"
     }
   ],
-  "videos": [],
-  "history": [],
+  "videos": [
+    {
+      "id": "tiktok-7701700141719293206",
+      "number": 1,
+      "title": "Forty invoices. One impossible deadline. Then a tiny assistant shows up. 🤖",
+      "caption": "Forty invoices. One impossible deadline. Then a tiny assistant shows up. 🤖",
+      "publishedAt": null,
+      "thumbnail": null,
+      "assetUrl": null,
+      "posts": {
+        "tiktok": {
+          "id": "7701700141719293206",
+          "url": "https://www.tiktok.com/@duumbluck/video/7701700141719293206",
+          "metrics": {
+            "views": {
+              "value": 0,
+              "at": "2026-10-28T13:34:26.895256+00:00",
+              "source": "https://www.tiktok.com/@duumbluck/video/7701700141719293206",
+              "approximate": false
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "youtube-pPlrf8Whqvg",
+      "number": 2,
+      "title": "Forty Invoices, One Tiny Assistant #Shorts",
+      "caption": "Forty Invoices, One Tiny Assistant #Shorts",
+      "publishedAt": null,
+      "thumbnail": null,
+      "assetUrl": null,
+      "posts": {
+        "youtube": {
+          "id": "pPlrf8Whqvg",
+          "url": "https://www.youtube.com/shorts/pPlrf8Whqvg",
+          "metrics": {
+            "views": {
+              "value": 0,
+              "at": "2026-10-28T13:34:26.895256+00:00",
+              "source": "https://www.youtube.com/shorts/pPlrf8Whqvg",
+              "approximate": false
+            }
+          }
+        }
+      }
+    }
+  ],
+  "history": [
+    {
+      "at": "2026-10-28T13:34:26.895256+00:00",
+      "views": 0,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    }
+  ],
   "tracking": {
     "note": "Only confirmed public DUMB LUCK publications and measured metrics are included. Scheduled or unpublished uploads are not public posts.",
     "excludedPostIds": {}
   },
   "discovery": {
     "youtube": {
-      "status": "unavailable",
-      "error": "Channel did not expose its own Shorts tab",
+      "status": "partial",
+      "method": "public_shorts_tab",
+      "newVideos": 1,
+      "listedPosts": 1,
       "complete": false,
-      "checkedAt": "2026-10-28T13:19:02.721295+00:00",
-      "feedStatus": "checked",
-      "newVideos": 0
+      "checkedAt": "2026-10-28T13:34:26.895256+00:00",
+      "feedStatus": "checked"
     },
     "tiktok": {
-      "status": "profile_checked",
-      "checkedAt": "2026-10-28T13:19:02.721295+00:00",
+      "status": "partial",
+      "method": "public_creator_embed",
+      "newVideos": 1,
+      "listedPosts": 1,
       "complete": false,
-      "method": "public_profile",
-      "reportedPosts": 0,
-      "message": "The profile reports no public uploads."
+      "checkedAt": "2026-10-28T13:34:26.895256+00:00",
+      "feedStatus": "profile_checked",
+      "reportedPosts": 1
     },
     "instagram": {
-      "status": "checked",
-      "complete": true,
-      "method": "browser_bulk",
-      "checkedAt": "2026-10-28T13:23:32.980Z",
-      "lastCompleteAt": "2026-10-28T13:23:32.980Z",
-      "listedPosts": 0,
-      "lastCompletePostCount": 0
+      "status": "session_required",
+      "checkedAt": "2026-10-28T13:34:26.895256+00:00",
+      "complete": false,
+      "message": "New-publication discovery requires an authorized account list; a successful metrics check is not a complete list.",
+      "lastCompleteAt": "2026-10-28T13:23:32.980Z"
     }
   },
   "cloudCollection": {
-    "at": "2026-10-28T13:19:02.721295+00:00",
+    "at": "2026-10-28T13:34:26.895256+00:00",
     "method": "public_cloud",
     "metricsUpdated": {
       "instagram": 0,
-      "tiktok": 3,
-      "youtube": 2
+      "tiktok": 4,
+      "youtube": 1
     },
-    "runUrl": "https://github.com/Jautis5/cooked-dev-stats/actions/runs/40695201080"
+    "runUrl": "https://github.com/Jautis5/cooked-dev-stats/actions/runs/40697532765"
   },
   "changes24h": {
-    "at": "2026-10-28T13:23:32.980Z",
+    "at": "2026-10-28T13:34:26.895256+00:00",
     "baselineAt": null,
     "views": null,
     "likes": null,
