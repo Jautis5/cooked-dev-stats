@@ -1,0 +1,62 @@
+name: Register DUMB LUCK tracker
+on:
+  workflow_dispatch:
+permissions:
+  contents: write
+  actions: write
+concurrency:
+  group: dumb-luck-tracker-registration
+  cancel-in-progress: false
+jobs:
+  register:
+    if: github.repository == 'Jautis5/cooked-dev-stats' && github.event.repository.private == false
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Validate reviewed public package and register identities
+        run: |
+          python - <<'PY'
+          import hashlib, pathlib, subprocess, sys, zipfile
+          p=pathlib.Path('incoming/dumb-luck-tracker-bundle.zip')
+          assert hashlib.sha256(p.read_bytes()).hexdigest()=='28f189c3b51d6a47ac4d97b0150d0ef194ff94e9b8229a02d8bc9aceb049b62f', 'Package hash mismatch'
+          allowed={'install.py','payload/data/dumb-luck/latest.json','payload/site/data/dumb-luck.json','payload/site/assets/dumb-luck.png','payload/scripts/import_browser_snapshot.py','payload/scripts/test_browser_snapshot.py','payload/scripts/test_dumb_luck.py'}
+          stage=pathlib.Path('_dumb-luck-stage')
+          with zipfile.ZipFile(p) as z:
+              assert set(z.namelist())==allowed and len(z.namelist())==len(allowed), 'Package manifest mismatch'
+              z.extractall(stage)
+          subprocess.run([sys.executable,str(stage/'install.py')],check=True)
+          PY
+      - name: Test channel isolation and dashboard
+        run: |
+          python -m unittest discover -s scripts -p 'test_*.py'
+          node --check site/app.js
+          node scripts/test_dashboard.cjs
+          node scripts/test_chart.cjs
+          node scripts/test_workspace.cjs
+          node scripts/test_official_broker.cjs
+      - name: Commit registration without replacing existing channel feeds
+        run: |
+          python -c "import shutil; shutil.rmtree('_dumb-luck-stage')"
+          git rm -- incoming/dumb-luck-tracker-bundle.zip
+          git add -- COLLECTION.md data/channels.json data/dumb-luck site/data/channels.json site/data/dumb-luck.json site/assets/dumb-luck.png scripts/import_browser_snapshot.py scripts/test_browser_snapshot.py scripts/test_dumb_luck.py
+          git config user.name 'Social Stats Cloud'
+          git config user.email 'stats@users.noreply.github.com'
+          git commit -m 'Register DUMB LUCK public tracking'
+          published=false
+          for attempt in 1 2 3 4; do
+            if git push origin HEAD:refs/heads/main; then published=true; break; fi
+            git fetch --no-tags origin main
+            git rebase origin/main
+          done
+          test "$published" = true
+      - name: Publish registered channel to GitHub Pages
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run pages.yml --repo "$GITHUB_REPOSITORY" --ref main
