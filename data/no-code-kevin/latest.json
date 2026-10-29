@@ -4,8 +4,8 @@
   "brand": {
     "name": "NoCode Kevin"
   },
-  "generatedAt": "2026-10-29T18:13:07.866160+00:00",
-  "lastAttemptAt": "2026-10-29T18:13:07.866160+00:00",
+  "generatedAt": "2026-10-29T18:23:06.194Z",
+  "lastAttemptAt": "2026-10-29T18:23:06.194Z",
   "schedule": {
     "provider": "GitHub Actions",
     "intervalMinutes": 15,
@@ -19,11 +19,11 @@
       "expectedHandle": "nocode_kevin",
       "url": "https://www.instagram.com/nocode_kevin/",
       "status": "partial",
-      "message": "Public video metrics updated; per-metric dates retained.",
+      "message": "Visible profile and video list checked; legacy posts excluded.",
       "metrics": {
         "followers": {
           "value": 1,
-          "at": "2026-10-29T17:08:38.943Z",
+          "at": "2026-10-29T18:22:43.378Z",
           "source": "https://www.instagram.com/nocode_kevin/",
           "method": "browser_bulk",
           "approximate": false
@@ -43,8 +43,8 @@
           "approximate": false
         }
       },
-      "lastAttemptAt": "2026-10-29T18:13:07.866160+00:00",
-      "lastSuccessAt": "2026-10-29T18:13:07.866160+00:00"
+      "lastAttemptAt": "2026-10-29T18:22:43.378Z",
+      "lastSuccessAt": "2026-10-29T18:22:43.378Z"
     },
     {
       "id": "tiktok",
@@ -53,12 +53,13 @@
       "expectedHandle": "nocodekevin",
       "url": "https://www.tiktok.com/@nocodekevin",
       "status": "partial",
-      "message": "Public video metrics updated; per-metric dates retained.",
+      "message": "Visible profile and video list checked; legacy posts excluded.",
       "metrics": {
         "followers": {
-          "value": 3874,
-          "at": "2026-10-29T18:13:07.866160+00:00",
+          "value": 3877,
+          "at": "2026-10-29T18:23:06.194Z",
           "source": "https://www.tiktok.com/@nocodekevin",
+          "method": "browser_bulk",
           "approximate": false
         },
         "following": {
@@ -81,8 +82,8 @@
           "approximate": false
         }
       },
-      "lastAttemptAt": "2026-10-29T18:13:07.866160+00:00",
-      "lastSuccessAt": "2026-10-29T18:13:07.866160+00:00"
+      "lastAttemptAt": "2026-10-29T18:23:06.194Z",
+      "lastSuccessAt": "2026-10-29T18:23:06.194Z"
     }
   ],
   "videos": [
@@ -106,8 +107,8 @@
               "approximate": false
             },
             "views": {
-              "value": 14,
-              "at": "2026-10-29T17:28:14.038Z",
+              "value": 159,
+              "at": "2026-10-29T18:22:43.378Z",
               "source": "https://www.instagram.com/nocode_kevin/reel/DfFe_OHMltT/",
               "method": "browser_bulk",
               "approximate": false
@@ -163,6 +164,13 @@
               "value": 14,
               "at": "2026-10-29T18:13:07.866160+00:00",
               "source": "https://www.tiktok.com/@nocodekevin/video/7702134097581182230",
+              "approximate": false
+            },
+            "publicGridViews": {
+              "value": 542,
+              "at": "2026-10-29T18:23:06.194Z",
+              "source": "https://www.tiktok.com/@nocodekevin/video/7702134097581182230",
+              "method": "browser_bulk",
               "approximate": false
             }
           }
@@ -254,6 +262,20 @@
       "posts": 2,
       "approximate": false,
       "partial": false
+    },
+    {
+      "at": "2026-10-29T18:22:43.378Z",
+      "views": 625,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-29T18:23:06.194Z",
+      "views": 625,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
     }
   ],
   "tracking": {
@@ -262,26 +284,26 @@
   },
   "discovery": {
     "instagram": {
-      "status": "session_required",
-      "checkedAt": "2026-10-29T18:13:07.866160+00:00",
-      "complete": false,
-      "message": "New-publication discovery requires an authorized account list; a successful metrics check is not a complete list.",
-      "lastCompleteAt": "2026-10-29T17:28:14.038Z"
+      "status": "checked",
+      "complete": true,
+      "method": "browser_bulk",
+      "checkedAt": "2026-10-29T18:22:43.378Z",
+      "lastCompleteAt": "2026-10-29T18:22:43.378Z",
+      "listedPosts": 1,
+      "lastCompletePostCount": 1
     },
     "tiktok": {
-      "status": "partial",
-      "method": "public_creator_embed",
-      "newVideos": 0,
+      "status": "checked",
+      "complete": true,
+      "method": "browser_bulk",
+      "checkedAt": "2026-10-29T18:23:06.194Z",
+      "lastCompleteAt": "2026-10-29T18:23:06.194Z",
       "listedPosts": 1,
-      "complete": false,
-      "checkedAt": "2026-10-29T18:13:07.866160+00:00",
-      "feedStatus": "profile_checked",
-      "reportedPosts": 2,
-      "lastCompleteAt": "2026-10-29T17:10:34.201Z"
+      "lastCompletePostCount": 1
     }
   },
   "changes24h": {
-    "at": "2026-10-29T18:13:07.866160+00:00",
+    "at": "2026-10-29T18:23:06.194Z",
     "baselineAt": null,
     "views": null,
     "likes": null,
