@@ -4,8 +4,8 @@
   "brand": {
     "name": "DUMB LUCK"
   },
-  "generatedAt": "2026-10-29T23:20:09.127641+00:00",
-  "lastAttemptAt": "2026-10-29T23:20:09.127641+00:00",
+  "generatedAt": "2026-10-29T23:33:04.970307+00:00",
+  "lastAttemptAt": "2026-10-29T23:33:04.970307+00:00",
   "schedule": {
     "provider": "GitHub Actions",
     "intervalMinutes": 15,
@@ -36,8 +36,8 @@
           "approximate": false
         }
       },
-      "lastAttemptAt": "2026-10-29T23:20:09.127641+00:00",
-      "lastSuccessAt": "2026-10-29T23:20:09.127641+00:00"
+      "lastAttemptAt": "2026-10-29T23:33:04.970307+00:00",
+      "lastSuccessAt": "2026-10-29T23:33:04.970307+00:00"
     },
     {
       "id": "tiktok",
@@ -81,7 +81,7 @@
           "approximate": false
         }
       },
-      "lastAttemptAt": "2026-10-29T23:20:09.127641+00:00",
+      "lastAttemptAt": "2026-10-29T23:33:04.970307+00:00",
       "lastSuccessAt": "2026-10-29T08:45:04.328638+00:00"
     },
     {
@@ -91,17 +91,17 @@
       "expectedChannelId": "UCB-BqPU60vRfUWGalt6fRtQ",
       "url": "https://www.youtube.com/channel/UCB-BqPU60vRfUWGalt6fRtQ",
       "status": "partial",
-      "message": "Verified YouTube profile checked; metric observation dates retained.",
+      "message": "Public video metrics updated; per-metric dates retained.",
       "metrics": {
         "followers": {
           "value": 1,
-          "at": "2026-10-29T23:20:09.127641+00:00",
+          "at": "2026-10-29T23:33:04.970307+00:00",
           "source": "https://www.youtube.com/channel/UCB-BqPU60vRfUWGalt6fRtQ",
           "approximate": false
         }
       },
-      "lastAttemptAt": "2026-10-29T23:20:09.127641+00:00",
-      "lastSuccessAt": "2026-10-29T23:20:09.127641+00:00"
+      "lastAttemptAt": "2026-10-29T23:33:04.970307+00:00",
+      "lastSuccessAt": "2026-10-29T23:33:04.970307+00:00"
     }
   ],
   "videos": [
@@ -157,10 +157,12 @@
           "url": "https://www.youtube.com/shorts/pPlrf8Whqvg",
           "metrics": {
             "views": {
-              "value": 107,
-              "at": "2026-10-29T23:20:09.127641+00:00",
+              "value": 105,
+              "at": "2026-10-29T23:33:04.970307+00:00",
               "source": "https://www.youtube.com/shorts/pPlrf8Whqvg",
-              "approximate": false
+              "approximate": false,
+              "method": "public_channel_feed",
+              "evidenceUrl": "https://www.youtube.com/feeds/videos.xml?channel_id=UCB-BqPU60vRfUWGalt6fRtQ"
             },
             "publicGridViews": {
               "value": 105,
@@ -179,13 +181,13 @@
           "metrics": {
             "likes": {
               "value": 4,
-              "at": "2026-10-29T23:20:09.127641+00:00",
+              "at": "2026-10-29T23:33:04.970307+00:00",
               "source": "https://www.instagram.com/duumb_luck/reel/DfCi0b9Eqv7/",
               "approximate": false
             },
             "comments": {
               "value": 0,
-              "at": "2026-10-29T23:20:09.127641+00:00",
+              "at": "2026-10-29T23:33:04.970307+00:00",
               "source": "https://www.instagram.com/duumb_luck/reel/DfCi0b9Eqv7/",
               "approximate": false
             },
@@ -255,10 +257,12 @@
           "url": "https://www.youtube.com/shorts/kox7mv7eznc",
           "metrics": {
             "views": {
-              "value": 19,
-              "at": "2026-10-29T23:20:09.127641+00:00",
+              "value": 21,
+              "at": "2026-10-29T23:33:04.970307+00:00",
               "source": "https://www.youtube.com/shorts/kox7mv7eznc",
-              "approximate": false
+              "approximate": false,
+              "method": "public_channel_feed",
+              "evidenceUrl": "https://www.youtube.com/feeds/videos.xml?channel_id=UCB-BqPU60vRfUWGalt6fRtQ"
             },
             "comments": {
               "value": 0,
@@ -291,13 +295,13 @@
             },
             "likes": {
               "value": 8,
-              "at": "2026-10-29T23:20:09.127641+00:00",
+              "at": "2026-10-29T23:33:04.970307+00:00",
               "source": "https://www.instagram.com/duumb_luck/reel/DfCptX5iWzL/",
               "approximate": false
             },
             "comments": {
               "value": 0,
-              "at": "2026-10-29T23:20:09.127641+00:00",
+              "at": "2026-10-29T23:33:04.970307+00:00",
               "source": "https://www.instagram.com/duumb_luck/reel/DfCptX5iWzL/",
               "approximate": false
             }
@@ -361,9 +365,11 @@
           "metrics": {
             "views": {
               "value": 78,
-              "at": "2026-10-29T23:20:09.127641+00:00",
+              "at": "2026-10-29T23:33:04.970307+00:00",
               "source": "https://www.youtube.com/shorts/pfiRJ4xNHLM",
-              "approximate": false
+              "approximate": false,
+              "method": "public_channel_feed",
+              "evidenceUrl": "https://www.youtube.com/feeds/videos.xml?channel_id=UCB-BqPU60vRfUWGalt6fRtQ"
             },
             "comments": {
               "value": 0,
@@ -439,9 +445,11 @@
           "metrics": {
             "views": {
               "value": 1,
-              "at": "2026-10-29T23:20:09.127641+00:00",
+              "at": "2026-10-29T23:33:04.970307+00:00",
               "source": "https://www.youtube.com/shorts/P-wbffLrlbE",
-              "approximate": false
+              "approximate": false,
+              "method": "public_channel_feed",
+              "evidenceUrl": "https://www.youtube.com/feeds/videos.xml?channel_id=UCB-BqPU60vRfUWGalt6fRtQ"
             },
             "comments": {
               "value": 0,
@@ -479,13 +487,13 @@
           "metrics": {
             "likes": {
               "value": 5,
-              "at": "2026-10-29T23:20:09.127641+00:00",
+              "at": "2026-10-29T23:33:04.970307+00:00",
               "source": "https://www.instagram.com/duumb_luck/reel/DfC3bvLEYrB/",
               "approximate": false
             },
             "comments": {
               "value": 0,
-              "at": "2026-10-29T23:20:09.127641+00:00",
+              "at": "2026-10-29T23:33:04.970307+00:00",
               "source": "https://www.instagram.com/duumb_luck/reel/DfC3bvLEYrB/",
               "approximate": false
             },
@@ -517,7 +525,7 @@
           "metrics": {
             "likes": {
               "value": 4,
-              "at": "2026-10-29T23:20:09.127641+00:00",
+              "at": "2026-10-29T23:33:04.970307+00:00",
               "source": "https://www.instagram.com/duumb_luck/reel/DfDFLOEFNgg/",
               "approximate": false
             },
@@ -530,7 +538,7 @@
             },
             "comments": {
               "value": 0,
-              "at": "2026-10-29T23:20:09.127641+00:00",
+              "at": "2026-10-29T23:33:04.970307+00:00",
               "source": "https://www.instagram.com/duumb_luck/reel/DfDFLOEFNgg/",
               "approximate": false
             }
@@ -555,9 +563,11 @@
           "metrics": {
             "views": {
               "value": 360,
-              "at": "2026-10-29T23:20:09.127641+00:00",
+              "at": "2026-10-29T23:33:04.970307+00:00",
               "source": "https://www.youtube.com/shorts/L-tRPrR6PNI",
-              "approximate": false
+              "approximate": false,
+              "method": "public_channel_feed",
+              "evidenceUrl": "https://www.youtube.com/feeds/videos.xml?channel_id=UCB-BqPU60vRfUWGalt6fRtQ"
             },
             "publicGridViews": {
               "value": 330,
@@ -585,9 +595,11 @@
           "metrics": {
             "views": {
               "value": 52,
-              "at": "2026-10-29T23:20:09.127641+00:00",
+              "at": "2026-10-29T23:33:04.970307+00:00",
               "source": "https://www.youtube.com/shorts/wZUMAEbI5bs",
-              "approximate": false
+              "approximate": false,
+              "method": "public_channel_feed",
+              "evidenceUrl": "https://www.youtube.com/feeds/videos.xml?channel_id=UCB-BqPU60vRfUWGalt6fRtQ"
             },
             "publicGridViews": {
               "value": 28,
@@ -614,10 +626,12 @@
           "url": "https://www.youtube.com/shorts/XKwryN05kQE",
           "metrics": {
             "views": {
-              "value": 400,
-              "at": "2026-10-29T23:20:09.127641+00:00",
+              "value": 401,
+              "at": "2026-10-29T23:33:04.970307+00:00",
               "source": "https://www.youtube.com/shorts/XKwryN05kQE",
-              "approximate": false
+              "approximate": false,
+              "method": "public_channel_feed",
+              "evidenceUrl": "https://www.youtube.com/feeds/videos.xml?channel_id=UCB-BqPU60vRfUWGalt6fRtQ"
             },
             "publicGridViews": {
               "value": 125,
@@ -652,13 +666,13 @@
             },
             "likes": {
               "value": 1,
-              "at": "2026-10-29T23:20:09.127641+00:00",
+              "at": "2026-10-29T23:33:04.970307+00:00",
               "source": "https://instagram.com/duumb_luck/reel/DfFYw_FD249/",
               "approximate": false
             },
             "comments": {
               "value": 0,
-              "at": "2026-10-29T23:20:09.127641+00:00",
+              "at": "2026-10-29T23:33:04.970307+00:00",
               "source": "https://instagram.com/duumb_luck/reel/DfFYw_FD249/",
               "approximate": false
             }
@@ -688,13 +702,13 @@
             },
             "likes": {
               "value": 1,
-              "at": "2026-10-29T23:20:09.127641+00:00",
+              "at": "2026-10-29T23:33:04.970307+00:00",
               "source": "https://instagram.com/duumb_luck/reel/DfFENgQCeIE/",
               "approximate": false
             },
             "comments": {
               "value": 0,
-              "at": "2026-10-29T23:20:09.127641+00:00",
+              "at": "2026-10-29T23:33:04.970307+00:00",
               "source": "https://instagram.com/duumb_luck/reel/DfFENgQCeIE/",
               "approximate": false
             }
@@ -724,13 +738,13 @@
             },
             "likes": {
               "value": 2,
-              "at": "2026-10-29T23:20:09.127641+00:00",
+              "at": "2026-10-29T23:33:04.970307+00:00",
               "source": "https://instagram.com/duumb_luck/reel/DfEvjeICC1w/",
               "approximate": false
             },
             "comments": {
               "value": 0,
-              "at": "2026-10-29T23:20:09.127641+00:00",
+              "at": "2026-10-29T23:33:04.970307+00:00",
               "source": "https://instagram.com/duumb_luck/reel/DfEvjeICC1w/",
               "approximate": false
             }
@@ -753,9 +767,11 @@
           "metrics": {
             "views": {
               "value": 1,
-              "at": "2026-10-29T23:20:09.127641+00:00",
+              "at": "2026-10-29T23:33:04.970307+00:00",
               "source": "https://www.youtube.com/shorts/TVju1_ex9tw",
-              "approximate": false
+              "approximate": false,
+              "method": "public_channel_feed",
+              "evidenceUrl": "https://www.youtube.com/feeds/videos.xml?channel_id=UCB-BqPU60vRfUWGalt6fRtQ"
             }
           }
         }
@@ -783,13 +799,13 @@
             },
             "likes": {
               "value": 4,
-              "at": "2026-10-29T23:20:09.127641+00:00",
+              "at": "2026-10-29T23:33:04.970307+00:00",
               "source": "https://instagram.com/duumb_luck/reel/DfFtVXhj2tC/",
               "approximate": false
             },
             "comments": {
               "value": 0,
-              "at": "2026-10-29T23:20:09.127641+00:00",
+              "at": "2026-10-29T23:33:04.970307+00:00",
               "source": "https://instagram.com/duumb_luck/reel/DfFtVXhj2tC/",
               "approximate": false
             }
@@ -1876,6 +1892,13 @@
       "posts": 20,
       "approximate": false,
       "partial": false
+    },
+    {
+      "at": "2026-10-29T23:33:04.970307+00:00",
+      "views": 3067,
+      "posts": 20,
+      "approximate": false,
+      "partial": false
     }
   ],
   "tracking": {
@@ -1889,15 +1912,15 @@
       "newVideos": 0,
       "listedPosts": 8,
       "complete": false,
-      "checkedAt": "2026-10-29T23:20:09.127641+00:00",
-      "feedStatus": "unavailable",
+      "checkedAt": "2026-10-29T23:33:04.970307+00:00",
+      "feedStatus": "checked",
       "lastCompleteAt": "2026-10-29T18:27:07.776Z"
     },
     "tiktok": {
       "status": "unavailable",
-      "error": "HTTP Error 400: Bad Request",
+      "error": "HTTP Error 429: Too Many Requests",
       "complete": false,
-      "checkedAt": "2026-10-29T23:20:09.127641+00:00",
+      "checkedAt": "2026-10-29T23:33:04.970307+00:00",
       "feedStatus": "unavailable",
       "newVideos": 0,
       "lastCompleteAt": "2026-10-28T21:18:30.328Z",
@@ -1905,25 +1928,25 @@
     },
     "instagram": {
       "status": "session_required",
-      "checkedAt": "2026-10-29T23:20:09.127641+00:00",
+      "checkedAt": "2026-10-29T23:33:04.970307+00:00",
       "complete": false,
       "message": "New-publication discovery requires an authorized account list; a successful metrics check is not a complete list.",
       "lastCompleteAt": "2026-10-29T20:23:41.500Z"
     }
   },
   "cloudCollection": {
-    "at": "2026-10-29T23:20:09.127641+00:00",
+    "at": "2026-10-29T23:33:04.970307+00:00",
     "method": "public_cloud",
     "metricsUpdated": {
       "instagram": 16,
       "tiktok": 0,
       "youtube": 9
     },
-    "runUrl": "https://github.com/Jautis5/cooked-dev-stats/actions/runs/40972313086"
+    "runUrl": "https://github.com/Jautis5/cooked-dev-stats/actions/runs/40973798409"
   },
   "changes24h": {
-    "at": "2026-10-29T23:20:09.127641+00:00",
-    "baselineAt": "2026-10-28T23:17:46.903010+00:00",
+    "at": "2026-10-29T23:33:04.970307+00:00",
+    "baselineAt": "2026-10-28T23:33:10.420572+00:00",
     "views": null,
     "likes": null,
     "followers": null
