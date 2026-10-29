@@ -103,11 +103,8 @@ def refresh_fallbacks(data):
         platform = account['id']
         if platform in ['tiktok', 'youtube']:
             prior = discovery.get(platform, {})
-            # An owner-matched public profile can explicitly report zero uploads.
-            # Avoid a second embed request when there are no known videos, while
-            # retaining that this is a reported count, not an exhaustive API list.
-            if platform == 'tiktok' and prior.get('checkedAt') == base.NOW and prior.get('reportedPosts') == 0 and not any('tiktok' in v['posts'] for v in data['videos']):
-                continue
+            # Profile counters can lag new uploads, including reporting zero.
+            # Always check the independent owner-verified recent-video list.
             fn = tiktok_embed if platform == 'tiktok' else youtube_shorts
             result, error = base.attempt(fn, data, account)
             prior = discovery.get(platform, {})
