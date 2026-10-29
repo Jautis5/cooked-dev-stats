@@ -1,0 +1,56 @@
+{
+  "version": 1,
+  "channelId": "no-code-kevin",
+  "brand": {
+    "name": "NoCode Kevin"
+  },
+  "generatedAt": null,
+  "lastAttemptAt": null,
+  "schedule": {
+    "provider": "GitHub Actions",
+    "intervalMinutes": 15,
+    "cron": "7-59/15 * * * *"
+  },
+  "accounts": [
+    {
+      "id": "instagram",
+      "name": "Instagram",
+      "handle": "nocode_kevin",
+      "expectedHandle": "nocode_kevin",
+      "url": "https://www.instagram.com/nocode_kevin/",
+      "status": "unavailable",
+      "message": "Awaiting verified public observation.",
+      "metrics": {},
+      "lastAttemptAt": null,
+      "lastSuccessAt": null
+    },
+    {
+      "id": "tiktok",
+      "name": "TikTok",
+      "handle": "nocodekevin",
+      "expectedHandle": "nocodekevin",
+      "url": "https://www.tiktok.com/@nocodekevin",
+      "status": "unavailable",
+      "message": "Awaiting verified public observation.",
+      "metrics": {},
+      "lastAttemptAt": null,
+      "lastSuccessAt": null
+    }
+  ],
+  "videos": [],
+  "history": [],
+  "tracking": {
+    "note": "Only verified public publications and observed metrics are included.",
+    "excludedPostIds": {}
+  },
+  "discovery": {
+    "instagram": {
+      "status": "not_checked",
+      "complete": false
+    },
+    "tiktok": {
+      "status": "not_checked",
+      "complete": false
+    }
+  }
+}
