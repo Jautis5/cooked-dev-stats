@@ -4,8 +4,8 @@
   "brand": {
     "name": "NoCode Kevin"
   },
-  "generatedAt": null,
-  "lastAttemptAt": null,
+  "generatedAt": "2026-10-29T16:01:41.304Z",
+  "lastAttemptAt": "2026-10-29T16:01:41.304Z",
   "schedule": {
     "provider": "GitHub Actions",
     "intervalMinutes": 15,
@@ -18,11 +18,41 @@
       "handle": "nocode_kevin",
       "expectedHandle": "nocode_kevin",
       "url": "https://www.instagram.com/nocode_kevin/",
-      "status": "unavailable",
-      "message": "Awaiting verified public observation.",
-      "metrics": {},
-      "lastAttemptAt": null,
-      "lastSuccessAt": null
+      "status": "partial",
+      "message": "Visible profile and video list checked; legacy posts excluded.",
+      "metrics": {
+        "followers": {
+          "value": 0,
+          "at": "2026-10-29T16:01:41.304Z",
+          "source": "https://www.instagram.com/nocode_kevin/",
+          "method": "browser_bulk",
+          "approximate": false
+        },
+        "following": {
+          "value": 3,
+          "at": "2026-10-29T16:01:41.304Z",
+          "source": "https://www.instagram.com/nocode_kevin/",
+          "method": "browser_bulk",
+          "approximate": false
+        },
+        "publishedCount": {
+          "value": 0,
+          "at": "2026-10-29T16:01:41.304Z",
+          "source": "https://www.instagram.com/nocode_kevin/",
+          "method": "browser_bulk",
+          "approximate": false
+        },
+        "trackedPublishedCount": {
+          "value": 0,
+          "at": "2026-10-29T16:01:41.304Z",
+          "source": "https://www.instagram.com/nocode_kevin/",
+          "method": "browser_bulk",
+          "approximate": false
+        }
+      },
+      "lastAttemptAt": "2026-10-29T16:01:41.304Z",
+      "lastSuccessAt": "2026-10-29T16:01:41.304Z",
+      "trackedEmptyConfirmedAt": "2026-10-29T16:01:41.304Z"
     },
     {
       "id": "tiktok",
@@ -30,27 +60,89 @@
       "handle": "nocodekevin",
       "expectedHandle": "nocodekevin",
       "url": "https://www.tiktok.com/@nocodekevin",
-      "status": "unavailable",
-      "message": "Awaiting verified public observation.",
-      "metrics": {},
-      "lastAttemptAt": null,
-      "lastSuccessAt": null
+      "status": "partial",
+      "message": "Visible profile and video list checked; legacy posts excluded.",
+      "metrics": {
+        "followers": {
+          "value": 3877,
+          "at": "2026-10-29T16:01:41.176Z",
+          "source": "https://www.tiktok.com/@nocodekevin",
+          "method": "browser_bulk",
+          "approximate": false
+        },
+        "following": {
+          "value": 119,
+          "at": "2026-10-29T16:01:41.176Z",
+          "source": "https://www.tiktok.com/@nocodekevin",
+          "method": "browser_bulk",
+          "approximate": false
+        },
+        "profileLikes": {
+          "value": 0,
+          "at": "2026-10-29T16:01:41.176Z",
+          "source": "https://www.tiktok.com/@nocodekevin",
+          "method": "browser_bulk",
+          "approximate": false
+        },
+        "publishedCount": {
+          "value": 0,
+          "at": "2026-10-29T16:01:41.176Z",
+          "source": "https://www.tiktok.com/@nocodekevin",
+          "method": "browser_bulk",
+          "approximate": false
+        },
+        "trackedPublishedCount": {
+          "value": 0,
+          "at": "2026-10-29T16:01:41.176Z",
+          "source": "https://www.tiktok.com/@nocodekevin",
+          "method": "browser_bulk",
+          "approximate": false
+        }
+      },
+      "lastAttemptAt": "2026-10-29T16:01:41.176Z",
+      "lastSuccessAt": "2026-10-29T16:01:41.176Z",
+      "trackedEmptyConfirmedAt": "2026-10-29T16:01:41.176Z"
     }
   ],
   "videos": [],
-  "history": [],
+  "history": [
+    {
+      "at": "2026-10-29T16:01:41.304Z",
+      "views": 0,
+      "posts": 0,
+      "approximate": false,
+      "partial": false
+    }
+  ],
   "tracking": {
     "note": "Only verified public publications and observed metrics are included.",
     "excludedPostIds": {}
   },
   "discovery": {
     "instagram": {
-      "status": "not_checked",
-      "complete": false
+      "status": "checked",
+      "complete": true,
+      "method": "browser_bulk",
+      "checkedAt": "2026-10-29T16:01:41.304Z",
+      "lastCompleteAt": "2026-10-29T16:01:41.304Z",
+      "listedPosts": 0,
+      "lastCompletePostCount": 0
     },
     "tiktok": {
-      "status": "not_checked",
-      "complete": false
+      "status": "checked",
+      "complete": true,
+      "method": "browser_bulk",
+      "checkedAt": "2026-10-29T16:01:41.176Z",
+      "lastCompleteAt": "2026-10-29T16:01:41.176Z",
+      "listedPosts": 0,
+      "lastCompletePostCount": 0
     }
+  },
+  "changes24h": {
+    "at": "2026-10-29T16:01:41.304Z",
+    "baselineAt": null,
+    "views": null,
+    "likes": null,
+    "followers": null
   }
 }
