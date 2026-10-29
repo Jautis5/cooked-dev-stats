@@ -4,8 +4,8 @@
   "brand": {
     "name": "NoCode Kevin"
   },
-  "generatedAt": "2026-10-29T17:10:34.201Z",
-  "lastAttemptAt": "2026-10-29T17:10:34.201Z",
+  "generatedAt": "2026-10-29T17:11:54.564918+00:00",
+  "lastAttemptAt": "2026-10-29T17:11:54.564918+00:00",
   "schedule": {
     "provider": "GitHub Actions",
     "intervalMinutes": 15,
@@ -18,8 +18,8 @@
       "handle": "nocode_kevin",
       "expectedHandle": "nocode_kevin",
       "url": "https://www.instagram.com/nocode_kevin/",
-      "status": "partial",
-      "message": "Visible profile and video list checked; legacy posts excluded.",
+      "status": "unavailable",
+      "message": "Public source unavailable; previous observations preserved.",
       "metrics": {
         "followers": {
           "value": 1,
@@ -43,7 +43,7 @@
           "approximate": false
         }
       },
-      "lastAttemptAt": "2026-10-29T17:08:38.943Z",
+      "lastAttemptAt": "2026-10-29T17:11:54.564918+00:00",
       "lastSuccessAt": "2026-10-29T17:08:38.943Z"
     },
     {
@@ -56,8 +56,8 @@
       "message": "Profile checked; tracked content excludes legacy posts.",
       "metrics": {
         "followers": {
-          "value": 3877,
-          "at": "2026-10-29T17:10:02.941854+00:00",
+          "value": 3875,
+          "at": "2026-10-29T17:11:54.564918+00:00",
           "source": "https://www.tiktok.com/@nocodekevin",
           "approximate": false
         },
@@ -70,19 +70,19 @@
         },
         "profileLikes": {
           "value": 2,
-          "at": "2026-10-29T17:10:02.941854+00:00",
+          "at": "2026-10-29T17:11:54.564918+00:00",
           "source": "https://www.tiktok.com/@nocodekevin",
           "approximate": false
         },
         "publishedCount": {
           "value": 2,
-          "at": "2026-10-29T16:56:19.536523+00:00",
+          "at": "2026-10-29T17:11:54.564918+00:00",
           "source": "https://www.tiktok.com/@nocodekevin",
           "approximate": false
         }
       },
-      "lastAttemptAt": "2026-10-29T16:56:19.536523+00:00",
-      "lastSuccessAt": "2026-10-29T16:56:19.536523+00:00"
+      "lastAttemptAt": "2026-10-29T17:11:54.564918+00:00",
+      "lastSuccessAt": "2026-10-29T17:11:54.564918+00:00"
     }
   ],
   "videos": [
@@ -131,8 +131,8 @@
           "url": "https://www.tiktok.com/@nocodekevin/video/7702134097581182230",
           "metrics": {
             "views": {
-              "value": 53,
-              "at": "2026-10-29T17:10:02.941854+00:00",
+              "value": 68,
+              "at": "2026-10-29T17:11:54.564918+00:00",
               "source": "https://www.tiktok.com/@nocodekevin/video/7702134097581182230",
               "approximate": false
             },
@@ -207,6 +207,13 @@
       "posts": 2,
       "approximate": false,
       "partial": false
+    },
+    {
+      "at": "2026-10-29T17:11:54.564918+00:00",
+      "views": 68,
+      "posts": 1,
+      "approximate": false,
+      "partial": false
     }
   ],
   "tracking": {
@@ -215,38 +222,38 @@
   },
   "discovery": {
     "instagram": {
-      "status": "checked",
-      "complete": true,
-      "method": "browser_bulk",
-      "checkedAt": "2026-10-29T17:08:38.943Z",
-      "lastCompleteAt": "2026-10-29T17:08:38.943Z",
-      "listedPosts": 1,
-      "lastCompletePostCount": 1
+      "status": "session_required",
+      "checkedAt": "2026-10-29T17:11:54.564918+00:00",
+      "complete": false,
+      "message": "New-publication discovery requires an authorized account list; a successful metrics check is not a complete list.",
+      "lastCompleteAt": "2026-10-29T17:08:38.943Z"
     },
     "tiktok": {
-      "status": "checked",
-      "complete": true,
-      "method": "browser_bulk",
-      "checkedAt": "2026-10-29T17:10:34.201Z",
-      "lastCompleteAt": "2026-10-29T17:10:34.201Z",
+      "status": "partial",
+      "method": "public_creator_embed",
+      "newVideos": 1,
       "listedPosts": 1,
-      "lastCompletePostCount": 1
+      "complete": false,
+      "checkedAt": "2026-10-29T17:11:54.564918+00:00",
+      "feedStatus": "profile_checked",
+      "reportedPosts": 2,
+      "lastCompleteAt": "2026-10-29T17:10:34.201Z"
     }
   },
   "changes24h": {
-    "at": "2026-10-29T17:10:34.201Z",
+    "at": "2026-10-29T17:11:54.564918+00:00",
     "baselineAt": null,
     "views": null,
     "likes": null,
     "followers": null
   },
   "cloudCollection": {
-    "at": "2026-10-29T16:56:19.536523+00:00",
+    "at": "2026-10-29T17:11:54.564918+00:00",
     "method": "public_cloud",
     "metricsUpdated": {
       "instagram": 0,
-      "tiktok": 3
+      "tiktok": 4
     },
-    "runUrl": "https://github.com/Jautis5/cooked-dev-stats/actions/runs/40916294365"
+    "runUrl": "https://github.com/Jautis5/cooked-dev-stats/actions/runs/40918803573"
   }
 }
