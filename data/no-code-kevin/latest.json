@@ -4,8 +4,8 @@
   "brand": {
     "name": "NoCode Kevin"
   },
-  "generatedAt": "2026-10-29T20:15:48.281828+00:00",
-  "lastAttemptAt": "2026-10-29T20:15:48.281828+00:00",
+  "generatedAt": "2026-10-29T20:26:37.109Z",
+  "lastAttemptAt": "2026-10-29T20:26:37.109Z",
   "schedule": {
     "provider": "GitHub Actions",
     "intervalMinutes": 15,
@@ -19,7 +19,7 @@
       "expectedHandle": "nocode_kevin",
       "url": "https://www.instagram.com/nocode_kevin/",
       "status": "partial",
-      "message": "Public video metrics updated; per-metric dates retained.",
+      "message": "Visible profile and video list checked; legacy posts excluded.",
       "metrics": {
         "followers": {
           "value": 1,
@@ -43,8 +43,8 @@
           "approximate": false
         }
       },
-      "lastAttemptAt": "2026-10-29T20:15:48.281828+00:00",
-      "lastSuccessAt": "2026-10-29T20:15:48.281828+00:00"
+      "lastAttemptAt": "2026-10-29T20:26:37.109Z",
+      "lastSuccessAt": "2026-10-29T20:26:37.109Z"
     },
     {
       "id": "tiktok",
@@ -106,8 +106,8 @@
               "approximate": false
             },
             "views": {
-              "value": 162,
-              "at": "2026-10-29T19:27:20.288Z",
+              "value": 163,
+              "at": "2026-10-29T20:23:41.607Z",
               "source": "https://www.instagram.com/nocode_kevin/reel/DfFe_OHMltT/",
               "method": "browser_bulk",
               "approximate": false
@@ -217,6 +217,51 @@
               "value": 1,
               "at": "2026-10-29T20:15:48.281828+00:00",
               "source": "https://www.tiktok.com/@nocodekevin/video/7702176898528431382",
+              "approximate": false
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "instagram-DfFyZ6WMO5D",
+      "number": 4,
+      "title": "Anything I forgot? Drop it below 👇 #buildinpublic #ai #vibecoding #design #animation",
+      "caption": "Anything I forgot? Drop it below 👇 #buildinpublic #ai #vibecoding #design #animation",
+      "publishedAt": "2026-10-29T19:45:04.000Z",
+      "thumbnail": null,
+      "assetUrl": null,
+      "posts": {
+        "instagram": {
+          "id": "DfFyZ6WMO5D",
+          "url": "https://instagram.com/nocode_kevin/reel/DfFyZ6WMO5D/",
+          "metrics": {
+            "views": {
+              "value": 104,
+              "at": "2026-10-29T20:23:41.607Z",
+              "source": "https://instagram.com/nocode_kevin/reel/DfFyZ6WMO5D/",
+              "method": "browser_bulk",
+              "approximate": false
+            },
+            "likes": {
+              "value": 2,
+              "at": "2026-10-29T20:26:37.109Z",
+              "source": "https://instagram.com/nocode_kevin/reel/DfFyZ6WMO5D/",
+              "method": "browser_bulk",
+              "approximate": false
+            },
+            "comments": {
+              "value": 0,
+              "at": "2026-10-29T20:26:37.109Z",
+              "source": "https://instagram.com/nocode_kevin/reel/DfFyZ6WMO5D/",
+              "method": "browser_bulk",
+              "approximate": false
+            },
+            "reposts": {
+              "value": 1,
+              "at": "2026-10-29T20:26:37.109Z",
+              "source": "https://instagram.com/nocode_kevin/reel/DfFyZ6WMO5D/",
+              "method": "browser_bulk",
               "approximate": false
             }
           }
@@ -399,6 +444,20 @@
       "posts": 3,
       "approximate": false,
       "partial": false
+    },
+    {
+      "at": "2026-10-29T20:23:41.607Z",
+      "views": 1403,
+      "posts": 4,
+      "approximate": false,
+      "partial": false
+    },
+    {
+      "at": "2026-10-29T20:26:37.109Z",
+      "views": 1403,
+      "posts": 4,
+      "approximate": false,
+      "partial": false
     }
   ],
   "tracking": {
@@ -407,11 +466,13 @@
   },
   "discovery": {
     "instagram": {
-      "status": "session_required",
-      "checkedAt": "2026-10-29T20:15:48.281828+00:00",
-      "complete": false,
-      "message": "New-publication discovery requires an authorized account list; a successful metrics check is not a complete list.",
-      "lastCompleteAt": "2026-10-29T19:27:20.288Z"
+      "status": "checked",
+      "complete": true,
+      "method": "browser_bulk",
+      "checkedAt": "2026-10-29T20:23:41.607Z",
+      "lastCompleteAt": "2026-10-29T20:23:41.607Z",
+      "listedPosts": 2,
+      "lastCompletePostCount": 2
     },
     "tiktok": {
       "status": "unavailable",
@@ -425,7 +486,7 @@
     }
   },
   "changes24h": {
-    "at": "2026-10-29T20:15:48.281828+00:00",
+    "at": "2026-10-29T20:26:37.109Z",
     "baselineAt": null,
     "views": null,
     "likes": null,

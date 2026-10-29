@@ -4,8 +4,8 @@
   "brand": {
     "name": "DUMB LUCK"
   },
-  "generatedAt": "2026-10-29T20:15:48.281828+00:00",
-  "lastAttemptAt": "2026-10-29T20:15:48.281828+00:00",
+  "generatedAt": "2026-10-29T20:23:41.500Z",
+  "lastAttemptAt": "2026-10-29T20:23:41.500Z",
   "schedule": {
     "provider": "GitHub Actions",
     "intervalMinutes": 15,
@@ -19,7 +19,7 @@
       "expectedHandle": "duumb_luck",
       "url": "https://www.instagram.com/duumb_luck/",
       "status": "partial",
-      "message": "Public video metrics updated; per-metric dates retained.",
+      "message": "Visible profile and video list checked; legacy posts excluded.",
       "metrics": {
         "followers": {
           "value": 2,
@@ -36,8 +36,8 @@
           "approximate": false
         }
       },
-      "lastAttemptAt": "2026-10-29T20:15:48.281828+00:00",
-      "lastSuccessAt": "2026-10-29T20:15:48.281828+00:00"
+      "lastAttemptAt": "2026-10-29T20:23:41.500Z",
+      "lastSuccessAt": "2026-10-29T20:23:41.500Z"
     },
     {
       "id": "tiktok",
@@ -193,7 +193,7 @@
             },
             "views": {
               "value": 118,
-              "at": "2026-10-29T19:27:20.193Z",
+              "at": "2026-10-29T20:23:41.500Z",
               "source": "https://www.instagram.com/duumb_luck/reel/DfCi0b9Eqv7/",
               "method": "browser_bulk",
               "approximate": false
@@ -287,8 +287,8 @@
           "url": "https://www.instagram.com/duumb_luck/reel/DfCptX5iWzL/",
           "metrics": {
             "views": {
-              "value": 246,
-              "at": "2026-10-29T19:27:20.193Z",
+              "value": 247,
+              "at": "2026-10-29T20:23:41.500Z",
               "source": "https://www.instagram.com/duumb_luck/reel/DfCptX5iWzL/",
               "method": "browser_bulk",
               "approximate": false
@@ -499,7 +499,7 @@
             },
             "views": {
               "value": 375,
-              "at": "2026-10-29T19:27:20.193Z",
+              "at": "2026-10-29T20:23:41.500Z",
               "source": "https://www.instagram.com/duumb_luck/reel/DfC3bvLEYrB/",
               "method": "browser_bulk",
               "approximate": false
@@ -530,8 +530,8 @@
               "approximate": false
             },
             "views": {
-              "value": 624,
-              "at": "2026-10-29T19:27:20.193Z",
+              "value": 627,
+              "at": "2026-10-29T20:23:41.500Z",
               "source": "https://www.instagram.com/duumb_luck/reel/DfDFLOEFNgg/",
               "method": "browser_bulk",
               "approximate": false
@@ -658,8 +658,8 @@
           "url": "https://instagram.com/duumb_luck/reel/DfFYw_FD249/",
           "metrics": {
             "views": {
-              "value": 186,
-              "at": "2026-10-29T19:27:20.193Z",
+              "value": 189,
+              "at": "2026-10-29T20:23:41.500Z",
               "source": "https://instagram.com/duumb_luck/reel/DfFYw_FD249/",
               "method": "browser_bulk",
               "approximate": false
@@ -695,7 +695,7 @@
           "metrics": {
             "views": {
               "value": 162,
-              "at": "2026-10-29T19:27:20.193Z",
+              "at": "2026-10-29T20:23:41.500Z",
               "source": "https://instagram.com/duumb_luck/reel/DfFENgQCeIE/",
               "method": "browser_bulk",
               "approximate": false
@@ -731,7 +731,7 @@
           "metrics": {
             "views": {
               "value": 153,
-              "at": "2026-10-29T19:27:20.193Z",
+              "at": "2026-10-29T20:23:41.500Z",
               "source": "https://instagram.com/duumb_luck/reel/DfEvjeICC1w/",
               "method": "browser_bulk",
               "approximate": false
@@ -791,8 +791,8 @@
           "url": "https://instagram.com/duumb_luck/reel/DfFtVXhj2tC/",
           "metrics": {
             "views": {
-              "value": 0,
-              "at": "2026-10-29T19:27:20.193Z",
+              "value": 169,
+              "at": "2026-10-29T20:23:41.500Z",
               "source": "https://instagram.com/duumb_luck/reel/DfFtVXhj2tC/",
               "method": "browser_bulk",
               "approximate": false
@@ -1801,6 +1801,13 @@
       "posts": 20,
       "approximate": false,
       "partial": false
+    },
+    {
+      "at": "2026-10-29T20:23:41.500Z",
+      "views": 2906,
+      "posts": 20,
+      "approximate": false,
+      "partial": false
     }
   ],
   "tracking": {
@@ -1829,11 +1836,13 @@
       "reportedPosts": 3
     },
     "instagram": {
-      "status": "session_required",
-      "checkedAt": "2026-10-29T20:15:48.281828+00:00",
-      "complete": false,
-      "message": "New-publication discovery requires an authorized account list; a successful metrics check is not a complete list.",
-      "lastCompleteAt": "2026-10-29T19:27:20.193Z"
+      "status": "checked",
+      "complete": true,
+      "method": "browser_bulk",
+      "checkedAt": "2026-10-29T20:23:41.500Z",
+      "lastCompleteAt": "2026-10-29T20:23:41.500Z",
+      "listedPosts": 8,
+      "lastCompletePostCount": 8
     }
   },
   "cloudCollection": {
@@ -1847,8 +1856,8 @@
     "runUrl": "https://github.com/Jautis5/cooked-dev-stats/actions/runs/40947315580"
   },
   "changes24h": {
-    "at": "2026-10-29T20:15:48.281828+00:00",
-    "baselineAt": "2026-10-28T20:13:42.836471+00:00",
+    "at": "2026-10-29T20:23:41.500Z",
+    "baselineAt": "2026-10-28T20:20:43.986Z",
     "views": null,
     "likes": null,
     "followers": null
