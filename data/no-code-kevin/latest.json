@@ -4,8 +4,8 @@
   "brand": {
     "name": "NoCode Kevin"
   },
-  "generatedAt": "2026-10-29T17:26:56.133978+00:00",
-  "lastAttemptAt": "2026-10-29T17:26:56.133978+00:00",
+  "generatedAt": "2026-10-29T17:28:14.038Z",
+  "lastAttemptAt": "2026-10-29T17:28:14.038Z",
   "schedule": {
     "provider": "GitHub Actions",
     "intervalMinutes": 15,
@@ -19,7 +19,7 @@
       "expectedHandle": "nocode_kevin",
       "url": "https://www.instagram.com/nocode_kevin/",
       "status": "partial",
-      "message": "Public video metrics updated; per-metric dates retained.",
+      "message": "Visible profile and video list checked; legacy posts excluded.",
       "metrics": {
         "followers": {
           "value": 1,
@@ -43,8 +43,8 @@
           "approximate": false
         }
       },
-      "lastAttemptAt": "2026-10-29T17:26:56.133978+00:00",
-      "lastSuccessAt": "2026-10-29T17:26:56.133978+00:00"
+      "lastAttemptAt": "2026-10-29T17:28:14.038Z",
+      "lastSuccessAt": "2026-10-29T17:28:14.038Z"
     },
     {
       "id": "tiktok",
@@ -106,8 +106,8 @@
               "approximate": false
             },
             "views": {
-              "value": 2,
-              "at": "2026-10-29T17:08:38.943Z",
+              "value": 14,
+              "at": "2026-10-29T17:28:14.038Z",
               "source": "https://www.instagram.com/nocode_kevin/reel/DfFe_OHMltT/",
               "method": "browser_bulk",
               "approximate": false
@@ -226,6 +226,13 @@
       "posts": 2,
       "approximate": false,
       "partial": false
+    },
+    {
+      "at": "2026-10-29T17:28:14.038Z",
+      "views": 179,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
     }
   ],
   "tracking": {
@@ -234,11 +241,13 @@
   },
   "discovery": {
     "instagram": {
-      "status": "session_required",
-      "checkedAt": "2026-10-29T17:26:56.133978+00:00",
-      "complete": false,
-      "message": "New-publication discovery requires an authorized account list; a successful metrics check is not a complete list.",
-      "lastCompleteAt": "2026-10-29T17:08:38.943Z"
+      "status": "checked",
+      "complete": true,
+      "method": "browser_bulk",
+      "checkedAt": "2026-10-29T17:28:14.038Z",
+      "lastCompleteAt": "2026-10-29T17:28:14.038Z",
+      "listedPosts": 1,
+      "lastCompletePostCount": 1
     },
     "tiktok": {
       "status": "partial",
@@ -253,7 +262,7 @@
     }
   },
   "changes24h": {
-    "at": "2026-10-29T17:26:56.133978+00:00",
+    "at": "2026-10-29T17:28:14.038Z",
     "baselineAt": null,
     "views": null,
     "likes": null,

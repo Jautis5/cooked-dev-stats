@@ -5,8 +5,8 @@
     "name": "DontGetTraced"
   },
   "sheetUrl": "https://docs.google.com/spreadsheets/d/1sT8AqlGMMqnJUCcA697DaVcLvRqsJhCT4xMIdl52WYY/edit#gid=1732102601",
-  "generatedAt": "2026-10-29T17:26:56.133978+00:00",
-  "lastAttemptAt": "2026-10-29T17:26:56.133978+00:00",
+  "generatedAt": "2026-10-29T17:26:56.422Z",
+  "lastAttemptAt": "2026-10-29T17:26:56.422Z",
   "schedule": {
     "provider": "GitHub Actions",
     "intervalMinutes": 15,
@@ -20,9 +20,9 @@
       "url": "https://www.instagram.com/dontgettraced/",
       "expectedHandle": "dontgettraced",
       "status": "partial",
-      "message": "Public video metrics updated; per-metric dates retained.",
-      "lastAttemptAt": "2026-10-29T17:26:56.133978+00:00",
-      "lastSuccessAt": "2026-10-29T17:26:56.133978+00:00",
+      "message": "Visible profile and video list checked; legacy posts excluded.",
+      "lastAttemptAt": "2026-10-29T17:26:56.422Z",
+      "lastSuccessAt": "2026-10-29T17:26:56.422Z",
       "metrics": {
         "followers": {
           "value": 42,
@@ -228,8 +228,8 @@
           "url": "https://www.instagram.com/dontgettraced/reel/Deww_L4IhFJ/",
           "metrics": {
             "views": {
-              "value": 4488,
-              "at": "2026-10-29T09:28:53.000Z",
+              "value": 4500,
+              "at": "2026-10-29T17:26:56.422Z",
               "source": "https://www.instagram.com/dontgettraced/reel/Deww_L4IhFJ/",
               "method": "browser_bulk",
               "approximate": false
@@ -4712,6 +4712,13 @@
       "posts": 2,
       "approximate": false,
       "partial": false
+    },
+    {
+      "at": "2026-10-29T17:26:56.422Z",
+      "views": 5186,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
     }
   ],
   "tracking": {
@@ -4735,12 +4742,19 @@
     "runUrl": "https://github.com/Jautis5/cooked-dev-stats/actions/runs/40921288976"
   },
   "changes24h": {
-    "at": "2026-10-29T17:26:56.133978+00:00",
+    "at": "2026-10-29T17:26:56.422Z",
     "baselineAt": "2026-10-28T17:24:57.757677+00:00",
-    "views": null,
+    "views": {
+      "value": 35,
+      "at": "2026-10-29T17:26:56.422Z",
+      "baselineAt": "2026-10-28T17:24:57.757677+00:00",
+      "periodHours": 24.03,
+      "comparable": true,
+      "approximate": false
+    },
     "likes": {
       "value": 2,
-      "at": "2026-10-29T17:26:56.133978+00:00",
+      "at": "2026-10-29T17:26:56.422Z",
       "baselineAt": "2026-10-28T17:24:57.757677+00:00",
       "periodHours": 24.03,
       "comparable": true,
@@ -4759,11 +4773,13 @@
       "lastCompleteAt": "2026-10-28T20:21:31.465Z"
     },
     "instagram": {
-      "status": "session_required",
-      "checkedAt": "2026-10-29T17:26:56.133978+00:00",
-      "complete": false,
-      "message": "New-publication discovery requires an authorized account list; a successful metrics check is not a complete list.",
-      "lastCompleteAt": "2026-10-29T09:28:53.000Z"
+      "status": "checked",
+      "complete": true,
+      "method": "browser_bulk",
+      "checkedAt": "2026-10-29T17:26:56.422Z",
+      "lastCompleteAt": "2026-10-29T17:26:56.422Z",
+      "listedPosts": 1,
+      "lastCompletePostCount": 1
     },
     "facebook": {
       "status": "session_required",
