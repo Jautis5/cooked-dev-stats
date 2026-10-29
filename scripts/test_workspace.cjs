@@ -39,7 +39,8 @@ const tt=api.videoCsv(rows,'tiktok');assert.ok(!tt.includes('https://example.com
 const missing=api.issuesFor(channels,new Map());assert.equal(missing.length,2);
 assert.ok(api.issuesFor(channels,records).some(i=>i.channel.id==='indian-builds'&&i.title.includes('no view count')));
 const config=JSON.parse(fs.readFileSync(path.join(root,'data/channels.json'))).channels;
-assert.equal(new Set(config.map(c=>c.assetLibraryUrl)).size,config.length,'Libraries must remain separate');
+const libraries=config.map(c=>c.assetLibraryUrl).filter(Boolean);
+assert.equal(new Set(libraries).size,libraries.length,'Registered libraries must remain separate; unconfigured libraries are allowed');
 console.log('PASS: independent channel routes, duplicate ids, combined search, platform gaps, measured zero vs unknown, source-preserving CSV and formula-safe export.');
 
 const healthNow=Date.now();
