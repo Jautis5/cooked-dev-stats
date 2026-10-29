@@ -26,7 +26,7 @@
       "metrics": {
         "followers": {
           "value": 42,
-          "at": "2026-10-28T21:18:57.459Z",
+          "at": "2026-10-29T09:28:53.000Z",
           "source": "https://www.instagram.com/dontgettraced/",
           "method": "browser_bulk",
           "approximate": false
@@ -47,7 +47,7 @@
         },
         "following": {
           "value": 1,
-          "at": "2026-10-28T09:24:10.257Z",
+          "at": "2026-10-29T09:28:53.000Z",
           "source": "https://www.instagram.com/dontgettraced/",
           "method": "browser_bulk",
           "approximate": false
@@ -228,8 +228,8 @@
           "url": "https://www.instagram.com/dontgettraced/reel/Deww_L4IhFJ/",
           "metrics": {
             "views": {
-              "value": 4472,
-              "at": "2026-10-28T21:18:57.459Z",
+              "value": 4488,
+              "at": "2026-10-29T09:28:53.000Z",
               "source": "https://www.instagram.com/dontgettraced/reel/Deww_L4IhFJ/",
               "method": "browser_bulk",
               "approximate": false
@@ -4476,6 +4476,13 @@
       "partial": false
     },
     {
+      "at": "2026-10-29T09:28:53.000Z",
+      "views": 5174,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
+    },
+    {
       "at": "2026-10-29T09:30:53.371235+00:00",
       "views": 5158,
       "posts": 2,
@@ -4506,7 +4513,14 @@
   "changes24h": {
     "at": "2026-10-29T09:30:53.371235+00:00",
     "baselineAt": "2026-10-28T09:31:42.365Z",
-    "views": null,
+    "views": {
+      "value": 45,
+      "at": "2026-10-29T09:30:53.371235+00:00",
+      "baselineAt": "2026-10-28T09:31:42.365Z",
+      "periodHours": 23.99,
+      "comparable": true,
+      "approximate": false
+    },
     "likes": {
       "value": 4,
       "at": "2026-10-29T09:30:53.371235+00:00",
@@ -4532,7 +4546,7 @@
       "checkedAt": "2026-10-29T09:30:53.371235+00:00",
       "complete": false,
       "message": "New-publication discovery requires an authorized account list; a successful metrics check is not a complete list.",
-      "lastCompleteAt": "2026-10-28T21:18:57.459Z"
+      "lastCompleteAt": "2026-10-29T09:28:53.000Z"
     },
     "facebook": {
       "status": "session_required",
