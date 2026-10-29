@@ -47,6 +47,15 @@ class ChannelSafety(unittest.TestCase):
         with patch.object(c.base,'request',return_value='ignored'),patch.object(c.base,'state',return_value={'webapp.user-detail':scope}):out=c.refresh(data)
         self.assertNotIn('publishedCount',out['accounts'][1]['metrics'])
         self.assertIsNone(out['discovery']['tiktok']['reportedPosts'])
+    def test_zero_profile_count_does_not_skip_independent_video_discovery(self):
+        import public_fallbacks as f
+        data={'accounts':[{'id':'tiktok','handle':'test','url':'https://www.tiktok.com/@test'}],
+              'videos':[], 'discovery':{'tiktok':{'checkedAt':c.base.NOW,'reportedPosts':0}}}
+        with patch.object(f,'tiktok_embed',return_value={'status':'partial','newVideos':1,'listedPosts':1,'complete':False}) as discover:
+            out=f.refresh_fallbacks(data)
+        discover.assert_called_once()
+        self.assertEqual(out['discovery']['tiktok']['newVideos'],1)
+        self.assertFalse(out['discovery']['tiktok']['complete'])
     def test_registry_separates_sources(self):
         registry=json.loads((ROOT/'data/channels.json').read_text())['channels']
         self.assertEqual(len({r['id'] for r in registry}),len(registry))
