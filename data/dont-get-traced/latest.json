@@ -5,8 +5,8 @@
     "name": "DontGetTraced"
   },
   "sheetUrl": "https://docs.google.com/spreadsheets/d/1sT8AqlGMMqnJUCcA697DaVcLvRqsJhCT4xMIdl52WYY/edit#gid=1732102601",
-  "generatedAt": "2026-10-29T09:30:53.371235+00:00",
-  "lastAttemptAt": "2026-10-29T09:30:53.371235+00:00",
+  "generatedAt": "2026-10-29T09:32:39.670Z",
+  "lastAttemptAt": "2026-10-29T09:32:39.670Z",
   "schedule": {
     "provider": "GitHub Actions",
     "intervalMinutes": 15,
@@ -61,19 +61,21 @@
       "url": "https://www.tiktok.com/@dontgettraced",
       "expectedHandle": "dontgettraced",
       "status": "partial",
-      "message": "Public video metrics updated; per-metric dates retained.",
-      "lastAttemptAt": "2026-10-29T09:30:53.371235+00:00",
+      "message": "Visible profile and video list checked; legacy posts excluded.",
+      "lastAttemptAt": "2026-10-29T09:32:39.670Z",
       "metrics": {
         "followers": {
           "value": 6,
-          "at": "2026-10-29T09:30:53.371235+00:00",
+          "at": "2026-10-29T09:32:39.670Z",
           "source": "https://www.tiktok.com/@dontgettraced",
+          "method": "browser_bulk",
           "approximate": false
         },
         "profileLikes": {
           "value": 14,
-          "at": "2026-10-29T09:30:53.371235+00:00",
+          "at": "2026-10-29T09:32:39.670Z",
           "source": "https://www.tiktok.com/@dontgettraced",
+          "method": "browser_bulk",
           "approximate": false
         },
         "publishedCount": {
@@ -84,7 +86,7 @@
         },
         "following": {
           "value": 1,
-          "at": "2026-10-28T21:18:30.183Z",
+          "at": "2026-10-29T09:32:39.670Z",
           "source": "https://www.tiktok.com/@dontgettraced",
           "method": "browser_bulk",
           "approximate": false
@@ -119,7 +121,7 @@
           "upstreamObservedAt": null
         }
       },
-      "lastSuccessAt": "2026-10-29T09:30:53.371235+00:00"
+      "lastSuccessAt": "2026-10-29T09:32:39.670Z"
     },
     {
       "id": "facebook",
@@ -268,8 +270,9 @@
           "metrics": {
             "views": {
               "value": 686,
-              "at": "2026-10-29T09:30:53.371235+00:00",
+              "at": "2026-10-29T09:32:39.670Z",
               "source": "https://www.tiktok.com/@dontgettraced/video/7699148170604924182",
+              "method": "browser_bulk",
               "approximate": false
             },
             "likes": {
@@ -4488,6 +4491,13 @@
       "posts": 2,
       "approximate": false,
       "partial": false
+    },
+    {
+      "at": "2026-10-29T09:32:39.670Z",
+      "views": 5174,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
     }
   ],
   "tracking": {
@@ -4511,21 +4521,21 @@
     "runUrl": "https://github.com/Jautis5/cooked-dev-stats/actions/runs/40850130901"
   },
   "changes24h": {
-    "at": "2026-10-29T09:30:53.371235+00:00",
+    "at": "2026-10-29T09:32:39.670Z",
     "baselineAt": "2026-10-28T09:31:42.365Z",
     "views": {
       "value": 45,
-      "at": "2026-10-29T09:30:53.371235+00:00",
+      "at": "2026-10-29T09:32:39.670Z",
       "baselineAt": "2026-10-28T09:31:42.365Z",
-      "periodHours": 23.99,
+      "periodHours": 24.02,
       "comparable": true,
       "approximate": false
     },
     "likes": {
       "value": 4,
-      "at": "2026-10-29T09:30:53.371235+00:00",
+      "at": "2026-10-29T09:32:39.670Z",
       "baselineAt": "2026-10-28T09:31:42.365Z",
-      "periodHours": 23.99,
+      "periodHours": 24.02,
       "comparable": true,
       "approximate": false
     },
@@ -4566,15 +4576,13 @@
       "lastCompleteAt": "2026-10-28T21:19:13.692Z"
     },
     "tiktok": {
-      "status": "partial",
-      "method": "public_creator_embed",
-      "newVideos": 0,
+      "status": "checked",
+      "complete": true,
+      "method": "browser_bulk",
+      "checkedAt": "2026-10-29T09:32:39.670Z",
+      "lastCompleteAt": "2026-10-29T09:32:39.670Z",
       "listedPosts": 1,
-      "complete": false,
-      "checkedAt": "2026-10-29T09:30:53.371235+00:00",
-      "feedStatus": "profile_checked",
-      "reportedPosts": 1,
-      "lastCompleteAt": "2026-10-28T21:18:30.183Z"
+      "lastCompletePostCount": 1
     }
   },
   "identityCorrections": [
