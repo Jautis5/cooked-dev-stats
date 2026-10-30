@@ -19,7 +19,8 @@ function compact(n) {
  if(Math.abs(value)>=1000&&unit<1e9){value=Number((value/1000).toFixed(1));suffix=unit===1000?'M':'B';}
  return value+suffix;
 }
-const time=t=>{const ms=typeof t==='number'?t:Date.parse(t);return Number.isFinite(ms)?new Intl.DateTimeFormat('en-GB',{day:'2-digit',month:'short',hour:'2-digit',minute:'2-digit',timeZone:'Europe/Vilnius'}).format(new Date(ms))+' Vilnius':'Not checked';};
+
+const time=t=>{const ms=typeof t==='number'?t:Date.parse(t);return Number.isFinite(ms)?new Intl.DateTimeFormat('en-GB',{day:'2-digit',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit',timeZone:'Europe/Vilnius'}).format(new Date(ms))+' Vilnius':'Not checked';};
 const safe=u=>{try{const v=new URL(u,location.href);return v.protocol==='https:'||v.origin===location.origin?esc(v.href):'#';}catch{return '#';}};
 const currentId=()=>{try{return decodeURIComponent(location.hash.match(/^#channel\/([^/]+)/)?.[1]||'');}catch{return '';}};
 const currentView=()=>{const part=location.hash.split('/').at(-1).replace(/^#/,'');return ['videos','accounts'].includes(part)?part:'overview';};
@@ -29,7 +30,7 @@ const valid=m=>m&&Number.isFinite(m.value);
 const approx=m=>m?.approximate?'<span class="approx" aria-label="Approximately">≈</span>':'';
 function total(posts,key){
  const ms=posts.map(p=>p.metrics?.[key]).filter(valid);
- return {value:ms.length?ms.reduce((s,m)=>s+m.value,0):null,count:ms.length,approximate:ms.some(m=>m.approximate),oldest:ms.map(m=>m.at).filter(Boolean).sort()[0]};
+ return {value:ms.length?ms.reduce((s,m)=>s+m.value,0):null,count:ms.length,approximate:ms.some(m=>m.approximate),oldest:ms.map(m=>m.at).filter(Boolean).sort()[0],latest:ms.map(m=>m.at).filter(Boolean).sort().at(-1)};
 }
 function summary(data,platform='all'){
  const accounts=data.accounts.filter(a=>platform==='all'||a.id===platform);
@@ -45,7 +46,7 @@ function combine(list){
  const out={postCount:0,accountCount:0,videoCount:0};
  for(const key of ['views','likes','followers','posts']){
   const ms=list.map(s=>s[key]).filter(valid);
-  out[key]={value:ms.length?ms.reduce((n,m)=>n+m.value,0):null,count:ms.reduce((n,m)=>n+(m.count||0),0),approximate:ms.some(m=>m.approximate),oldest:ms.map(m=>m.oldest).filter(Boolean).sort()[0]};
+  out[key]={value:ms.length?ms.reduce((n,m)=>n+m.value,0):null,count:ms.reduce((n,m)=>n+(m.count||0),0),approximate:ms.some(m=>m.approximate),oldest:ms.map(m=>m.oldest).filter(Boolean).sort()[0],latest:ms.map(m=>m.latest||m.oldest).filter(Boolean).sort().at(-1)};
  }
  for(const key of ['postCount','accountCount','videoCount'])out[key]=list.reduce((n,s)=>n+s[key],0);
  return out;
@@ -68,7 +69,7 @@ function missingPublication(account,data){
 function metricTitle(m){return `${m?.approximate?'Approximately ':''}${full(m?.value)} · Observed ${time(m?.at||m?.oldest)}`;}
 function metricCell(m,date=true){
  if(!valid(m))return '<span class="muted">—</span>';
- return '<span class="num" tabindex="0" title="'+esc(metricTitle(m))+'">'+(m.approximate?'≈ ':'')+compact(m.value)+'</span>'+(date&&(m.at||m.oldest)?'<span class="tiny">'+esc(time(m.at||m.oldest))+'</span>':'');
+ return '<span class="num" tabindex="0" title="'+esc(metricTitle(m))+'">'+(m.approximate?'≈ ':'')+full(m.value)+'</span>'+(date&&(m.at||m.oldest)?'<span class="tiny">'+esc(time(m.at||m.oldest))+'</span>':'');
 }
 function assetLink(v){return v.assetUrl?'<a class="asset-link" href="'+safe(v.assetUrl)+'" target="_blank" rel="noopener">Original video (Drive) ↗</a>':'';}
 function changeFor(data,key){
@@ -83,7 +84,7 @@ function renderStats(s,data){
   const delta=changeFor(data,key);
   const change=key==='posts'?`${s.videoCount} tracked videos`:expected===0&&key!=='followers'?'No confirmed posts in this scope':delta?`${delta.value>0?'+':''}${compact(delta.value)} in 24h`:(data?.changes24h?.baselineAt?'24h change unavailable':'24h change · collecting history');
   const valueTitle=key==='posts'?full(m.value)+' confirmed publication links in the loaded feed':metricTitle(m);
-  return '<article class="stat"><div class="stat-label"><svg viewBox="0 0 24 24" aria-hidden="true">'+ICONS[key]+'</svg>'+label+'</div><div class="stat-value" title="'+esc(valueTitle)+'" tabindex="0">'+approx(m)+compact(m.value)+'</div><p class="change '+(key==='posts'||!delta?'pending':delta.value<0?'negative':'')+'">'+esc(change)+'</p><p class="stat-meta">'+(key==='posts'?`${s.accountCount} social accounts`:key==='followers'?`${m.count} of ${expected} accounts`:`${m.count} of ${expected} publications`)+(partial?' · partial data':'')+'</p></article>';
+  return '<article class="stat"><div class="stat-label"><svg viewBox="0 0 24 24" aria-hidden="true">'+ICONS[key]+'</svg>'+label+'</div><div class="stat-value" style="font-size:clamp(24px,3vw,46px)" title="'+esc(valueTitle)+'" tabindex="0">'+approx(m)+full(m.value)+'</div><p class="change '+(key==='posts'||!delta?'pending':delta.value<0?'negative':'')+'">'+esc(change)+'</p><p class="stat-meta">'+(key==='posts'?`${s.accountCount} social accounts`:key==='followers'?`${m.count} of ${expected} accounts`:`${m.count} of ${expected} publications`)+(partial?' · partial data':'')+'</p>'+(key!=='posts'?'<p class="stat-meta">Newest observation: '+esc(time(m.latest||m.oldest))+'</p><p class="stat-meta">Oldest included: '+esc(time(m.oldest))+'</p>':'')+'</article>';
  }).join('');
 }
 function viewHistory(data,now=Date.now()){
@@ -157,10 +158,10 @@ function renderViewsChart(){
  $('chart-subtitle').textContent=scope==='all'?'Total tracked views across all channels':(channels.find(c=>c.id===scope)?.name||'Channel')+' · all platforms';
  $('views-chart').querySelectorAll('[data-range]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.range===chartRange)));
  const series=chartSeries(channels,entries,scope),complete=series.complete,all=series.points,points=sampleChartPoints(chartWindow(all,chartRange)),latest=points[points.length-1];
- $('chart-total').textContent=latest?(latest.approximate?'≈ ':'')+compact(latest.value):'—';
+ $('chart-total').textContent=latest?(latest.approximate?'≈ ':'')+full(latest.value):'—';
  $('chart-total').title=latest?full(latest.value)+' recorded views':'';
  $('chart-period').textContent=points.length?time(points[0].t)+' — '+time(latest.t):'';
- $('chart-history-start').textContent=all.length?'History since '+new Intl.DateTimeFormat('en-GB',{day:'2-digit',month:'short',hour:'2-digit',minute:'2-digit',timeZone:'Europe/Vilnius'}).format(new Date(all[0].t))+' · Vilnius time':'';
+ $('chart-history-start').textContent=all.length?'History since '+new Intl.DateTimeFormat('en-GB',{day:'2-digit',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit',timeZone:'Europe/Vilnius'}).format(new Date(all[0].t))+' · Vilnius time':'';
  $('chart-note').textContent=scope==='all'?'Combined history starts when every channel has a saved observation. Choose a channel to see its earlier history. Totals include rounded or earlier source values.':'Saved observations only. This chart covers all platforms for this channel. Changes can include newly tracked publications; older source values are preserved.';
  if(!points.length){$('chart-plot').innerHTML='<div class="chart-empty">'+(!complete?'Waiting for all channel sources. No estimate is plotted.':all.length?'No saved snapshots in this period. Try a longer range.':'The graph will appear after the first saved views snapshot.')+'</div>';return;}
  const g=chartGeometry(points,Math.max(240,$('chart-plot').clientWidth)),last=g.points[g.points.length-1],floor=g.height-g.bottom;
@@ -209,7 +210,7 @@ function renderCloudHealth(){
  const records=scope.map(c=>cloudHealth?.channels?.[c.id]).filter(Boolean),count=records.reduce((n,c)=>n+(c.metricsUpdated||0),0);
  const platforms=records.flatMap(c=>Object.values(c.platforms||{})),updated=platforms.filter(p=>p.metricsUpdated>0).length;
  const viewsUpdated=platforms.reduce((n,p)=>n+(p.viewsUpdated||0),0),postsKnown=platforms.reduce((n,p)=>n+(p.postsKnown||0),0);
- $('cloud-health').innerHTML='<div><span class="cloud-label">AUTONOMOUS COLLECTOR</span><strong><span class="dot '+(state.warning?'partial':'ok')+'"></span>'+esc(state.label)+'</strong><small>'+esc(time(cloudHealth?.completedAt))+'</small></div><div><span class="cloud-label">LATEST RUN</span><strong>'+full(count)+' metrics updated</strong><small>'+records.length+' of '+scope.length+' channel reports · earlier metric dates are retained</small></div><div><span class="cloud-label">VIEW COUNTS REFRESHED</span><strong>'+viewsUpdated+' / '+postsKnown+' known posts</strong><small>'+updated+' / '+platforms.length+' accounts supplied any new metric · full inventory checked separately</small></div><div class="cloud-links"><a href="'+safe(cloudHealth?.runUrl||cloudConfig.runsUrl||'https://github.com/Jautis5/cooked-dev-stats/actions/workflows/refresh.yml')+'" target="_blank" rel="noopener">Run details ↗</a><a href="'+safe(cloudConfig.watchdogUrl||'https://github.com/Jautis5/cooked-dev-stats/actions/workflows/watchdog.yml')+'" target="_blank" rel="noopener">Auto-recovery ↗</a><a href="'+safe(cloudConfig.independentUrl||'https://jautis5.github.io/cooked-dev-stats/')+'" target="_blank" rel="noopener">Independent site ↗</a></div>';
+ $('cloud-health').innerHTML='<div><span class="cloud-label">AUTONOMOUS COLLECTOR</span><strong><span class="dot '+(state.warning?'partial':'ok')+'"></span>'+esc(state.label)+'</strong><small>'+esc(time(cloudHealth?.completedAt))+'</small></div><div><span class="cloud-label">LATEST RUN</span><strong>'+full(count)+' metric observations received</strong><small>'+records.length+' of '+scope.length+' channel reports · observed again does not mean the value changed</small></div><div><span class="cloud-label">VIEWS OBSERVED THIS RUN</span><strong>'+viewsUpdated+' / '+postsKnown+' known posts</strong><small>'+updated+' / '+platforms.length+' accounts supplied any new metric · full inventory checked separately</small></div><div class="cloud-links"><a href="'+safe(cloudHealth?.runUrl||cloudConfig.runsUrl||'https://github.com/Jautis5/cooked-dev-stats/actions/workflows/refresh.yml')+'" target="_blank" rel="noopener">Run details ↗</a><a href="'+safe(cloudConfig.watchdogUrl||'https://github.com/Jautis5/cooked-dev-stats/actions/workflows/watchdog.yml')+'" target="_blank" rel="noopener">Auto-recovery ↗</a><a href="'+safe(cloudConfig.independentUrl||'https://jautis5.github.io/cooked-dev-stats/')+'" target="_blank" rel="noopener">Independent site ↗</a></div>';
 }
 function clockStatus(runs,now=Date.now()){
  if(!Array.isArray(runs))return {label:'Checking the next cloud update…',warning:true};
@@ -218,10 +219,10 @@ function clockStatus(runs,now=Date.now()){
  const age=now-Date.parse(run.created_at);
  if(!Number.isFinite(age)||age<0||age>20*60000)return {label:'Update queue delayed',warning:true,url:run.html_url};
  if(run.status==='in_progress')return {label:'Checking sources and queuing the next update',warning:false,url:run.html_url};
- return {label:'Next cloud update queued',warning:false,url:run.html_url,targetAt:Date.parse(run.created_at)+15*60000};
+ return {label:'Next collection attempt queued',warning:false,url:run.html_url,targetAt:Date.parse(run.created_at)+15*60000};
 }
 function renderClock(){
- const state=clockStatus(clockRuns),target=state.targetAt?' · target '+time(state.targetAt):'';
+ const state=clockStatus(clockRuns),target=state.targetAt?' · planned attempt '+time(state.targetAt):'';
  $('cloud-clock').innerHTML='<span><span class="dot '+(state.warning?'partial':'ok')+'"></span><strong>'+esc(state.label)+'</strong>'+esc(target)+'</span><a href="'+safe(state.url||'https://github.com/Jautis5/cooked-dev-stats/actions/workflows/clock.yml')+'" target="_blank" rel="noopener">Timed updates ↗</a>';
 }
 async function loadClock(){
@@ -293,7 +294,7 @@ function renderChannels(){
  $('channel-count').textContent='('+channels.length+')';
  $('channels').innerHTML=channels.map(c=>{
   const entry=entries.get(c.id),d=entry?.data,s=d&&summary(d);
-  return '<article class="channel" data-channel="'+esc(c.id)+'"><a class="channel-top" href="'+scopeHref(c.id)+'"><img class="channel-logo" src="'+safe(c.logo)+'" alt=""><div><h3 class="channel-name">'+esc(c.name)+'</h3><p class="channel-tagline">'+(s?s.accountCount+' platforms · '+s.postCount+' confirmed posts':'Source unavailable')+'</p></div><span class="channel-arrow" aria-hidden="true">↗</span></a><div class="channel-metrics">'+[['views','Views'],['followers','Followers'],['likes','Likes']].map(([k,label])=>'<div><strong tabindex="0" title="'+esc(metricTitle(s?.[k]))+'">'+approx(s?.[k])+compact(s?.[k]?.value)+'</strong><small>'+label+'</small></div>').join('')+'<div><strong>'+ (s?s.videoCount:'—')+'</strong><small>Videos</small></div></div><div class="channel-foot"><div>'+sourceBadge(entry)+'<span class="tiny">Feed: '+esc(time(checkedAt(d)))+'</span><span class="tiny">Oldest views: '+esc(time(s?.views?.oldest))+'</span></div><span>'+ (d?d.accounts.map(a=>ABBR[a.id]||a.name).join(' · '):'No data')+'</span></div><div class="channel-actions"><a href="'+scopeHref(c.id,'videos')+'">Video tracker ↗</a>'+(c.assetLibraryUrl?'<a href="'+safe(c.assetLibraryUrl)+'" target="_blank" rel="noopener">Video library ↗</a>':'')+(c.sheetUrl?'<a href="'+safe(c.sheetUrl)+'" target="_blank" rel="noopener">Sheet ↗</a>':'')+'</div></article>';
+  return '<article class="channel" data-channel="'+esc(c.id)+'"><a class="channel-top" href="'+scopeHref(c.id)+'"><img class="channel-logo" src="'+safe(c.logo)+'" alt=""><div><h3 class="channel-name">'+esc(c.name)+'</h3><p class="channel-tagline">'+(s?s.accountCount+' platforms · '+s.postCount+' confirmed posts':'Source unavailable')+'</p></div><span class="channel-arrow" aria-hidden="true">↗</span></a><div class="channel-metrics">'+[['views','Views'],['followers','Followers'],['likes','Likes']].map(([k,label])=>'<div><strong tabindex="0" title="'+esc(metricTitle(s?.[k]))+'">'+approx(s?.[k])+full(s?.[k]?.value)+'</strong><small>'+label+'</small></div>').join('')+'<div><strong>'+ (s?s.videoCount:'—')+'</strong><small>Videos</small></div></div><div class="channel-foot"><div>'+sourceBadge(entry)+'<span class="tiny">Feed: '+esc(time(checkedAt(d)))+'</span><span class="tiny">Oldest views: '+esc(time(s?.views?.oldest))+'</span></div><span>'+ (d?d.accounts.map(a=>ABBR[a.id]||a.name).join(' · '):'No data')+'</span></div><div class="channel-actions"><a href="'+scopeHref(c.id,'videos')+'">Video tracker ↗</a>'+(c.assetLibraryUrl?'<a href="'+safe(c.assetLibraryUrl)+'" target="_blank" rel="noopener">Video library ↗</a>':'')+(c.sheetUrl?'<a href="'+safe(c.sheetUrl)+'" target="_blank" rel="noopener">Sheet ↗</a>':'')+'</div></article>';
  }).join('');
 }
 function renderComparison(){
