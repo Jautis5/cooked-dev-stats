@@ -29,3 +29,10 @@ body[data-channel="dont-get-traced"] #channel-logo{width:72px;height:72px;object
 
 .publishing-plan{display:flex;align-items:flex-start;justify-content:space-between;gap:20px;background:#fff;border:1px solid var(--line);border-left:3px solid #729551;border-radius:12px;padding:20px 23px;margin-bottom:20px}.publishing-plan h2{font-size:20px;margin:7px 0 9px}.publishing-plan p{font-size:11px;line-height:1.7}.publishing-plan .eyebrow{font-size:9px}.publishing-plan .publishing-status{color:#946e2f;margin-top:9px}.publishing-plan>.btn{flex-shrink:0}@media(max-width:650px){.publishing-plan{display:block;padding:17px 16px}.publishing-plan>.btn{display:inline-block;margin-top:13px}.publishing-plan h2{font-size:18px}}
 #schedule-note{padding:0 24px;margin:0 0 18px}
+
+/* Full metric values need card-sized columns, regardless of viewport width. */
+.channel-metrics{grid-template-columns:repeat(auto-fit,minmax(min(100%,145px),1fr));gap:16px 20px}
+.channel-metrics>div{min-width:0}
+.channel-metrics strong{font-size:22px;line-height:1.25;letter-spacing:-.5px;white-space:normal;overflow-wrap:anywhere}
+.channel-top>div{min-width:0}
+.channel-tagline{overflow-wrap:anywhere}
