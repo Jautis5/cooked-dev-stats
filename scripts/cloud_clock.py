@@ -3,7 +3,7 @@
 Each short job starts its successor through workflow_dispatch. The environment
 holds that successor for 15 minutes before assigning a runner. Cron is backup.
 """
-import datetime, json, os, time
+import datetime, json, os, time, urllib.error
 from cloud_api import CloudAPI
 from snapshot_merge import timestamp
 
@@ -47,16 +47,25 @@ def ensure_successor(client, current_run, sleep=time.sleep):
     child = find()
     if child:
         return child
-    try:
-        client.call('/actions/workflows/clock.yml/dispatches',
-                    {'ref':'main','inputs':{'predecessor':str(current_run),'timer':'social-stats-clock'}})
-    except Exception:
-        # A timed-out response can still have created the job. Read back first.
-        sleep(2)
-        child = find()
-        if child:
-            return child
-        raise
+    for attempt in range(3):
+        try:
+            client.call('/actions/workflows/clock.yml/dispatches',
+                        {'ref':'main','inputs':{'predecessor':str(current_run),'timer':'social-stats-clock'}})
+            break
+        except Exception as error:
+            # A failed response may still have created the successor. Allow
+            # listing propagation before retrying the same parent identity.
+            for _ in range(3):
+                sleep(2)
+                child = find()
+                if child:
+                    return child
+            retryable = (isinstance(error, (TimeoutError, urllib.error.URLError))
+                         and (not isinstance(error, urllib.error.HTTPError)
+                              or error.code in (429, 500, 502, 503, 504)))
+            if not retryable or attempt == 2:
+                raise
+            sleep(2 ** (attempt + 1))
     for _ in range(10):
         child = find()
         if child:
