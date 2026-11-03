@@ -78,4 +78,97 @@ class BrowserBundleTests(unittest.TestCase):
             self.assertEqual(len(merge_bundle(root,bundle)),3)
             self.assertEqual((extra/'latest.json').read_bytes(),before)
 
+    def test_equal_capture_times_keep_independent_channel_reports(self):
+        with tempfile.TemporaryDirectory() as folder:
+            root=pathlib.Path(folder);bundle=self.fixture(root)
+            first=copy.deepcopy(bundle);first['channels']={'cooked-dev':bundle['channels']['cooked-dev']}
+            merge_bundle(root,first)
+            before=json.loads((root/'data/browser-health.json').read_text())
+            second=copy.deepcopy(bundle);second['channels']={'indian-builds':bundle['channels']['indian-builds']}
+            merge_bundle(root,second)
+            health=json.loads((root/'data/browser-health.json').read_text())
+            self.assertEqual(health['completedAt'],bundle['capturedAt'])
+            self.assertEqual(health['channels']['cooked-dev'],before['channels']['cooked-dev'])
+            self.assertEqual(health['channels']['indian-builds']['checkedAt'],bundle['capturedAt'])
+
+    def test_older_global_capture_updates_newer_channel_report(self):
+        with tempfile.TemporaryDirectory() as folder:
+            root=pathlib.Path(folder);bundle=self.fixture(root)
+            previous={'provider':'authorized_local_browser','startedAt':'2026-10-28T11:59:00Z',
+                      'completedAt':'2026-10-28T12:00:00Z','channels':{
+                          'cooked-dev':{'checkedAt':'2026-10-28T12:00:00Z','metricsUpdated':9},
+                          'indian-builds':{'checkedAt':'2026-10-28T08:00:00Z','metricsUpdated':7}}}
+            (root/'data/browser-health.json').write_text(json.dumps(previous))
+            bundle['channels']={'indian-builds':bundle['channels']['indian-builds']}
+            merge_bundle(root,bundle)
+            health=json.loads((root/'data/browser-health.json').read_text())
+            self.assertEqual(health['completedAt'],previous['completedAt'])
+            self.assertEqual(health['startedAt'],previous['startedAt'])
+            self.assertEqual(health['channels']['cooked-dev'],previous['channels']['cooked-dev'])
+            self.assertEqual(health['channels']['indian-builds']['checkedAt'],bundle['capturedAt'])
+
+    def test_stale_capture_preserves_newer_same_channel_health(self):
+        with tempfile.TemporaryDirectory() as folder:
+            root=pathlib.Path(folder);bundle=self.fixture(root)
+            previous={'provider':'authorized_local_browser','completedAt':'2026-10-28T12:00:00Z',
+                      'channels':{'cooked-dev':{'checkedAt':'2026-10-28T11:00:00Z','metricsUpdated':9}}}
+            (root/'data/browser-health.json').write_text(json.dumps(previous))
+            bundle['channels']={'cooked-dev':bundle['channels']['cooked-dev']}
+            merge_bundle(root,bundle)
+            self.assertEqual(json.loads((root/'data/browser-health.json').read_text()),previous)
+
+    def test_equal_channel_capture_time_recomputes_cumulative_metrics(self):
+        with tempfile.TemporaryDirectory() as folder:
+            root=pathlib.Path(folder);bundle=self.fixture(root)
+            bundle['startedAt']='2026-10-28T10:01:00Z';bundle['capturedAt']='2026-10-28T10:02:00Z'
+            bundle['channels']={'cooked-dev':bundle['channels']['cooked-dev']}
+            merge_bundle(root,bundle)
+            before=json.loads((root/'data/browser-health.json').read_text())
+            self.assertEqual(before['channels']['cooked-dev']['metricsUpdated'],0)
+            post=bundle['channels']['cooked-dev']['videos'][0]['posts']['tiktok']
+            post['metrics']['likes']=metric(3,'2026-10-28T10:01:30Z',post['url'])
+            merge_bundle(root,bundle)
+            health=json.loads((root/'data/browser-health.json').read_text())
+            self.assertEqual(health['channels']['cooked-dev']['checkedAt'],bundle['capturedAt'])
+            self.assertEqual(health['channels']['cooked-dev']['metricsUpdated'],1)
+
+    def test_publisher_keeps_equal_time_channel_reports_during_git_race(self):
+        import subprocess
+        from publish_refresh import publish
+        def git(root,*args):
+            return subprocess.run(['git','-C',str(root),*args],check=True,capture_output=True,text=True).stdout.strip()
+        with tempfile.TemporaryDirectory() as folder:
+            root=pathlib.Path(folder);remote=root/'remote.git';writer=root/'writer';other=root/'other'
+            subprocess.run(['git','init','--bare','--initial-branch=main',str(remote)],check=True,capture_output=True)
+            subprocess.run(['git','clone',str(remote),str(writer)],check=True,capture_output=True)
+            git(writer,'config','user.name','Test');git(writer,'config','user.email','test@example.com')
+            bundle=self.fixture(writer);at=bundle['capturedAt']
+            seed={'provider':'authorized_local_browser','completedAt':at,
+                  'channels':{'indian-builds':{'checkedAt':at,'marker':'seed'}}}
+            cloud={'provider':'GitHub Actions','completedAt':'2026-10-28T08:00:00Z'}
+            (writer/'data/browser-health.json').write_text(json.dumps(seed))
+            (writer/'data/health.json').write_text(json.dumps(cloud))
+            git(writer,'add','.');git(writer,'commit','-m','seed');git(writer,'push','origin','main')
+            subprocess.run(['git','clone',str(remote),str(other)],check=True,capture_output=True)
+            git(other,'config','user.name','Other');git(other,'config','user.email','other@example.com')
+            local={'provider':'authorized_local_browser','completedAt':at,
+                   'channels':{'cooked-dev':{'checkedAt':at,'marker':'local'}}}
+            (writer/'data/browser-health.json').write_text(json.dumps(local))
+            def race(attempt):
+                if attempt:return
+                concurrent=copy.deepcopy(seed);concurrent['channels']['indian-builds']['marker']='concurrent'
+                concurrent['channels']['dont-get-traced']={'checkedAt':at,'marker':'concurrent'}
+                (other/'data/browser-health.json').write_text(json.dumps(concurrent))
+                (other/'data/health.json').write_text(json.dumps(dict(cloud,completedAt='2026-10-28T11:00:00Z')))
+                git(other,'add','.');git(other,'commit','-m','concurrent health');git(other,'push','origin','main')
+            publish(writer,before_push=race)
+            health=json.loads(git(remote,'show','main:data/browser-health.json'))
+            self.assertEqual(health['completedAt'],at)
+            self.assertEqual(set(health['channels']),{'cooked-dev','indian-builds','dont-get-traced'})
+            self.assertEqual(health['channels']['cooked-dev'],local['channels']['cooked-dev'])
+            self.assertEqual(health['channels']['indian-builds']['marker'],'concurrent')
+            self.assertEqual(health['channels']['dont-get-traced']['checkedAt'],at)
+            self.assertEqual(json.loads(git(remote,'show','main:data/health.json'))['completedAt'],'2026-10-28T11:00:00Z')
+            self.assertEqual(json.loads((writer/'data/browser-health.json').read_text()),local)
+
 if __name__=='__main__':unittest.main()
