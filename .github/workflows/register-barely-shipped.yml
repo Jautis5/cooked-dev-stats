@@ -1,0 +1,57 @@
+name: Register Barely Shipped
+on: workflow_dispatch
+permissions:
+  contents: write
+  actions: write
+jobs:
+  register:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Register identities
+        run: |
+          python - <<'PY'
+          import json,pathlib,sys
+          sys.path.insert(0,'scripts')
+          from snapshot_merge import validate
+          cid='barely-shipped'
+          def save(p,d):
+              p=pathlib.Path(p);p.parent.mkdir(parents=True,exist_ok=True);p.write_text(json.dumps(d,ensure_ascii=False,indent=2)+'\n')
+          path=pathlib.Path('data/'+cid+'/latest.json')
+          if not path.exists():
+              d={'version':1,'channelId':cid,'brand':{'name':'Barely Shipped'},'accounts':[],'videos':[],'history':[],'discovery':{},'tracking':{'excludedPostIds':{},'note':'Inventory not yet verified.'}}
+              for platform,name,handle,url in [('instagram','Instagram','bareelyshipped','https://www.instagram.com/bareelyshipped/'),('tiktok','TikTok','barelyshipped','https://www.tiktok.com/@barelyshipped')]:
+                  d['accounts'].append(dict(id=platform,name=name,handle=handle,expectedHandle=handle,url=url,status='unavailable',message='First public observation pending.',metrics={}))
+              validate(d);save(path,d);save('site/data/'+cid+'.json',d)
+          for file,item in [('data/channels.json',dict(id=cid,name='Barely Shipped',dataPath='data/'+cid+'/latest.json')),('site/data/channels.json',dict(id=cid,name='Barely Shipped',dataUrl='https://raw.githubusercontent.com/Jautis5/cooked-dev-stats/main/data/'+cid+'/latest.json',fallbackUrl='data/'+cid+'.json'))]:
+              d=json.loads(pathlib.Path(file).read_text())
+              if not any(c['id']==cid for c in d['channels']): d['channels'].append(item)
+              save(file,d)
+          PY
+      - name: Validate
+        run: |
+          python -m unittest discover -s scripts -p 'test_*.py'
+          node scripts/test_workspace.cjs
+      - name: Publish
+        run: |
+          git add data/channels.json data/barely-shipped site/data/channels.json site/data/barely-shipped.json
+          git config user.name 'Social Stats Cloud'
+          git config user.email 'stats@users.noreply.github.com'
+          if ! git diff --cached --quiet; then
+            git commit -m 'Register Barely Shipped tracking'
+            for attempt in 1 2 3 4; do
+              if git push origin HEAD:main; then break; fi
+              git fetch origin main
+              git rebase origin/main
+            done
+            git fetch origin main
+            git merge-base --is-ancestor HEAD origin/main
+          fi
+      - name: Refresh and publish
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh workflow run refresh.yml --repo "$GITHUB_REPOSITORY" --ref main
+          gh workflow run pages.yml --repo "$GITHUB_REPOSITORY" --ref main
