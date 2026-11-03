@@ -8,8 +8,8 @@ Dashboard source lives in `site/`; Sites is a published mirror of this source.
 ## Sources and identities
 
 `data/channels.json` identifies every channel feed. Read each feed's `accounts`
-and `tracking` settings before collecting. There are four channels: Cooked Dev,
-Indian Builds, DontGetTraced and DUMB LUCK. DontGetTraced Instagram is **dontgettraced**;
+and `tracking` settings before collecting. The registry is authoritative; it currently includes Cooked Dev,
+Indian Builds, DontGetTraced, DUMB LUCK, NoCode Kevin and Barely Shipped. DontGetTraced Instagram is **dontgettraced**;
 the old dongettraced handle was wrong. Indian Builds Instagram/TikTok is
 indian_builds; X is IndiaanBuilds. The former indiaanbuilds Instagram/TikTok
 identity was corrected on 22 October. Read the feed rather than restoring an
@@ -56,7 +56,7 @@ Keep raw captures private. Import a normalized public-only capture with:
 python scripts/import_channel_capture.py --input <private-capture.json> --dashboard <channel dataPath>
 ```
 
-The importer now supports all three channels, including cooked-dev. It preserves
+The importer supports registered channel IDs, including cooked-dev. It preserves
 original per-metric dates and reports the last fully checked inventory date.
 
 ## One video, many publications
@@ -151,3 +151,29 @@ through the existing Jautis5 browser; do not fall back to the old CLI account.
 ## DUMB LUCK — 28 October 2026
 
 Owner-confirmed profiles: Instagram `duumb_luck`, TikTok `duumbluck`, YouTube channel `UCB-BqPU60vRfUWGalt6fRtQ`. Only measured public posts and metrics belong in the feed; scheduled uploads are not public posts. The public collector and browser bundle support this fourth channel. Missing measurements stay unknown, and per-metric timestamps are preserved.
+## Unattended public collection — 3 November 2026
+
+All registered feeds are collected by GitHub Actions; Codex and the Mac are not
+required for those public cloud sources. New TikTok/YouTube public fallback IDs
+are discovered before per-post detail checks, so new videos receive available
+engagement reads in the same cycle. Recovery artifacts include every channel.
+
+Facebook public grids now run in anonymous cloud Chromium. A grid view count
+is stored as views only after exact video ID and registered Page owner checks.
+The separate yt-dlp video_view_count stays facebookPublicVideoViews; the two
+counters are not interchangeable. Anonymous grids remain partial.
+
+The six-account Instaloader 4.16 test (Actions run 41619850293) returned login
+requirements for every profile from GitHub. The same public route could read
+Barely Shipped locally, which does not prove cloud availability. Its diagnostic
+workflow is manual-only and does not mark lists complete or import failed reads.
+No cookie/session transfer, proxy rotation or paid provider is configured.
+
+Barely Shipped (barely-shipped) tracks only Instagram bareelyshipped and TikTok
+barelyshipped. NoCode Kevin tracks only Instagram nocode_kevin and TikTok
+nocodekevin. A registration with no observations is not an empty-profile claim.
+
+Browser deltas can be sent via the existing Jautis5 session using the optional
+public_bundle input of browser-capture.yml, maximum 65000 UTF-8 bytes. Preserve
+full account identities and actual per-metric dates. Verify main and Pages after
+the workflow completes; no owner file upload or manual commit is required.
