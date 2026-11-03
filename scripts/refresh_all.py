@@ -89,7 +89,7 @@ def refresh(root=ROOT):
                     data['discovery'][platform] = result
             for account in data['accounts']:
                 if account.get('status') == 'unavailable' and any(
-                    m.get('at') == started for obj in [account] + [v['posts'][account['id']] for v in data['videos'] if account['id'] in v['posts']]
+                    base.is_current(m) for obj in [account] + [v['posts'][account['id']] for v in data['videos'] if account['id'] in v['posts']]
                     for m in obj.get('metrics', {}).values()):
                     account.update(status='partial', lastSuccessAt=started, message='Some public metrics refreshed; publication inventory remains incomplete.')
             official_broker.refresh(data)

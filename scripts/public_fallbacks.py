@@ -78,7 +78,7 @@ def youtube_shorts(data, account):
             value, approx = rounded_count(meta.get('secondaryText', {}).get('content', ''))
             # Prefer the exact feed/player observation when supplied in this run.
             prior = post.get('metrics', {}).get('views', {})
-            if prior.get('at') != base.NOW or prior.get('approximate'):
+            if not base.is_current(prior) or prior.get('approximate'):
                 base.setmetric(post, 'views', value, post['url'], approx)
             count += 1
     return {'status': 'partial', 'method': 'public_shorts_tab', 'newVideos': len(data['videos'])-before, 'listedPosts': count, 'complete': False}
@@ -127,11 +127,11 @@ def refresh_fallbacks(data):
                 if 'x' not in video['posts']: continue
                 post = video['posts']['x']
                 # The timeline already supplies recent posts; query older known posts separately.
-                if post.get('metrics', {}).get('views', {}).get('at') != base.NOW:
+                if not base.is_current(post.get('metrics', {}).get('views', {})):
                     base.attempt(public_x.known_post, post, account)
-                if not any(post.get('metrics', {}).get(k, {}).get('at') == base.NOW for k in ['likes', 'comments']):
+                if not any(base.is_current(post.get('metrics', {}).get(k, {})) for k in ['likes', 'comments']):
                     base.attempt(x_public, post, account)
-        fresh = any(m.get('at') == base.NOW for obj in [account]+[v['posts'][platform] for v in data['videos'] if platform in v['posts']] for m in obj.get('metrics', {}).values())
+        fresh = any(base.is_current(m) for obj in [account]+[v['posts'][platform] for v in data['videos'] if platform in v['posts']] for m in obj.get('metrics', {}).values())
         if fresh and account.get('status') == 'unavailable':
             account.update(status='partial', lastSuccessAt=base.NOW, message='Some public metrics refreshed; publication inventory remains incomplete.')
     return data

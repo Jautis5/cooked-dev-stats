@@ -38,7 +38,7 @@ class ChannelSafety(unittest.TestCase):
         with patch.object(c.base,'request',return_value='ignored'),patch.object(c.base,'state',return_value={'webapp.user-detail':scope}):
             out=c.refresh(copy.deepcopy(self.data))
         self.assertEqual(out['accounts'][1]['metrics']['publishedCount']['value'],0)
-        self.assertEqual(out['accounts'][1]['metrics']['publishedCount']['at'],c.base.NOW)
+        self.assertEqual(out['accounts'][1]['metrics']['publishedCount']['collectionCycleAt'],c.base.NOW)
         self.assertEqual(out['discovery']['tiktok']['reportedPosts'],0)
         self.assertFalse(out['discovery']['tiktok']['complete'])
     def test_missing_upload_count_does_not_invent_zero(self):

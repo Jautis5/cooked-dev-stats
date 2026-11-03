@@ -20,7 +20,7 @@ def youtube_profile(account,page,has_posts=False):
     if empty and not has_posts:
         base.setmetric(account,'publishedCount',0,account['url']);base.setmetric(account,'trackedPublishedCount',0,account['url'])
         account['trackedEmptyConfirmedAt']=base.NOW
-    if empty or any(m.get('at')==base.NOW for m in account.get('metrics',{}).values()):
+    if empty or any(base.is_current(m) for m in account.get('metrics',{}).values()):
         account.update(status='partial',lastSuccessAt=base.NOW,message='Verified YouTube profile checked; metric observation dates retained.')
     return account
 
@@ -93,10 +93,10 @@ def refresh(data):
             result,error=base.attempt(fn,post)
             if result:
                 video['posts'][platform]=result;refreshed+=1
-        fresh=any(m.get('at')==now for v in data['videos'] for m in v['posts'].get(platform,{}).get('metrics',{}).values())
+        fresh=any(base.is_current(m) for v in data['videos'] for m in v['posts'].get(platform,{}).get('metrics',{}).values())
         if refreshed or fresh:account.update(status='partial',lastSuccessAt=now,message='Public video metrics updated; per-metric dates retained.')
     data['generatedAt']=now
-    data['cloudCollection']={'at':now,'method':'public_cloud','metricsUpdated':{a['id']:sum(m.get('at')==now for v in data['videos'] for m in v['posts'].get(a['id'],{}).get('metrics',{}).values())+sum(m.get('at')==now for m in a.get('metrics',{}).values()) for a in data['accounts']}}
+    data['cloudCollection']={'at':now,'method':'public_cloud','metricsUpdated':{a['id']:sum(base.is_current(m) for v in data['videos'] for m in v['posts'].get(a['id'],{}).get('metrics',{}).values())+sum(base.is_current(m) for m in a.get('metrics',{}).values()) for a in data['accounts']}}
     return data
 
 def record(data,directory):

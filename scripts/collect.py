@@ -20,9 +20,15 @@ def num(v):
   n=int(v)
   return n if n>=0 else None
  except (ValueError,TypeError):return None
-def setmetric(obj,key,value,url,approx=False):
+def is_current(metric):
+ return metric.get('collectionCycleAt',metric.get('at'))==NOW
+def setmetric(obj,key,value,url,approx=False,observed_at=None):
  value=num(value)
- if value is not None:obj.setdefault('metrics',{})[key]={'value':value,'at':NOW,'source':url,'approximate':approx}
+ if value is not None:
+  at=observed_at or datetime.datetime.now(datetime.timezone.utc).isoformat()
+  parsed=datetime.datetime.fromisoformat(at.replace('Z','+00:00'))
+  if parsed.tzinfo is None:raise ValueError('Metric observation requires a timezone')
+  obj.setdefault('metrics',{})[key]={'value':value,'at':at,'source':url,'approximate':approx,'collectionCycleAt':NOW}
 def state(text):
  m=re.search(r'<script[^>]+id=["\']__UNIVERSAL_DATA_FOR_REHYDRATION__["\'][^>]*>(.*?)</script>',text,re.S)
  if not m:raise ValueError('Viešas statistikos blokas nepasiekiamas')
@@ -41,7 +47,7 @@ def instagram_video(post):
   info=ydl.extract_info(post['url'],download=False)
  if str(info.get('id'))!=post['id']:raise ValueError('Įrašo tapatybė nepatvirtinta')
  for key,field in [('views','view_count'),('likes','like_count'),('comments','comment_count'),('shares','repost_count')]:setmetric(post,key,info.get(field),post['url'])
- if not any(m.get('at')==NOW for m in post['metrics'].values()):raise ValueError('Statistikos nėra')
+ if not any(is_current(m) for m in post['metrics'].values()):raise ValueError('Statistikos nėra')
  return post
 def youtube_video(post, channel_id):
  # Read public metadata only: no video download, browser session or private API key.
@@ -193,7 +199,7 @@ def collect(data):
  from discover_public import discover_youtube
  added,discovery_error=attempt(discover_youtube,data,accounts['youtube'],request,setmetric)
  data.setdefault('discovery',{})['youtube']={'checkedAt':NOW,'status':'unavailable' if discovery_error else 'checked','newVideos':added or 0}
- if any(v['posts'].get('youtube',{}).get('metrics',{}).get('views',{}).get('at')==NOW for v in data['videos']):
+ if any(is_current(v['posts'].get('youtube',{}).get('metrics',{}).get('views',{})) for v in data['videos']):
   accounts['youtube'].update(status='partial',lastSuccessAt=NOW,message='Owner-verified public channel feed updated video view counts.')
  jobs=[];results={'tiktok':[],'instagram':[],'youtube':[]}
  with concurrent.futures.ThreadPoolExecutor(max_workers=3) as pool:
@@ -207,7 +213,7 @@ def collect(data):
  for platform,oks in results.items():
   a=accounts[platform];count=sum(oks)
   if count:
-   fresh_views=all(v['posts'][platform].get('metrics',{}).get('views',{}).get('at')==NOW for v in data['videos'] if platform in v['posts'])
+   fresh_views=all(is_current(v['posts'][platform].get('metrics',{}).get('views',{})) for v in data['videos'] if platform in v['posts'])
    a.update(status='ok' if count==len(oks) and fresh_views else 'partial',lastSuccessAt=NOW,message=f'Atnaujinta {count}/{len(oks)} įrašų. Atskirų rodiklių patikros laikas gali skirtis.')
  # YouTube public page: only explicit public empty-state text justifies zero uploads.
  yt=accounts['youtube'];page,error=attempt(request,yt['url']+'?hl=en')
@@ -227,7 +233,7 @@ def collect(data):
      n=float(m[1].replace(',',''))*({'K':1000,'M':1000000,'B':1000000000}.get(m[2].upper(),1));setmetric(yt,'followers',round(n),yt['url'],bool(m[2]));break
    empty=any('channel doesn’t have any content' in t.lower() or "channel doesn't have any content" in t.lower() or 'channel has no content' in t.lower() for t in texts)
    if empty and not any('youtube' in v['posts'] for v in data['videos']):yt.update(status='ok',lastSuccessAt=NOW,emptyConfirmedAt=NOW,message='Viešame kanale turinio nėra.')
-   elif any(m.get('at')==NOW for m in yt['metrics'].values()):yt.update(status='partial',lastSuccessAt=NOW,message='Profilis pasiekiamas. Visas publikacijų sąrašas nepatvirtintas.')
+   elif any(is_current(m) for m in yt['metrics'].values()):yt.update(status='partial',lastSuccessAt=NOW,message='Profilis pasiekiamas. Visas publikacijų sąrašas nepatvirtintas.')
   except Exception:pass
  # X and Facebook can require account APIs. A login wall or challenge is never parsed as zero.
  for platform in ['x','facebook']:
@@ -237,8 +243,8 @@ def collect(data):
   else:a['message']='Automatinė vieša statistika nepasiekiama. Palikti paskutiniai patikrinti duomenys.'
  data['generatedAt']=NOW
  data['cloudCollection']={'at':NOW,'method':'public_cloud','metricsUpdated':{
-  a['id']:sum(m.get('at')==NOW for v in data['videos'] for p in [v['posts'].get(a['id'],{})] for m in p.get('metrics',{}).values())
-             +sum(m.get('at')==NOW for m in a.get('metrics',{}).values()) for a in accounts.values()}}
+  a['id']:sum(is_current(m) for v in data['videos'] for p in [v['posts'].get(a['id'],{})] for m in p.get('metrics',{}).values())
+             +sum(is_current(m) for m in a.get('metrics',{}).values()) for a in accounts.values()}}
  if os.environ.get('GITHUB_ACTIONS')=='true':
   data['cloudCollection']['runUrl']='https://github.com/'+os.environ['GITHUB_REPOSITORY']+'/actions/runs/'+os.environ['GITHUB_RUN_ID']
  total=sum(m['value'] for v in data['videos'] for p in v['posts'].values() for k,m in p['metrics'].items() if k=='views')
