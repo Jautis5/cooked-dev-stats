@@ -171,4 +171,35 @@ class BrowserBundleTests(unittest.TestCase):
             self.assertEqual(json.loads(git(remote,'show','main:data/health.json'))['completedAt'],'2026-10-28T11:00:00Z')
             self.assertEqual(json.loads((writer/'data/browser-health.json').read_text()),local)
 
+    def test_completeness_revocation_survives_bundle_replay_without_metric_changes(self):
+        with tempfile.TemporaryDirectory() as folder:
+            root=pathlib.Path(folder);bundle=self.fixture(root)
+            bad='2026-10-28T09:00:00Z';fallback='2026-10-28T08:00:00Z'
+            current=json.loads((root/'data/latest.json').read_text())
+            current['discovery']={'tiktok':{'complete':True,'checkedAt':bad,'lastCompleteAt':bad,'lastCompletePostCount':1}}
+            (root/'data/latest.json').write_text(json.dumps(current))
+            original_metrics=copy.deepcopy(current['videos'][0]['posts']['tiktok']['metrics'])
+            candidate=copy.deepcopy(current);candidate['discovery']={'tiktok':{'revokedCompleteChecks':[{
+                'at':bad,'fallbackAt':fallback,'recordedAt':'2026-10-28T10:00:00Z',
+                'reason':'Outer document end did not verify the actual video-list terminal state.'}]}}
+            bundle['channels']={'cooked-dev':candidate}
+            merge_bundle(root,bundle)
+            stale=copy.deepcopy(bundle);stale['channels']={'cooked-dev':current};merge_bundle(root,stale)
+            corrected=json.loads((root/'data/latest.json').read_text())
+            self.assertEqual(corrected['videos'][0]['posts']['tiktok']['metrics'],original_metrics)
+            self.assertEqual(corrected['videos'][0]['assetUrl'],current['videos'][0]['assetUrl'])
+            self.assertEqual(corrected['discovery']['tiktok']['lastCompleteAt'],fallback)
+            self.assertEqual(corrected['discovery']['tiktok']['checkedAt'],bad)
+            self.assertFalse(corrected['discovery']['tiktok']['complete'])
+
+    def test_invalid_revocation_in_last_channel_keeps_bundle_atomic(self):
+        with tempfile.TemporaryDirectory() as folder:
+            root=pathlib.Path(folder);bundle=self.fixture(root)
+            before={p:p.read_bytes() for p in (root/'data').rglob('*') if p.is_file()}
+            bundle['channels']['dont-get-traced']['discovery']={'tiktok':{'revokedCompleteChecks':[{
+                'at':'2026-10-28T09:00:00Z','fallbackAt':'2026-10-28T11:00:00Z',
+                'recordedAt':'2026-10-28T10:00:00Z','reason':'Invalid future fallback'}]}}
+            with self.assertRaises(ValueError):merge_bundle(root,bundle)
+            self.assertEqual({p:p.read_bytes() for p in before},before)
+
 if __name__=='__main__':unittest.main()
