@@ -16,21 +16,21 @@
       "metrics": {
         "followers": {
           "value": 1,
-          "at": "2026-11-03T13:28:48.597Z",
+          "at": "2026-11-03T13:50:28.471Z",
           "source": "https://www.instagram.com/bareelyshipped/",
           "method": "browser_bulk",
           "approximate": false
         },
         "following": {
           "value": 0,
-          "at": "2026-11-03T13:28:48.597Z",
+          "at": "2026-11-03T13:50:28.471Z",
           "source": "https://www.instagram.com/bareelyshipped/",
           "method": "browser_bulk",
           "approximate": false
         },
         "publishedCount": {
           "value": 1,
-          "at": "2026-11-03T13:28:48.597Z",
+          "at": "2026-11-03T13:50:28.471Z",
           "source": "https://www.instagram.com/bareelyshipped/",
           "method": "browser_bulk",
           "approximate": false
@@ -68,6 +68,13 @@
           "source": "https://www.tiktok.com/@barelyshipped",
           "approximate": false,
           "collectionCycleAt": "2026-11-03T14:08:14.680901+00:00"
+        },
+        "following": {
+          "value": 0,
+          "at": "2026-11-03T13:50:28.471Z",
+          "source": "https://www.tiktok.com/@barelyshipped",
+          "method": "browser_bulk",
+          "approximate": false
         }
       },
       "lastAttemptAt": "2026-11-03T14:08:14.680901+00:00",
@@ -122,6 +129,13 @@
               "source": "https://www.tiktok.com/@barelyshipped/video/7703879350826880278",
               "approximate": false,
               "collectionCycleAt": "2026-11-03T14:08:14.680901+00:00"
+            },
+            "publicGridViews": {
+              "value": 245,
+              "at": "2026-11-03T13:50:28.471Z",
+              "source": "https://www.tiktok.com/@barelyshipped/video/7703879350826880278",
+              "method": "browser_bulk",
+              "approximate": false
             }
           }
         }
@@ -142,7 +156,7 @@
           "metrics": {
             "views": {
               "value": 123,
-              "at": "2026-11-03T13:28:48.597Z",
+              "at": "2026-11-03T13:50:28.471Z",
               "source": "https://www.instagram.com/bareelyshipped/reel/DfRm1jRRTdu/",
               "method": "browser_bulk",
               "approximate": false
@@ -369,13 +383,15 @@
       "complete": false,
       "checkedAt": "2026-11-03T14:08:14.680901+00:00",
       "feedStatus": "profile_checked",
-      "reportedPosts": 2
+      "reportedPosts": 2,
+      "lastCompleteAt": "2026-11-03T13:50:28.471Z"
     },
     "instagram": {
       "status": "session_required",
       "checkedAt": "2026-11-03T14:08:14.680901+00:00",
       "complete": false,
-      "message": "New-publication discovery requires an authorized account list; a successful metrics check is not a complete list."
+      "message": "New-publication discovery requires an authorized account list; a successful metrics check is not a complete list.",
+      "lastCompleteAt": "2026-11-03T13:50:28.471Z"
     }
   },
   "tracking": {
