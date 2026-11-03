@@ -2,7 +2,7 @@
 import copy, datetime, json, pathlib
 import collect_channels
 from publications import reconcile
-from snapshot_merge import merge_snapshot, timestamp, validate
+from snapshot_merge import merge_channel_health, merge_snapshot, timestamp, validate
 from refresh_all import metric_health
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
@@ -50,11 +50,9 @@ def merge_bundle(root, bundle):
     # Browser coverage must never replace the independent cloud collector report.
     health_path = root/'data/browser-health.json'
     previous = json.loads(health_path.read_text()) if health_path.exists() else {}
-    if timestamp(health['completedAt']) > timestamp(previous.get('completedAt')):
-        # Retain independently dated reports for registered channels absent from
-        # this partial capture. Do not call their older metrics freshly checked.
-        health['channels'] = {**previous.get('channels', {}), **health['channels']}
-        health_path.write_text(json.dumps(health,ensure_ascii=False,indent=2)+'\n')
+    combined = merge_channel_health(previous, health)
+    if combined != previous:
+        health_path.write_text(json.dumps(combined,ensure_ascii=False,indent=2)+'\n')
     return staged
 
 if __name__ == '__main__':
