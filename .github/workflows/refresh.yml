@@ -41,6 +41,94 @@ jobs:
           node scripts/test_chart.cjs
           node scripts/test_workspace.cjs
           node scripts/test_official_broker.cjs
+      - name: Discover and import verified Facebook public grid views
+        timeout-minutes: 6
+        continue-on-error: true
+        run: |
+          python -m pip install 'playwright==1.56.0'
+          python -m playwright install --with-deps chromium
+          python - <<'PY'
+          import datetime, json, pathlib, re, sys
+          from urllib.parse import urlsplit, parse_qs
+          import yt_dlp
+          from playwright.sync_api import sync_playwright
+          sys.path.insert(0, 'scripts')
+          from import_channel_capture import merge
+          from collect_channels import record
+          root = pathlib.Path.cwd()
+          def stamp():
+              return datetime.datetime.now(datetime.timezone.utc).isoformat()
+          def count(label):
+              m = re.fullmatch(r'([0-9]+(?:[.,][0-9]+)?)\s*([KMB]?)', label.strip(), re.I)
+              if not m:return None
+              raw, unit = m.groups()
+              if ',' in raw and not unit and len(raw.split(',')[-1]) == 3:raw = raw.replace(',', '')
+              else:raw = raw.replace(',', '.')
+              return dict(value=round(float(raw)*{'':1,'K':1000,'M':1000000,'B':1000000000}[unit.upper()]), approximate=bool(unit))
+          assert count('67K') == {'value':67000,'approximate':True}
+          assert count('446') == {'value':446,'approximate':False}
+          assert count('Log in') is None
+          with sync_playwright() as p:
+              browser = p.chromium.launch(headless=True, args=['--mute-audio'])
+              for channel in json.loads((root/'data/channels.json').read_text())['channels']:
+                  path = root/channel['dataPath']
+                  data = json.loads(path.read_text())
+                  account = next((a for a in data['accounts'] if a['id']=='facebook'), None)
+                  if not account:continue
+                  owner = account.get('expectedPageId') or parse_qs(urlsplit(account['url']).query).get('id',[''])[0]
+                  if not owner:continue
+                  url = account['url']
+                  url += '&sk=reels_tab' if 'profile.php?' in url else ''
+                  context = browser.new_context(locale='en-US', viewport={'width':1280,'height':900})
+                  page = context.new_page()
+                  page.route('**/*', lambda route: route.abort() if route.request.resource_type == 'media' else route.continue_())
+                  found = {}
+                  try:
+                      page.goto(url, wait_until='domcontentloaded', timeout=25000)
+                      page.wait_for_timeout(2500)
+                      final = urlsplit(page.url)
+                      if owner not in final.path.split('/') and parse_qs(final.query).get('id') != [owner]:
+                          raise ValueError('Page owner redirect mismatch')
+                      stable = 0
+                      for attempt in range(20):
+                          previous = len(found)
+                          observed = stamp()
+                          rows = page.locator('a[href]').evaluate_all("els => els.map(a => ({url:a.href,label:(a.innerText || a.getAttribute('aria-label') || '').trim()}))")
+                          for row in rows:
+                              match = re.fullmatch(r'https://www[.]facebook[.]com/reel/([0-9]+)/?(?:[?].*)?',row['url'])
+                              metric = count(row['label'])
+                              if match and metric is not None:
+                                  found[match[1]] = dict(id=match[1],url='https://www.facebook.com/reel/'+match[1]+'/',metric=metric,at=observed)
+                          stable = stable+1 if len(found)==previous else 0
+                          if stable >= 3:break
+                          page.mouse.wheel(0, 1400)
+                          page.wait_for_timeout(1500)
+                  except Exception as e:
+                      print(json.dumps(dict(channelId=channel['id'],stage='grid',errorType=type(e).__name__)))
+                  finally:
+                      context.close()
+                  imported = 0
+                  before = len(data['videos'])
+                  for item in found.values():
+                      try:
+                          with yt_dlp.YoutubeDL(dict(quiet=True,skip_download=True,cachedir=False,noplaylist=True,socket_timeout=10,retries=0,extractor_retries=0)) as y:
+                              info = y.extract_info(item['url'],download=False)
+                          if not info or str(info.get('id')) != item['id'] or str(info.get('uploader_id')) != str(owner):continue
+                          if not info.get('formats') and not info.get('url'):continue
+                          caption = info.get('description') or info.get('title')
+                          if not caption:continue
+                          post = dict(id=item['id'],url=item['url'],caption=caption,public=True,isVideo=True,ownerPageId=str(owner),metrics={'views':item['metric']})
+                          capture = dict(channelId=channel['id'],platforms={'facebook':dict(accountUrl=account['url'],browserProfile='github-actions-anonymous',observedAt=item['at'],completeList=False,posts=[post])})
+                          data = merge(data,capture)
+                          imported += 1
+                      except Exception as e:
+                          print(json.dumps(dict(channelId=channel['id'],postId=item['id'],stage='verify',errorType=type(e).__name__)))
+                  if imported:
+                      record(data,path.parent)
+                  print(json.dumps(dict(channelId=channel['id'],gridCandidates=len(found),verifiedGridViews=imported,newVideos=len(data['videos'])-before,inventoryComplete=False)),flush=True)
+              browser.close()
+          
+          PY
       - name: Collect registered channels without a browser
         id: collect
         continue-on-error: true
