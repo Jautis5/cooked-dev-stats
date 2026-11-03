@@ -76,8 +76,22 @@ def refresh(root=ROOT):
         previous = json.loads(path.read_text())
         try:
             prepared = reconcile(copy.deepcopy(previous))
+            # Discover public URLs before per-post collectors visit known IDs.
+            refresh_fallbacks(prepared)
+            discoveries = copy.deepcopy(prepared.get('discovery', {}))
             data = base.collect(prepared) if config['id'] == 'cooked-dev' else extra.refresh(prepared)
-            refresh_fallbacks(data)
+            for platform, result in discoveries.items():
+                current = data.setdefault('discovery', {}).get(platform, {})
+                if result.get('method') in ('public_creator_embed', 'public_shorts_tab'):
+                    result['feedStatus'] = current.get('status')
+                    result['newVideos'] = result.get('newVideos', 0) + (0 if current.get('method') == result.get('method') else current.get('newVideos', 0))
+                    if 'reportedPosts' in current: result['reportedPosts'] = current['reportedPosts']
+                    data['discovery'][platform] = result
+            for account in data['accounts']:
+                if account.get('status') == 'unavailable' and any(
+                    m.get('at') == started for obj in [account] + [v['posts'][account['id']] for v in data['videos'] if account['id'] in v['posts']]
+                    for m in obj.get('metrics', {}).values()):
+                    account.update(status='partial', lastSuccessAt=started, message='Some public metrics refreshed; publication inventory remains incomplete.')
             official_broker.refresh(data)
             reconcile(data)
             preserve_verified_inventory(data, previous)
