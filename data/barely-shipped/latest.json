@@ -81,7 +81,7 @@
         },
         "following": {
           "value": 0,
-          "at": "2026-11-03T15:25:09.986Z",
+          "at": "2026-11-03T20:36:15.147Z",
           "source": "https://www.tiktok.com/@barelyshipped",
           "method": "browser_bulk",
           "approximate": false,
@@ -149,12 +149,13 @@
               "collectionCycleAt": "2026-11-03T21:42:48.612405+00:00"
             },
             "publicGridViews": {
-              "value": 249,
-              "at": "2026-11-03T15:26:15.535Z",
+              "value": 257,
+              "at": "2026-11-03T20:36:15.147Z",
               "source": "https://www.tiktok.com/@barelyshipped/video/7703879350826880278",
               "method": "browser_bulk",
               "approximate": false,
-              "displayValue": "249"
+              "displayValue": "257",
+              "definition": "TikTok public profile grid view counter; retained separately from precise public views"
             }
           }
         }
@@ -249,12 +250,13 @@
               "collectionCycleAt": "2026-11-03T21:42:48.612405+00:00"
             },
             "publicGridViews": {
-              "value": 136,
-              "at": "2026-11-03T15:26:15.535Z",
+              "value": 254,
+              "at": "2026-11-03T20:36:15.147Z",
               "source": "https://www.tiktok.com/@barelyshipped/video/7703942805252721923",
               "method": "browser_bulk",
               "approximate": false,
-              "displayValue": "136"
+              "displayValue": "254",
+              "definition": "TikTok public profile grid view counter; retained separately from precise public views"
             }
           }
         }
@@ -347,6 +349,15 @@
               "source": "https://www.tiktok.com/@barelyshipped/video/7704039513294687510",
               "approximate": false,
               "collectionCycleAt": "2026-11-03T21:42:48.612405+00:00"
+            },
+            "publicGridViews": {
+              "value": 98,
+              "at": "2026-11-03T20:36:15.147Z",
+              "source": "https://www.tiktok.com/@barelyshipped/video/7704039513294687510",
+              "method": "browser_bulk",
+              "approximate": false,
+              "displayValue": "98",
+              "definition": "TikTok public profile grid view counter; retained separately from precise public views"
             }
           }
         }
@@ -748,7 +759,6 @@
       "checkedAt": "2026-11-03T21:42:48.612405+00:00",
       "feedStatus": "profile_checked",
       "reportedPosts": 3,
-      "lastCompleteAt": "2026-11-03T14:28:01.760Z",
       "revokedCompleteChecks": [
         {
           "at": "2026-11-03T15:26:15.535Z",
@@ -756,7 +766,8 @@
           "fallbackAt": "2026-11-03T14:28:01.760Z",
           "reason": "Historical full-list claim retracted: outer-document end/count did not independently prove the actual TikTok inner video-list terminal state."
         }
-      ]
+      ],
+      "lastCompleteAt": "2026-11-03T14:28:01.760Z"
     },
     "instagram": {
       "status": "session_required",

@@ -90,7 +90,7 @@
         },
         "following": {
           "value": 1,
-          "at": "2026-11-03T15:24:44.629Z",
+          "at": "2026-11-03T20:36:14.424Z",
           "source": "https://www.tiktok.com/@dontgettraced",
           "method": "browser_bulk",
           "approximate": false,
@@ -137,21 +137,23 @@
       "status": "unavailable",
       "message": "Facebook list metrics need the connected Lost Chrome session; previous observations preserved.",
       "lastAttemptAt": "2026-11-03T21:42:48.612405+00:00",
-      "lastSuccessAt": "2026-11-03T13:40:30.333Z",
+      "lastSuccessAt": "2026-11-03T20:35:51.056Z",
       "metrics": {
         "followers": {
           "value": 0,
-          "at": "2026-11-03T13:40:30.333Z",
+          "at": "2026-11-03T20:35:51.056Z",
           "source": "https://www.facebook.com/profile.php?id=61595574064670",
           "method": "browser_bulk",
-          "approximate": false
+          "approximate": false,
+          "displayValue": "0"
         },
         "following": {
           "value": 0,
-          "at": "2026-11-03T13:40:30.333Z",
+          "at": "2026-11-03T20:35:51.056Z",
           "source": "https://www.facebook.com/profile.php?id=61595574064670",
           "method": "browser_bulk",
-          "approximate": false
+          "approximate": false,
+          "displayValue": "0"
         }
       }
     },
@@ -185,17 +187,18 @@
         },
         "trackedPublishedCount": {
           "value": 0,
-          "at": "2026-11-03T13:42:15.963Z",
+          "at": "2026-11-03T20:39:40.523Z",
           "source": "https://x.com/DontGetTraced",
           "method": "browser_bulk",
           "approximate": false
         },
         "following": {
           "value": 2,
-          "at": "2026-11-03T13:42:15.963Z",
+          "at": "2026-11-03T20:39:40.523Z",
           "source": "https://x.com/DontGetTraced",
           "method": "browser_bulk",
-          "approximate": false
+          "approximate": false,
+          "displayValue": "2"
         }
       },
       "trackedEmptyConfirmedAt": "2026-10-28T21:19:13.692Z"
@@ -331,12 +334,12 @@
             },
             "publicGridViews": {
               "value": 686,
-              "at": "2026-11-03T15:24:44.629Z",
+              "at": "2026-11-03T20:36:14.424Z",
               "source": "https://www.tiktok.com/@dontgettraced/video/7699148170604924182",
               "method": "browser_bulk",
               "approximate": false,
               "displayValue": "686",
-              "definition": "TikTok public profile grid view counter; kept separate from precise cloud views"
+              "definition": "TikTok public profile grid view counter; retained separately from precise public views"
             }
           }
         }
@@ -8343,7 +8346,7 @@
       "checkedAt": "2026-11-03T21:42:48.612405+00:00",
       "status": "checked",
       "newVideos": 0,
-      "lastCompleteAt": "2026-11-03T15:26:20.015Z"
+      "lastCompleteAt": "2026-11-03T20:39:20.588Z"
     },
     "instagram": {
       "status": "session_required",
@@ -8363,7 +8366,7 @@
       "error": "HTTP Error 404: Not Found",
       "complete": false,
       "checkedAt": "2026-11-03T21:42:48.612405+00:00",
-      "lastCompleteAt": "2026-11-03T13:42:15.963Z"
+      "lastCompleteAt": "2026-11-03T20:39:40.523Z"
     },
     "tiktok": {
       "status": "partial",
@@ -8374,7 +8377,6 @@
       "checkedAt": "2026-11-03T21:42:48.612405+00:00",
       "feedStatus": "profile_checked",
       "reportedPosts": 1,
-      "lastCompleteAt": "2026-11-03T13:39:48.741Z",
       "revokedCompleteChecks": [
         {
           "at": "2026-11-03T15:24:44.629Z",
@@ -8382,7 +8384,8 @@
           "fallbackAt": "2026-11-03T13:39:48.741Z",
           "reason": "Historical full-list claim retracted: outer-document end/count did not independently prove the actual TikTok inner video-list terminal state."
         }
-      ]
+      ],
+      "lastCompleteAt": "2026-11-03T13:39:48.741Z"
     }
   },
   "identityCorrections": [
