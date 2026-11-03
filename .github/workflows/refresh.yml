@@ -195,13 +195,12 @@ jobs:
         with:
           name: public-observations-${{ github.run_id }}
           path: |
-            data/latest.json
+            data/channels.json
             data/health.json
+            data/latest.json
+            data/**/latest.json
             data/*.csv
-            data/indian-builds/latest.json
-            data/indian-builds/*.csv
-            data/dont-get-traced/latest.json
-            data/dont-get-traced/*.csv
+            data/**/*.csv
           retention-days: 1
       - name: Report cloud status
         if: always()
