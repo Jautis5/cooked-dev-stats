@@ -25,6 +25,61 @@ def merge_channel_health(remote, collected):
     return out
 
 
+def merge_discovery(remote, collected):
+    """Keep explicit completeness revocations through stale and concurrent replay."""
+    selected = copy.deepcopy(collected if timestamp(collected.get('checkedAt')) > timestamp(remote.get('checkedAt')) else remote)
+    revoked = {}
+    for report in (remote, collected):
+        records = report.get('revokedCompleteChecks', [])
+        if not isinstance(records, list):
+            raise ValueError('Invalid completeness revocations')
+        for record in records:
+            if not isinstance(record, dict) or set(record) - {'at', 'recordedAt', 'fallbackAt', 'fallbackPostCount', 'reason'}:
+                raise ValueError('Invalid completeness revocation')
+            for key in ('at', 'recordedAt', 'fallbackAt'):
+                try:
+                    valid = datetime.datetime.fromisoformat(record[key].replace('Z', '+00:00')).tzinfo is not None
+                except (KeyError, AttributeError, TypeError, ValueError):
+                    valid = False
+                if not valid or not timestamp(record.get(key)):
+                    raise ValueError('Invalid completeness revocation date')
+            if timestamp(record['fallbackAt']) >= timestamp(record['at']) or timestamp(record['recordedAt']) < timestamp(record['at']):
+                raise ValueError('Invalid completeness revocation interval')
+            if not isinstance(record.get('reason'), str) or not 1 <= len(record['reason']) <= 240:
+                raise ValueError('Missing public completeness correction reason')
+            if 'fallbackPostCount' in record and (type(record['fallbackPostCount']) is not int or record['fallbackPostCount'] < 0):
+                raise ValueError('Invalid fallback publication count')
+            key = timestamp(record['at'])
+            rank = lambda r: (timestamp(r['recordedAt']), timestamp(r['fallbackAt']), r['reason'], r.get('fallbackPostCount', -1), r['at'], r['recordedAt'], r['fallbackAt'])
+            if key not in revoked or rank(record) > rank(revoked[key]):
+                revoked[key] = copy.deepcopy(record)
+    if not revoked:
+        complete_at = newer(collected.get('lastCompleteAt'), remote.get('lastCompleteAt'))
+        if complete_at: selected['lastCompleteAt'] = complete_at
+        return selected
+    candidates = []
+    for report in (remote, collected):
+        at = report.get('lastCompleteAt')
+        if timestamp(at) and timestamp(at) not in revoked:
+            candidates.append((timestamp(at), 1, timestamp(report.get('checkedAt')), at, report.get('lastCompletePostCount')))
+    for record in revoked.values():
+        at = record['fallbackAt']
+        if timestamp(at) not in revoked:
+            candidates.append((timestamp(at), 0, timestamp(record['recordedAt']), at, record.get('fallbackPostCount')))
+    if selected.get('complete') is True and (timestamp(selected.get('checkedAt')) in revoked or timestamp(selected.get('lastCompleteAt')) in revoked):
+        selected['complete'] = False
+        selected['status'] = 'partial'
+    selected.pop('lastCompleteAt', None)
+    selected.pop('lastCompletePostCount', None)
+    if candidates:
+        chosen = max(candidates, key=lambda item: (item[0], type(item[4]) is int and item[4] >= 0, *item[1:4]))
+        selected['lastCompleteAt'] = chosen[3]
+        if type(chosen[4]) is int and chosen[4] >= 0:
+            selected['lastCompletePostCount'] = chosen[4]
+    selected['revokedCompleteChecks'] = [revoked[key] for key in sorted(revoked)]
+    return selected
+
+
 def merge_object(remote, collected):
     out = copy.deepcopy(remote)
     if str(remote.get('id')) != str(collected.get('id')):
@@ -96,10 +151,7 @@ def merge_snapshot(remote, collected, baseline=None):
             out[key] = newer(collected[key], out.get(key))
     for platform, report in collected.get('discovery', {}).items():
         prior = out.setdefault('discovery', {}).get(platform, {})
-        selected = copy.deepcopy(report if timestamp(report.get('checkedAt')) > timestamp(prior.get('checkedAt')) else prior)
-        complete_at = newer(report.get('lastCompleteAt'), prior.get('lastCompleteAt'))
-        if complete_at: selected['lastCompleteAt'] = complete_at
-        out['discovery'][platform] = selected
+        out['discovery'][platform] = merge_discovery(prior, report)
     if timestamp(collected.get('cloudCollection', {}).get('at')) > timestamp(out.get('cloudCollection', {}).get('at')):
         out['cloudCollection'] = copy.deepcopy(collected['cloudCollection'])
         out['schedule'] = copy.deepcopy(collected.get('schedule', out.get('schedule', {})))
