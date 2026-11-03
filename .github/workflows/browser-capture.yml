@@ -4,6 +4,12 @@ on:
     branches: [main]
     paths: ['incoming/browser-capture.json']
   workflow_dispatch:
+    inputs:
+      public_bundle:
+        description: 'Normalized public observations JSON (optional; no credentials or raw captures)'
+        required: false
+        type: string
+        default: ''
 permissions:
   contents: write
   actions: write
@@ -23,8 +29,25 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
+      - name: Test snapshot validation and concurrent merging
+        run: python -m unittest discover -s scripts -p 'test_browser_snapshot.py'
       - name: Validate and merge actual public observations
-        run: python scripts/import_browser_snapshot.py
+        env:
+          PUBLIC_BUNDLE: ${{ inputs.public_bundle }}
+        run: |
+          python - <<'PY'
+          import json, os, pathlib, sys
+          sys.path.insert(0, 'scripts')
+          from import_browser_snapshot import merge_bundle
+          from publish_refresh import publish
+          root = pathlib.Path.cwd()
+          payload = os.environ.get('PUBLIC_BUNDLE', '')
+          if len(payload.encode('utf-8')) > 65000:
+              raise ValueError('Submit a smaller partial channel bundle')
+          bundle = json.loads(payload) if payload.strip() else json.loads((root/'incoming/browser-capture.json').read_text())
+          merge_bundle(root, bundle)
+          print(json.dumps({'publishedCommit': publish(root), 'repository': 'Jautis5/cooked-dev-stats'}))
+          PY
       - name: Publish dashboard fallback
         env:
           GH_TOKEN: ${{ github.token }}
