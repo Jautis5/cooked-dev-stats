@@ -2,8 +2,8 @@
   "version": 1,
   "provider": "authorized_local_browser",
   "trigger": "verified_browser_bundle",
-  "startedAt": "2026-11-03T13:37:37.777Z",
-  "completedAt": "2026-11-03T13:50:28.471Z",
+  "startedAt": "2026-11-03T14:28:01.760Z",
+  "completedAt": "2026-11-03T14:28:38.859947+00:00",
   "intervalMinutes": 15,
   "status": "completed_with_gaps",
   "channels": {
@@ -1281,68 +1281,13 @@
     },
     "barely-shipped": {
       "status": "completed_with_gaps",
-      "checkedAt": "2026-11-03T13:50:28.471Z",
+      "checkedAt": "2026-11-03T14:28:38.859947+00:00",
       "platforms": {
         "instagram": {
           "name": "Instagram",
           "status": "partial",
-          "metricsUpdated": 6,
-          "metricsKnown": 6,
-          "viewsUpdated": 1,
-          "postsKnown": 1,
-          "viewsKnown": 1,
-          "metricCoverage": {
-            "comments": {
-              "known": 1,
-              "updated": 1,
-              "missing": 0,
-              "oldestAt": "2026-11-03T14:09:54.593510+00:00"
-            },
-            "likes": {
-              "known": 1,
-              "updated": 1,
-              "missing": 0,
-              "oldestAt": "2026-11-03T14:09:54.593499+00:00"
-            },
-            "shares": {
-              "known": 0,
-              "updated": 0,
-              "missing": 1,
-              "oldestAt": null
-            },
-            "views": {
-              "known": 1,
-              "updated": 1,
-              "missing": 0,
-              "oldestAt": "2026-11-03T13:50:28.471Z"
-            }
-          },
-          "oldestViewAt": "2026-11-03T13:50:28.471Z",
-          "inventoryStatus": "session_required",
-          "inventoryComplete": false,
-          "inventoryCheckedAt": "2026-11-03T14:08:14.680901+00:00",
-          "inventoryAudit": {
-            "lastVerifiedAt": "2026-11-03T13:50:28.471Z",
-            "ageMinutes": 0.0,
-            "overdue": false,
-            "state": "current",
-            "maxAgeMinutes": 120
-          },
-          "reportedPostCount": {
-            "value": 1,
-            "at": "2026-11-03T13:50:28.471Z",
-            "source": "https://www.instagram.com/bareelyshipped/",
-            "method": "browser_bulk",
-            "approximate": false
-          },
-          "latestMetricAt": "2026-11-03T14:09:54.593510+00:00",
-          "access": "authorization_required"
-        },
-        "tiktok": {
-          "name": "TikTok",
-          "status": "partial",
-          "metricsUpdated": 15,
-          "metricsKnown": 15,
+          "metricsUpdated": 10,
+          "metricsKnown": 10,
           "viewsUpdated": 2,
           "postsKnown": 2,
           "viewsKnown": 2,
@@ -1351,45 +1296,33 @@
               "known": 2,
               "updated": 2,
               "missing": 0,
-              "oldestAt": "2026-11-03T14:09:55.352479+00:00"
+              "oldestAt": "2026-11-03T14:28:38.859947+00:00"
             },
             "likes": {
               "known": 2,
               "updated": 2,
               "missing": 0,
-              "oldestAt": "2026-11-03T14:09:55.352474+00:00"
-            },
-            "publicGridViews": {
-              "known": 1,
-              "updated": 1,
-              "missing": 1,
-              "oldestAt": "2026-11-03T13:50:28.471Z"
-            },
-            "saves": {
-              "known": 2,
-              "updated": 2,
-              "missing": 0,
-              "oldestAt": "2026-11-03T14:09:55.352486+00:00"
+              "oldestAt": "2026-11-03T14:28:38.859947+00:00"
             },
             "shares": {
-              "known": 2,
-              "updated": 2,
-              "missing": 0,
-              "oldestAt": "2026-11-03T14:09:55.352482+00:00"
+              "known": 0,
+              "updated": 0,
+              "missing": 2,
+              "oldestAt": null
             },
             "views": {
               "known": 2,
               "updated": 2,
               "missing": 0,
-              "oldestAt": "2026-11-03T14:09:55.352455+00:00"
+              "oldestAt": "2026-11-03T14:28:01.760Z"
             }
           },
-          "oldestViewAt": "2026-11-03T14:09:55.352455+00:00",
-          "inventoryStatus": "partial",
+          "oldestViewAt": "2026-11-03T14:28:01.760Z",
+          "inventoryStatus": "session_required",
           "inventoryComplete": false,
-          "inventoryCheckedAt": "2026-11-03T14:08:14.680901+00:00",
+          "inventoryCheckedAt": "2026-11-03T14:39:21.219144+00:00",
           "inventoryAudit": {
-            "lastVerifiedAt": "2026-11-03T13:50:28.471Z",
+            "lastVerifiedAt": "2026-11-03T14:28:01.760Z",
             "ageMinutes": 0.0,
             "overdue": false,
             "state": "current",
@@ -1397,16 +1330,83 @@
           },
           "reportedPostCount": {
             "value": 2,
-            "at": "2026-11-03T14:09:54.919163+00:00",
+            "at": "2026-11-03T14:28:01.760Z",
+            "source": "https://www.instagram.com/bareelyshipped/",
+            "method": "browser_bulk",
+            "approximate": false
+          },
+          "latestMetricAt": "2026-11-03T14:40:57.129231+00:00",
+          "access": "authorization_required"
+        },
+        "tiktok": {
+          "name": "TikTok",
+          "status": "partial",
+          "metricsUpdated": 17,
+          "metricsKnown": 17,
+          "viewsUpdated": 2,
+          "postsKnown": 2,
+          "viewsKnown": 2,
+          "metricCoverage": {
+            "comments": {
+              "known": 2,
+              "updated": 2,
+              "missing": 0,
+              "oldestAt": "2026-11-03T14:40:58.298832+00:00"
+            },
+            "likes": {
+              "known": 2,
+              "updated": 2,
+              "missing": 0,
+              "oldestAt": "2026-11-03T14:40:58.298827+00:00"
+            },
+            "publicGridViews": {
+              "known": 2,
+              "updated": 2,
+              "missing": 0,
+              "oldestAt": "2026-11-03T14:28:01.760Z"
+            },
+            "saves": {
+              "known": 2,
+              "updated": 2,
+              "missing": 0,
+              "oldestAt": "2026-11-03T14:40:58.298839+00:00"
+            },
+            "shares": {
+              "known": 2,
+              "updated": 2,
+              "missing": 0,
+              "oldestAt": "2026-11-03T14:40:58.298836+00:00"
+            },
+            "views": {
+              "known": 2,
+              "updated": 2,
+              "missing": 0,
+              "oldestAt": "2026-11-03T14:40:58.298807+00:00"
+            }
+          },
+          "oldestViewAt": "2026-11-03T14:40:58.298807+00:00",
+          "inventoryStatus": "partial",
+          "inventoryComplete": false,
+          "inventoryCheckedAt": "2026-11-03T14:39:21.219144+00:00",
+          "inventoryAudit": {
+            "lastVerifiedAt": "2026-11-03T14:28:01.760Z",
+            "ageMinutes": 0.0,
+            "overdue": false,
+            "state": "current",
+            "maxAgeMinutes": 120
+          },
+          "reportedPostCount": {
+            "value": 2,
+            "at": "2026-11-03T14:40:57.481810+00:00",
             "source": "https://www.tiktok.com/@barelyshipped",
             "approximate": false,
-            "collectionCycleAt": "2026-11-03T14:08:14.680901+00:00"
+            "collectionCycleAt": "2026-11-03T14:39:21.219144+00:00"
           },
-          "latestMetricAt": "2026-11-03T14:09:55.917682+00:00",
+          "latestMetricAt": "2026-11-03T14:40:58.948056+00:00",
           "access": "public_cloud"
         }
       },
-      "metricsUpdated": 21
+      "metricsUpdated": 27
     }
   }
 }
