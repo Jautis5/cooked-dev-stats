@@ -1,0 +1,93 @@
+name: Apply verified metric observation clock
+on: workflow_dispatch
+permissions:
+  contents: write
+  actions: write
+concurrency:
+  group: observation-clock-migration
+  cancel-in-progress: false
+jobs:
+  apply:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Apply reviewed source migration
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p=Path('scripts/collect.py');s=p.read_text()
+          old="def setmetric(obj,key,value,url,approx=False):\n value=num(value)\n if value is not None:obj.setdefault('metrics',{})[key]={'value':value,'at':NOW,'source':url,'approximate':approx}"
+          new="""def is_current(metric):
+           return metric.get('collectionCycleAt',metric.get('at'))==NOW
+          def setmetric(obj,key,value,url,approx=False,observed_at=None):
+           value=num(value)
+           if value is not None:
+            at=observed_at or datetime.datetime.now(datetime.timezone.utc).isoformat()
+            parsed=datetime.datetime.fromisoformat(at.replace('Z','+00:00'))
+            if parsed.tzinfo is None:raise ValueError('Metric observation requires a timezone')
+            obj.setdefault('metrics',{})[key]={'value':value,'at':at,'source':url,'approximate':approx,'collectionCycleAt':NOW}"""
+          assert old in s,'Collector source changed; review before applying'
+          s=s.replace(old,new).replace("m.get('at')==NOW","is_current(m)")
+          s=s.replace("v['posts'].get('youtube',{}).get('metrics',{}).get('views',{}).get('at')==NOW","is_current(v['posts'].get('youtube',{}).get('metrics',{}).get('views',{}))")
+          s=s.replace("v['posts'][platform].get('metrics',{}).get('views',{}).get('at')==NOW","is_current(v['posts'][platform].get('metrics',{}).get('views',{}))")
+          p.write_text(s)
+          p=Path('scripts/collect_channels.py');s=p.read_text().replace("m.get('at')==base.NOW","base.is_current(m)").replace("m.get('at')==now","base.is_current(m)");p.write_text(s)
+          p=Path('scripts/public_fallbacks.py');s=p.read_text().replace("prior.get('at') != base.NOW","not base.is_current(prior)").replace("post.get('metrics', {}).get('views', {}).get('at') != base.NOW","not base.is_current(post.get('metrics', {}).get('views', {}))").replace("post.get('metrics', {}).get(k, {}).get('at') == base.NOW","base.is_current(post.get('metrics', {}).get(k, {}))").replace("m.get('at') == base.NOW","base.is_current(m)");p.write_text(s)
+          p=Path('scripts/refresh_all.py');s=p.read_text().replace("m.get('at') == started for obj","base.is_current(m) for obj");p.write_text(s)
+          p=Path('scripts/test_channels.py');s=p.read_text().replace("self.assertEqual(out['accounts'][1]['metrics']['publishedCount']['at'],c.base.NOW)","self.assertEqual(out['accounts'][1]['metrics']['publishedCount']['collectionCycleAt'],c.base.NOW)");p.write_text(s)
+          PY
+          cat > scripts/test_metric_observation_time.py <<'PY'
+          import copy,datetime,unittest
+          from unittest.mock import patch
+          import collect
+          class ObservationTime(unittest.TestCase):
+           def test_observation_is_not_cycle_start(self):
+            before=datetime.datetime.now(datetime.timezone.utc)
+            with patch.object(collect,'NOW','2000-01-01T00:00:00+00:00'):
+             p={};collect.setmetric(p,'views',123,'https://example.test/video',True)
+             m=p['metrics']['views'];at=datetime.datetime.fromisoformat(m['at'])
+             self.assertGreaterEqual(at,before);self.assertLessEqual(at,datetime.datetime.now(datetime.timezone.utc));self.assertNotEqual(m['at'],collect.NOW);self.assertTrue(collect.is_current(m));self.assertTrue(m['approximate'])
+           def test_missing_preserves_independent_dates(self):
+            old={'value':8,'at':'2026-10-01T00:00:00Z','source':'https://original.test/video','approximate':False};p={'metrics':{'views':copy.deepcopy(old)}}
+            with patch.object(collect,'NOW','2026-11-03T10:30:00Z'):
+             collect.setmetric(p,'views',None,'https://other.test/video');collect.setmetric(p,'likes',0,'https://public.test/video')
+             self.assertEqual(p['metrics']['views'],old);self.assertFalse(collect.is_current(p['metrics']['views']));self.assertTrue(collect.is_current(p['metrics']['likes']));self.assertEqual(p['metrics']['likes']['value'],0)
+            with patch.object(collect,'NOW','2026-11-03T10:45:00Z'):self.assertFalse(collect.is_current(p['metrics']['likes']))
+           def test_explicit_time(self):
+            p={};at='2026-11-03T10:31:12.345678+00:00';collect.setmetric(p,'views',2,'https://public.test/video',observed_at=at);self.assertEqual(p['metrics']['views']['at'],at)
+           def test_naive_time_rejected(self):
+            p={}
+            with self.assertRaises(ValueError):collect.setmetric(p,'views',2,'https://public.test/video',observed_at='2026-11-03T10:31:12')
+            self.assertEqual(p,{})
+          PY
+      - name: Validate collector and dashboard
+        run: |
+          python -m unittest discover -s scripts -p 'test_*.py'
+          node scripts/test_dashboard.cjs
+          node scripts/test_chart.cjs
+          node scripts/test_workspace.cjs
+          node scripts/test_official_broker.cjs
+      - name: Commit tested sources preserving concurrent data
+        run: |
+          git add scripts/collect.py scripts/collect_channels.py scripts/public_fallbacks.py scripts/refresh_all.py scripts/test_channels.py scripts/test_metric_observation_time.py
+          git config user.name 'Social Stats Cloud'
+          git config user.email 'stats@users.noreply.github.com'
+          git commit -m 'Record actual per-metric observation times separately from collection cycles'
+          for attempt in 1 2 3 4; do
+            if git push origin HEAD:main; then break; fi
+            git fetch origin main
+            git rebase origin/main
+          done
+          git fetch origin main
+          git merge-base --is-ancestor HEAD origin/main
+      - name: Verify published collection
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run refresh.yml --repo "$GITHUB_REPOSITORY" --ref main
