@@ -12,8 +12,9 @@
       "expectedHandle": "bareelyshipped",
       "url": "https://www.instagram.com/bareelyshipped/",
       "status": "unavailable",
-      "message": "First public observation pending.",
-      "metrics": {}
+      "message": "Public source unavailable; previous observations preserved.",
+      "metrics": {},
+      "lastAttemptAt": "2026-11-03T10:20:30.482704+00:00"
     },
     {
       "id": "tiktok",
@@ -21,16 +22,109 @@
       "handle": "barelyshipped",
       "expectedHandle": "barelyshipped",
       "url": "https://www.tiktok.com/@barelyshipped",
-      "status": "unavailable",
-      "message": "First public observation pending.",
-      "metrics": {}
+      "status": "partial",
+      "message": "Profile checked; tracked content excludes legacy posts.",
+      "metrics": {
+        "followers": {
+          "value": 1,
+          "at": "2026-11-03T10:20:30.482704+00:00",
+          "source": "https://www.tiktok.com/@barelyshipped",
+          "approximate": false
+        },
+        "profileLikes": {
+          "value": 2,
+          "at": "2026-11-03T10:20:30.482704+00:00",
+          "source": "https://www.tiktok.com/@barelyshipped",
+          "approximate": false
+        },
+        "publishedCount": {
+          "value": 1,
+          "at": "2026-11-03T10:20:30.482704+00:00",
+          "source": "https://www.tiktok.com/@barelyshipped",
+          "approximate": false
+        }
+      },
+      "lastAttemptAt": "2026-11-03T10:20:30.482704+00:00",
+      "lastSuccessAt": "2026-11-03T10:20:30.482704+00:00"
     }
   ],
-  "videos": [],
-  "history": [],
-  "discovery": {},
+  "videos": [
+    {
+      "id": "tiktok-7703879350826880278",
+      "number": 1,
+      "title": "Save this for your next app launch. 10 questions to ask Claude before real users find the bugs. Get evidence for the answers, then test the fixes.",
+      "caption": "Save this for your next app launch. 10 questions to ask Claude before real users find the bugs. Get evidence for the answers, then test the fixes.",
+      "publishedAt": null,
+      "thumbnail": null,
+      "assetUrl": null,
+      "posts": {
+        "tiktok": {
+          "id": "7703879350826880278",
+          "url": "https://www.tiktok.com/@barelyshipped/video/7703879350826880278",
+          "metrics": {
+            "views": {
+              "value": 81,
+              "at": "2026-11-03T10:20:30.482704+00:00",
+              "source": "https://www.tiktok.com/@barelyshipped/video/7703879350826880278",
+              "approximate": false
+            }
+          }
+        }
+      }
+    }
+  ],
+  "history": [
+    {
+      "at": "2026-11-03T10:20:30.482704+00:00",
+      "views": 81,
+      "posts": 1,
+      "approximate": false,
+      "partial": false
+    }
+  ],
+  "discovery": {
+    "tiktok": {
+      "status": "partial",
+      "method": "public_creator_embed",
+      "newVideos": 1,
+      "listedPosts": 1,
+      "complete": false,
+      "checkedAt": "2026-11-03T10:20:30.482704+00:00",
+      "feedStatus": "profile_checked",
+      "reportedPosts": 1
+    },
+    "instagram": {
+      "status": "session_required",
+      "checkedAt": "2026-11-03T10:20:30.482704+00:00",
+      "complete": false,
+      "message": "New-publication discovery requires an authorized account list; a successful metrics check is not a complete list."
+    }
+  },
   "tracking": {
     "excludedPostIds": {},
     "note": "Inventory not yet verified."
+  },
+  "lastAttemptAt": "2026-11-03T10:20:30.482704+00:00",
+  "generatedAt": "2026-11-03T10:20:30.482704+00:00",
+  "cloudCollection": {
+    "at": "2026-11-03T10:20:30.482704+00:00",
+    "method": "public_cloud",
+    "metricsUpdated": {
+      "instagram": 0,
+      "tiktok": 4
+    },
+    "runUrl": "https://github.com/Jautis5/cooked-dev-stats/actions/runs/41617486464"
+  },
+  "schedule": {
+    "provider": "GitHub Actions",
+    "intervalMinutes": 15,
+    "cron": "7-59/15 * * * *"
+  },
+  "changes24h": {
+    "at": "2026-11-03T10:20:30.482704+00:00",
+    "baselineAt": null,
+    "views": null,
+    "likes": null,
+    "followers": null
   }
 }
