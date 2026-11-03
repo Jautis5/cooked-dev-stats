@@ -93,3 +93,53 @@ const emptyAccount={id:'tiktok',name:'TikTok',emptyConfirmedAt:'2026-10-22T13:40
 assert.ok(api.missingPublication(emptyAccount,{videos:[]}).includes('TT · empty'));
 assert.ok(!api.missingPublication({...emptyAccount,metrics:{}},{videos:[]}).includes('TT · empty'));
 assert.ok(!api.missingPublication(emptyAccount,{videos:[{posts:{tiktok:{id:'known'}}}]}).includes('TT · empty'));
+
+module.exports=(async()=>{
+ const registryChannels=['cooked-dev','indian-builds','dont-get-traced','dumb-luck','no-code-kevin','barely-shipped'].map(id=>({id,name:id,dataUrl:'https://feeds.example/'+id+'.json',fallbackUrl:'data/'+id+'.json',logo:'assets/logo.jpg'}));
+ const nodes=new Map(),node=id=>{if(!nodes.has(id))nodes.set(id,{value:'',hidden:true,disabled:false,innerHTML:'',parentElement:{hidden:false}});return nodes.get(id);};
+ const route={href:'https://example.com/',hash:'#channel/cooked-dev/videos'},icon={};
+ const controls={search:'keep this query',sort:'likes','video-channel':'cooked-dev','video-coverage':'gaps'};
+ for(const [id,value]of Object.entries(controls))node(id).value=value;
+ let cycle=0,registryFetches=0;
+ const fetched=[];
+ const refreshed=vm.runInNewContext(src+`\n
+  render=()=>{renderNavigation();renderVideoFilters();};
+  loadClock=async()=>{};
+  active='tiktok';chartRange='7d';chartScope='cooked-dev';
+  ({load,state:()=>({ids:channels.map(c=>c.id),hash:location.hash,active,chartRange,chartScope,loading,at:entries.get('cooked-dev')?.data?.lastAttemptAt})})`,{
+  Intl,URL,Date,location:route,AbortSignal:{timeout:()=>undefined},
+  document:{body:{dataset:{}},getElementById:node,querySelector:()=>icon},
+  fetch:async input=>{
+   const url=new URL(input,route.href);fetched.push(url.href);
+   if(url.pathname==='/data/channels.json'){
+    registryFetches++;
+    if(cycle===2)throw Error('Temporary registry outage');
+    return {ok:true,json:async()=>cycle===3?{version:2,channels:[]}:{version:1,channels:registryChannels.slice(0,cycle===0?5:6)}};
+   }
+   if(url.pathname.endsWith('/health.json'))return {ok:true,json:async()=>({version:1,provider:'GitHub Actions',channels:{},completedAt:new Date().toISOString()})};
+   if(url.pathname==='/data/schedules.json')return {ok:true,json:async()=>({version:1,items:[]})};
+   return {ok:true,json:async()=>({version:1,lastAttemptAt:'2026-11-03T14:0'+cycle+':00Z',accounts:[{id:'tiktok',name:'TikTok'}],videos:[]})};
+  }
+ });
+ await refreshed.load();
+ assert.equal(refreshed.state().ids.length,5);
+ assert.ok(!node('workspace-switcher').innerHTML.includes('barely-shipped'));
+ const stateBefore=JSON.parse(JSON.stringify(refreshed.state()));
+ cycle=1;await refreshed.load();
+ assert.equal(registryFetches,2,'Automatic reload must fetch the current registry even when channels are already loaded');
+ assert.equal(refreshed.state().ids.length,6,'A newly registered channel must appear without reloading the page');
+ assert.ok(node('workspace-switcher').innerHTML.includes('data-channel="barely-shipped"'));
+ assert.ok(node('video-channel').innerHTML.includes('value="barely-shipped"'));
+ assert.equal(fetched.filter(url=>new URL(url).pathname.endsWith('/barely-shipped.json')).length,2,'New channel live and fallback feeds must load in the same refresh');
+ for(const key of ['hash','active','chartRange','chartScope'])assert.equal(refreshed.state()[key],stateBefore[key],'Registry refresh must preserve '+key);
+ for(const [id,value]of Object.entries(controls))assert.equal(node(id).value,value,'Registry refresh must preserve '+id);
+ for(cycle=2;cycle<=3;cycle++){
+  await refreshed.load(cycle===3);
+  assert.equal(refreshed.state().ids.length,6,'An unavailable or invalid registry must preserve the last valid channel list');
+  assert.equal(refreshed.state().at,'2026-11-03T14:0'+cycle+':00Z','Feed refresh must continue when the registry refresh fails');
+  assert.equal(refreshed.state().loading,false);
+  assert.equal(node('reload').disabled,false);
+ }
+ console.log('PASS: automatic and manual refresh discover new channels, preserve routes and filters, and keep feeds updating during registry failures.');
+})();
+module.exports.catch(error=>{console.error(error);process.exitCode=1;});
