@@ -7,7 +7,7 @@ on:
       reason:
         description: What requested this collection
         type: choice
-        options: [manual, continuous_clock, watchdog]
+        options: [manual, continuous_clock, watchdog, browser_probe]
         default: manual
       clock_run_id:
         description: Verified clock run that requested collection
@@ -21,6 +21,7 @@ concurrency:
   cancel-in-progress: false
 jobs:
   refresh:
+    if: inputs.reason != 'browser_probe'
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
@@ -125,3 +126,82 @@ jobs:
       - name: Surface collection failure
         if: steps.collect.outcome == 'failure'
         run: exit 1
+
+  anonymous_browser_probe:
+    if: github.event_name == 'workflow_dispatch' && inputs.reason == 'browser_probe'
+    permissions:
+      contents: read
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install pinned public browser runtime
+        run: |
+          python -m pip install 'playwright==1.56.0'
+          python -m playwright install --with-deps chromium
+      - name: Test registered public profiles without login
+        run: |
+          python - <<'PY'
+          import datetime, json, os, pathlib, re
+          from playwright.sync_api import sync_playwright
+          root = pathlib.Path.cwd()
+          results = []
+          with sync_playwright() as p:
+              browser = p.chromium.launch(headless=True, args=['--mute-audio'])
+              for channel in json.loads((root/'data/channels.json').read_text())['channels']:
+                  feed = json.loads((root/channel['dataPath']).read_text())
+                  for account in feed['accounts']:
+                      platform = account['id']
+                      if platform not in ('instagram', 'facebook'):
+                          continue
+                      url = account['url']
+                      if platform == 'instagram':
+                          url = url.rstrip('/') + '/reels/'
+                      elif 'profile.php?' in url:
+                          url += '&sk=reels_tab'
+                      context = browser.new_context(locale='en-US', viewport={'width':1280,'height':900})
+                      page = context.new_page()
+                      page.route('**/*', lambda route: route.abort() if route.request.resource_type == 'media' else route.continue_())
+                      row = dict(channelId=channel['id'], platform=platform, source=url, complete=False, candidates=[])
+                      try:
+                          response = page.goto(url, wait_until='domcontentloaded', timeout=25000)
+                          page.wait_for_timeout(2500)
+                          links = {}
+                          blocked = False
+                          for attempt in range(4):
+                              body = page.locator('body').inner_text(timeout=5000)
+                              low = body.lower()
+                              blocked = any(t in low for t in ('log in to continue', 'log into instagram', 'log into facebook', 'confirm you are human', 'security check', 'sorry, something went wrong', 'this content isn’t available'))
+                              for item in page.locator('a[href]').evaluate_all("els => els.map(a => ({url:a.href, label:(a.innerText || a.getAttribute('aria-label') || '').slice(0,120)}))"):
+                                  pattern = r'instagram[.]com/(?:[^/]+/)?(?:reel|p)/[A-Za-z0-9_-]+' if platform == 'instagram' else r'facebook[.]com/reel/[0-9]+'
+                                  if re.search(pattern, item['url']):
+                                      links[item['url'].split('?')[0]] = item['label']
+                              if blocked:
+                                  break
+                              page.mouse.wheel(0, 1200)
+                              page.wait_for_timeout(1500)
+                          row.update(httpStatus=response.status if response else None, finalUrl=page.url.split('?')[0], access='login_or_challenge' if blocked else 'public_page' if links else 'no_video_links_exposed', candidates=[dict(url=k, label=v) for k,v in links.items()][:100], candidateCount=len(links))
+                      except Exception as e:
+                          row.update(access='navigation_failed', errorType=type(e).__name__)
+                      row['observedAt'] = datetime.datetime.now(datetime.timezone.utc).isoformat()
+                      results.append(row)
+                      print(json.dumps(row), flush=True)
+                      context.close()
+              browser.close()
+          with open(os.environ['GITHUB_STEP_SUMMARY'], 'a') as f:
+              print('## Anonymous cloud browser experiment', file=f)
+              print('No logins, imported cookies or feed changes. Candidate links are not verified publications; no inventory is marked complete.', file=f)
+              print('', file=f)
+              print('| Channel | Platform | Access | Candidate URLs |', file=f)
+              print('|---|---|---|---|', file=f)
+              for r in results:
+                  print('| '+r['channelId']+' | '+r['platform']+' | '+r['access']+' | '+str(r.get('candidateCount',0))+' |', file=f)
+              print('', file=f)
+              print(json.dumps(results, indent=2), file=f)
+          
+          PY
