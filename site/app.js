@@ -474,10 +474,15 @@ async function fetchData(url,refresh=false){
  const r=await fetch(u,{cache:'no-store',signal:AbortSignal.timeout(15000)});if(!r.ok)throw Error('Source unavailable');
  const d=await r.json();if(d.version!==1||!Array.isArray(d.accounts)||!Array.isArray(d.videos))throw Error('Invalid stats');return d;
 }
+async function loadRegistry(){
+ const r=await fetch('data/channels.json?v='+Date.now(),{cache:'no-store',signal:AbortSignal.timeout(15000)});if(!r.ok)throw Error('Channel list unavailable');
+ const config=await r.json();if(config.version!==1||!Array.isArray(config.channels))throw Error('Invalid channels');
+ channels=config.channels;cloudConfig=config.collector||{};
+}
 async function load(manual=false){
  if(loading)return;loading=true;$('reload').disabled=true;
  try{
-  if(!channels.length){const r=await fetch('data/channels.json',{cache:'no-store',signal:AbortSignal.timeout(15000)});if(!r.ok)throw Error('Channel list unavailable');const config=await r.json();if(config.version!==1||!Array.isArray(config.channels))throw Error('Invalid channels');channels=config.channels;cloudConfig=config.collector||{};}
+  try{await loadRegistry();}catch(error){if(!channels.length)throw error;}
   const healthTask=(async()=>{
    const urls=[cloudConfig.healthUrl||'https://raw.githubusercontent.com/Jautis5/cooked-dev-stats/main/data/health.json','data/health.json'];
    const results=await Promise.allSettled(urls.map(async url=>{const r=await fetch(url+'?v='+Date.now(),{cache:'no-store',signal:AbortSignal.timeout(8000)});if(!r.ok)throw Error('Health unavailable');return r.json();}));
