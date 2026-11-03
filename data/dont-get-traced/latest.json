@@ -26,17 +26,19 @@
       "metrics": {
         "followers": {
           "value": 41,
-          "at": "2026-11-03T13:39:28.598Z",
+          "at": "2026-11-03T20:32:49.609Z",
           "source": "https://www.instagram.com/dontgettraced/",
           "method": "browser_bulk",
-          "approximate": false
+          "approximate": false,
+          "displayValue": "41"
         },
         "publishedCount": {
           "value": 1,
-          "at": "2026-11-03T13:39:28.598Z",
+          "at": "2026-11-03T20:32:49.609Z",
           "source": "https://www.instagram.com/dontgettraced/",
           "method": "browser_bulk",
-          "approximate": false
+          "approximate": false,
+          "displayValue": "1"
         },
         "trackedPublishedCount": {
           "value": 1,
@@ -47,10 +49,11 @@
         },
         "following": {
           "value": 1,
-          "at": "2026-11-03T13:39:28.598Z",
+          "at": "2026-11-03T20:32:49.609Z",
           "source": "https://www.instagram.com/dontgettraced/",
           "method": "browser_bulk",
-          "approximate": false
+          "approximate": false,
+          "displayValue": "1"
         }
       }
     },
@@ -87,10 +90,11 @@
         },
         "following": {
           "value": 1,
-          "at": "2026-11-03T13:39:48.741Z",
+          "at": "2026-11-03T15:24:44.629Z",
           "source": "https://www.tiktok.com/@dontgettraced",
           "method": "browser_bulk",
-          "approximate": false
+          "approximate": false,
+          "displayValue": "1"
         },
         "trackedPublishedCount": {
           "value": 1,
@@ -248,11 +252,13 @@
           "url": "https://www.instagram.com/dontgettraced/reel/Deww_L4IhFJ/",
           "metrics": {
             "views": {
-              "value": 4559,
-              "at": "2026-11-03T13:39:28.598Z",
+              "value": 4562,
+              "at": "2026-11-03T20:32:49.609Z",
               "source": "https://www.instagram.com/dontgettraced/reel/Deww_L4IhFJ/",
               "method": "browser_bulk",
-              "approximate": false
+              "approximate": false,
+              "displayValue": "4,562",
+              "definition": "Instagram public Reels grid view counter"
             },
             "likes": {
               "value": 147,
@@ -325,10 +331,12 @@
             },
             "publicGridViews": {
               "value": 686,
-              "at": "2026-11-03T13:39:48.741Z",
+              "at": "2026-11-03T15:24:44.629Z",
               "source": "https://www.tiktok.com/@dontgettraced/video/7699148170604924182",
               "method": "browser_bulk",
-              "approximate": false
+              "approximate": false,
+              "displayValue": "686",
+              "definition": "TikTok public profile grid view counter; kept separate from precise cloud views"
             }
           }
         }
@@ -8307,14 +8315,14 @@
       "checkedAt": "2026-11-03T20:40:19.347685+00:00",
       "status": "checked",
       "newVideos": 0,
-      "lastCompleteAt": "2026-11-03T13:38:16.632Z"
+      "lastCompleteAt": "2026-11-03T15:26:20.015Z"
     },
     "instagram": {
       "status": "session_required",
       "checkedAt": "2026-11-03T20:40:19.347685+00:00",
       "complete": false,
       "message": "New-publication discovery requires an authorized account list; a successful metrics check is not a complete list.",
-      "lastCompleteAt": "2026-11-03T13:39:28.598Z"
+      "lastCompleteAt": "2026-11-03T20:32:49.609Z"
     },
     "facebook": {
       "status": "session_required",
@@ -8337,7 +8345,7 @@
       "complete": false,
       "checkedAt": "2026-11-03T20:40:19.347685+00:00",
       "feedStatus": "profile_checked",
-      "lastCompleteAt": "2026-11-03T13:39:48.741Z",
+      "lastCompleteAt": "2026-11-03T15:24:44.629Z",
       "reportedPosts": 1
     }
   },
