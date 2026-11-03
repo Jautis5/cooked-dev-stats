@@ -1,0 +1,53 @@
+name: Verify anonymous Instagram discovery
+on: workflow_dispatch
+permissions:
+  contents: read
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 9
+    steps:
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install instaloader==4.16
+      - name: Read public metadata without an account
+        run: |
+          cat > /tmp/instagram_probe.py <<'PY'
+          import datetime,json,subprocess,sys
+          HANDLES=['cooked_dev','indian_builds','dontgettraced','duumb_luck','nocode_kevin','bareelyshipped']
+          def now():return datetime.datetime.now(datetime.timezone.utc).isoformat()
+          def emit(d):print(json.dumps(d,ensure_ascii=False),flush=True)
+          def worker(handle):
+           import instaloader
+           L=instaloader.Instaloader(max_connection_attempts=1,request_timeout=10,quiet=True,download_pictures=False,download_videos=False,download_video_thumbnails=False,save_metadata=False)
+           stage='profile';count=0
+           try:
+            p=instaloader.Profile.from_username(L.context,handle)
+            assert p.username.lower()==handle and not L.context.is_logged_in
+            owner=p.userid
+            emit(dict(stage=stage,handle=handle,ownerId=str(owner),followers=p.followers,reportedPosts=p.mediacount,observedAt=now(),authenticated=False))
+            stage='public_posts';it=iter(p.get_posts());ended=False
+            for _ in range(60):
+             try:post=next(it)
+             except StopIteration:ended=True;break
+             if str(post.owner_id)!=str(owner) or post.owner_username.lower()!=handle:raise ValueError('Post owner mismatch')
+             count+=1
+             if not post.is_video:continue
+             emit(dict(stage='video',handle=handle,ownerId=str(owner),id=post.shortcode,url='https://www.instagram.com/reel/'+post.shortcode+'/',isVideo=True,likes=post.likes,comments=post.comments,videoViewCount=post.video_view_count,videoPlayCount=post.video_play_count,caption=post.caption or '',publishedAt=post.date_utc.isoformat()+'Z',observedAt=now()))
+            emit(dict(stage='inventory_result',handle=handle,postsVisited=count,observedListEnd=ended,reelsCompletenessClaimed=False,observedAt=now()))
+           except Exception as e:
+            emit(dict(stage=stage,handle=handle,errorType=type(e).__name__,message=str(e)[:250],postsVisited=count,observedAt=now()))
+          if __name__=='__main__':
+           if len(sys.argv)==3 and sys.argv[1]=='--handle':worker(sys.argv[2])
+           else:
+            for handle in HANDLES:
+             try:
+              p=subprocess.run([sys.executable,__file__,'--handle',handle],capture_output=True,text=True,timeout=65)
+              print(p.stdout,end='',flush=True)
+              if p.returncode:emit(dict(stage='process',handle=handle,exitCode=p.returncode))
+             except subprocess.TimeoutExpired as e:
+              if e.stdout:print(e.stdout.decode() if isinstance(e.stdout,bytes) else e.stdout,end='',flush=True)
+              emit(dict(stage='timeout',handle=handle,seconds=65,observedAt=now()))
+          PY
+          python /tmp/instagram_probe.py
