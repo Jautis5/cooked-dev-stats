@@ -5,7 +5,7 @@ No force push; freshest measured values and remote source edits always survive.
 """
 import copy, json, os, pathlib, subprocess, tempfile, time
 import collect as base
-from snapshot_merge import merge_snapshot, timestamp, validate
+from snapshot_merge import merge_channel_health, merge_snapshot, timestamp, validate
 from publications import reconcile
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 
@@ -71,8 +71,12 @@ def publish(root=ROOT, before_push=None, retries=4):
                 for name, health in health_reports.items():
                     path = checkout / 'data' / name
                     prior = json.loads(path.read_text()) if path.exists() else {}
-                    if timestamp(health.get('completedAt')) > timestamp(prior.get('completedAt')):
-                        path.write_text(json.dumps(health, ensure_ascii=False, indent=2) + '\n')
+                    if name == 'browser-health.json':
+                        merged_health = merge_channel_health(prior, health)
+                    else:
+                        merged_health = health if timestamp(health.get('completedAt')) > timestamp(prior.get('completedAt')) else prior
+                    if merged_health != prior:
+                        path.write_text(json.dumps(merged_health, ensure_ascii=False, indent=2) + '\n')
                 git(checkout, 'add', '--', 'data')
                 if git(checkout, 'diff', '--cached', '--quiet', check=False).returncode == 0:
                     return remote_head
