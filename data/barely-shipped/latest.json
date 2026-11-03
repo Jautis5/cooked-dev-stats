@@ -11,10 +11,11 @@
       "handle": "bareelyshipped",
       "expectedHandle": "bareelyshipped",
       "url": "https://www.instagram.com/bareelyshipped/",
-      "status": "unavailable",
-      "message": "Public source unavailable; previous observations preserved.",
+      "status": "partial",
+      "message": "Visible public Reel observed in existing Lost tab; full inventory not certified.",
       "metrics": {},
-      "lastAttemptAt": "2026-11-03T11:17:19.202143+00:00"
+      "lastAttemptAt": "2026-11-03T11:23:45.559Z",
+      "lastSuccessAt": "2026-11-03T11:23:45.559Z"
     },
     {
       "id": "tiktok",
@@ -103,6 +104,30 @@
           }
         }
       }
+    },
+    {
+      "id": "instagram-DfRm1jRRTdu",
+      "number": 2,
+      "title": "Save this for your next App Launch",
+      "caption": "Save this for your next App Launch \n\n10 questions to ask #claude before real Users find the bugs. Get evidence for the answers, then test the fixes #ai #vibecoding #app #appdevelopment",
+      "publishedAt": "2026-11-03T09:56:09Z",
+      "thumbnail": null,
+      "assetUrl": null,
+      "posts": {
+        "instagram": {
+          "id": "DfRm1jRRTdu",
+          "url": "https://www.instagram.com/bareelyshipped/reel/DfRm1jRRTdu/",
+          "metrics": {
+            "views": {
+              "value": 90,
+              "at": "2026-11-03T11:23:45.559Z",
+              "source": "https://www.instagram.com/bareelyshipped/reel/DfRm1jRRTdu/",
+              "method": "browser_bulk",
+              "approximate": false
+            }
+          }
+        }
+      }
     }
   ],
   "history": [
@@ -147,6 +172,13 @@
       "posts": 1,
       "approximate": false,
       "partial": false
+    },
+    {
+      "at": "2026-11-03T11:23:45.559Z",
+      "views": 198,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
     }
   ],
   "discovery": {
@@ -169,8 +201,8 @@
     "excludedPostIds": {},
     "note": "Inventory not yet verified."
   },
-  "lastAttemptAt": "2026-11-03T11:17:19.202143+00:00",
-  "generatedAt": "2026-11-03T11:17:19.202143+00:00",
+  "lastAttemptAt": "2026-11-03T11:23:45.559Z",
+  "generatedAt": "2026-11-03T11:23:45.559Z",
   "cloudCollection": {
     "at": "2026-11-03T11:17:19.202143+00:00",
     "method": "public_cloud",
@@ -186,7 +218,7 @@
     "cron": "7-59/15 * * * *"
   },
   "changes24h": {
-    "at": "2026-11-03T11:17:19.202143+00:00",
+    "at": "2026-11-03T11:23:45.559Z",
     "baselineAt": null,
     "views": null,
     "likes": null,

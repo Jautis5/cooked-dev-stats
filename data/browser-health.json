@@ -2,8 +2,8 @@
   "version": 1,
   "provider": "authorized_local_browser",
   "trigger": "verified_browser_bundle",
-  "startedAt": "2026-11-03T08:26:35.090Z",
-  "completedAt": "2026-11-03T08:29:48.204Z",
+  "startedAt": "2026-11-03T11:23:45.559Z",
+  "completedAt": "2026-11-03T11:23:45.559Z",
   "intervalMinutes": 15,
   "status": "completed_with_gaps",
   "channels": {
@@ -1243,6 +1243,123 @@
         }
       },
       "metricsUpdated": 65
+    },
+    "barely-shipped": {
+      "status": "completed_with_gaps",
+      "checkedAt": "2026-11-03T11:23:45.559Z",
+      "platforms": {
+        "instagram": {
+          "name": "Instagram",
+          "status": "partial",
+          "metricsUpdated": 1,
+          "metricsKnown": 1,
+          "viewsUpdated": 1,
+          "postsKnown": 1,
+          "viewsKnown": 1,
+          "metricCoverage": {
+            "comments": {
+              "known": 0,
+              "updated": 0,
+              "missing": 1,
+              "oldestAt": null
+            },
+            "likes": {
+              "known": 0,
+              "updated": 0,
+              "missing": 1,
+              "oldestAt": null
+            },
+            "shares": {
+              "known": 0,
+              "updated": 0,
+              "missing": 1,
+              "oldestAt": null
+            },
+            "views": {
+              "known": 1,
+              "updated": 1,
+              "missing": 0,
+              "oldestAt": "2026-11-03T11:23:45.559Z"
+            }
+          },
+          "oldestViewAt": "2026-11-03T11:23:45.559Z",
+          "inventoryStatus": "session_required",
+          "inventoryComplete": false,
+          "inventoryCheckedAt": "2026-11-03T11:17:19.202143+00:00",
+          "inventoryAudit": {
+            "lastVerifiedAt": null,
+            "ageMinutes": null,
+            "overdue": true,
+            "state": "unverified",
+            "maxAgeMinutes": 120
+          },
+          "reportedPostCount": null,
+          "latestMetricAt": "2026-11-03T11:23:45.559Z",
+          "access": "authorization_required"
+        },
+        "tiktok": {
+          "name": "TikTok",
+          "status": "partial",
+          "metricsUpdated": 0,
+          "metricsKnown": 8,
+          "viewsUpdated": 0,
+          "postsKnown": 1,
+          "viewsKnown": 1,
+          "metricCoverage": {
+            "comments": {
+              "known": 1,
+              "updated": 0,
+              "missing": 0,
+              "oldestAt": "2026-11-03T11:19:03.445975+00:00"
+            },
+            "likes": {
+              "known": 1,
+              "updated": 0,
+              "missing": 0,
+              "oldestAt": "2026-11-03T11:19:03.445972+00:00"
+            },
+            "saves": {
+              "known": 1,
+              "updated": 0,
+              "missing": 0,
+              "oldestAt": "2026-11-03T11:19:03.445979+00:00"
+            },
+            "shares": {
+              "known": 1,
+              "updated": 0,
+              "missing": 0,
+              "oldestAt": "2026-11-03T11:19:03.445977+00:00"
+            },
+            "views": {
+              "known": 1,
+              "updated": 0,
+              "missing": 0,
+              "oldestAt": "2026-11-03T11:19:03.445948+00:00"
+            }
+          },
+          "oldestViewAt": "2026-11-03T11:19:03.445948+00:00",
+          "inventoryStatus": "profile_checked",
+          "inventoryComplete": false,
+          "inventoryCheckedAt": "2026-11-03T11:17:19.202143+00:00",
+          "inventoryAudit": {
+            "lastVerifiedAt": null,
+            "ageMinutes": null,
+            "overdue": true,
+            "state": "unverified",
+            "maxAgeMinutes": 120
+          },
+          "reportedPostCount": {
+            "value": 1,
+            "at": "2026-11-03T11:19:02.079510+00:00",
+            "source": "https://www.tiktok.com/@barelyshipped",
+            "approximate": false,
+            "collectionCycleAt": "2026-11-03T11:17:19.202143+00:00"
+          },
+          "latestMetricAt": "2026-11-03T11:19:03.445979+00:00",
+          "access": "public_cloud"
+        }
+      },
+      "metricsUpdated": 1
     }
   }
 }
