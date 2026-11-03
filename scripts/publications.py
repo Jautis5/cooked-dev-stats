@@ -36,6 +36,7 @@ def reconcile(data, ledger=None):
         path = ROOT / 'data/publications.json'
         ledger = json.loads(path.read_text()) if path.exists() else {'groups': []}
     accounts = {a['id']: a for a in data['accounts']}
+    reserved_numbers = {g['number'] for g in ledger.get('groups', []) if g.get('number') and g['channelId'] == data.get('channelId', 'cooked-dev')}
     for group in ledger.get('groups', []):
         if group['channelId'] != data.get('channelId', 'cooked-dev'): continue
         if not timestamp(group.get('verifiedAt')) or not group.get('evidence'):
@@ -50,7 +51,7 @@ def reconcile(data, ledger=None):
         matches = [v for v in data['videos'] if v['id'] == group['videoId'] or any(str(v['posts'].get(p, {}).get('id')) == identity for p, identity in identities.items())]
         target = next((v for v in matches if v['id'] == group['videoId']), matches[0] if matches else None)
         if target is None:
-            target = {'id': group['videoId'], 'number': max((v['number'] for v in data['videos']), default=0)+1,
+            target = {'id': group['videoId'], 'number': max([v['number'] for v in data['videos']] + list(reserved_numbers), default=0)+1,
                       'title': group['caption'], 'caption': group['caption'], 'publishedAt': group.get('publishedAt'),
                       'thumbnail': None, 'assetUrl': None, 'posts': {}}
             data['videos'].append(target)
