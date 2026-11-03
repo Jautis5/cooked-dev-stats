@@ -1,9 +1,17 @@
 name: Verify anonymous Instagram discovery
-on: workflow_dispatch
+on:
+  workflow_dispatch:
+    inputs:
+      browser_only:
+        description: Run only the clean anonymous Chromium diagnostic
+        type: boolean
+        default: false
+        required: false
 permissions:
   contents: read
 jobs:
   probe:
+    if: ${{ !inputs.browser_only }}
     runs-on: ubuntu-latest
     timeout-minutes: 9
     steps:
@@ -51,3 +59,134 @@ jobs:
               emit(dict(stage='timeout',handle=handle,seconds=65,observedAt=now()))
           PY
           python /tmp/instagram_probe.py
+  anonymous_browser_probe:
+    if: ${{ inputs.browser_only }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install the pinned anonymous browser runtime
+        run: |
+          python -m pip install playwright==1.56.0
+          python -m playwright install --with-deps chromium
+      - name: Read registered public Reels grids without a profile
+        run: |
+          cat > /tmp/instagram_browser_probe.py <<'PY'
+          """Manual public DOM diagnostic; no account/session access or production writes."""
+          import asyncio, datetime, decimal, json, pathlib, re
+          from urllib.parse import urlsplit
+          
+          def now():return datetime.datetime.now(datetime.timezone.utc).isoformat()
+          def emit(data):print(json.dumps(data,ensure_ascii=False),flush=True)
+          COUNT=re.compile(r'^((?:\d{1,3}(?:,\d{3})+|\d+)(?:\.\d+)?)([KMB]?),re.I)
+          def count(label,at,source):
+              match=COUNT.fullmatch(label.strip())
+              if not match:return None
+              factor={'':1,'K':1000,'M':1000000,'B':1000000000}[match[2].upper()]
+              value=decimal.Decimal(match[1].replace(',',''))*factor
+              if value!=value.to_integral_value():return None
+              return {'value':int(value),'observedAt':at,'source':source,'approximate':bool(match[2]),'displayValue':label.strip()}
+          
+          def profiles(root):
+              result=[]
+              for channel in json.loads((root/'data/channels.json').read_text())['channels']:
+                  path=(root/channel['dataPath']).resolve()
+                  if not path.is_relative_to((root/'data').resolve()):raise ValueError('Invalid feed path')
+                  feed=json.loads(path.read_text())
+                  for account in feed['accounts']:
+                      if account['id']!='instagram':continue
+                      handle=account.get('expectedHandle') or account.get('handle')
+                      url=account['url'].rstrip('/')+'/'
+                      if urlsplit(url).hostname not in ('instagram.com','www.instagram.com') or urlsplit(url).path.strip('/').lower()!=handle.lower():raise ValueError('Unverified account identity')
+                      result.append((channel['id'],handle,url+'reels/'))
+              if not result or len({h.lower() for _,h,_ in result})!=len(result):raise ValueError('Missing or duplicate identities')
+              return result
+          
+          DOM=r'''handle => {
+           const visible=e=>!!e&&!!e.getClientRects().length&&getComputedStyle(e).visibility!=='hidden';
+           const main=document.querySelector('main'),text=main?.innerText||'',number='[0-9][0-9,.]*[KMBkmb]?';
+           const labels=[...(main?.querySelectorAll('a')||[])].filter(visible).map(e=>e.innerText.replace(/\s+/g,' ').trim());
+           const profile={};for(const key of ['followers','following']){const found=labels.map(s=>s.match(new RegExp('^('+number+') '+key+','i'))).find(Boolean);if(found)profile[key]=found[1];}
+           const posts=text.match(/\b([0-9][0-9,.]*[KMBkmb]?)\s+posts?\b/i);if(posts)profile.reportedPosts=posts[1];
+           const owned=[],unscoped=[];
+           for(const a of main?.querySelectorAll('a[href]')||[]){
+            const u=new URL(a.href,location.href),m=u.pathname.match(/^\/([^/]+)\/reel\/([A-Za-z0-9_-]+)\/?$/);
+            if(/^\/reel\/[A-Za-z0-9_-]+\/?$/.test(u.pathname))unscoped.push(u.pathname);
+            if(!visible(a)||!m||m[1].toLowerCase()!==handle.toLowerCase()||!['instagram.com','www.instagram.com'].includes(u.hostname))continue;
+            const icons=[...a.querySelectorAll('[aria-label],img[alt]')].filter(e=>/^(View count icon|Views|Plays|Video views)$/i.test(e.getAttribute('aria-label')||e.getAttribute('alt')||''));
+            let raw=null;for(const icon of icons){for(const e of [icon.parentElement,icon.parentElement?.parentElement]){const t=(e?.innerText||'').replace(/View count icon|Video views|Views|Plays/gi,'').trim();if(new RegExp('^'+number+').test(t)){raw=t;break;}}if(raw!==null)break;}
+            owned.push({id:m[2],url:u.origin+u.pathname,rawViews:raw});
+           }
+           const headings=[...(main?.querySelectorAll('h1,h2,h3')||[])].filter(visible).map(e=>e.innerText.trim().replace(/^@/,''));
+           const dialogs=[...document.querySelectorAll('[role="dialog"]')].filter(visible).map(e=>e.innerText);
+           const password=[...document.querySelectorAll('input[type="password"],input[name="username"]')].some(visible);
+           const wall=/\/accounts\/login|\/challenge|\/checkpoint/.test(location.pathname)||password||dialogs.some(t=>/log in|log into instagram|sign up|captcha|verify/i.test(t));
+           const consent=dialogs.some(t=>/cookies/i.test(t));
+           const sc=document.scrollingElement,footer=[...document.querySelectorAll('footer,[role="contentinfo"]')].filter(visible).some(e=>{const r=e.getBoundingClientRect();return r.top<=innerHeight&&r.bottom>=0;});
+           return {ownerVerified:headings.some(h=>h.toLowerCase()===handle.toLowerCase()),profile,posts:owned,unscopedReelLinks:unscoped.length,
+             wall,consent,empty:/No reels yet|No posts yet/i.test(text),bottom:!!sc&&sc.scrollTop+sc.clientHeight>=sc.scrollHeight-4,
+             footerVisible:footer,loading:[...document.querySelectorAll('main [role="progressbar"],main [aria-label="Loading..."]')].filter(visible).length};
+          }'''
+          
+          def complete(snapshot,seen,stable,reported):
+              end=snapshot['ownerVerified'] and not snapshot['wall'] and not snapshot['consent'] and snapshot['bottom'] and not snapshot['loading'] and stable>=3
+              if not end:return False
+              if not seen:return bool(snapshot['empty'] and reported and not reported['approximate'] and reported['value']==0)
+              # Profile posts are not presumed Reels: equal unique owned Reel URLs verify
+              # this particular count only after the actual bottom remains stable.
+              return bool(snapshot['footerVisible'] and reported and not reported['approximate'] and len(seen)==reported['value'])
+          
+          async def probe(browser,cid,handle,url):
+              context=await browser.new_context(locale='en-US',viewport={'width':1280,'height':1000},service_workers='block',accept_downloads=False)
+              async def route(request_route):
+                  request=request_route.request
+                  if request.resource_type in ('media','image','font') or re.search(r'\.(mp4|webm|m3u8|mp3|m4a)(?:[?&#]|$)',request.url,re.I):await request_route.abort()
+                  else:await request_route.continue_()
+              await context.route('**/*',route)
+              seen={};profile={};stable=0;prior=None;reason='bounded_scroll_limit';ended=False
+              try:
+                  page=await context.new_page();page.set_default_timeout(10000)
+                  await page.goto(url,wait_until='domcontentloaded',timeout=20000)
+                  await page.wait_for_timeout(1500)
+                  for step in range(25):
+                      snap=await page.evaluate(DOM,handle);at=now()
+                      if snap['wall'] or snap['consent']:
+                          reason='login_or_verification_wall' if snap['wall'] else 'consent_wall';break
+                      if not snap['ownerVerified']:
+                          reason='public_owner_not_verified'
+                          if step>=3:break
+                      else:
+                          for key,label in snap['profile'].items():
+                              value=count(label,at,url)
+                              if value is not None:profile[key]=value
+                          for post in snap['posts']:
+                              item=seen.setdefault(post['id'],{'id':post['id'],'url':post['url'],'ownerHandle':handle,'public':True,'isVideo':True,'metrics':{}})
+                              value=count(post['rawViews'],at,post['url']) if post['rawViews'] is not None else None
+                              if value is not None:item['metrics']['views']={**value,'definition':'instagram_public_reels_grid_view_counter'}
+                      signature=tuple(sorted(seen));stable=stable+1 if signature==prior and snap['bottom'] and not snap['loading'] else 0;prior=signature
+                      if complete(snap,seen,stable,profile.get('reportedPosts')):ended=True;reason='verified_owned_reels_count_and_stable_list_end';break
+                      await page.mouse.wheel(0,2000);await page.wait_for_timeout(1000)
+                  return {'version':1,'provider':'anonymous_playwright_diagnostic','channelId':cid,'platform':'instagram','accountUrl':url,'expectedHandle':handle,'authenticated':False,
+                          'status':'complete' if ended else 'unavailable' if reason in ('login_or_verification_wall','consent_wall','public_owner_not_verified') else 'partial',
+                          'profileMetrics':profile,'posts':list(seen.values()),'completeList':ended,'listedPosts':len(seen),'reason':reason,'checkedAt':now()}
+              finally:await context.close()
+          
+          async def main():
+              from playwright.async_api import async_playwright
+              accounts=profiles(pathlib.Path.cwd())
+              async with async_playwright() as playwright:
+                  browser=await playwright.chromium.launch(headless=True,args=['--mute-audio','--autoplay-policy=user-gesture-required'])
+                  try:
+                      for cid,handle,url in accounts:
+                          try:emit(await asyncio.wait_for(probe(browser,cid,handle,url),timeout=55))
+                          except Exception as error:emit({'version':1,'provider':'anonymous_playwright_diagnostic','channelId':cid,'platform':'instagram','accountUrl':url,'expectedHandle':handle,'authenticated':False,'status':'unavailable','completeList':False,'errorType':type(error).__name__,'checkedAt':now()})
+                  finally:await browser.close()
+          
+          if __name__=='__main__':asyncio.run(main())
+          PY
+          python /tmp/instagram_browser_probe.py
