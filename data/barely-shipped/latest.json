@@ -13,9 +13,31 @@
       "url": "https://www.instagram.com/bareelyshipped/",
       "status": "partial",
       "message": "Public video metrics updated; per-metric dates retained.",
-      "metrics": {},
-      "lastAttemptAt": "2026-11-03T12:19:10.522156+00:00",
-      "lastSuccessAt": "2026-11-03T12:19:10.522156+00:00"
+      "metrics": {
+        "followers": {
+          "value": 1,
+          "at": "2026-11-03T12:22:55.237Z",
+          "source": "https://www.instagram.com/bareelyshipped/",
+          "method": "browser_bulk",
+          "approximate": false
+        },
+        "following": {
+          "value": 0,
+          "at": "2026-11-03T12:22:55.237Z",
+          "source": "https://www.instagram.com/bareelyshipped/",
+          "method": "browser_bulk",
+          "approximate": false
+        },
+        "publishedCount": {
+          "value": 1,
+          "at": "2026-11-03T12:22:55.237Z",
+          "source": "https://www.instagram.com/bareelyshipped/",
+          "method": "browser_bulk",
+          "approximate": false
+        }
+      },
+      "lastAttemptAt": "2026-11-03T12:22:55.237Z",
+      "lastSuccessAt": "2026-11-03T12:22:55.237Z"
     },
     {
       "id": "tiktok",
@@ -119,8 +141,8 @@
           "url": "https://www.instagram.com/bareelyshipped/reel/DfRm1jRRTdu/",
           "metrics": {
             "views": {
-              "value": 90,
-              "at": "2026-11-03T11:23:45.559Z",
+              "value": 122,
+              "at": "2026-11-03T12:22:55.237Z",
               "source": "https://www.instagram.com/bareelyshipped/reel/DfRm1jRRTdu/",
               "method": "browser_bulk",
               "approximate": false
@@ -221,6 +243,13 @@
       "posts": 2,
       "approximate": false,
       "partial": false
+    },
+    {
+      "at": "2026-11-03T12:22:55.237Z",
+      "views": 301,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
     }
   ],
   "discovery": {
@@ -243,8 +272,8 @@
     "excludedPostIds": {},
     "note": "Inventory not yet verified."
   },
-  "lastAttemptAt": "2026-11-03T12:19:10.522156+00:00",
-  "generatedAt": "2026-11-03T12:19:10.522156+00:00",
+  "lastAttemptAt": "2026-11-03T12:22:55.237Z",
+  "generatedAt": "2026-11-03T12:22:55.237Z",
   "cloudCollection": {
     "at": "2026-11-03T12:19:10.522156+00:00",
     "method": "public_cloud",
@@ -260,7 +289,7 @@
     "cron": "7-59/15 * * * *"
   },
   "changes24h": {
-    "at": "2026-11-03T12:19:10.522156+00:00",
+    "at": "2026-11-03T12:22:55.237Z",
     "baselineAt": null,
     "views": null,
     "likes": null,
