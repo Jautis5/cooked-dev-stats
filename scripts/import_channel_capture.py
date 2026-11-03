@@ -9,7 +9,16 @@ def merge(data,capture):
     for platform,batch in capture.get('platforms',{}).items():
         account=next((a for a in result['accounts'] if a['id']==platform),None)
         if not account or batch.get('accountUrl','').rstrip('/')!=account['url'].rstrip('/'):raise ValueError('Wrong account URL')
-        if batch.get('browserProfile')!='lostastronaut.space':raise ValueError('Wrong browser profile')
+        cloud = batch.get('browserProfile') == 'github-actions-anonymous'
+        if cloud:
+            if platform != 'facebook':raise ValueError('Cloud browser source is Facebook-only')
+            owner = account.get('expectedPageId') or parse_qs(urlsplit(account['url']).query).get('id',[''])[0]
+            if not owner or batch.get('completeList') is True:raise ValueError('Cloud source cannot certify complete inventory')
+            if batch.get('profileMetrics'):raise ValueError('Cloud source has no verified profile metrics')
+            for post in batch.get('posts', []):
+                if str(post.get('ownerPageId', '')) != str(owner) or post.get('public') is not True or post.get('isVideo') is not True:raise ValueError('Cloud publication owner or public video unverified')
+                if set(post.get('metrics', {})) - {'views'}:raise ValueError('Unsupported cloud grid metric')
+        elif batch.get('browserProfile')!='lostastronaut.space':raise ValueError('Wrong browser profile')
         at=batch['observedAt'];observed=datetime.datetime.fromisoformat(at.replace('Z','+00:00'))
         if observed.tzinfo is None or observed.timestamp()>datetime.datetime.now(datetime.timezone.utc).timestamp()+300:raise ValueError('Invalid observation time')
         if batch.get('status')=='unavailable':
@@ -30,7 +39,7 @@ def merge(data,capture):
                 if isinstance(value,bool) or not isinstance(value,int) or value<0:raise ValueError('Invalid metric')
                 old=target.setdefault('metrics',{}).get(key,{})
                 if old.get('at') and datetime.datetime.fromisoformat(old['at'].replace('Z','+00:00'))>observed:continue
-                target['metrics'][key]={'value':value,'at':at,'source':url,'method':'browser_bulk','approximate':raw.get('approximate') is True}
+                target['metrics'][key]={'value':value,'at':at,'source':url,'method':'cloud_browser_facebook_grid' if cloud else 'browser_bulk','approximate':raw.get('approximate') is True}
         metrics(account,batch.get('profileMetrics',{}),account['url'])
         active=0
         for post in batch.get('posts',[]):
