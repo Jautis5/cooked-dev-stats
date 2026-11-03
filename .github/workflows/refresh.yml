@@ -30,7 +30,7 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - run: python -m pip install --disable-pip-version-check 'yt-dlp==2026.8.19'
+      - run: python -m pip install --disable-pip-version-check 'yt-dlp==2026.10.26'
       - name: Test collection and concurrent publishing
         run: python -m unittest discover -s scripts -p 'test_*.py'
       - name: Check dashboard logic
@@ -49,6 +49,55 @@ jobs:
           SOCIAL_STATS_BROKER_URL: ${{ secrets.SOCIAL_STATS_BROKER_URL }}
           SOCIAL_STATS_BROKER_KEY: ${{ secrets.SOCIAL_STATS_BROKER_KEY }}
         run: python scripts/refresh_all.py
+      - name: Collect distinct Facebook public video counters
+        timeout-minutes: 4
+        continue-on-error: true
+        run: |
+          python - <<'PY'
+          import concurrent.futures, datetime, json, math, pathlib, sys
+          from urllib.parse import urlsplit, parse_qs
+          import yt_dlp
+          sys.path.insert(0, 'scripts')
+          from collect_channels import record
+          root = pathlib.Path.cwd()
+          def verified(info, post_id, owner):
+              n = info.get('view_count')
+              return str(info.get('id')) == str(post_id) and str(info.get('uploader_id')) == str(owner) and isinstance(n, (int, float)) and not isinstance(n, bool) and math.isfinite(n) and n >= 0
+          assert verified({'id':'1','uploader_id':'2','view_count':0},'1','2')
+          assert not verified({'id':'1','uploader_id':'3','view_count':10},'1','2')
+          assert not verified({'id':'3','uploader_id':'2','view_count':10},'1','2')
+          assert not verified({'id':'1','uploader_id':'2','view_count':None},'1','2')
+          def read(job):
+              post, owner = job
+              try:
+                  opts = dict(quiet=True, skip_download=True, socket_timeout=12, retries=0, extractor_retries=0, cachedir=False, noplaylist=True)
+                  with yt_dlp.YoutubeDL(opts) as y:
+                      info = y.extract_info(post['url'], download=False)
+                  if not verified(info or {}, post['id'], owner):
+                      return post, None
+                  return post, dict(value=info['view_count'], at=datetime.datetime.now(datetime.timezone.utc).isoformat(), source=post['url'], method='yt_dlp_public_facebook', approximate=False, definition='Facebook public extractor view_count; not interchangeable with Reels grid or Content Library Views', extractorVersion='2026.10.26')
+              except Exception:
+                  return post, None
+          for channel in json.loads((root/'data/channels.json').read_text())['channels']:
+              path = root/channel['dataPath']
+              data = json.loads(path.read_text())
+              account = next((a for a in data['accounts'] if a['id']=='facebook'), None)
+              if not account:
+                  continue
+              owner = account.get('expectedPageId') or parse_qs(urlsplit(account['url']).query).get('id', [''])[0]
+              if not owner:
+                  continue
+              posts = [v['posts']['facebook'] for v in data['videos'] if 'facebook' in v.get('posts', {})]
+              updated = 0
+              with concurrent.futures.ThreadPoolExecutor(max_workers=2) as pool:
+                  for post, metric in pool.map(read, [(p, owner) for p in posts]):
+                      if metric is not None:
+                          post.setdefault('metrics', {})['facebookPublicVideoViews'] = metric
+                          updated += 1
+              if updated:
+                  record(data, path.parent)
+              print(json.dumps(dict(channelId=channel['id'], knownPosts=len(posts), publicCountersUpdated=updated, inventoryComplete=False)))
+          PY
       - name: Validate and publish with conflict recovery
         run: python scripts/publish_refresh.py
       - name: Keep public observations for recovery
