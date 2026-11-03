@@ -13,6 +13,18 @@ def newer(left, right):
     return left if timestamp(left) >= timestamp(right) else right
 
 
+def merge_channel_health(remote, collected):
+    """Retain independently dated channel reports across partial browser bundles."""
+    out = copy.deepcopy(collected if timestamp(collected.get('completedAt')) > timestamp(remote.get('completedAt')) else remote)
+    reports = copy.deepcopy(remote.get('channels', {}))
+    for cid, report in collected.get('channels', {}).items():
+        if timestamp(report.get('checkedAt')) >= timestamp(reports.get(cid, {}).get('checkedAt')):
+            reports[cid] = copy.deepcopy(report)
+    if reports or 'channels' in remote or 'channels' in collected:
+        out['channels'] = reports
+    return out
+
+
 def merge_object(remote, collected):
     out = copy.deepcopy(remote)
     if str(remote.get('id')) != str(collected.get('id')):
