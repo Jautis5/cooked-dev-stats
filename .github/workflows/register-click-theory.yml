@@ -1,0 +1,117 @@
+name: Register Click Theory
+on: workflow_dispatch
+permissions:
+  contents: write
+  actions: write
+concurrency:
+  group: click-theory-registration
+  cancel-in-progress: false
+jobs:
+  register:
+    if: github.repository == 'Jautis5/cooked-dev-stats' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Validate supplied logo and register exact identities
+        run: |
+          python - <<'PY'
+          import copy,hashlib,json,pathlib,sys
+          sys.path.insert(0,'scripts')
+          from snapshot_merge import validate
+          from collect import exports
+          cid='click-theory';name='Click Theory';root=pathlib.Path('.')
+          logo=root/'site/assets/click-theory.png'
+          if not logo.exists():
+           import urllib.request,urllib.parse
+           class PublicLogoRedirect(urllib.request.HTTPRedirectHandler):
+            def redirect_request(self,req,fp,code,msg,headers,newurl):
+             target=urllib.parse.urlsplit(newurl)
+             if target.scheme!='https' or target.hostname not in {'drive.google.com','drive.usercontent.google.com'}:raise ValueError('Unexpected public-logo redirect')
+             return super().redirect_request(req,fp,code,msg,headers,newurl)
+           request=urllib.request.Request('https://drive.google.com/uc?export=download&id=1_X1hUIrLIq5SiWYRtjub_4WT4ZeTIKZo',headers={'User-Agent':'Social-Stats-Logo-Import'})
+           with urllib.request.build_opener(PublicLogoRedirect()).open(request,timeout=20) as response:raw=response.read(1048577)
+           assert len(raw)<=1048576,'Public logo exceeds 1 MiB'
+           assert hashlib.sha256(raw).hexdigest()=='010c11ed1c25449c8cc0e8170803326dbf0a1a464a01f8ece6c8eb62a0225b0e','Downloaded supplied logo hash mismatch'
+           logo.parent.mkdir(parents=True,exist_ok=True)
+           with logo.open('xb') as output:output.write(raw)
+          assert hashlib.sha256(logo.read_bytes()).hexdigest()=='010c11ed1c25449c8cc0e8170803326dbf0a1a464a01f8ece6c8eb62a0225b0e','Original supplied logo hash mismatch'
+          registry=root/'data/channels.json';site=root/'site/data/channels.json';a=json.loads(registry.read_text());b=json.loads(site.read_text());oldA=copy.deepcopy(a);oldB=copy.deepcopy(b)
+          expected={'cooked-dev','indian-builds','dont-get-traced','dumb-luck','no-code-kevin','barely-shipped'}
+          assert expected<={x['id'] for x in a['channels']} and expected<={x['id'] for x in b['channels']}
+          protected={x['dataPath']:(root/x['dataPath']).read_bytes() for x in a['channels'] if x['id']!=cid};ledger=(root/'data/publications.json').read_bytes()
+          path=root/'data/click-theory/latest.json';identities=[('instagram','Instagram','click_theoory','https://www.instagram.com/click_theoory/'),('tiktok','TikTok','click_theory','https://www.tiktok.com/@click_theory')]
+          def save(p,d):p.parent.mkdir(parents=True,exist_ok=True);p.write_text(json.dumps(d,ensure_ascii=False,indent=2)+'\n')
+          if not path.exists():
+           d={'version':1,'channelId':cid,'brand':{'name':name},'accounts':[dict(id=p,name=n,handle=h,expectedHandle=h,url=u,status='unavailable',message='First verified cloud observation pending; inventory and metrics unknown.',metrics={}) for p,n,h,u in identities],'videos':[],'history':[],'discovery':{},'tracking':{'excludedPostIds':{},'note':'Registered owned identities only; no complete inventory or public metric was inferred from registration.'}}
+           validate(d);save(path,d)
+          else:d=json.loads(path.read_text())
+          assert d.get('channelId')==cid and len(d['accounts'])==2
+          for p,n,h,u in identities:
+           account=next(x for x in d['accounts'] if x['id']==p);assert account['url']==u and account.get('expectedHandle',account.get('handle'))==h
+          validate(d);exports(d,path.parent);save(root/'site/data/click-theory.json',d)
+          items=[(a,dict(id=cid,name=name,dataPath='data/click-theory/latest.json')),(b,dict(id=cid,name=name,logo='assets/click-theory.png',dataUrl='https://raw.githubusercontent.com/Jautis5/cooked-dev-stats/main/data/click-theory/latest.json',fallbackUrl='data/click-theory.json'))]
+          for obj,item in items:
+           existing=next((x for x in obj['channels'] if x['id']==cid),None)
+           if existing is None:obj['channels'].append(item)
+           else:
+            for k,v in item.items():assert existing.get(k)==v,'Existing identity/registry differs; review required'
+          assert [x for x in a['channels'] if x['id']!=cid]==[x for x in oldA['channels'] if x['id']!=cid]
+          assert [x for x in b['channels'] if x['id']!=cid]==[x for x in oldB['channels'] if x['id']!=cid]
+          for p,data in protected.items():assert (root/p).read_bytes()==data
+          assert (root/'data/publications.json').read_bytes()==ledger
+          save(registry,a);save(site,b)
+          print(json.dumps({'channelId':cid,'registeredPlatforms':['instagram','tiktok'],'registryChannels':len(a['channels']),'initialKnownPosts':sum(len(v['posts'])for v in d['videos']),'noInventedPostIds':True,'existingFeedsAndLedgerByteIdentical':True,'logoSha256':hashlib.sha256(logo.read_bytes()).hexdigest()}))
+          PY
+      - name: Validate tracker and channel isolation
+        run: |
+          python -m unittest discover -s scripts -p 'test_*.py'
+          node scripts/test_workspace.cjs
+      - name: Commit only registration and supplied asset
+        run: |
+          git add -- data/channels.json data/click-theory site/data/channels.json site/data/click-theory.json site/assets/click-theory.png
+          git config user.name 'Social Stats Cloud'
+          git config user.email 'stats@users.noreply.github.com'
+          if ! git diff --cached --quiet; then
+            git commit -m 'Register Click Theory cloud tracking'
+            published=false
+            for attempt in 1 2 3 4; do
+              if git push origin HEAD:refs/heads/main; then published=true; break; fi
+              git fetch --no-tags origin main
+              git rebase origin/main
+            done
+            test "$published" = true
+          fi
+      - name: First public cloud read for the new channel only
+        run: |
+          python - <<'PY'
+          import copy,json,pathlib,sys
+          sys.path.insert(0,'scripts')
+          import collect_channels,public_fallbacks
+          from publish_refresh import publish
+          from snapshot_merge import validate
+          p=pathlib.Path('data/click-theory/latest.json')
+          d=json.loads(p.read_text())
+          d=public_fallbacks.refresh_fallbacks(d)
+          discoveries=copy.deepcopy(d.get('discovery',{}))
+          d=collect_channels.refresh(d)
+          for platform,result in discoveries.items():
+           if result.get('method')=='public_creator_embed':
+            current=d.get('discovery',{}).get(platform,{})
+            result['feedStatus']=current.get('status')
+            if 'reportedPosts' in current:result['reportedPosts']=current['reportedPosts']
+            d['discovery'][platform]=result
+          validate(d)
+          collect_channels.record(d,p.parent)
+          print(json.dumps({'publishedCommit':publish(),'scope':'click-theory only; existing cloud clock remains active'}))
+          PY
+      - name: Publish dashboard
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run pages.yml --repo "$GITHUB_REPOSITORY" --ref main
