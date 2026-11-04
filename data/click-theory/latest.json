@@ -14,7 +14,7 @@
       "status": "unavailable",
       "message": "Public source unavailable; previous observations preserved.",
       "metrics": {},
-      "lastAttemptAt": "2026-11-04T14:49:53.634222+00:00"
+      "lastAttemptAt": "2026-11-04T15:04:24.396749+00:00"
     },
     {
       "id": "tiktok",
@@ -27,28 +27,28 @@
       "metrics": {
         "followers": {
           "value": 0,
-          "at": "2026-11-04T14:52:47.029814+00:00",
+          "at": "2026-11-04T15:06:26.071878+00:00",
           "source": "https://www.tiktok.com/@click_theory",
           "approximate": false,
-          "collectionCycleAt": "2026-11-04T14:49:53.634222+00:00"
+          "collectionCycleAt": "2026-11-04T15:04:24.396749+00:00"
         },
         "profileLikes": {
           "value": 0,
-          "at": "2026-11-04T14:52:47.029834+00:00",
+          "at": "2026-11-04T15:06:26.071902+00:00",
           "source": "https://www.tiktok.com/@click_theory",
           "approximate": false,
-          "collectionCycleAt": "2026-11-04T14:49:53.634222+00:00"
+          "collectionCycleAt": "2026-11-04T15:04:24.396749+00:00"
         },
         "publishedCount": {
           "value": 1,
-          "at": "2026-11-04T14:36:19.224158+00:00",
+          "at": "2026-11-04T15:06:26.071906+00:00",
           "source": "https://www.tiktok.com/@click_theory",
           "approximate": false,
-          "collectionCycleAt": "2026-11-04T14:34:06.992666+00:00"
+          "collectionCycleAt": "2026-11-04T15:04:24.396749+00:00"
         }
       },
-      "lastAttemptAt": "2026-11-04T14:49:53.634222+00:00",
-      "lastSuccessAt": "2026-11-04T14:49:53.634222+00:00"
+      "lastAttemptAt": "2026-11-04T15:04:24.396749+00:00",
+      "lastSuccessAt": "2026-11-04T15:04:24.396749+00:00"
     }
   ],
   "videos": [
@@ -67,38 +67,38 @@
           "metrics": {
             "views": {
               "value": 0,
-              "at": "2026-11-04T14:52:48.205984+00:00",
+              "at": "2026-11-04T15:06:26.692243+00:00",
               "source": "https://www.tiktok.com/@click_theory/video/7704295685822188822",
               "approximate": false,
-              "collectionCycleAt": "2026-11-04T14:49:53.634222+00:00"
+              "collectionCycleAt": "2026-11-04T15:04:24.396749+00:00"
             },
             "likes": {
               "value": 0,
-              "at": "2026-11-04T14:52:48.206004+00:00",
+              "at": "2026-11-04T15:06:26.692266+00:00",
               "source": "https://www.tiktok.com/@click_theory/video/7704295685822188822",
               "approximate": false,
-              "collectionCycleAt": "2026-11-04T14:49:53.634222+00:00"
+              "collectionCycleAt": "2026-11-04T15:04:24.396749+00:00"
             },
             "comments": {
               "value": 0,
-              "at": "2026-11-04T14:52:48.206008+00:00",
+              "at": "2026-11-04T15:06:26.692269+00:00",
               "source": "https://www.tiktok.com/@click_theory/video/7704295685822188822",
               "approximate": false,
-              "collectionCycleAt": "2026-11-04T14:49:53.634222+00:00"
+              "collectionCycleAt": "2026-11-04T15:04:24.396749+00:00"
             },
             "shares": {
               "value": 0,
-              "at": "2026-11-04T14:52:48.206012+00:00",
+              "at": "2026-11-04T15:06:26.692272+00:00",
               "source": "https://www.tiktok.com/@click_theory/video/7704295685822188822",
               "approximate": false,
-              "collectionCycleAt": "2026-11-04T14:49:53.634222+00:00"
+              "collectionCycleAt": "2026-11-04T15:04:24.396749+00:00"
             },
             "saves": {
               "value": 0,
-              "at": "2026-11-04T14:52:48.206015+00:00",
+              "at": "2026-11-04T15:06:26.692274+00:00",
               "source": "https://www.tiktok.com/@click_theory/video/7704295685822188822",
               "approximate": false,
-              "collectionCycleAt": "2026-11-04T14:49:53.634222+00:00"
+              "collectionCycleAt": "2026-11-04T15:04:24.396749+00:00"
             }
           }
         }
@@ -161,40 +161,45 @@
       "posts": 1,
       "approximate": false,
       "partial": false
+    },
+    {
+      "at": "2026-11-04T15:04:24.396749+00:00",
+      "views": 0,
+      "posts": 1,
+      "approximate": false,
+      "partial": false
     }
   ],
   "discovery": {
     "instagram": {
       "status": "session_required",
-      "checkedAt": "2026-11-04T14:49:53.634222+00:00",
+      "checkedAt": "2026-11-04T15:04:24.396749+00:00",
       "complete": false,
       "message": "New-publication discovery requires an authorized account list; a successful metrics check is not a complete list."
     },
     "tiktok": {
-      "status": "partial",
-      "method": "public_creator_embed",
-      "newVideos": 0,
-      "listedPosts": 1,
+      "status": "profile_checked",
+      "checkedAt": "2026-11-04T15:04:24.396749+00:00",
       "complete": false,
-      "checkedAt": "2026-11-04T14:49:53.634222+00:00",
-      "feedStatus": "partial",
-      "reportedPosts": 1
+      "method": "public_profile",
+      "reportedPosts": 1,
+      "message": "Profile counters checked; video-list coverage requires a separate scan."
     }
   },
   "tracking": {
     "excludedPostIds": {},
     "note": "Registered owned identities only; no complete inventory or public metric was inferred from registration."
   },
-  "lastAttemptAt": "2026-11-04T14:49:53.634222+00:00",
-  "generatedAt": "2026-11-04T14:49:53.634222+00:00",
+  "lastAttemptAt": "2026-11-04T15:04:24.396749+00:00",
+  "generatedAt": "2026-11-04T15:04:24.396749+00:00",
   "cloudCollection": {
-    "at": "2026-11-04T14:49:53.634222+00:00",
+    "at": "2026-11-04T15:04:24.396749+00:00",
     "method": "public_cloud",
     "metricsUpdated": {
       "instagram": 0,
-      "tiktok": 7
+      "tiktok": 8
     },
-    "runUrl": "https://github.com/Jautis5/cooked-dev-stats/actions/runs/41850959924"
+    "runUrl": "https://github.com/Jautis5/cooked-dev-stats/actions/runs/41853578784"
   },
   "schedule": {
     "provider": "GitHub Actions",
@@ -202,7 +207,7 @@
     "cron": "7-59/15 * * * *"
   },
   "changes24h": {
-    "at": "2026-11-04T14:49:53.634222+00:00",
+    "at": "2026-11-04T15:04:24.396749+00:00",
     "baselineAt": null,
     "views": null,
     "likes": null,
