@@ -12,8 +12,9 @@
       "expectedHandle": "click_theoory",
       "url": "https://www.instagram.com/click_theoory/",
       "status": "unavailable",
-      "message": "First verified cloud observation pending; inventory and metrics unknown.",
-      "metrics": {}
+      "message": "Public source unavailable; previous observations preserved.",
+      "metrics": {},
+      "lastAttemptAt": "2026-11-04T13:08:43.972140+00:00"
     },
     {
       "id": "tiktok",
@@ -21,16 +22,136 @@
       "handle": "click_theory",
       "expectedHandle": "click_theory",
       "url": "https://www.tiktok.com/@click_theory",
-      "status": "unavailable",
-      "message": "First verified cloud observation pending; inventory and metrics unknown.",
-      "metrics": {}
+      "status": "partial",
+      "message": "Public video metrics updated; per-metric dates retained.",
+      "metrics": {
+        "followers": {
+          "value": 0,
+          "at": "2026-11-04T13:08:45.553742+00:00",
+          "source": "https://www.tiktok.com/@click_theory",
+          "approximate": false,
+          "collectionCycleAt": "2026-11-04T13:08:43.972140+00:00"
+        },
+        "profileLikes": {
+          "value": 0,
+          "at": "2026-11-04T13:08:45.553766+00:00",
+          "source": "https://www.tiktok.com/@click_theory",
+          "approximate": false,
+          "collectionCycleAt": "2026-11-04T13:08:43.972140+00:00"
+        },
+        "publishedCount": {
+          "value": 1,
+          "at": "2026-11-04T13:08:45.553769+00:00",
+          "source": "https://www.tiktok.com/@click_theory",
+          "approximate": false,
+          "collectionCycleAt": "2026-11-04T13:08:43.972140+00:00"
+        }
+      },
+      "lastAttemptAt": "2026-11-04T13:08:43.972140+00:00",
+      "lastSuccessAt": "2026-11-04T13:08:43.972140+00:00"
     }
   ],
-  "videos": [],
-  "history": [],
-  "discovery": {},
+  "videos": [
+    {
+      "id": "tiktok-7704295685822188822",
+      "number": 1,
+      "title": "Save this checklist before your next Claude chat. These 10 Claude tips cover what to include in your prompt, when to ask for a plan, and what to check before trusting the answer. Give it a clear result and the relevant context. Open its sources. Run its code.",
+      "caption": "Save this checklist before your next Claude chat. These 10 Claude tips cover what to include in your prompt, when to ask for a plan, and what to check before trusting the answer. Give it a clear result and the relevant context. Open its sources. Run its code.",
+      "publishedAt": null,
+      "thumbnail": null,
+      "assetUrl": null,
+      "posts": {
+        "tiktok": {
+          "id": "7704295685822188822",
+          "url": "https://www.tiktok.com/@click_theory/video/7704295685822188822",
+          "metrics": {
+            "views": {
+              "value": 0,
+              "at": "2026-11-04T13:08:45.987814+00:00",
+              "source": "https://www.tiktok.com/@click_theory/video/7704295685822188822",
+              "approximate": false,
+              "collectionCycleAt": "2026-11-04T13:08:43.972140+00:00"
+            },
+            "likes": {
+              "value": 0,
+              "at": "2026-11-04T13:08:45.987840+00:00",
+              "source": "https://www.tiktok.com/@click_theory/video/7704295685822188822",
+              "approximate": false,
+              "collectionCycleAt": "2026-11-04T13:08:43.972140+00:00"
+            },
+            "comments": {
+              "value": 0,
+              "at": "2026-11-04T13:08:45.987844+00:00",
+              "source": "https://www.tiktok.com/@click_theory/video/7704295685822188822",
+              "approximate": false,
+              "collectionCycleAt": "2026-11-04T13:08:43.972140+00:00"
+            },
+            "shares": {
+              "value": 0,
+              "at": "2026-11-04T13:08:45.987846+00:00",
+              "source": "https://www.tiktok.com/@click_theory/video/7704295685822188822",
+              "approximate": false,
+              "collectionCycleAt": "2026-11-04T13:08:43.972140+00:00"
+            },
+            "saves": {
+              "value": 0,
+              "at": "2026-11-04T13:08:45.987848+00:00",
+              "source": "https://www.tiktok.com/@click_theory/video/7704295685822188822",
+              "approximate": false,
+              "collectionCycleAt": "2026-11-04T13:08:43.972140+00:00"
+            }
+          }
+        }
+      }
+    }
+  ],
+  "history": [
+    {
+      "at": "2026-11-04T13:08:43.972140+00:00",
+      "views": 0,
+      "posts": 1,
+      "approximate": false,
+      "partial": false
+    }
+  ],
+  "discovery": {
+    "instagram": {
+      "status": "session_required",
+      "checkedAt": "2026-11-04T13:08:43.972140+00:00",
+      "complete": false,
+      "message": "New-publication discovery requires an authorized account list; a successful metrics check is not a complete list."
+    },
+    "tiktok": {
+      "status": "partial",
+      "method": "public_creator_embed",
+      "newVideos": 1,
+      "listedPosts": 1,
+      "complete": false,
+      "checkedAt": "2026-11-04T13:08:43.972140+00:00",
+      "feedStatus": "profile_checked",
+      "reportedPosts": 1
+    }
+  },
   "tracking": {
     "excludedPostIds": {},
     "note": "Registered owned identities only; no complete inventory or public metric was inferred from registration."
+  },
+  "lastAttemptAt": "2026-11-04T13:08:43.972140+00:00",
+  "generatedAt": "2026-11-04T13:08:43.972140+00:00",
+  "cloudCollection": {
+    "at": "2026-11-04T13:08:43.972140+00:00",
+    "method": "public_cloud",
+    "metricsUpdated": {
+      "instagram": 0,
+      "tiktok": 8
+    }
+  },
+  "schedule": {},
+  "changes24h": {
+    "at": "2026-11-04T13:08:43.972140+00:00",
+    "baselineAt": null,
+    "views": null,
+    "likes": null,
+    "followers": null
   }
 }
