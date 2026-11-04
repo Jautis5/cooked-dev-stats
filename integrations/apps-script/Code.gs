@@ -2,7 +2,11 @@
 const SS_CHANNELS = {
   'cooked-dev': {youtube:'UCNPkHyLJotjamsFxts47T2A',instagram:'cooked_dev',tiktok:'cooked_dev_',facebook:'61595564490107',since:'2026-10-19T00:00:00Z'},
   'indian-builds': {youtube:'UCgHxdk2zTRXwsoCrICSwiRg',instagram:'indian_builds',tiktok:'indian_builds',facebook:'61594164374065',since:'2026-10-20T00:00:00Z'},
-  'dont-get-traced': {youtube:'UCqsTDLISgGhzA_xiQT3E9yg',instagram:'dontgettraced',tiktok:'dontgettraced',facebook:'61595574064670',since:'2026-10-21T00:00:00Z'}
+  'dont-get-traced': {youtube:'UCqsTDLISgGhzA_xiQT3E9yg',instagram:'dontgettraced',tiktok:'dontgettraced',facebook:'61595574064670',since:'2026-10-21T00:00:00Z'},
+  'dumb-luck': {youtube:'UCB-BqPU60vRfUWGalt6fRtQ',instagram:'duumb_luck',tiktok:'duumbluck',since:null},
+  'no-code-kevin': {instagram:'nocode_kevin',tiktok:'nocodekevin',since:null},
+  'barely-shipped': {instagram:'bareelyshipped',tiktok:'barelyshipped',since:null},
+  'click-theory': {instagram:'click_theoory',tiktok:'click_theory',since:null}
 };
 const SS_PLATFORMS = ['youtube','tiktok','instagram','facebook'];
 
@@ -14,9 +18,9 @@ function ssInteger_(value) {
   if (typeof value==='string' && /^\d+$/.test(value)) value=Number(value);
   return Number.isSafeInteger(value) && value>=0 ? value : null;
 }
-function ssMetric_(metrics,key,value,field) {
+function ssMetric_(metrics,key,value,field,observedAt) {
   const count=ssInteger_(value);
-  if(count!==null) metrics[key]={value:count,apiMetric:field};
+  if(count!==null) metrics[key]={value:count,apiMetric:field,observedAt:observedAt||new Date().toISOString()};
 }
 function ssJSON_(value) { return ContentService.createTextOutput(JSON.stringify(value)).setMimeType(ContentService.MimeType.JSON); }
 function ssHex_(bytes) { return bytes.map(x=>(x<0?x+256:x).toString(16).padStart(2,'0')).join(''); }
@@ -47,7 +51,7 @@ function ssRequest_(event) {
   const parts=JSON.parse(body.message);
   if(!Array.isArray(parts)||parts.length!==7) throw new Error('INVALID_REQUEST');
   const [version,action,epoch,nonce,channel,platform,options]=parts;
-  if(version!==1||!['collect','capabilities','posts','comments','traffic'].includes(action)||!Object.prototype.hasOwnProperty.call(SS_CHANNELS,channel)||!SS_PLATFORMS.includes(platform)
+  if(version!==1||!['collect','capabilities','posts','comments','traffic'].includes(action)||!Object.prototype.hasOwnProperty.call(SS_CHANNELS,channel)||!SS_PLATFORMS.includes(platform)||!SS_CHANNELS[channel][platform]
     ||!Number.isSafeInteger(epoch)||Math.abs(Date.now()/1000-epoch)>180||typeof nonce!=='string'||!/^[a-f0-9]{32}$/.test(nonce)
     ) throw new Error('INVALID_REQUEST');
   if(action==='collect') {
@@ -85,23 +89,29 @@ function doPost(event) {
   }
 }
 
-function ssBase_(channel,platform,owner) {
-  return {version:1,channelId:channel,platform,owner,checkedAt:new Date().toISOString(),method:'official_api',
+function ssBase_(channel,platform,owner,startedAt) {
+  return {version:1,channelId:channel,platform,owner,checkedAt:startedAt||new Date().toISOString(),method:'official_api',
     inventory:{complete:false,scope:'since_tracking_start',since:SS_CHANNELS[channel].since},accountMetrics:{},posts:[]};
+}
+function ssFinish_(out) {
+  out.inventory.checkedAt=new Date().toISOString();
+  return out;
 }
 
 function ssYouTube_(channel,knownIds) {
+  const startedAt=new Date().toISOString();
   const expected=SS_CHANNELS[channel].youtube;
   const owner=(YouTube.Channels.list('snippet,contentDetails,statistics',{id:expected,maxResults:1}).items||[])[0];
+  const ownerAt=new Date().toISOString();
   if(!owner||owner.id!==expected) throw new Error('IDENTITY_MISMATCH');
-  const out=ssBase_(channel,'youtube',{id:expected});
-  ssMetric_(out.accountMetrics,'followers',owner.statistics.subscriberCount,'subscriberCount');
+  const out=ssBase_(channel,'youtube',{id:expected},startedAt);
+  ssMetric_(out.accountMetrics,'followers',owner.statistics.subscriberCount,'subscriberCount',ownerAt);
   // Subscriber counts can be rounded by YouTube; never claim exact follower counts.
   if(out.accountMetrics.followers) out.accountMetrics.followers.approximate=true;
-  ssMetric_(out.accountMetrics,'publishedCount',owner.statistics.videoCount,'videoCount');
+  ssMetric_(out.accountMetrics,'publishedCount',owner.statistics.videoCount,'videoCount',ownerAt);
   if(ssInteger_(owner.statistics.videoCount)===0 && knownIds.length===0) {
     out.inventory.complete=true;
-    return out; // A verified empty channel may not have an uploads playlist yet.
+    return ssFinish_(out); // A verified empty channel may not have an uploads playlist yet.
   }
   const ids=new Set(knownIds), playlist=owner.contentDetails.relatedPlaylists.uploads;
   let pageToken;
@@ -111,7 +121,7 @@ function ssYouTube_(channel,knownIds) {
     const response=YouTube.PlaylistItems.list('snippet,contentDetails',params);
     (response.items||[]).forEach(item=>{
       const details=item.contentDetails||{}, published=details.videoPublishedAt;
-      if(published&&Date.parse(published)>=Date.parse(SS_CHANNELS[channel].since)&&/^[\w-]{11}$/.test(details.videoId||'')) ids.add(details.videoId);
+      if(published&&Date.parse(published)>=(Date.parse(SS_CHANNELS[channel].since)||0)&&/^[\w-]{11}$/.test(details.videoId||'')) ids.add(details.videoId);
     });
     pageToken=response.nextPageToken;
     if(!pageToken) { out.inventory.complete=true; break; }
@@ -119,19 +129,21 @@ function ssYouTube_(channel,knownIds) {
   const all=Array.from(ids);
   for(let offset=0;offset<all.length;offset+=50) {
     const response=YouTube.Videos.list('snippet,statistics,status',{id:all.slice(offset,offset+50).join(',')});
+    const responseAt=new Date().toISOString();
     (response.items||[]).forEach(item=>{
       if(item.snippet.channelId!==expected||item.status.privacyStatus!=='public'||!/^[\w-]{11}$/.test(item.id)) return;
       const metrics={}, stats=item.statistics||{};
-      [['views','viewCount'],['likes','likeCount'],['comments','commentCount']].forEach(([key,field])=>ssMetric_(metrics,key,stats[field],field));
+      [['views','viewCount'],['likes','likeCount'],['comments','commentCount']].forEach(([key,field])=>ssMetric_(metrics,key,stats[field],field,responseAt));
       out.posts.push({id:item.id,url:'https://www.youtube.com/watch?v='+item.id,title:item.snippet.title,
         publishedAt:item.snippet.publishedAt,metrics});
     });
   }
-  return out;
+  return ssFinish_(out);
 }
 
 function verifyYouTubeConnection() {
   const result=Object.keys(SS_CHANNELS).map(channel=>{
+    if(!SS_CHANNELS[channel].youtube) return {channelId:channel,status:'not_registered'};
     const out=ssYouTube_(channel,[]);
     return {channelId:channel,owner:out.owner,publicVideos:out.posts.length,inventoryComplete:out.inventory.complete};
   });
@@ -167,28 +179,32 @@ function ssTTToken_(channel) {
   } finally {lock.releaseLock();}
 }
 function ssTikTok_(channel,knownIds) {
+  const startedAt=new Date().toISOString();
   const token=ssTTToken_(channel), user=ssTTUser_(token), expected=SS_CHANNELS[channel].tiktok;
+  const userAt=new Date().toISOString();
   if(user.username!==expected||!user.open_id) throw new Error('IDENTITY_MISMATCH');
   const saved=ssLoad_('TIKTOK_'+channel);
   if(saved.open_id!==user.open_id) throw new Error('IDENTITY_MISMATCH');
-  const out=ssBase_(channel,'tiktok',{handle:user.username});
-  [['followers','follower_count'],['profileLikes','likes_count'],['publishedCount','video_count']].forEach(([key,field])=>ssMetric_(out.accountMetrics,key,user[field],field));
+  const out=ssBase_(channel,'tiktok',{handle:user.username},startedAt);
+  [['followers','follower_count'],['profileLikes','likes_count'],['publishedCount','video_count']].forEach(([key,field])=>ssMetric_(out.accountMetrics,key,user[field],field,userAt));
   const fields='id,create_time,share_url,video_description,title,view_count,like_count,comment_count,share_count';
   const seen=new Set();let cursor;
-  function accept(item) {
+  function accept(item,responseAt) {
     const id=String(item.id), url='https://www.tiktok.com/@'+expected+'/video/'+id;
-    if(!/^\d+$/.test(id)||seen.has(id)) return;
+    if(!/^\d+$/.test(id)) throw new Error('IDENTITY_MISMATCH');
+    if(seen.has(id)) return;
     const shared=(item.share_url||'').split('?')[0].replace(/\/$/,'');
-    if(shared!==url) return;
+    if(shared!==url) throw new Error('IDENTITY_MISMATCH');
     seen.add(id);
-    const metrics={};[['views','view_count'],['likes','like_count'],['comments','comment_count'],['shares','share_count']].forEach(([key,field])=>ssMetric_(metrics,key,item[field],field));
+    const metrics={};[['views','view_count'],['likes','like_count'],['comments','comment_count'],['shares','share_count']].forEach(([key,field])=>ssMetric_(metrics,key,item[field],field,responseAt));
     out.posts.push({id,url,title:item.title||item.video_description||'Untitled video',publishedAt:new Date(item.create_time*1000).toISOString(),metrics});
   }
   for(let page=0;page<10;page++) {
     const body={max_count:20};if(cursor!==undefined) body.cursor=cursor;
     const result=ssHTTP_('https://open.tiktokapis.com/v2/video/list/?fields='+fields,{method:'post',contentType:'application/json',headers:{Authorization:'Bearer '+token},payload:JSON.stringify(body)}).data;
+    const responseAt=new Date().toISOString();
     if(!result||!Array.isArray(result.videos)||typeof result.has_more!=='boolean') throw new Error('SOURCE_UNAVAILABLE');
-    result.videos.forEach(accept);
+    result.videos.forEach(item=>accept(item,responseAt));
     if(!result.has_more) {out.inventory.complete=true;break;}
     if(result.cursor===undefined||result.cursor===cursor) break;
     cursor=result.cursor;
@@ -196,9 +212,10 @@ function ssTikTok_(channel,knownIds) {
   const missing=knownIds.filter(id=>!seen.has(id));
   for(let i=0;i<missing.length;i+=20) {
     const result=ssHTTP_('https://open.tiktokapis.com/v2/video/query/?fields='+fields,{method:'post',contentType:'application/json',headers:{Authorization:'Bearer '+token},payload:JSON.stringify({filters:{video_ids:missing.slice(i,i+20)}})}).data;
-    (result&&result.videos||[]).forEach(accept);
+    const responseAt=new Date().toISOString();
+    (result&&result.videos||[]).forEach(item=>accept(item,responseAt));
   }
-  return out;
+  return ssFinish_(out);
 }
 
 function ssGraph_(path,token,params) {
@@ -217,29 +234,33 @@ function ssMeta_(channel) {
   return {saved,page};
 }
 function ssInstagram_(channel) {
+  const startedAt=new Date().toISOString();
   const {saved,page}=ssMeta_(channel), ig=(page.instagram_business_account||{}).id;
   if(!ig||ig!==saved.igId) throw new Error('IDENTITY_MISMATCH');
   const user=ssGraph_(ig,saved.pageToken,{fields:'id,username,followers_count,media_count'});
+  const userAt=new Date().toISOString();
   if(user.username!==SS_CHANNELS[channel].instagram) throw new Error('IDENTITY_MISMATCH');
-  const out=ssBase_(channel,'instagram',{handle:user.username});
-  ssMetric_(out.accountMetrics,'followers',user.followers_count,'followers_count');
-  ssMetric_(out.accountMetrics,'publishedCount',user.media_count,'media_count');
+  const out=ssBase_(channel,'instagram',{handle:user.username},startedAt);
+  ssMetric_(out.accountMetrics,'followers',user.followers_count,'followers_count',userAt);
+  ssMetric_(out.accountMetrics,'publishedCount',user.media_count,'media_count',userAt);
   let after;
   for(let pageIndex=0;pageIndex<10;pageIndex++) {
     const params={fields:'id,media_type,media_product_type,permalink,caption,timestamp,like_count,comments_count',limit:100};if(after) params.after=after;
     const list=ssGraph_(ig+'/media',saved.pageToken,params);
+    const mediaAt=new Date().toISOString();
     if(!Array.isArray(list.data)) throw new Error('SOURCE_UNAVAILABLE');
     list.data.forEach(item=>{
       if(item.media_type!=='VIDEO') return;
       const match=/^https:\/\/www\.instagram\.com\/(?:reel|p)\/([\w-]+)\/?$/.exec(item.permalink||'');
       if(!match) return;
-      const metrics={};ssMetric_(metrics,'likes',item.like_count,'like_count');ssMetric_(metrics,'comments',item.comments_count,'comments_count');
+      const metrics={};ssMetric_(metrics,'likes',item.like_count,'like_count',mediaAt);ssMetric_(metrics,'comments',item.comments_count,'comments_count',mediaAt);
       ['views','shares','saved'].forEach(field=>{
         try {
           const response=ssGraph_(item.id+'/insights',saved.pageToken,{metric:field});
+          const responseAt=new Date().toISOString();
           const row=(response.data||[]).find(x=>x.name===field);
           const value=row&&(row.total_value?row.total_value.value:(row.values||[])[0]&&row.values[0].value);
-          ssMetric_(metrics,field==='saved'?'saves':field,value,field);
+          ssMetric_(metrics,field==='saved'?'saves':field,value,field,responseAt);
         } catch(error) { /* One unsupported metric must not erase others. */ }
       });
       out.posts.push({id:match[1],url:item.permalink,title:item.caption||'Untitled video',publishedAt:item.timestamp,metrics});
@@ -248,38 +269,44 @@ function ssInstagram_(channel) {
     if(!(list.paging||{}).next) {out.inventory.complete=true;break;}
     if(!after) break;
   }
-  return out;
+  return ssFinish_(out);
 }
 function ssFacebook_(channel,knownIds) {
-  const {saved,page}=ssMeta_(channel), out=ssBase_(channel,'facebook',{id:page.id});
+  const startedAt=new Date().toISOString();
+  const {saved,page}=ssMeta_(channel), out=ssBase_(channel,'facebook',{id:page.id},startedAt);
   // Video.views is retained with its API field identity; verify against the Page's UI before declaring parity.
   const fields='id,from{id},description,title,created_time,permalink_url,published,privacy,views';
   const ids=new Set(knownIds), videos=new Map();let after;
   for(let index=0;index<10;index++) {
     const params={fields,limit:100};if(after) params.after=after;
     const response=ssGraph_(page.id+'/videos',saved.pageToken,params);
+    const responseAt=new Date().toISOString();
     if(!Array.isArray(response.data)) throw new Error('SOURCE_UNAVAILABLE');
-    response.data.forEach(item=>{videos.set(item.id,item);ids.add(item.id);});
+    response.data.forEach(item=>{videos.set(item.id,{item,observedAt:responseAt});ids.add(item.id);});
     after=((response.paging||{}).cursors||{}).after;
     if(!(response.paging||{}).next) {out.inventory.complete=true;break;}
     if(!after) break;
   }
   ids.forEach(id=>{
     try {
-      const item=videos.get(id)||ssGraph_(id,saved.pageToken,{fields});
+      const cached=videos.get(id), item=cached?cached.item:ssGraph_(id,saved.pageToken,{fields});
+      const responseAt=cached?cached.observedAt:new Date().toISOString();
       const privacy=(item.privacy||{}).value;
       if(String(item.id)!==id||(item.from||{}).id!==page.id||item.published!==true||privacy!=='EVERYONE') return;
-      const metrics={};ssMetric_(metrics,'views',item.views,'video.views');
+      const metrics={};ssMetric_(metrics,'facebookOfficialVideoViews',item.views,'video.views',responseAt);
+      if(metrics.facebookOfficialVideoViews) metrics.facebookOfficialVideoViews.definition='Facebook Graph API Video.views; equivalence to Reels, public grid and Content Library views has not been verified';
       out.posts.push({id,url:'https://www.facebook.com/reel/'+id,title:item.title||item.description||'Untitled video',publishedAt:item.created_time,metrics});
     } catch(error) { /* Retain known public observations if a video is no longer readable. */ }
   });
   // Reels availability in /videos and the returned view definition require a live account check.
   out.inventory.complete=false;
-  return out;
+  return ssFinish_(out);
 }
 
 function ssBegin_(platform,channel) {
-  if(!Object.prototype.hasOwnProperty.call(SS_CHANNELS,channel)) throw new Error('INVALID_REQUEST');
+  if(!Object.prototype.hasOwnProperty.call(SS_CHANNELS,channel)||!['tiktok','meta'].includes(platform)) throw new Error('INVALID_REQUEST');
+  // No guessed Facebook Page for a brand registered only on Instagram.
+  if(platform==='meta'&&!SS_CHANNELS[channel].facebook) throw new Error('CONFIGURATION_REQUIRED');
   const state=Utilities.getUuid().replace(/-/g,'')+Utilities.getUuid().replace(/-/g,'');
   ssSave_('OAUTH_'+state,{platform,channel,expiresAt:Date.now()+600000});
   const redirect=ssNeed_('WEB_APP_URL');let url;
@@ -287,13 +314,17 @@ function ssBegin_(platform,channel) {
     url='https://www.tiktok.com/v2/auth/authorize/?'+Object.entries({client_key:ssNeed_('TIKTOK_CLIENT_KEY'),response_type:'code',scope:'user.info.basic,user.info.profile,user.info.stats,video.list',redirect_uri:redirect,state}).map(([k,v])=>k+'='+encodeURIComponent(v)).join('&');
   } else {
     const version=ssNeed_('META_GRAPH_VERSION');
-    url='https://www.facebook.com/'+version+'/dialog/oauth?'+Object.entries({client_id:ssNeed_('META_APP_ID'),redirect_uri:redirect,response_type:'code',scope:'pages_show_list,pages_read_engagement,read_insights,instagram_basic,instagram_manage_insights,instagram_manage_comments',state}).map(([k,v])=>k+'='+encodeURIComponent(v)).join('&');
+    url='https://www.facebook.com/'+version+'/dialog/oauth?'+Object.entries({client_id:ssNeed_('META_APP_ID'),redirect_uri:redirect,response_type:'code',scope:'pages_show_list,pages_read_engagement,read_insights,instagram_basic,instagram_manage_insights',state}).map(([k,v])=>k+'='+encodeURIComponent(v)).join('&');
   }
   console.log(url);return url; // A short-lived authorization link, never an access token.
 }
 function connectTikTokCooked() { return ssBegin_('tiktok','cooked-dev'); }
 function connectTikTokIndian() { return ssBegin_('tiktok','indian-builds'); }
 function connectTikTokTraced() { return ssBegin_('tiktok','dont-get-traced'); }
+function connectTikTokDumbLuck() { return ssBegin_('tiktok','dumb-luck'); }
+function connectTikTokKevin() { return ssBegin_('tiktok','no-code-kevin'); }
+function connectTikTokBarely() { return ssBegin_('tiktok','barely-shipped'); }
+function connectTikTokClickTheory() { return ssBegin_('tiktok','click-theory'); }
 function connectMetaCooked() { return ssBegin_('meta','cooked-dev'); }
 function connectMetaIndian() { return ssBegin_('meta','indian-builds'); }
 function connectMetaTraced() { return ssBegin_('meta','dont-get-traced'); }
@@ -380,14 +411,18 @@ function ssCapabilities_(channel,platform) {
     if(out.credentialConfigured) {
       ssIGIdentity_(channel);out.identityVerified=true;out.status='identity_verified_permissions_unverified';
     }
-    out.requirements=['Meta developer registration (currently blocked by owner SMS verification)','Professional Instagram account linked to the intended Page','instagram_basic','instagram_manage_insights','instagram_manage_comments'];
+    out.requirements=['Owner-controlled Meta app and its actual granted read permissions','Professional Instagram account linked to the intended Page for this Facebook Login route','instagram_basic','instagram_manage_insights'];
+    out.optionalCommentRequirements=['instagram_manage_comments'];
     out.note='A stored credential or verified identity does not prove comments/insights permissions. Each read must succeed.';
   } else {
     out.displayCredentialConfigured=!!ssLoad_('TIKTOK_'+channel);
     out.businessCredentialConfigured=!!ssLoad_('TIKTOK_BUSINESS_'+channel);
-    out.status=out.businessCredentialConfigured?'business_credentials_unverified':'business_access_required';
-    out.requirements=['TikTok Accounts API access application approval','Owned-account authorization for video.list, video.insights and comment.list','Separate API for Business token, not a Display API token'];
-    out.note='Display API has counts, not comment text or traffic sources. Account entitlements may limit insights; data can lag 24-48 hours.';
+    out.status=out.displayCredentialConfigured?'display_credentials_unverified':'authorization_required';
+    out.metricCountRequirements=['TikTok Login Kit and Display API app access','Owner authorization: user.info.basic,user.info.profile,user.info.stats,video.list'];
+    out.requirements=out.metricCountRequirements;
+    out.businessAccessStatus=out.businessCredentialConfigured?'business_credentials_unverified':'business_access_required';
+    out.optionalBusinessRequirements=['Separate Business API authorization for comment text, replies and advanced traffic insights only'];
+    out.note='Display API supports public video lists and view/like/comment/share counts; Business API is not required for these counts. Saves, reposts, comment text and advanced traffic are not provided by the Display video object. Stored credentials do not prove a successful grant or read.';
   }
   return out;
 }
@@ -400,6 +435,20 @@ function ssPosts_(channel,platform,options) {
     const more=!!(result.paging||{}).next, after=((result.paging||{}).cursors||{}).after;
     if(more&&(!after||after===cursor.after)) throw new Error('SOURCE_UNAVAILABLE');
     out.nextCursor=more?ssCursor_(channel,platform,'','posts',after):null;
+  } else if(ssLoad_('TIKTOK_'+channel)) {
+    const token=ssTTToken_(channel), user=ssTTUser_(token), saved=ssLoad_('TIKTOK_'+channel), expectedHandle=SS_CHANNELS[channel].tiktok;
+    if(user.username!==expectedHandle||!user.open_id||saved.open_id!==user.open_id) throw new Error('IDENTITY_MISMATCH');
+    const params={max_count:Math.min(limit,20)};if(cursor.after) params.cursor=Number(cursor.after);
+    const result=ssHTTP_('https://open.tiktokapis.com/v2/video/list/?fields=id,create_time,share_url,title,video_description',
+      {method:'post',contentType:'application/json',headers:{Authorization:'Bearer '+token},payload:JSON.stringify(params)}).data;
+    if(!result||!Array.isArray(result.videos)||typeof result.has_more!=='boolean') throw new Error('SOURCE_UNAVAILABLE');
+    out.posts=result.videos.map(item=>{
+      const id=String(item.id),url='https://www.tiktok.com/@'+expectedHandle+'/video/'+id;
+      if(!/^\d+$/.test(id)||(item.share_url||'').split('?')[0].replace(/\/$/,'')!==url||!Number.isFinite(item.create_time)||item.create_time<=0) throw new Error('IDENTITY_MISMATCH');
+      return {id,url,title:item.title||item.video_description||'',publishedAt:new Date(item.create_time*1000).toISOString()};
+    });
+    if(result.has_more&&(!Number.isSafeInteger(result.cursor)||String(result.cursor)===cursor.after)) throw new Error('SOURCE_UNAVAILABLE');
+    out.nextCursor=result.has_more?ssCursor_(channel,platform,'','posts',result.cursor):null;
   } else {
     const saved=ssTTBusiness_(channel), params={fields:['item_id','share_url','caption','create_time'],max_count:Math.min(limit,20)};
     if(cursor.after) params.cursor=Number(cursor.after);

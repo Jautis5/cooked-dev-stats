@@ -18,6 +18,10 @@ CHANNELS = {
     'cooked-dev': {'instagram': 'cooked_dev', 'tiktok': 'cooked_dev_'},
     'indian-builds': {'instagram': 'indian_builds', 'tiktok': 'indian_builds'},
     'dont-get-traced': {'instagram': 'dontgettraced', 'tiktok': 'dontgettraced'},
+    'dumb-luck': {'instagram': 'duumb_luck', 'tiktok': 'duumbluck'},
+    'no-code-kevin': {'instagram': 'nocode_kevin', 'tiktok': 'nocodekevin'},
+    'barely-shipped': {'instagram': 'bareelyshipped', 'tiktok': 'barelyshipped'},
+    'click-theory': {'instagram': 'click_theoory', 'tiktok': 'click_theory'},
 }
 ERRORS = {'CONFIGURATION_REQUIRED', 'UNAUTHORIZED', 'INVALID_REQUEST', 'REPLAY_REJECTED',
           'IDENTITY_MISMATCH', 'RECONNECT_REQUIRED', 'SOURCE_UNAVAILABLE',
@@ -127,7 +131,7 @@ class Backend:
     def _public_feed(self, channel, suffix):
         if channel not in CHANNELS or not re.fullmatch(r'latest\.json|archive/\d{4}-\d{2}\.jsonl', suffix):
             raise BackendError('INVALID_REQUEST')
-        folder = {'cooked-dev': 'data', 'indian-builds': 'data/indian-builds', 'dont-get-traced': 'data/dont-get-traced'}[channel]
+        folder = 'data' if channel == 'cooked-dev' else 'data/' + channel
         url = 'https://raw.githubusercontent.com/Jautis5/cooked-dev-stats/main/' + folder + '/' + suffix
         try:
             request = urllib.request.Request(url, headers={'User-Agent': 'Social-Stats-Read-Only-MCP'})

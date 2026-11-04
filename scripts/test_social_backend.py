@@ -14,6 +14,39 @@ spec.loader.exec_module(backend)
 
 
 class BackendTests(unittest.TestCase):
+    def test_all_registered_channel_handles_and_feed_paths_are_isolated(self):
+        root = Path(__file__).resolve().parents[1]
+        registry = json.loads((root / 'data/channels.json').read_text())['channels']
+        self.assertEqual(set(backend.CHANNELS), {'cooked-dev', 'indian-builds', 'dont-get-traced', 'dumb-luck', 'no-code-kevin', 'barely-shipped', 'click-theory'})
+        self.assertTrue(set(backend.CHANNELS) <= {c['id'] for c in registry})
+        for config in registry:
+            if config['id'] not in backend.CHANNELS:
+                continue  # A future unconnected registration must not stop working collectors.
+            data = json.loads((root / config['dataPath']).read_text())
+            for platform in ('instagram', 'tiktok'):
+                account = next(a for a in data['accounts'] if a['id'] == platform)
+                self.assertEqual(backend.CHANNELS[config['id']][platform], account.get('expectedHandle') or account['handle'])
+            client = backend.Backend('instagram')
+            class Response:
+                def __enter__(self): return self
+                def __exit__(self, *args): pass
+                def read(self, *args): return b'{}'
+            with patch.object(backend.urllib.request, 'urlopen', return_value=Response()) as request:
+                client._public_feed(config['id'], 'latest.json')
+            expected = 'https://raw.githubusercontent.com/Jautis5/cooked-dev-stats/main/' + config['dataPath']
+            self.assertEqual(request.call_args.args[0].full_url, expected)
+
+    def test_new_brand_response_rejects_another_brand_owner(self):
+        client = backend.Backend('tiktok')
+        body = {'ok': True, 'result': {'version': 1, 'channelId': 'barely-shipped', 'platform': 'tiktok', 'owner': {'handle': 'nocodekevin'}}}
+        class Response:
+            def __enter__(self): return self
+            def __exit__(self, *args): pass
+            def read(self, *args): return json.dumps(body).encode()
+        with patch.object(client, '_configuration', return_value=('https://script.google.com/macros/s/test/exec', 'x' * 64)), patch.object(backend.urllib.request, 'urlopen', return_value=Response()):
+            with self.assertRaisesRegex(backend.BackendError, '^IDENTITY_MISMATCH$'):
+                client.posts('barely-shipped')
+
     def test_signs_full_request_and_rejects_wrong_owner(self):
         with tempfile.TemporaryDirectory() as directory:
             path = Path(directory) / 'private.json'

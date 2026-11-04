@@ -62,7 +62,7 @@ def valid_post(platform, post, identity):
 
 def metrics(target, incoming, at):
     for key, value in incoming.items():
-        if key not in ['views', 'likes', 'comments', 'shares', 'saves', 'followers', 'profileLikes', 'publishedCount'] or not isinstance(value, dict):
+        if key not in ['views', 'likes', 'comments', 'shares', 'saves', 'followers', 'profileLikes', 'publishedCount', 'facebookOfficialVideoViews'] or not isinstance(value, dict):
             continue
         count = value.get('value')
         if type(count) is not int or count < 0:
@@ -70,11 +70,20 @@ def metrics(target, incoming, at):
         field = value.get('apiMetric', '')
         if not isinstance(field, str) or not re.fullmatch(r'[A-Za-z_][A-Za-z0-9_.]{0,63}', field):
             continue
-        prior = target.get('metrics', {}).get(key, {})
-        if timestamp(prior.get('at')) > timestamp(at):
+        metric_at = value.get('observedAt', at)
+        try:
+            parsed = datetime.datetime.fromisoformat(metric_at.replace('Z', '+00:00'))
+            if parsed.tzinfo is None or not timestamp(at) <= parsed.timestamp() <= time.time() + 120:
+                continue
+        except (AttributeError, TypeError, ValueError):
             continue
-        target.setdefault('metrics', {})[key] = {'value': count, 'at': at, 'source': target['url'], 'approximate': value.get('approximate') is True,
+        prior = target.get('metrics', {}).get(key, {})
+        if timestamp(prior.get('at')) > timestamp(metric_at):
+            continue
+        target.setdefault('metrics', {})[key] = {'value': count, 'at': metric_at, 'source': target['url'], 'approximate': value.get('approximate') is True,
                                                 'method': 'official_api', 'apiMetric': field}
+        if isinstance(value.get('definition'), str) and len(value['definition']) <= 500:
+            target['metrics'][key]['definition'] = value['definition']
 
 
 def apply(data, platform, observation):
@@ -106,20 +115,36 @@ def apply(data, platform, observation):
     for post in posts:
         if post['id'] in excluded:
             continue
-        existing = next((v['posts'][platform] for v in target['videos'] if str(v['posts'].get(platform, {}).get('id')) == post['id']), None)
+        existing_video = next((v for v in target['videos'] if str(v['posts'].get(platform, {}).get('id')) == post['id']), None)
+        existing = existing_video['posts'][platform] if existing_video else None
+        if existing_video is not None and not existing_video.get('publishedAt'):
+            existing_video['publishedAt'] = post['publishedAt']
         if existing is None and cutoff and timestamp(post['publishedAt']) < cutoff:
             continue
         existing = existing or add_post(target, platform, post['id'], post['url'], post.get('title') or 'Untitled video', post['publishedAt'])
         if existing:
-            metrics(existing, post.get('metrics', {}), at)
+            incoming_metrics = copy.deepcopy(post.get('metrics', {}))
+            if platform == 'facebook':
+                # Also defend against an older deployed broker's ambiguous key.
+                primary = incoming_metrics.pop('views', None)
+                if isinstance(primary, dict) and primary.get('apiMetric') == 'video.views':
+                    primary.setdefault('definition', 'Facebook Graph API Video.views; equivalence to Reels, public grid and Content Library views has not been verified')
+                    incoming_metrics.setdefault('facebookOfficialVideoViews', primary)
+            metrics(existing, incoming_metrics, at)
     report = observation.get('inventory', {})
+    inventory_at = report.get('checkedAt', at)
+    if not timestamp(at) <= timestamp(inventory_at) <= now + 120:
+        raise ValueError('Official inventory completion time unverified')
     complete = report.get('complete') is True and report.get('scope') == 'since_tracking_start'
     target.setdefault('discovery', {})[platform] = {'status': 'complete' if complete else 'partial', 'method': 'official_api', 'complete': complete,
-        'checkedAt': at, 'listedPosts': len(posts), 'newVideos': len(target['videos']) - before}
+        'checkedAt': inventory_at, 'listedPosts': len(posts), 'newVideos': len(target['videos']) - before}
+    revoked = data.get('discovery', {}).get(platform, {}).get('revokedCompleteChecks')
+    if revoked:
+        target['discovery'][platform]['revokedCompleteChecks'] = copy.deepcopy(revoked)
     previous_complete = data.get('discovery', {}).get(platform, {}).get('lastCompleteAt')
     if complete or previous_complete:
-        target['discovery'][platform]['lastCompleteAt'] = at if complete else previous_complete
-    account.update(lastAttemptAt=at, lastSuccessAt=at, status='partial', message='Official account data refreshed; missing metrics retain their previous dates.')
+        target['discovery'][platform]['lastCompleteAt'] = inventory_at if complete else previous_complete
+    account.update(lastAttemptAt=inventory_at, lastSuccessAt=inventory_at, status='partial', message='Official account data refreshed; missing metrics retain their previous dates.')
     data.clear()
     data.update(target)
 
@@ -133,7 +158,7 @@ def refresh(data):
     with concurrent.futures.ThreadPoolExecutor(max_workers=4) as executor:
         pending = {platform: executor.submit(request, channel, platform,
                    [str(v['posts'][platform]['id']) for v in data['videos'] if platform in v['posts']], url, key)
-                   for platform in PLATFORMS}
+                   for platform in PLATFORMS if any(a['id'] == platform for a in data['accounts'])}
         for platform, future in pending.items():
             try:
                 apply(data, platform, future.result())

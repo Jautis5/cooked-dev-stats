@@ -97,7 +97,8 @@ const manifest=JSON.parse(fs.readFileSync(require('node:path').join(__dirname,'.
   assert.throws(()=>context.ssReadCursor_(cursor,'cooked-dev','instagram','999'),/INVALID_REQUEST/);
   assert.throws(()=>context.ssReadCursor_(cursor.replace('456','777'),'cooked-dev','instagram','123'),/INVALID_REQUEST/);
   assert.equal(context.ssCapabilities_('cooked-dev','instagram').identityVerified,false);
-  assert.equal(context.ssCapabilities_('cooked-dev','tiktok').status,'business_access_required');
+  assert.equal(context.ssCapabilities_('cooked-dev','tiktok').status,'authorization_required');
+  assert.equal(context.ssCapabilities_('cooked-dev','tiktok').businessAccessStatus,'business_access_required');
   assert.throws(()=>context.ssTTBusiness_('cooked-dev'),/BUSINESS_ACCESS_REQUIRED/);
 }
 {
@@ -147,6 +148,87 @@ const manifest=JSON.parse(fs.readFileSync(require('node:path').join(__dirname,'.
   assert.equal(result.metrics.average_time_watched.value,2.5);
   assert.ok(result.unavailable.includes('website_clicks'));
   assert.equal(result.metrics.website_clicks,undefined);
+}
+{
+  const {context}=runtime({BROKER_SIGNING_KEY:'test-only-signing-key-32-characters-long'});
+  const channels=vm.runInContext('SS_CHANNELS',context);
+  const registry=JSON.parse(fs.readFileSync(require('node:path').join(__dirname,'../data/channels.json'),'utf8')).channels;
+  assert.deepEqual(Object.keys(channels).sort(),['cooked-dev','indian-builds','dont-get-traced','dumb-luck','no-code-kevin','barely-shipped','click-theory'].sort());
+  assert.ok(Object.keys(channels).every(id=>registry.some(c=>c.id===id)));
+  for(const channel of registry) {
+    if(!channels[channel.id])continue; // Future unconnected registrations do not disable the public pass.
+    const feed=JSON.parse(fs.readFileSync(require('node:path').join(__dirname,'..',channel.dataPath),'utf8'));
+    for(const platform of ['instagram','tiktok','youtube','facebook']) {
+      const account=feed.accounts.find(a=>a.id===platform);
+      if(!account) {assert.equal(channels[channel.id][platform],undefined);continue;}
+      const expected=account.expectedHandle||account.expectedChannelId||account.expectedPageId||(platform==='facebook'?new URL(account.url).searchParams.get('id'):platform==='youtube'?new URL(account.url).pathname.split('/').pop():account.handle);
+      assert.equal(channels[channel.id][platform],expected,channel.id+':'+platform);
+    }
+  }
+  const message=JSON.stringify([1,'collect',Math.floor(Date.now()/1000),'b'.repeat(32),'no-code-kevin','youtube',[]]);
+  const signature=crypto.createHmac('sha256','test-only-signing-key-32-characters-long').update(message).digest('hex');
+  assert.throws(()=>context.ssRequest_({postData:{contents:JSON.stringify({message,signature})}}),/INVALID_REQUEST/);
+  assert.throws(()=>context.ssBegin_('meta','barely-shipped'),/CONFIGURATION_REQUIRED/);
+}
+{
+  // Distinct real provider-response instants must not collapse to batch start.
+  const {context}=runtime();let tick=Date.parse('2026-11-04T12:00:00Z');
+  context.Date=class extends Date {constructor(...args){super(...(args.length?args:[tick]));}static now(){return tick;}};
+  context.ssMeta_=()=>({saved:{pageToken:'test-only',igId:'owned'},page:{instagram_business_account:{id:'owned'}}});
+  context.ssGraph_=(path,token,params)=>{
+    tick+=1000;
+    if(path==='owned')return {username:'cooked_dev',followers_count:3,media_count:1};
+    if(path==='owned/media')return {data:[{id:'media1',media_type:'VIDEO',permalink:'https://www.instagram.com/reel/OWNED/',timestamp:'2026-11-04T11:00:00Z',like_count:2,comments_count:0},{id:'media2',media_type:'VIDEO',permalink:'https://www.instagram.com/reel/SECOND/',timestamp:'2026-11-04T11:01:00Z',like_count:3,comments_count:1}]};
+    return {data:[{name:params.metric,total_value:{value:7}}]};
+  };
+  const result=context.ssInstagram_('cooked-dev');
+  const m=result.posts[0].metrics;
+  assert.ok(Date.parse(result.checkedAt)<Date.parse(m.likes.observedAt));
+  assert.equal(Date.parse(result.checkedAt),Date.parse('2026-11-04T12:00:00Z'));
+  assert.equal(result.accountMetrics.followers.observedAt,'2026-11-04T12:00:01.000Z');
+  assert.equal(result.posts[1].metrics.likes.observedAt,m.likes.observedAt,'All media-page like/comment counts retain their original response instant');
+  assert.equal(result.posts[1].metrics.comments.observedAt,m.comments.observedAt);
+  assert.ok(Date.parse(m.likes.observedAt)<Date.parse(m.views.observedAt));
+  assert.ok(Date.parse(m.views.observedAt)<Date.parse(m.shares.observedAt));
+  assert.ok(Date.parse(m.shares.observedAt)<Date.parse(m.saves.observedAt));
+  assert.equal(result.inventory.checkedAt,result.posts[1].metrics.saves.observedAt);
+}
+{
+  const {context}=runtime({WEB_APP_URL:'https://script.google.com/macros/s/test/exec',META_GRAPH_VERSION:'v23.0',META_APP_ID:'test-app'});
+  const scopes=new URL(context.ssBegin_('meta','cooked-dev')).searchParams.get('scope').split(',');
+  assert.deepEqual(scopes.sort(),['pages_show_list','pages_read_engagement','read_insights','instagram_basic','instagram_manage_insights'].sort());
+  assert.ok(!scopes.some(s=>/publish|messages|manage_comments|ads_/.test(s)));
+}
+{
+  // Display API alone lists an explicitly authorized new brand's public posts.
+  const saved={access_token:'test-display',refresh_token:'test-refresh',open_id:'owner',expiresAt:Date.now()+86400000};
+  const {context}=runtime({'TIKTOK_barely-shipped':JSON.stringify(saved),BROKER_SIGNING_KEY:'test-only-signing-key-32-characters-long'});
+  let wrongOwner=false;
+  context.ssHTTP_=(url,options)=>{
+    if(url.includes('/user/info/')) return {data:{user:{username:wrongOwner?'nocodekevin':'barelyshipped',open_id:'owner'}}};
+    assert.ok(url.includes('/v2/video/list/'));
+    return {data:{videos:[{id:'123',share_url:'https://www.tiktok.com/@barelyshipped/video/123',create_time:1793793600,title:'Owned'}],has_more:false}};
+  };
+  const result=context.ssPosts_('barely-shipped','tiktok',{});
+  assert.equal(result.posts[0].id,'123');
+  assert.equal(result.pageComplete,true);
+  assert.equal(context.ssCapabilities_('barely-shipped','tiktok').businessCredentialConfigured,false);
+  assert.equal(context.ssCapabilities_('barely-shipped','tiktok').status,'display_credentials_unverified');
+  wrongOwner=true;
+  assert.throws(()=>context.ssPosts_('barely-shipped','tiktok',{}),/IDENTITY_MISMATCH/);
+  wrongOwner=false;
+  context.ssHTTP_=(url)=>url.includes('/user/info/')?{data:{user:{username:'barelyshipped',open_id:'owner'}}}:{data:{videos:[{id:'123',share_url:'https://www.tiktok.com/@nocodekevin/video/123',create_time:1793793600}],has_more:false}};
+  assert.throws(()=>context.ssTikTok_('barely-shipped',[]),/IDENTITY_MISMATCH/,'A foreign listed video cannot silently become a complete inventory');
+}
+{
+  const {context}=runtime();
+  context.ssMeta_=()=>({saved:{pageToken:'test-only'},page:{id:'61595564490107'}});
+  context.ssGraph_=()=>({data:[{id:'123',from:{id:'61595564490107'},published:true,privacy:{value:'EVERYONE'},created_time:'2026-11-04T11:00:00Z',views:12}]});
+  const result=context.ssFacebook_('cooked-dev',[]);
+  assert.equal(result.posts[0].metrics.views,undefined);
+  assert.equal(result.posts[0].metrics.facebookOfficialVideoViews.value,12);
+  assert.equal(result.posts[0].metrics.facebookOfficialVideoViews.apiMetric,'video.views');
+  assert.equal(result.inventory.complete,false);
 }
 assert.deepEqual(manifest.oauthScopes.sort(),['https://www.googleapis.com/auth/script.external_request','https://www.googleapis.com/auth/youtube.readonly']);
 console.log('PASS: HMAC/replay, owner checks, empty channels, token rotation, private cursors/replies, deduplication, zero/null, traffic precision and unchanged Google scopes.');
