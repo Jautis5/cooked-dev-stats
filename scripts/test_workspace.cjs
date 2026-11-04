@@ -94,6 +94,40 @@ assert.ok(api.missingPublication(emptyAccount,{videos:[]}).includes('TT · empty
 assert.ok(!api.missingPublication({...emptyAccount,metrics:{}},{videos:[]}).includes('TT · empty'));
 assert.ok(!api.missingPublication(emptyAccount,{videos:[{posts:{tiktok:{id:'known'}}}]}).includes('TT · empty'));
 
+{
+ // Run the real render and hashchange handler against IDs from the shipped HTML.
+ const html=fs.readFileSync(path.join(root,'index.html'),'utf8');
+ const nodes=new Map([...html.matchAll(/\bid="([^"]+)"/g)].map(m=>[m[1],{value:'',innerHTML:'',textContent:'',hidden:false,dataset:{},clientWidth:640,parentElement:{hidden:false},querySelectorAll:()=>[],setAttribute(){}}]));
+ const route={href:'https://example.com/',hash:'#channel/cooked-dev'};
+ let icon={rel:'icon'};
+ const document={body:{dataset:{}},getElementById:id=>nodes.get(id)||null,querySelector:selector=>{
+  if(selector==='link[rel="icon"]')return icon?.rel==='icon'?icon:null;
+  if(selector==='link[rel~="icon"]')return icon?.rel.split(/\s+/).includes('icon')?icon:null;
+  throw Error('Unexpected selector '+selector);
+ }};
+ const handlers=new Map();
+ const allSource=fs.readFileSync(path.join(root,'app.js'),'utf8');
+ const handler=allSource.slice(allSource.indexOf("window.addEventListener('hashchange'"),allSource.indexOf("$('views-chart').querySelectorAll('[data-range]')",allSource.indexOf("window.addEventListener('hashchange'")));
+ const navigation=vm.runInNewContext(src+handler+`
+  channels=[['cooked-dev','Cooked Dev'],['indian-builds','Indian Builds'],['dont-get-traced','DontGetTraced']].map(([id,name])=>({id,name,logo:'assets/'+id+'.jpg'}));
+  entries=new Map(channels.map((c,i)=>[c.id,{data:{accounts:[{id:'instagram',name:'Instagram',url:'https://example.com/'+c.id,status:'partial'}],videos:[{id:c.id,number:1,title:c.name,posts:{instagram:{id:c.id,url:'https://example.com/'+c.id,metrics:{views:{value:(i+1)*11}}}}}],history:[]}}]));
+  ({render})`,{Intl,URL,Date,document,location:route,window:{addEventListener:(name,fn)=>handlers.set(name,fn),scrollTo(){}}});
+ const assertScope=(id,name,value)=>{
+  assert.equal(document.body.dataset.channel,id);
+  assert.equal(nodes.get('page-title').textContent,name+'.');
+  assert.ok(document.title.startsWith(name+' · '));
+  assert.ok(nodes.get('platforms').innerHTML.includes('>'+value+'</div>'),'Platform values must follow the selected channel');
+ };
+ navigation.render();assertScope('cooked-dev','Cooked Dev',11);
+ icon.rel='shortcut icon';route.hash='#channel/indian-builds';
+ assert.doesNotThrow(()=>handlers.get('hashchange')());assertScope('indian-builds','Indian Builds',22);
+ assert.equal(icon.href,'assets/indian-builds.jpg','An icon rel tokenlist still updates the favicon');
+ icon=null;route.hash='#channel/dont-get-traced';
+ assert.doesNotThrow(()=>handlers.get('hashchange')());assertScope('dont-get-traced','DontGetTraced',33);
+ route.hash='#channel/cooked-dev';assert.doesNotThrow(()=>handlers.get('hashchange')());assertScope('cooked-dev','Cooked Dev',11);
+ console.log('PASS: real channel navigation updates the body and values even when favicon metadata changes or disappears.');
+}
+
 module.exports=(async()=>{
  const registryChannels=['cooked-dev','indian-builds','dont-get-traced','dumb-luck','no-code-kevin','barely-shipped'].map(id=>({id,name:id,dataUrl:'https://feeds.example/'+id+'.json',fallbackUrl:'data/'+id+'.json',logo:'assets/logo.jpg'}));
  const nodes=new Map(),node=id=>{if(!nodes.has(id))nodes.set(id,{value:'',hidden:true,disabled:false,innerHTML:'',parentElement:{hidden:false}});return nodes.get(id);};
