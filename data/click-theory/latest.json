@@ -14,7 +14,7 @@
       "status": "unavailable",
       "message": "Public source unavailable; previous observations preserved.",
       "metrics": {},
-      "lastAttemptAt": "2026-11-05T09:58:00.186328+00:00"
+      "lastAttemptAt": "2026-11-05T10:03:41.823947+00:00"
     },
     {
       "id": "tiktok",
@@ -22,8 +22,8 @@
       "handle": "click_theory",
       "expectedHandle": "click_theory",
       "url": "https://www.tiktok.com/@click_theory",
-      "status": "retired",
-      "message": "Owner deleted this account. Collection stopped; historical observations retained.",
+      "status": "unavailable",
+      "message": "Public source unavailable; previous observations preserved.",
       "metrics": {
         "followers": {
           "value": 0,
@@ -47,7 +47,7 @@
           "collectionCycleAt": "2026-11-04T16:22:38.719398+00:00"
         }
       },
-      "lastAttemptAt": "2026-11-05T09:58:00.186328+00:00",
+      "lastAttemptAt": "2026-11-05T10:03:41.823947+00:00",
       "lastSuccessAt": "2026-11-04T16:22:38.719398+00:00",
       "collection": {
         "enabled": false,
@@ -684,12 +684,19 @@
       "posts": 1,
       "approximate": false,
       "partial": false
+    },
+    {
+      "at": "2026-11-05T10:03:41.823947+00:00",
+      "views": 0,
+      "posts": 1,
+      "approximate": false,
+      "partial": false
     }
   ],
   "discovery": {
     "instagram": {
       "status": "session_required",
-      "checkedAt": "2026-11-05T09:58:00.186328+00:00",
+      "checkedAt": "2026-11-05T10:03:41.823947+00:00",
       "complete": false,
       "message": "New-publication discovery requires an authorized account list; a successful metrics check is not a complete list."
     },
@@ -697,7 +704,7 @@
       "status": "unavailable",
       "error": "HTTP Error 400: Bad Request",
       "complete": false,
-      "checkedAt": "2026-11-05T09:58:00.186328+00:00",
+      "checkedAt": "2026-11-05T10:03:41.823947+00:00",
       "feedStatus": "unavailable",
       "newVideos": 0,
       "reportedPosts": 1
@@ -707,16 +714,16 @@
     "excludedPostIds": {},
     "note": "Registered owned identities only; no complete inventory or public metric was inferred from registration."
   },
-  "lastAttemptAt": "2026-11-05T09:58:00.186328+00:00",
-  "generatedAt": "2026-11-05T09:58:00.186328+00:00",
+  "lastAttemptAt": "2026-11-05T10:03:41.823947+00:00",
+  "generatedAt": "2026-11-05T10:03:41.823947+00:00",
   "cloudCollection": {
-    "at": "2026-11-05T09:58:00.186328+00:00",
+    "at": "2026-11-05T10:03:41.823947+00:00",
     "method": "public_cloud",
     "metricsUpdated": {
       "instagram": 0,
       "tiktok": 0
     },
-    "runUrl": "https://github.com/Jautis5/cooked-dev-stats/actions/runs/42006418059"
+    "runUrl": "https://github.com/Jautis5/cooked-dev-stats/actions/runs/42007128391"
   },
   "schedule": {
     "provider": "GitHub Actions",
@@ -724,7 +731,7 @@
     "cron": "7-59/15 * * * *"
   },
   "changes24h": {
-    "at": "2026-11-05T09:58:00.186328+00:00",
+    "at": "2026-11-05T10:03:41.823947+00:00",
     "baselineAt": null,
     "views": null,
     "likes": null,
