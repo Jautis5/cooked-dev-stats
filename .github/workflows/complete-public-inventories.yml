@@ -1,0 +1,105 @@
+name: Install verified public video inventories
+on:
+  workflow_dispatch:
+    inputs:
+      public_patch:
+        description: Reviewed public collector patch only; no credentials
+        type: string
+        required: true
+permissions:
+  contents: write
+  actions: write
+concurrency:
+  group: verified-public-video-inventory
+  cancel-in-progress: false
+jobs:
+  apply:
+    if: github.repository == 'Jautis5/cooked-dev-stats' && github.event.repository.private == false
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: main
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Verify source and actual public lists before publication
+        env:
+          PUBLIC_PATCH: ${{ inputs.public_patch }}
+        run: |
+          python - <<'PY'
+          import base64, copy, datetime, gzip, hashlib, json, os, pathlib, subprocess, sys, tempfile
+          payload=os.environ['PUBLIC_PATCH']
+          assert len(payload.encode()) <= 24000
+          raw=gzip.decompress(base64.b64decode(payload))
+          assert hashlib.sha256(raw).hexdigest()=='f7ce1d005181acf06f759cec21071e274a43b110fecd9a8fdc5fb518389e8a5c'
+          patch=json.loads(raw)
+          assert set(patch)=={'scripts/youtube_inventory.py','scripts/test_youtube_inventory.py','scripts/public_fallbacks.py','scripts/refresh_all.py'}
+          root=pathlib.Path.cwd()
+          def git(folder,*args,check=True):
+              return subprocess.run(['git','-C',str(folder),*args],check=check,text=True,capture_output=True)
+          for attempt in range(4):
+              git(root,'fetch','--no-tags','origin','main')
+              head=git(root,'rev-parse','FETCH_HEAD').stdout.strip()
+              with tempfile.TemporaryDirectory(prefix='verified-public-inventory-') as tmp:
+                  work=pathlib.Path(tmp)/'publisher'
+                  git(root,'worktree','add','--detach',str(work),head)
+                  try:
+                      for name,change in patch.items():
+                          target=work/name
+                          original=target.read_bytes() if target.exists() else None
+                          digest=hashlib.sha256(original).hexdigest() if original is not None else None
+                          if digest==change['afterSha256']:continue
+                          assert digest==change['beforeSha256'], 'Source changed: '+name
+                          if original is None:text=change['text']
+                          else:
+                              lines=original.decode().splitlines(keepends=True)
+                              for first,last,replacement in reversed(change['edits']):lines[first:last]=replacement
+                              text=''.join(lines)
+                          blob=text.encode();assert hashlib.sha256(blob).hexdigest()==change['afterSha256']
+                          target.parent.mkdir(parents=True,exist_ok=True);target.write_bytes(blob)
+                      subprocess.run([sys.executable,'-m','unittest','discover','-s','scripts','-p','test_*.py'],cwd=work,check=True)
+                      for suite in ['test_dashboard.cjs','test_chart.cjs','test_workspace.cjs','test_official_broker.cjs','test_retired_accounts.cjs']:
+                          subprocess.run(['node','scripts/'+suite],cwd=work,check=True)
+                      sys.path.insert(0,str(work/'scripts'))
+                      import collect as base
+                      from youtube_inventory import discover
+                      from snapshot_merge import merge_discovery, validate
+                      reports=[]
+                      for config in json.loads((work/'data/channels.json').read_text())['channels']:
+                          path=work/config['dataPath'];data=json.loads(path.read_text())
+                          account=next((a for a in data['accounts'] if a['id']=='youtube' and base.is_active(a)),None)
+                          if not account:continue
+                          original=copy.deepcopy(data)
+                          try:
+                              result=discover(data,account)
+                          except Exception as error:
+                              reports.append(dict(channelId=config['id'],complete=False,errorType=type(error).__name__));continue
+                          assert data['videos'][:len(original['videos'])]==original['videos']
+                          assert data['accounts']==original['accounts']
+                          assert data.get('history')==original.get('history')
+                          data.setdefault('discovery',{})['youtube']=merge_discovery(data.get('discovery',{}).get('youtube',{}),result)
+                          data['generatedAt']=result['checkedAt']
+                          validate(data)
+                          path.write_text(json.dumps(data,ensure_ascii=False,indent=2)+'\n')
+                          base.exports(data,path.parent)
+                          reports.append(dict(channelId=config['id'],**result))
+                      assert reports and any(r['complete'] for r in reports), 'No complete public source verified; source not published'
+                      git(work,'add','--',*patch)
+                      if git(work,'diff','--cached','--quiet',check=False).returncode:
+                          git(work,'-c','user.name=Social Stats Cloud','-c','user.email=stats@users.noreply.github.com','commit','-m','Follow verified public YouTube inventories to their pagination end')
+                          pushed=git(work,'push','origin','HEAD:refs/heads/main',check=False)
+                          if pushed.returncode:
+                              if attempt==3:raise RuntimeError('Concurrent source updates prevented publication')
+                              continue
+                      subprocess.run([sys.executable,'scripts/publish_refresh.py'],cwd=work,check=True)
+                      print(json.dumps({'publicInventoryReports':reports,'historicalMetricDatesPreserved':True,'sourceFiles':len(patch)}));break
+                  finally:
+                      git(root,'worktree','remove','--force',str(work),check=False)
+          PY
+      - name: Publish canonical dashboard
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run pages.yml --repo "$GITHUB_REPOSITORY" --ref main
