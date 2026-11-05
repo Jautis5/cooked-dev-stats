@@ -63,8 +63,8 @@
       "handle": "duumbluck",
       "expectedHandle": "duumbluck",
       "url": "https://www.tiktok.com/@duumbluck",
-      "status": "unavailable",
-      "message": "Public source unavailable; previous observations preserved.",
+      "status": "retired",
+      "message": "Owner deleted this account. Collection stopped; historical observations retained.",
       "metrics": {
         "followers": {
           "value": 1,
@@ -100,7 +100,12 @@
         }
       },
       "lastAttemptAt": "2026-11-05T09:58:00.186328+00:00",
-      "lastSuccessAt": "2026-10-29T08:45:04.328638+00:00"
+      "lastSuccessAt": "2026-10-29T08:45:04.328638+00:00",
+      "collection": {
+        "enabled": false,
+        "reason": "owner_deleted",
+        "reportedAt": "2026-11-05T09:53:54.177361+00:00"
+      }
     },
     {
       "id": "youtube",

@@ -20,6 +20,22 @@ def num(v):
   n=int(v)
   return n if n>=0 else None
  except (ValueError,TypeError):return None
+def apply_account_policy(data, config):
+    for policy in config.get('retiredAccounts', []):
+        account = next((a for a in data['accounts'] if a['id'] == policy['id'] and a['url'] == policy['url']), None)
+        if account is None:
+            raise ValueError('Retired account identity mismatch')
+        if policy.get('reason') != 'owner_deleted' or not policy.get('reportedAt'):
+            raise ValueError('Invalid owner retirement policy')
+        account['collection'] = dict(enabled=False, reason='owner_deleted', reportedAt=policy['reportedAt'])
+        account.update(status='retired', message='Owner deleted this account. Collection stopped; historical observations retained.')
+    return data
+
+
+def is_active(account):
+ # Owner-retired identities remain archived, never silently replaced or queried.
+ return account.get('collection', {}).get('enabled') is not False
+
 def is_current(metric):
  return metric.get('collectionCycleAt',metric.get('at'))==NOW
 def setmetric(obj,key,value,url,approx=False,observed_at=None):

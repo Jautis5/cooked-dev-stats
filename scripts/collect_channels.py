@@ -49,6 +49,9 @@ def refresh(data):
         added,error=base.attempt(discover_youtube,data,yt,base.request,base.setmetric)
         data.setdefault('discovery',{})['youtube']={'checkedAt':now,'status':'unavailable' if error else 'checked','newVideos':added or 0}
     for account in data['accounts']:
+        if not base.is_active(account):
+            account.update(status='retired', message='Owner deleted this account. Collection stopped; historical observations retained.')
+            continue
         account.update(lastAttemptAt=now,status='unavailable',message='Public source unavailable; previous observations preserved.')
         platform=account['id']
         if platform=='tiktok':

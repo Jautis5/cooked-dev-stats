@@ -22,8 +22,8 @@
       "handle": "click_theory",
       "expectedHandle": "click_theory",
       "url": "https://www.tiktok.com/@click_theory",
-      "status": "unavailable",
-      "message": "Public source unavailable; previous observations preserved.",
+      "status": "retired",
+      "message": "Owner deleted this account. Collection stopped; historical observations retained.",
       "metrics": {
         "followers": {
           "value": 0,
@@ -48,7 +48,12 @@
         }
       },
       "lastAttemptAt": "2026-11-05T09:58:00.186328+00:00",
-      "lastSuccessAt": "2026-11-04T16:22:38.719398+00:00"
+      "lastSuccessAt": "2026-11-04T16:22:38.719398+00:00",
+      "collection": {
+        "enabled": false,
+        "reason": "owner_deleted",
+        "reportedAt": "2026-11-05T09:53:54.177361+00:00"
+      }
     }
   ],
   "videos": [

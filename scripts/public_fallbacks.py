@@ -100,6 +100,8 @@ def x_public(post, account):
 def refresh_fallbacks(data):
     discovery = data.setdefault('discovery', {})
     for account in data['accounts']:
+        if not base.is_active(account):
+            continue
         platform = account['id']
         if platform in ['tiktok', 'youtube']:
             prior = discovery.get(platform, {})

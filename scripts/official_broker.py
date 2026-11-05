@@ -158,7 +158,7 @@ def refresh(data):
     with concurrent.futures.ThreadPoolExecutor(max_workers=4) as executor:
         pending = {platform: executor.submit(request, channel, platform,
                    [str(v['posts'][platform]['id']) for v in data['videos'] if platform in v['posts']], url, key)
-                   for platform in PLATFORMS if any(a['id'] == platform for a in data['accounts'])}
+                   for platform in PLATFORMS if any(a['id'] == platform and base.is_active(a) for a in data['accounts'])}
         for platform, future in pending.items():
             try:
                 apply(data, platform, future.result())

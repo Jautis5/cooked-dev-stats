@@ -1,0 +1,12 @@
+const assert=require('node:assert/strict'),fs=require('node:fs'),vm=require('node:vm');
+const src=fs.readFileSync(require('node:path').join(__dirname,'../site/app.js'),'utf8').split("window.addEventListener('hashchange'")[0];
+const a=vm.runInNewContext(src+'\n({accountState,inventoryAudit,statusText,inventoryText})',{Intl,URL,Date,location:{href:'https://example.com/',hash:''}});
+const retired={id:'tiktok',status:'unavailable',collection:{enabled:false,reportedAt:'2026-11-05T09:53:54Z'}};
+const data={accounts:[retired],videos:[]};
+assert.equal(a.accountState(data,retired).warning,false);
+assert.match(a.accountState(data,retired).label,/Deleted account/);
+assert.equal(a.inventoryAudit(data,retired).overdue,false);
+assert.match(a.statusText(retired),/historical/);
+assert.match(a.inventoryText(data,retired),/replacement account/);
+assert.equal(a.inventoryAudit(data,{id:'instagram'}).overdue,true);
+console.log('PASS: deleted account history is explicit; active Instagram still reports real gaps.');

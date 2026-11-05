@@ -36,7 +36,8 @@ def publish(root=ROOT, before_push=None, retries=4):
             checkout = pathlib.Path(temp) / 'publisher'
             git(root, 'worktree', 'add', '--detach', str(checkout), remote_head)
             try:
-                allowed = {c['dataPath'] for c in json.loads((checkout / 'data/channels.json').read_text())['channels']}
+                configs = {c['dataPath']: c for c in json.loads((checkout / 'data/channels.json').read_text())['channels']}
+                allowed = set(configs)
                 ledger_path = checkout / 'data/publications.json'
                 ledger = json.loads(ledger_path.read_text()) if ledger_path.exists() else None
                 for relative, content in archives.items():
@@ -63,6 +64,7 @@ def publish(root=ROOT, before_push=None, retries=4):
                         reconcile(remote, ledger)
                         reconcile(incoming, ledger)
                     data = merge_snapshot(remote, incoming, baseline[relative])
+                    base.apply_account_policy(data, configs[relative])
                     if ledger is not None: reconcile(data, ledger)
                     validate(data)
                     base.update_changes(data, directory=path.parent)

@@ -51,7 +51,9 @@ function combine(list){
  for(const key of ['postCount','accountCount','videoCount'])out[key]=list.reduce((n,s)=>n+s[key],0);
  return out;
 }
+const collectionActive=a=>a.collection?.enabled!==false;
 function statusText(a){
+ if(!collectionActive(a))return 'Owner deleted this account. Collection stopped; saved metrics and their original dates are historical.';
  if(a.emptyConfirmedAt&&a.metrics?.publishedCount?.value===0)return 'No public uploads observed · checked '+time(a.emptyConfirmedAt)+'.';
  if(a.trackedEmptyConfirmedAt&&a.metrics?.trackedPublishedCount?.value===0)return 'No videos in the tracked scope · checked '+time(a.trackedEmptyConfirmedAt)+'.';
  if(a.id==='youtube'&&a.status==='unavailable')return 'Content access needs verification. Last verified metrics are preserved.';
@@ -305,11 +307,13 @@ function renderComparison(){
 }
 function platformSummary(data,a){return summary(data,a.id);}
 function inventoryAudit(data,account,now=Date.now()){
+ if(!collectionActive(account))return {at:null,overdue:false,complete:false,retired:true};
  const report=data.discovery?.[account.id]||{},at=report.complete?report.checkedAt:report.lastCompleteAt;
  const age=now-Date.parse(at),overdue=!Number.isFinite(age)||age>2*3600000;
  return {at,overdue,complete:report.complete===true&&!overdue};
 }
 function accountState(data,a,now=Date.now()){
+ if(!collectionActive(a))return {label:'Deleted account · history retained',warning:false};
  const inventory=inventoryAudit(data,a,now);
  if(inventory.overdue)return {label:'New-video check overdue',warning:true};
  if(!inventory.complete)return {label:'Full list recently checked',warning:true};
@@ -330,7 +334,7 @@ function issuesFor(config,records){
   const e=records.get(c.id),d=e?.data;
   if(!d){issues.push({channel:c,title:'Feed unavailable',text:'This channel is excluded from shared totals until a source can be loaded.'});continue;}
   if(e.fallback)issues.push({channel:c,title:'Saved snapshot in use',text:'The live feed could not be reached. The last verified observations are preserved.'});
-  const blocked=d.accounts.filter(a=>['unavailable','snapshot'].includes(a.status));
+  const blocked=d.accounts.filter(a=>collectionActive(a)&&['unavailable','snapshot'].includes(a.status));
   if(blocked.length)issues.push({channel:c,title:'Source access needs a check',text:blocked.map(a=>a.name).join(', ')+': current collection is limited. Earlier metric values may still be visible.'});
   const overdue=d.accounts.filter(a=>inventoryAudit(d,a).overdue);
   if(overdue.length)issues.push({channel:c,title:'New-video discovery overdue',text:overdue.map(a=>a.name).join(', ')+': no complete publication list verified within 2 hours. Metric refreshes cannot confirm that new videos were found.'});
@@ -423,6 +427,7 @@ function renderSchedule(){
 }
 function accountHandle(a){const handle=a.expectedHandle||a.handle;return handle?(/\s/.test(handle)?handle:'@'+handle):a.expectedPageId?'Page '+a.expectedPageId:a.expectedChannelId?'Channel '+a.expectedChannelId:'Profile linked below';}
 function inventoryText(data,account,now=Date.now()){
+ if(!collectionActive(account))return 'Collection stopped after owner confirmation on '+time(account.collection.reportedAt)+'. Awaiting a separately confirmed replacement account.';
  const report=data.discovery?.[account.id],known=data.videos.filter(v=>v.posts[account.id]).length;
  const expected=account.metrics?.publishedCount;
  const gap=valid(expected)&&expected.value>known?' · profile reported '+expected.value+' posts; '+known+' linked':'';

@@ -49,7 +49,7 @@ def metric_health(data, observed_at):
             'inventoryAudit': inventory_health(data, account, observed_at),
             'reportedPostCount': account.get('metrics', {}).get('publishedCount'),
             'latestMetricAt': max((m['at'] for m in metrics), key=timestamp, default=None),
-            'access': 'authorized_cloud' if inventory.get('method') == 'official_api' else 'authorization_required' if account['id'] in ['instagram','facebook'] and inventory.get('status') == 'session_required' else 'public_cloud',
+            'access': 'inactive' if not base.is_active(account) else 'authorized_cloud' if inventory.get('method') == 'official_api' else 'authorization_required' if account['id'] in ['instagram','facebook'] and inventory.get('status') == 'session_required' else 'public_cloud',
         }
     return out
 
@@ -75,7 +75,7 @@ def refresh(root=ROOT):
             raise ValueError('Unsafe channel data path')
         previous = json.loads(path.read_text())
         try:
-            prepared = reconcile(copy.deepcopy(previous))
+            prepared = base.apply_account_policy(reconcile(copy.deepcopy(previous)), config)
             # Discover public URLs before per-post collectors visit known IDs.
             refresh_fallbacks(prepared)
             discoveries = copy.deepcopy(prepared.get('discovery', {}))
@@ -118,7 +118,7 @@ def refresh(root=ROOT):
     health['completedAt'] = datetime.datetime.now(datetime.timezone.utc).isoformat()
     health['inventoryAttentionRequired'] = any(p['inventoryAudit']['overdue'] for c in health['channels'].values() for p in c['platforms'].values())
     gaps = any(not p.get('inventoryComplete') or (p['postsKnown'] and p['viewsUpdated'] < p['postsKnown'])
-               for channel in health['channels'].values() for p in channel['platforms'].values())
+               for channel in health['channels'].values() for p in channel['platforms'].values() if p.get('access') != 'inactive')
     health['status'] = 'completed_with_errors' if failed else 'completed_with_gaps' if gaps else 'completed'
     write_json(root / 'data/health.json', health)
     return failed

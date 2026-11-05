@@ -26,6 +26,9 @@ def preserve_verified_inventory(data, previous):
 def inventory_health(data, account, observed_at):
     report = data.get('discovery', {}).get(account['id'], {})
     verified = report.get('checkedAt') if report.get('complete') is True else report.get('lastCompleteAt')
+    if account.get('collection', {}).get('enabled') is False:
+        return {'lastVerifiedAt': verified, 'ageMinutes': None, 'overdue': False,
+                'state': 'retired', 'maxAgeMinutes': MAX_AGE_SECONDS // 60}
     age = max(0, timestamp(observed_at) - timestamp(verified)) if timestamp(verified) else None
     return {
         'lastVerifiedAt': verified,
