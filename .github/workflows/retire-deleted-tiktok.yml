@@ -1,0 +1,88 @@
+name: Retire owner-deleted TikTok accounts
+on:
+  workflow_dispatch:
+permissions:
+  contents: write
+  actions: write
+concurrency:
+  group: retire-owner-deleted-tiktok
+  cancel-in-progress: false
+jobs:
+  apply:
+    if: github.repository == 'Jautis5/cooked-dev-stats' && github.event.repository.private == false
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: main
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Apply guarded source patch and preserve actual metrics
+        run: |
+          python - <<'PY'
+          import base64, copy, gzip, hashlib, json, pathlib, subprocess, sys, tempfile
+          patch = json.loads(gzip.decompress(base64.b64decode('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')))
+          root = pathlib.Path.cwd()
+          def git(folder,*args,check=True):
+              return subprocess.run(['git','-C',str(folder),*args],check=check,text=True,capture_output=True)
+          for attempt in range(4):
+              git(root,'fetch','--no-tags','origin','main')
+              head=git(root,'rev-parse','FETCH_HEAD').stdout.strip()
+              with tempfile.TemporaryDirectory(prefix='retire-owned-accounts-') as tmp:
+                  work=pathlib.Path(tmp)/'publisher'
+                  git(root,'worktree','add','--detach',str(work),head)
+                  try:
+                      for name,change in patch.items():
+                          assert name in patch and not name.startswith(('.git/','.github/'))
+                          target=work/name
+                          original=target.read_bytes() if target.exists() else None
+                          digest=hashlib.sha256(original).hexdigest() if original is not None else None
+                          if digest==change['afterSha256']:continue
+                          assert digest==change['beforeSha256'], 'Source changed: '+name
+                          if original is None:text=change['text']
+                          else:
+                              lines=original.decode().splitlines(keepends=True)
+                              for first,last,replacement in reversed(change['edits']):lines[first:last]=replacement
+                              text=''.join(lines)
+                          blob=text.encode()
+                          assert hashlib.sha256(blob).hexdigest()==change['afterSha256']
+                          target.parent.mkdir(parents=True,exist_ok=True);target.write_bytes(blob)
+                      subprocess.run([sys.executable,'-m','unittest','discover','-s','scripts','-p','test_*.py'],cwd=work,check=True)
+                      subprocess.run(['node','--check','site/app.js'],cwd=work,check=True)
+                      for suite in ['test_dashboard.cjs','test_chart.cjs','test_workspace.cjs','test_official_broker.cjs','test_retired_accounts.cjs']:
+                          subprocess.run(['node','scripts/'+suite],cwd=work,check=True)
+                      sys.path.insert(0,str(work/'scripts'))
+                      import collect as base
+                      for config in json.loads((work/'data/channels.json').read_text())['channels']:
+                          if config['id'] not in ['click-theory','dumb-luck']:continue
+                          path=work/config['dataPath'];data=json.loads(path.read_text())
+                          original=copy.deepcopy(data)
+                          base.apply_account_policy(data,config)
+                          assert data['videos']==original['videos']
+                          for account,prior in zip(data['accounts'],original['accounts']):
+                              assert account.get('metrics')==prior.get('metrics')
+                              assert account['url']==prior['url']
+                              if account['id']!='tiktok':assert account==prior
+                          assert data.get('history')==original.get('history')
+                          assert data.get('assetLibrary')==original.get('assetLibrary')
+                          path.write_text(json.dumps(data,ensure_ascii=False,indent=2)+'\n')
+                          base.exports(data,path.parent)
+                      allowed=list(patch)+[name for channel in ['click-theory','dumb-luck'] for name in ['data/'+channel+'/'+file for file in ['latest.json','posts.csv','platforms.csv','metrics.csv']]]
+                      git(work,'add','--',*allowed)
+                      if git(work,'diff','--cached','--quiet',check=False).returncode==0:
+                          print(json.dumps({'alreadyApplied':True,'commit':head}));break
+                      git(work,'-c','user.name=Social Stats Cloud','-c','user.email=stats@users.noreply.github.com','commit','-m','Stop collection for owner-deleted TikTok accounts and retain history')
+                      pushed=git(work,'push','origin','HEAD:refs/heads/main',check=False)
+                      if pushed.returncode==0:
+                          print(json.dumps({'publishedCommit':git(work,'rev-parse','HEAD').stdout.strip(),'sourceFiles':len(patch),'retiredIdentities':2,'historicalMetricDatesPreserved':True}));break
+                      if attempt==3:raise RuntimeError('Concurrent updates prevented bounded publication')
+                  finally:
+                      git(root,'worktree','remove','--force',str(work),check=False)
+          PY
+      - name: Publish canonical dashboard
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run pages.yml --repo "$GITHUB_REPOSITORY" --ref main
