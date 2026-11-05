@@ -13,8 +13,17 @@
       "url": "https://www.instagram.com/click_theoory/",
       "status": "unavailable",
       "message": "Public source unavailable; previous observations preserved.",
-      "metrics": {},
-      "lastAttemptAt": "2026-11-05T17:39:30.015662+00:00"
+      "metrics": {
+        "followers": {
+          "value": 1,
+          "at": "2026-11-05T17:26:35.668Z",
+          "source": "https://www.instagram.com/click_theoory/",
+          "method": "browser_bulk",
+          "approximate": false
+        }
+      },
+      "lastAttemptAt": "2026-11-05T17:39:30.015662+00:00",
+      "lastSuccessAt": "2026-11-05T17:26:35.668Z"
     },
     {
       "id": "tiktok",
@@ -108,6 +117,86 @@
           }
         }
       }
+    },
+    {
+      "id": "instagram-DfXHG5-HCdR",
+      "number": 2,
+      "posts": {
+        "instagram": {
+          "id": "DfXHG5-HCdR",
+          "url": "https://www.instagram.com/click_theoory/reel/DfXHG5-HCdR/",
+          "metrics": {
+            "views": {
+              "value": 86,
+              "at": "2026-11-05T17:26:35.668Z",
+              "source": "https://www.instagram.com/click_theoory/reel/DfXHG5-HCdR/",
+              "method": "browser_bulk",
+              "approximate": false,
+              "displayValue": "86",
+              "definition": "Instagram public Reels grid view counter"
+            },
+            "comments": {
+              "value": 0,
+              "at": "2026-11-05T17:29:03.247Z",
+              "source": "https://www.instagram.com/click_theoory/reel/DfXHG5-HCdR/",
+              "method": "browser_bulk",
+              "approximate": false
+            }
+          }
+        }
+      },
+      "title": "Save this before your next AI prompt. Define the result, add relevant context, show an example, and review an ",
+      "caption": "Save this before your next AI prompt. Define the result, add relevant context, show an example, and review an outline before generating the full draft. Then fix the part that needs work. #AIPrompts #PromptEngineering #AITools",
+      "publishedAt": null,
+      "thumbnail": null,
+      "assetUrl": null
+    },
+    {
+      "id": "instagram-DfUcliHArrI",
+      "number": 3,
+      "posts": {
+        "instagram": {
+          "id": "DfUcliHArrI",
+          "url": "https://www.instagram.com/click_theoory/reel/DfUcliHArrI/",
+          "metrics": {
+            "views": {
+              "value": 156,
+              "at": "2026-11-05T17:26:35.668Z",
+              "source": "https://www.instagram.com/click_theoory/reel/DfUcliHArrI/",
+              "method": "browser_bulk",
+              "approximate": false,
+              "displayValue": "156",
+              "definition": "Instagram public Reels grid view counter"
+            },
+            "likes": {
+              "value": 1,
+              "at": "2026-11-05T17:29:20.934Z",
+              "source": "https://www.instagram.com/click_theoory/reel/DfUcliHArrI/",
+              "method": "browser_bulk",
+              "approximate": false
+            },
+            "comments": {
+              "value": 0,
+              "at": "2026-11-05T17:29:20.934Z",
+              "source": "https://www.instagram.com/click_theoory/reel/DfUcliHArrI/",
+              "method": "browser_bulk",
+              "approximate": false
+            },
+            "reposts": {
+              "value": 1,
+              "at": "2026-11-05T17:29:20.934Z",
+              "source": "https://www.instagram.com/click_theoory/reel/DfUcliHArrI/",
+              "method": "browser_bulk",
+              "approximate": false
+            }
+          }
+        }
+      },
+      "title": "Save this checklist before your next Claude chat. These 10 Claude tips cover what to include in your prompt, w",
+      "caption": "Save this checklist before your next Claude chat. These 10 Claude tips cover what to include in your prompt, when to ask for a plan, and what to check before trusting the answer. Give it a clear result and the relevant context. Open its sources. Run its code. #Claude #PromptEngineering #AITools #AI",
+      "publishedAt": null,
+      "thumbnail": null,
+      "assetUrl": null
     }
   ],
   "history": [
@@ -838,7 +927,8 @@
       "status": "session_required",
       "checkedAt": "2026-11-05T17:39:30.015662+00:00",
       "complete": false,
-      "message": "New-publication discovery requires an authorized account list; a successful metrics check is not a complete list."
+      "message": "New-publication discovery requires an authorized account list; a successful metrics check is not a complete list.",
+      "lastCompleteAt": "2026-11-05T17:26:35.668Z"
     },
     "tiktok": {
       "status": "unavailable",
