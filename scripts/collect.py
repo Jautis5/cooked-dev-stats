@@ -151,8 +151,8 @@ def update_changes(data, snapshots=None,directory=None):
  if snapshots is None:
   for day in [now,now-86400]:
    month=datetime.datetime.fromtimestamp(day,datetime.timezone.utc).strftime('%Y-%m')
-   path=(pathlib.Path(directory) if directory is not None else ROOT/'data')/f'archive/{month}.jsonl'
-   if path.exists():
+   folder=(pathlib.Path(directory) if directory is not None else ROOT/'data')/'archive'
+   for path in sorted(folder.glob(month+'*.jsonl')):
     for line in path.read_text().splitlines():
      try:frames.append(json.loads(line))
      except json.JSONDecodeError:continue

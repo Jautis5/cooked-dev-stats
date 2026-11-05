@@ -40,17 +40,39 @@ def publish(root=ROOT, before_push=None, retries=4):
                 allowed = set(configs)
                 ledger_path = checkout / 'data/publications.json'
                 ledger = json.loads(ledger_path.read_text()) if ledger_path.exists() else None
-                for relative, content in archives.items():
+                # Merge every old monthly file and all bounded shards together.
+                # GitHub rejects a single blob above 100 MiB; retain every frame.
+                archive_paths = set(archives) | {str(p.relative_to(checkout)) for p in (checkout / 'data').rglob('*.jsonl')}
+                groups = {}
+                for relative in sorted(archive_paths):
                     path = checkout / relative
                     if not path.is_relative_to(checkout / 'data'):
                         raise ValueError('Unsafe archive path')
-                    frames = {}
-                    for line in (content + '\n' + (path.read_text() if path.exists() else '')).splitlines():
-                        if line.strip():
-                            frame = json.loads(line)
-                            frames[frame['attemptAt']] = frame
-                    path.parent.mkdir(parents=True, exist_ok=True)
-                    path.write_text(''.join(json.dumps(frame, ensure_ascii=False, separators=(',', ':')) + '\n' for frame in sorted(frames.values(), key=lambda f: timestamp(f['attemptAt']))))
+                    month = path.name[:7]
+                    if len(month) != 7 or month[4] != '-' or not (month[:4] + month[5:]).isdigit():
+                        raise ValueError('Unexpected archive filename')
+                    frames = groups.setdefault((path.parent, month), {})
+                    for content in ((path.read_text() if path.exists() else ''), archives.get(relative, '')):
+                        for line in content.splitlines():
+                            if line.strip():
+                                frame = json.loads(line)
+                                frames[frame['attemptAt']] = frame
+                for (folder, month), frames in groups.items():
+                    folder.mkdir(parents=True, exist_ok=True)
+                    chunks, chunk, size = [], [], 0
+                    for frame in sorted(frames.values(), key=lambda f: timestamp(f['attemptAt'])):
+                        line = json.dumps(frame, ensure_ascii=False, separators=(',', ':')) + '\n'
+                        length = len(line.encode('utf8'))
+                        if length > 16 * 1024 * 1024:
+                            raise ValueError('One archive observation exceeds safe shard size')
+                        if chunk and size + length > 16 * 1024 * 1024:
+                            chunks.append(''.join(chunk)); chunk, size = [], 0
+                        chunk.append(line); size += length
+                    if chunk: chunks.append(''.join(chunk))
+                    targets = {folder / (month + '-part' + str(i + 1).zfill(4) + '.jsonl'): content for i, content in enumerate(chunks)}
+                    for path, content in targets.items(): path.write_text(content, encoding='utf8')
+                    for path in folder.glob(month + '*.jsonl'):
+                        if path not in targets: path.unlink()
                 for relative, candidate in collected.items():
                     if relative not in allowed:
                         continue
@@ -90,7 +112,7 @@ def publish(root=ROOT, before_push=None, retries=4):
                     return git(checkout, 'rev-parse', 'HEAD').stdout.strip()
                 git(root, 'fetch', '--no-tags', 'origin', 'main')
                 if git(root, 'rev-parse', 'FETCH_HEAD').stdout.strip() == remote_head:
-                    raise RuntimeError('Snapshot push failed without a concurrent commit; check repository write permission.')
+                    raise RuntimeError('Snapshot push failed without a concurrent commit: ' + pushed.stderr[-4000:])
                 print('Concurrent update detected; merging original observations with the latest source (attempt ' + str(attempt + 2) + ').')
             finally:
                 git(root, 'worktree', 'remove', '--force', str(checkout), check=False)
