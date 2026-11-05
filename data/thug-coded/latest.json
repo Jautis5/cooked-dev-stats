@@ -12,15 +12,40 @@
       "expectedHandle": "hoood_dev",
       "url": "https://www.instagram.com/hoood_dev/",
       "status": "unavailable",
-      "message": "First verified cloud observation pending; inventory and metrics unknown.",
-      "metrics": {}
+      "message": "Public source unavailable; previous observations preserved.",
+      "metrics": {},
+      "lastAttemptAt": "2026-11-05T11:06:01.746049+00:00"
     }
   ],
   "videos": [],
   "history": [],
-  "discovery": {},
+  "discovery": {
+    "instagram": {
+      "status": "session_required",
+      "checkedAt": "2026-11-05T11:06:01.746049+00:00",
+      "complete": false,
+      "message": "New-publication discovery requires an authorized account list; a successful metrics check is not a complete list."
+    }
+  },
   "tracking": {
     "excludedPostIds": {},
     "note": "Registered owned identities only; no complete inventory or public metric was inferred from registration."
+  },
+  "lastAttemptAt": "2026-11-05T11:06:01.746049+00:00",
+  "generatedAt": "2026-11-05T11:06:01.746049+00:00",
+  "cloudCollection": {
+    "at": "2026-11-05T11:06:01.746049+00:00",
+    "method": "public_cloud",
+    "metricsUpdated": {
+      "instagram": 0
+    }
+  },
+  "schedule": {},
+  "changes24h": {
+    "at": "2026-11-05T11:06:01.746049+00:00",
+    "baselineAt": null,
+    "views": null,
+    "likes": null,
+    "followers": null
   }
 }
