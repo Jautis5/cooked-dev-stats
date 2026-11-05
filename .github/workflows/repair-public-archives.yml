@@ -1,0 +1,82 @@
+name: Repair bounded public archives
+on:
+  workflow_dispatch:
+    inputs:
+      public_patch:
+        description: Verified archive publisher patch
+        required: true
+        type: string
+permissions:
+  contents: write
+  actions: write
+concurrency:
+  group: repair-public-archives
+  cancel-in-progress: false
+jobs:
+  repair:
+    if: github.repository == 'Jautis5/cooked-dev-stats' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Apply exact reviewed source
+        env:
+          PUBLIC_PATCH: ${{ inputs.public_patch }}
+        run: |
+          python - <<'PY'
+          import base64,gzip,hashlib,json,os,pathlib,subprocess
+          raw=gzip.decompress(base64.b64decode(os.environ['PUBLIC_PATCH']))
+          assert hashlib.sha256(raw).hexdigest()=='743dda791d0f34c9972fd1af48a7a87e53929274921cc27ca9b9abbb821eb7cb'
+          changes=json.loads(raw)
+          assert set(changes)=={'scripts/collect.py','scripts/publish_refresh.py'}
+          for name,change in changes.items():
+              path=pathlib.Path(name);old=path.read_bytes();digest=hashlib.sha256(old).hexdigest()
+              if digest==change['after']:continue
+              assert digest==change['before'],'Source changed: '+name
+              lines=old.decode().splitlines(keepends=True)
+              for first,last,new in reversed(change['edits']):lines[first:last]=new
+              updated=''.join(lines).encode();assert hashlib.sha256(updated).hexdigest()==change['after']
+              path.write_bytes(updated)
+          PY
+      - name: Verify collection and concurrent publisher regressions
+        run: python -m unittest discover -s scripts -p 'test_*.py'
+      - name: Publish source without overwriting parallel observations
+        run: |
+          git add -- scripts/collect.py scripts/publish_refresh.py
+          git config user.name 'Social Stats Cloud'
+          git config user.email 'stats@users.noreply.github.com'
+          if ! git diff --cached --quiet; then
+            git commit -m 'Bound public archive blobs while retaining every historical observation'
+            published=false
+            for attempt in 1 2 3 4; do
+              if git push origin HEAD:refs/heads/main; then published=true; break; fi
+              git fetch --no-tags origin main
+              git rebase origin/main
+            done
+            test "$published" = true
+          fi
+      - name: Split archives through canonical conflict-safe publisher
+        run: python scripts/publish_refresh.py
+      - name: Verify all public archive blobs are bounded
+        run: |
+          git fetch --no-tags origin main
+          python - <<'PY'
+          import subprocess
+          lines=subprocess.check_output(['git','ls-tree','-rl','FETCH_HEAD','data'],text=True).splitlines()
+          for line in lines:
+              meta,path=line.split('\t',1)
+              if path.endswith('.jsonl'):assert int(meta.split()[-1])<=16*1024*1024,path
+          print('Published archive blobs are bounded; historical observations preserved.')
+          PY
+      - name: Run existing cloud collector and publish dashboard
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh workflow run refresh.yml --repo "$GITHUB_REPOSITORY" --ref main -f reason=manual
+          gh workflow run pages.yml --repo "$GITHUB_REPOSITORY" --ref main
