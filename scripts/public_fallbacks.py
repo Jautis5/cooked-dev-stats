@@ -3,6 +3,7 @@ import datetime, json, re
 import collect as base
 from snapshot_merge import timestamp
 import public_x
+import youtube_inventory
 
 
 def add_post(data, platform, identity, url, caption, published=None):
@@ -107,12 +108,12 @@ def refresh_fallbacks(data):
             prior = discovery.get(platform, {})
             # Profile counters can lag new uploads, including reporting zero.
             # Always check the independent owner-verified recent-video list.
-            fn = tiktok_embed if platform == 'tiktok' else youtube_shorts
+            fn = tiktok_embed if platform == 'tiktok' else youtube_inventory.discover
             result, error = base.attempt(fn, data, account)
             prior = discovery.get(platform, {})
-            discovery[platform] = dict(result or {'status':'unavailable', 'error':error, 'complete':False}, checkedAt=base.NOW,
+            discovery[platform] = dict(result or {'status':'unavailable', 'error':error, 'complete':False}, checkedAt=(result or {}).get('checkedAt', base.NOW),
                                        feedStatus=prior.get('status'), newVideos=(result or {}).get('newVideos', 0)+prior.get('newVideos', 0))
-            if prior.get('lastCompleteAt'): discovery[platform]['lastCompleteAt'] = prior['lastCompleteAt']
+            if prior.get('lastCompleteAt') and not (result or {}).get('complete'): discovery[platform]['lastCompleteAt'] = prior['lastCompleteAt']
             if 'reportedPosts' in prior: discovery[platform]['reportedPosts'] = prior['reportedPosts']
         elif platform == 'x':
             result, error = base.attempt(public_x.discover, data, account, add_post)

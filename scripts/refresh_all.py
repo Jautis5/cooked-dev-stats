@@ -82,7 +82,7 @@ def refresh(root=ROOT):
             data = base.collect(prepared) if config['id'] == 'cooked-dev' else extra.refresh(prepared)
             for platform, result in discoveries.items():
                 current = data.setdefault('discovery', {}).get(platform, {})
-                if result.get('method') in ('public_creator_embed', 'public_shorts_tab'):
+                if result.get('method') in ('public_creator_embed', 'public_shorts_tab', 'public_youtube_inventory'):
                     result['feedStatus'] = current.get('status')
                     result['newVideos'] = result.get('newVideos', 0) + (0 if current.get('method') == result.get('method') else current.get('newVideos', 0))
                     if 'reportedPosts' in current: result['reportedPosts'] = current['reportedPosts']
