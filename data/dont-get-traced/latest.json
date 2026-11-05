@@ -5,7 +5,7 @@
     "name": "DontGetTraced"
   },
   "sheetUrl": "https://docs.google.com/spreadsheets/d/1sT8AqlGMMqnJUCcA697DaVcLvRqsJhCT4xMIdl52WYY/edit#gid=1732102601",
-  "generatedAt": "2026-11-05T10:50:40.471843+00:00",
+  "generatedAt": "2026-11-05T10:53:53.735369+00:00",
   "lastAttemptAt": "2026-11-05T10:50:40.471843+00:00",
   "schedule": {
     "provider": "GitHub Actions",
@@ -9352,10 +9352,18 @@
   },
   "discovery": {
     "youtube": {
-      "checkedAt": "2026-11-05T10:50:40.471843+00:00",
       "status": "checked",
+      "method": "public_youtube_inventory",
+      "checkedAt": "2026-11-05T10:53:53.735369+00:00",
+      "source": "https://www.youtube.com/channel/UCqsTDLISgGhzA_xiQT3E9yg",
+      "complete": true,
       "newVideos": 0,
-      "lastCompleteAt": "2026-11-04T11:32:09.982Z"
+      "listedPosts": 0,
+      "pages": 0,
+      "tabsChecked": [],
+      "scope": "tracked_public_video_tabs",
+      "lastCompleteAt": "2026-11-05T10:53:53.735369+00:00",
+      "lastCompletePostCount": 0
     },
     "instagram": {
       "status": "session_required",
@@ -9390,7 +9398,6 @@
       "checkedAt": "2026-11-05T10:50:40.471843+00:00",
       "feedStatus": "partial",
       "reportedPosts": 1,
-      "lastCompleteAt": "2026-11-03T13:39:48.741Z",
       "revokedCompleteChecks": [
         {
           "at": "2026-11-03T15:24:44.629Z",
@@ -9398,7 +9405,8 @@
           "fallbackAt": "2026-11-03T13:39:48.741Z",
           "reason": "Historical full-list claim retracted: outer-document end/count did not independently prove the actual TikTok inner video-list terminal state."
         }
-      ]
+      ],
+      "lastCompleteAt": "2026-11-03T13:39:48.741Z"
     }
   },
   "identityCorrections": [

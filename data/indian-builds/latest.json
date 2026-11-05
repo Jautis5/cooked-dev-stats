@@ -6,7 +6,7 @@
   },
   "sheetUrl": "https://docs.google.com/spreadsheets/d/1sT8AqlGMMqnJUCcA697DaVcLvRqsJhCT4xMIdl52WYY/edit#gid=785807837",
   "sourceUrl": "https://github.com/Jautis5/cooked-dev-stats",
-  "generatedAt": "2026-11-05T10:50:40.471843+00:00",
+  "generatedAt": "2026-11-05T10:53:53.503522+00:00",
   "lastAttemptAt": "2026-11-05T10:50:40.471843+00:00",
   "schedule": {
     "provider": "GitHub Actions",
@@ -12491,14 +12491,20 @@
   },
   "discovery": {
     "youtube": {
-      "status": "partial",
-      "method": "public_shorts_tab",
+      "status": "checked",
+      "method": "public_youtube_inventory",
+      "checkedAt": "2026-11-05T10:53:53.503522+00:00",
+      "source": "https://www.youtube.com/channel/UCgHxdk2zTRXwsoCrICSwiRg",
+      "complete": true,
       "newVideos": 0,
       "listedPosts": 1,
-      "complete": false,
-      "checkedAt": "2026-11-05T10:50:40.471843+00:00",
-      "feedStatus": "checked",
-      "lastCompleteAt": "2026-11-04T11:32:10.051Z"
+      "pages": 1,
+      "tabsChecked": [
+        "shorts"
+      ],
+      "scope": "tracked_public_video_tabs",
+      "lastCompleteAt": "2026-11-05T10:53:53.503522+00:00",
+      "lastCompletePostCount": 1
     },
     "facebook": {
       "status": "session_required",
@@ -12533,7 +12539,6 @@
       "feedStatus": "partial",
       "newVideos": 0,
       "reportedPosts": 4,
-      "lastCompleteAt": "2026-11-03T13:39:48.715Z",
       "revokedCompleteChecks": [
         {
           "at": "2026-11-03T15:24:43.937Z",
@@ -12541,7 +12546,8 @@
           "fallbackAt": "2026-11-03T13:39:48.715Z",
           "reason": "Historical full-list claim retracted: outer-document end/count did not independently prove the actual TikTok inner video-list terminal state."
         }
-      ]
+      ],
+      "lastCompleteAt": "2026-11-03T13:39:48.715Z"
     }
   },
   "identityCorrections": [

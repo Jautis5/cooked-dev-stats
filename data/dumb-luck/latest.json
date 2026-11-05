@@ -4,7 +4,7 @@
   "brand": {
     "name": "DUMB LUCK"
   },
-  "generatedAt": "2026-11-05T10:50:40.471843+00:00",
+  "generatedAt": "2026-11-05T10:53:53.992304+00:00",
   "lastAttemptAt": "2026-11-05T10:50:40.471843+00:00",
   "schedule": {
     "provider": "GitHub Actions",
@@ -6560,14 +6560,20 @@
   },
   "discovery": {
     "youtube": {
-      "status": "partial",
-      "method": "public_shorts_tab",
+      "status": "checked",
+      "method": "public_youtube_inventory",
+      "checkedAt": "2026-11-05T10:53:53.992304+00:00",
+      "source": "https://www.youtube.com/channel/UCB-BqPU60vRfUWGalt6fRtQ",
+      "complete": true,
       "newVideos": 0,
       "listedPosts": 10,
-      "complete": false,
-      "checkedAt": "2026-11-05T10:50:40.471843+00:00",
-      "feedStatus": "checked",
-      "lastCompleteAt": "2026-11-04T11:32:10.014Z"
+      "pages": 1,
+      "tabsChecked": [
+        "shorts"
+      ],
+      "scope": "tracked_public_video_tabs",
+      "lastCompleteAt": "2026-11-05T10:53:53.992304+00:00",
+      "lastCompletePostCount": 10
     },
     "tiktok": {
       "status": "unavailable",
