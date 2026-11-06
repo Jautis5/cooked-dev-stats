@@ -11,8 +11,8 @@
       "handle": "click_theoory",
       "expectedHandle": "click_theoory",
       "url": "https://www.instagram.com/click_theoory/",
-      "status": "unavailable",
-      "message": "Public source unavailable; previous observations preserved.",
+      "status": "partial",
+      "message": "Public video metrics updated; per-metric dates retained.",
       "metrics": {
         "followers": {
           "value": 1,
@@ -22,8 +22,8 @@
           "approximate": false
         }
       },
-      "lastAttemptAt": "2026-11-06T23:17:30.640735+00:00",
-      "lastSuccessAt": "2026-11-06T23:07:45.700869+00:00"
+      "lastAttemptAt": "2026-11-06T23:22:51.835187+00:00",
+      "lastSuccessAt": "2026-11-06T23:22:51.835187+00:00"
     },
     {
       "id": "tiktok",
@@ -137,17 +137,17 @@
             },
             "comments": {
               "value": 0,
-              "at": "2026-11-06T23:10:10.278724+00:00",
+              "at": "2026-11-06T23:24:53.519731+00:00",
               "source": "https://www.instagram.com/click_theoory/reel/DfXHG5-HCdR/",
               "approximate": false,
-              "collectionCycleAt": "2026-11-06T23:07:45.700869+00:00"
+              "collectionCycleAt": "2026-11-06T23:22:51.835187+00:00"
             },
             "likes": {
               "value": 0,
-              "at": "2026-11-06T23:10:10.278712+00:00",
+              "at": "2026-11-06T23:24:53.519720+00:00",
               "source": "https://www.instagram.com/click_theoory/reel/DfXHG5-HCdR/",
               "approximate": false,
-              "collectionCycleAt": "2026-11-06T23:07:45.700869+00:00"
+              "collectionCycleAt": "2026-11-06T23:22:51.835187+00:00"
             }
           }
         }
@@ -177,17 +177,17 @@
             },
             "likes": {
               "value": 1,
-              "at": "2026-11-06T23:10:11.232272+00:00",
+              "at": "2026-11-06T23:24:54.369276+00:00",
               "source": "https://www.instagram.com/click_theoory/reel/DfUcliHArrI/",
               "approximate": false,
-              "collectionCycleAt": "2026-11-06T23:07:45.700869+00:00"
+              "collectionCycleAt": "2026-11-06T23:22:51.835187+00:00"
             },
             "comments": {
               "value": 0,
-              "at": "2026-11-06T23:10:11.232284+00:00",
+              "at": "2026-11-06T23:24:54.369288+00:00",
               "source": "https://www.instagram.com/click_theoory/reel/DfUcliHArrI/",
               "approximate": false,
-              "collectionCycleAt": "2026-11-06T23:07:45.700869+00:00"
+              "collectionCycleAt": "2026-11-06T23:22:51.835187+00:00"
             },
             "reposts": {
               "value": 1,
@@ -1732,12 +1732,19 @@
       "posts": 3,
       "approximate": false,
       "partial": false
+    },
+    {
+      "at": "2026-11-06T23:22:51.835187+00:00",
+      "views": 242,
+      "posts": 3,
+      "approximate": false,
+      "partial": false
     }
   ],
   "discovery": {
     "instagram": {
       "status": "session_required",
-      "checkedAt": "2026-11-06T23:17:30.640735+00:00",
+      "checkedAt": "2026-11-06T23:22:51.835187+00:00",
       "complete": false,
       "message": "New-publication discovery requires an authorized account list; a successful metrics check is not a complete list.",
       "lastCompleteAt": "2026-11-05T17:26:35.668Z"
@@ -1756,16 +1763,16 @@
     "excludedPostIds": {},
     "note": "Registered owned identities only; no complete inventory or public metric was inferred from registration."
   },
-  "lastAttemptAt": "2026-11-06T23:17:30.640735+00:00",
-  "generatedAt": "2026-11-06T23:17:30.640735+00:00",
+  "lastAttemptAt": "2026-11-06T23:22:51.835187+00:00",
+  "generatedAt": "2026-11-06T23:22:51.835187+00:00",
   "cloudCollection": {
-    "at": "2026-11-06T23:17:30.640735+00:00",
+    "at": "2026-11-06T23:22:51.835187+00:00",
     "method": "public_cloud",
     "metricsUpdated": {
-      "instagram": 0,
+      "instagram": 4,
       "tiktok": 0
     },
-    "runUrl": "https://github.com/Jautis5/cooked-dev-stats/actions/runs/42310667410"
+    "runUrl": "https://github.com/Jautis5/cooked-dev-stats/actions/runs/42311251004"
   },
   "schedule": {
     "provider": "GitHub Actions",
@@ -1773,8 +1780,8 @@
     "cron": "7-59/15 * * * *"
   },
   "changes24h": {
-    "at": "2026-11-06T23:17:30.640735+00:00",
-    "baselineAt": "2026-11-05T23:05:22.514510+00:00",
+    "at": "2026-11-06T23:22:51.835187+00:00",
+    "baselineAt": "2026-11-05T23:33:46.792174+00:00",
     "views": null,
     "likes": null,
     "followers": null
