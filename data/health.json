@@ -1,14 +1,14 @@
 {
   "version": 1,
-  "startedAt": "2026-11-10T04:21:35.811271+00:00",
+  "startedAt": "2026-11-10T04:37:37.915537+00:00",
   "provider": "GitHub Actions",
   "trigger": "workflow_dispatch",
   "intervalMinutes": 15,
-  "runUrl": "https://github.com/Jautis5/cooked-dev-stats/actions/runs/42755085110",
+  "runUrl": "https://github.com/Jautis5/cooked-dev-stats/actions/runs/42756775623",
   "channels": {
     "cooked-dev": {
       "status": "completed",
-      "checkedAt": "2026-11-10T04:21:35.811271+00:00",
+      "checkedAt": "2026-11-10T04:37:37.915537+00:00",
       "platforms": {
         "instagram": {
           "name": "Instagram",
@@ -23,13 +23,13 @@
               "known": 47,
               "updated": 47,
               "missing": 0,
-              "oldestAt": "2026-11-10T04:21:40.767661+00:00"
+              "oldestAt": "2026-11-10T04:37:41.564054+00:00"
             },
             "likes": {
               "known": 47,
               "updated": 47,
               "missing": 0,
-              "oldestAt": "2026-11-10T04:21:40.767649+00:00"
+              "oldestAt": "2026-11-10T04:37:41.564042+00:00"
             },
             "reposts": {
               "known": 2,
@@ -53,10 +53,10 @@
           "oldestViewAt": "2026-11-05T17:23:32.208Z",
           "inventoryStatus": "session_required",
           "inventoryComplete": false,
-          "inventoryCheckedAt": "2026-11-10T04:21:35.811271+00:00",
+          "inventoryCheckedAt": "2026-11-10T04:37:37.915537+00:00",
           "inventoryAudit": {
             "lastVerifiedAt": "2026-11-05T17:24:22.860Z",
-            "ageMinutes": 6417.2,
+            "ageMinutes": 6433.3,
             "overdue": true,
             "state": "overdue",
             "maxAgeMinutes": 120
@@ -70,7 +70,7 @@
             "displayValue": "44",
             "definition": "Instagram visible profile total-post count; includes all public profile posts, not asserted to equal Reels inventory or tracked-video count"
           },
-          "latestMetricAt": "2026-11-10T04:22:16.139811+00:00",
+          "latestMetricAt": "2026-11-10T04:38:11.267471+00:00",
           "access": "authorization_required"
         },
         "tiktok": {
@@ -86,13 +86,13 @@
               "known": 56,
               "updated": 56,
               "missing": 0,
-              "oldestAt": "2026-11-10T04:21:40.264262+00:00"
+              "oldestAt": "2026-11-10T04:37:41.020540+00:00"
             },
             "likes": {
               "known": 56,
               "updated": 56,
               "missing": 0,
-              "oldestAt": "2026-11-10T04:21:40.264258+00:00"
+              "oldestAt": "2026-11-10T04:37:41.020536+00:00"
             },
             "publicGridViews": {
               "known": 44,
@@ -104,48 +104,48 @@
               "known": 56,
               "updated": 56,
               "missing": 0,
-              "oldestAt": "2026-11-10T04:21:40.264266+00:00"
+              "oldestAt": "2026-11-10T04:37:41.020546+00:00"
             },
             "shares": {
               "known": 56,
               "updated": 56,
               "missing": 0,
-              "oldestAt": "2026-11-10T04:21:40.264264+00:00"
+              "oldestAt": "2026-11-10T04:37:41.020543+00:00"
             },
             "views": {
               "known": 56,
               "updated": 56,
               "missing": 0,
-              "oldestAt": "2026-11-10T04:21:40.264232+00:00"
+              "oldestAt": "2026-11-10T04:37:41.020516+00:00"
             }
           },
-          "oldestViewAt": "2026-11-10T04:21:40.264232+00:00",
+          "oldestViewAt": "2026-11-10T04:37:41.020516+00:00",
           "inventoryStatus": "partial",
           "inventoryComplete": false,
-          "inventoryCheckedAt": "2026-11-10T04:21:35.811271+00:00",
+          "inventoryCheckedAt": "2026-11-10T04:37:37.915537+00:00",
           "inventoryAudit": {
             "lastVerifiedAt": "2026-11-03T13:50:28.471Z",
-            "ageMinutes": 9511.1,
+            "ageMinutes": 9527.2,
             "overdue": true,
             "state": "overdue",
             "maxAgeMinutes": 120
           },
           "reportedPostCount": {
             "value": 56,
-            "at": "2026-11-10T04:21:39.402609+00:00",
+            "at": "2026-11-10T04:37:40.288623+00:00",
             "source": "https://www.tiktok.com/@cooked_dev_",
             "approximate": false,
-            "collectionCycleAt": "2026-11-10T04:21:35.811271+00:00"
+            "collectionCycleAt": "2026-11-10T04:37:37.915537+00:00"
           },
-          "latestMetricAt": "2026-11-10T04:22:18.685119+00:00",
+          "latestMetricAt": "2026-11-10T04:38:13.298394+00:00",
           "access": "public_cloud"
         },
         "youtube": {
           "name": "YouTube",
           "status": "partial",
-          "metricsUpdated": 1,
+          "metricsUpdated": 16,
           "metricsKnown": 75,
-          "viewsUpdated": 0,
+          "viewsUpdated": 15,
           "postsKnown": 23,
           "viewsKnown": 23,
           "metricCoverage": {
@@ -175,7 +175,7 @@
             },
             "views": {
               "known": 23,
-              "updated": 0,
+              "updated": 15,
               "missing": 0,
               "oldestAt": "2026-11-05T10:50:41.939525+00:00"
             }
@@ -183,9 +183,9 @@
           "oldestViewAt": "2026-11-05T10:50:41.939525+00:00",
           "inventoryStatus": "checked",
           "inventoryComplete": true,
-          "inventoryCheckedAt": "2026-11-10T04:21:37.286593+00:00",
+          "inventoryCheckedAt": "2026-11-10T04:37:38.940194+00:00",
           "inventoryAudit": {
-            "lastVerifiedAt": "2026-11-10T04:21:37.286593+00:00",
+            "lastVerifiedAt": "2026-11-10T04:37:38.940194+00:00",
             "ageMinutes": 0.0,
             "overdue": false,
             "state": "current",
@@ -199,7 +199,7 @@
             "approximate": false,
             "displayValue": "23"
           },
-          "latestMetricAt": "2026-11-10T04:22:18.918871+00:00",
+          "latestMetricAt": "2026-11-10T04:38:13.551270+00:00",
           "access": "public_cloud"
         },
         "x": {
@@ -215,13 +215,13 @@
               "known": 12,
               "updated": 12,
               "missing": 0,
-              "oldestAt": "2026-11-10T04:21:38.616570+00:00"
+              "oldestAt": "2026-11-10T04:37:39.393835+00:00"
             },
             "likes": {
               "known": 12,
               "updated": 12,
               "missing": 0,
-              "oldestAt": "2026-11-10T04:21:38.616567+00:00"
+              "oldestAt": "2026-11-10T04:37:39.393831+00:00"
             },
             "postViews": {
               "known": 12,
@@ -245,22 +245,22 @@
               "known": 12,
               "updated": 12,
               "missing": 0,
-              "oldestAt": "2026-11-10T04:21:38.616573+00:00"
+              "oldestAt": "2026-11-10T04:37:39.393839+00:00"
             },
             "views": {
               "known": 12,
               "updated": 12,
               "missing": 0,
-              "oldestAt": "2026-11-10T04:21:38.616555+00:00"
+              "oldestAt": "2026-11-10T04:37:39.393819+00:00"
             }
           },
-          "oldestViewAt": "2026-11-10T04:21:38.616555+00:00",
+          "oldestViewAt": "2026-11-10T04:37:39.393819+00:00",
           "inventoryStatus": "partial",
           "inventoryComplete": false,
-          "inventoryCheckedAt": "2026-11-10T04:21:35.811271+00:00",
+          "inventoryCheckedAt": "2026-11-10T04:37:37.915537+00:00",
           "inventoryAudit": {
             "lastVerifiedAt": "2026-11-04T11:35:52.431Z",
-            "ageMinutes": 8205.7,
+            "ageMinutes": 8221.8,
             "overdue": true,
             "state": "overdue",
             "maxAgeMinutes": 120
@@ -272,7 +272,7 @@
             "method": "browser_bulk",
             "approximate": false
           },
-          "latestMetricAt": "2026-11-10T04:21:38.616732+00:00",
+          "latestMetricAt": "2026-11-10T04:37:39.394034+00:00",
           "access": "public_cloud"
         },
         "facebook": {
@@ -294,7 +294,7 @@
               "known": 26,
               "updated": 0,
               "missing": 0,
-              "oldestAt": "2026-11-10T04:07:19.142484+00:00"
+              "oldestAt": "2026-11-10T04:24:05.704041+00:00"
             },
             "likes": {
               "known": 3,
@@ -330,10 +330,10 @@
           "oldestViewAt": "2026-11-03T13:39:24.895Z",
           "inventoryStatus": "session_required",
           "inventoryComplete": false,
-          "inventoryCheckedAt": "2026-11-10T04:21:35.811271+00:00",
+          "inventoryCheckedAt": "2026-11-10T04:37:37.915537+00:00",
           "inventoryAudit": {
             "lastVerifiedAt": "2026-11-04T11:35:52.545Z",
-            "ageMinutes": 8205.7,
+            "ageMinutes": 8221.8,
             "overdue": true,
             "state": "overdue",
             "maxAgeMinutes": 120
@@ -345,15 +345,15 @@
             "method": "browser_bulk",
             "approximate": false
           },
-          "latestMetricAt": "2026-11-10T04:07:27.344306+00:00",
+          "latestMetricAt": "2026-11-10T04:24:14.393085+00:00",
           "access": "authorization_required"
         }
       },
-      "metricsUpdated": 427
+      "metricsUpdated": 442
     },
     "indian-builds": {
       "status": "completed",
-      "checkedAt": "2026-11-10T04:21:35.811271+00:00",
+      "checkedAt": "2026-11-10T04:37:37.915537+00:00",
       "platforms": {
         "instagram": {
           "name": "Instagram",
@@ -368,13 +368,13 @@
               "known": 4,
               "updated": 4,
               "missing": 0,
-              "oldestAt": "2026-11-10T04:22:30.049459+00:00"
+              "oldestAt": "2026-11-10T04:38:25.840207+00:00"
             },
             "likes": {
               "known": 4,
               "updated": 4,
               "missing": 0,
-              "oldestAt": "2026-11-10T04:22:30.049446+00:00"
+              "oldestAt": "2026-11-10T04:38:25.840196+00:00"
             },
             "shares": {
               "known": 0,
@@ -392,10 +392,10 @@
           "oldestViewAt": "2026-11-05T17:27:17.846Z",
           "inventoryStatus": "session_required",
           "inventoryComplete": false,
-          "inventoryCheckedAt": "2026-11-10T04:21:35.811271+00:00",
+          "inventoryCheckedAt": "2026-11-10T04:37:37.915537+00:00",
           "inventoryAudit": {
             "lastVerifiedAt": "2026-11-05T17:27:17.846Z",
-            "ageMinutes": 6414.3,
+            "ageMinutes": 6430.3,
             "overdue": true,
             "state": "overdue",
             "maxAgeMinutes": 120
@@ -409,7 +409,7 @@
             "displayValue": "4",
             "definition": "Instagram visible profile total-post count; includes all public profile posts, not asserted to equal Reels inventory or tracked-video count"
           },
-          "latestMetricAt": "2026-11-10T04:22:33.038937+00:00",
+          "latestMetricAt": "2026-11-10T04:38:28.385274+00:00",
           "access": "authorization_required"
         },
         "tiktok": {
@@ -425,13 +425,13 @@
               "known": 4,
               "updated": 4,
               "missing": 0,
-              "oldestAt": "2026-11-10T04:22:34.200145+00:00"
+              "oldestAt": "2026-11-10T04:38:29.632979+00:00"
             },
             "likes": {
               "known": 4,
               "updated": 4,
               "missing": 0,
-              "oldestAt": "2026-11-10T04:22:34.200141+00:00"
+              "oldestAt": "2026-11-10T04:38:29.632974+00:00"
             },
             "publicGridViews": {
               "known": 4,
@@ -443,40 +443,40 @@
               "known": 4,
               "updated": 4,
               "missing": 0,
-              "oldestAt": "2026-11-10T04:22:34.200150+00:00"
+              "oldestAt": "2026-11-10T04:38:29.632985+00:00"
             },
             "shares": {
               "known": 4,
               "updated": 4,
               "missing": 0,
-              "oldestAt": "2026-11-10T04:22:34.200148+00:00"
+              "oldestAt": "2026-11-10T04:38:29.632983+00:00"
             },
             "views": {
               "known": 4,
               "updated": 4,
               "missing": 0,
-              "oldestAt": "2026-11-10T04:22:34.200113+00:00"
+              "oldestAt": "2026-11-10T04:38:29.632953+00:00"
             }
           },
-          "oldestViewAt": "2026-11-10T04:22:34.200113+00:00",
+          "oldestViewAt": "2026-11-10T04:38:29.632953+00:00",
           "inventoryStatus": "partial",
           "inventoryComplete": false,
-          "inventoryCheckedAt": "2026-11-10T04:21:35.811271+00:00",
+          "inventoryCheckedAt": "2026-11-10T04:37:37.915537+00:00",
           "inventoryAudit": {
             "lastVerifiedAt": "2026-11-03T13:39:48.715Z",
-            "ageMinutes": 9521.8,
+            "ageMinutes": 9537.8,
             "overdue": true,
             "state": "overdue",
             "maxAgeMinutes": 120
           },
           "reportedPostCount": {
             "value": 4,
-            "at": "2026-11-10T04:22:33.644926+00:00",
+            "at": "2026-11-10T04:38:28.992093+00:00",
             "source": "https://www.tiktok.com/@indian_builds",
             "approximate": false,
-            "collectionCycleAt": "2026-11-10T04:21:35.811271+00:00"
+            "collectionCycleAt": "2026-11-10T04:37:37.915537+00:00"
           },
-          "latestMetricAt": "2026-11-10T04:22:36.412214+00:00",
+          "latestMetricAt": "2026-11-10T04:38:32.753408+00:00",
           "access": "public_cloud"
         },
         "facebook": {
@@ -498,7 +498,7 @@
               "known": 1,
               "updated": 0,
               "missing": 0,
-              "oldestAt": "2026-11-10T04:07:32.446430+00:00"
+              "oldestAt": "2026-11-10T04:24:19.478723+00:00"
             },
             "likes": {
               "known": 1,
@@ -534,10 +534,10 @@
           "oldestViewAt": "2026-11-05T23:33:39.652184+00:00",
           "inventoryStatus": "session_required",
           "inventoryComplete": false,
-          "inventoryCheckedAt": "2026-11-10T04:21:35.811271+00:00",
+          "inventoryCheckedAt": "2026-11-10T04:37:37.915537+00:00",
           "inventoryAudit": {
             "lastVerifiedAt": "2026-11-04T11:35:52.714Z",
-            "ageMinutes": 8205.7,
+            "ageMinutes": 8221.8,
             "overdue": true,
             "state": "overdue",
             "maxAgeMinutes": 120
@@ -549,7 +549,7 @@
             "method": "browser_bulk",
             "approximate": false
           },
-          "latestMetricAt": "2026-11-10T04:07:32.446430+00:00",
+          "latestMetricAt": "2026-11-10T04:24:19.478723+00:00",
           "access": "authorization_required"
         },
         "x": {
@@ -565,13 +565,13 @@
               "known": 1,
               "updated": 1,
               "missing": 0,
-              "oldestAt": "2026-11-10T04:22:28.560290+00:00"
+              "oldestAt": "2026-11-10T04:38:24.430537+00:00"
             },
             "likes": {
               "known": 1,
               "updated": 1,
               "missing": 0,
-              "oldestAt": "2026-11-10T04:22:28.560287+00:00"
+              "oldestAt": "2026-11-10T04:38:24.430532+00:00"
             },
             "postViews": {
               "known": 1,
@@ -589,22 +589,22 @@
               "known": 1,
               "updated": 1,
               "missing": 0,
-              "oldestAt": "2026-11-10T04:22:28.560292+00:00"
+              "oldestAt": "2026-11-10T04:38:24.430540+00:00"
             },
             "views": {
               "known": 1,
               "updated": 1,
               "missing": 0,
-              "oldestAt": "2026-11-10T04:22:28.560274+00:00"
+              "oldestAt": "2026-11-10T04:38:24.430522+00:00"
             }
           },
-          "oldestViewAt": "2026-11-10T04:22:28.560274+00:00",
+          "oldestViewAt": "2026-11-10T04:38:24.430522+00:00",
           "inventoryStatus": "partial",
           "inventoryComplete": false,
-          "inventoryCheckedAt": "2026-11-10T04:21:35.811271+00:00",
+          "inventoryCheckedAt": "2026-11-10T04:37:37.915537+00:00",
           "inventoryAudit": {
             "lastVerifiedAt": "2026-11-04T11:33:36.110Z",
-            "ageMinutes": 8208.0,
+            "ageMinutes": 8224.0,
             "overdue": true,
             "state": "overdue",
             "maxAgeMinutes": 120
@@ -616,15 +616,15 @@
             "method": "browser_bulk",
             "approximate": false
           },
-          "latestMetricAt": "2026-11-10T04:22:28.560292+00:00",
+          "latestMetricAt": "2026-11-10T04:38:24.430540+00:00",
           "access": "public_cloud"
         },
         "youtube": {
           "name": "YouTube",
-          "status": "unavailable",
-          "metricsUpdated": 0,
+          "status": "partial",
+          "metricsUpdated": 1,
           "metricsKnown": 7,
-          "viewsUpdated": 0,
+          "viewsUpdated": 1,
           "postsKnown": 1,
           "viewsKnown": 1,
           "metricCoverage": {
@@ -654,17 +654,17 @@
             },
             "views": {
               "known": 1,
-              "updated": 0,
+              "updated": 1,
               "missing": 0,
-              "oldestAt": "2026-11-09T23:35:58.872215+00:00"
+              "oldestAt": "2026-11-10T04:38:25.035931+00:00"
             }
           },
-          "oldestViewAt": "2026-11-09T23:35:58.872215+00:00",
+          "oldestViewAt": "2026-11-10T04:38:25.035931+00:00",
           "inventoryStatus": "checked",
           "inventoryComplete": true,
-          "inventoryCheckedAt": "2026-11-10T04:22:28.966598+00:00",
+          "inventoryCheckedAt": "2026-11-10T04:38:24.912593+00:00",
           "inventoryAudit": {
-            "lastVerifiedAt": "2026-11-10T04:22:28.966598+00:00",
+            "lastVerifiedAt": "2026-11-10T04:38:24.912593+00:00",
             "ageMinutes": 0.0,
             "overdue": false,
             "state": "current",
@@ -678,15 +678,15 @@
             "approximate": false,
             "displayValue": "1"
           },
-          "latestMetricAt": "2026-11-09T23:35:58.872215+00:00",
+          "latestMetricAt": "2026-11-10T04:38:25.035931+00:00",
           "access": "public_cloud"
         }
       },
-      "metricsUpdated": 36
+      "metricsUpdated": 37
     },
     "dont-get-traced": {
       "status": "completed",
-      "checkedAt": "2026-11-10T04:21:35.811271+00:00",
+      "checkedAt": "2026-11-10T04:37:37.915537+00:00",
       "platforms": {
         "instagram": {
           "name": "Instagram",
@@ -701,13 +701,13 @@
               "known": 1,
               "updated": 1,
               "missing": 0,
-              "oldestAt": "2026-11-10T04:22:41.430495+00:00"
+              "oldestAt": "2026-11-10T04:38:36.381827+00:00"
             },
             "likes": {
               "known": 1,
               "updated": 1,
               "missing": 0,
-              "oldestAt": "2026-11-10T04:22:41.430483+00:00"
+              "oldestAt": "2026-11-10T04:38:36.381816+00:00"
             },
             "shares": {
               "known": 0,
@@ -725,10 +725,10 @@
           "oldestViewAt": "2026-11-05T17:27:27.101Z",
           "inventoryStatus": "session_required",
           "inventoryComplete": false,
-          "inventoryCheckedAt": "2026-11-10T04:21:35.811271+00:00",
+          "inventoryCheckedAt": "2026-11-10T04:37:37.915537+00:00",
           "inventoryAudit": {
             "lastVerifiedAt": "2026-11-05T17:27:27.101Z",
-            "ageMinutes": 6414.1,
+            "ageMinutes": 6430.2,
             "overdue": true,
             "state": "overdue",
             "maxAgeMinutes": 120
@@ -742,7 +742,7 @@
             "displayValue": "1",
             "definition": "Instagram visible profile total-post count; includes all public profile posts, not asserted to equal Reels inventory or tracked-video count"
           },
-          "latestMetricAt": "2026-11-10T04:22:41.430495+00:00",
+          "latestMetricAt": "2026-11-10T04:38:36.381827+00:00",
           "access": "authorization_required"
         },
         "tiktok": {
@@ -758,13 +758,13 @@
               "known": 1,
               "updated": 1,
               "missing": 0,
-              "oldestAt": "2026-11-10T04:22:43.198160+00:00"
+              "oldestAt": "2026-11-10T04:38:37.517943+00:00"
             },
             "likes": {
               "known": 1,
               "updated": 1,
               "missing": 0,
-              "oldestAt": "2026-11-10T04:22:43.198156+00:00"
+              "oldestAt": "2026-11-10T04:38:37.517938+00:00"
             },
             "publicGridViews": {
               "known": 1,
@@ -776,40 +776,40 @@
               "known": 1,
               "updated": 1,
               "missing": 0,
-              "oldestAt": "2026-11-10T04:22:43.198165+00:00"
+              "oldestAt": "2026-11-10T04:38:37.517949+00:00"
             },
             "shares": {
               "known": 1,
               "updated": 1,
               "missing": 0,
-              "oldestAt": "2026-11-10T04:22:43.198163+00:00"
+              "oldestAt": "2026-11-10T04:38:37.517946+00:00"
             },
             "views": {
               "known": 1,
               "updated": 1,
               "missing": 0,
-              "oldestAt": "2026-11-10T04:22:43.198128+00:00"
+              "oldestAt": "2026-11-10T04:38:37.517917+00:00"
             }
           },
-          "oldestViewAt": "2026-11-10T04:22:43.198128+00:00",
+          "oldestViewAt": "2026-11-10T04:38:37.517917+00:00",
           "inventoryStatus": "partial",
           "inventoryComplete": false,
-          "inventoryCheckedAt": "2026-11-10T04:21:35.811271+00:00",
+          "inventoryCheckedAt": "2026-11-10T04:37:37.915537+00:00",
           "inventoryAudit": {
             "lastVerifiedAt": "2026-11-03T13:39:48.741Z",
-            "ageMinutes": 9521.8,
+            "ageMinutes": 9537.8,
             "overdue": true,
             "state": "overdue",
             "maxAgeMinutes": 120
           },
           "reportedPostCount": {
             "value": 1,
-            "at": "2026-11-10T04:22:41.881210+00:00",
+            "at": "2026-11-10T04:38:36.840295+00:00",
             "source": "https://www.tiktok.com/@dontgettraced",
             "approximate": false,
-            "collectionCycleAt": "2026-11-10T04:21:35.811271+00:00"
+            "collectionCycleAt": "2026-11-10T04:37:37.915537+00:00"
           },
-          "latestMetricAt": "2026-11-10T04:22:43.198165+00:00",
+          "latestMetricAt": "2026-11-10T04:38:37.517949+00:00",
           "access": "public_cloud"
         },
         "facebook": {
@@ -849,7 +849,7 @@
           "oldestViewAt": null,
           "inventoryStatus": "session_required",
           "inventoryComplete": false,
-          "inventoryCheckedAt": "2026-11-10T04:21:35.811271+00:00",
+          "inventoryCheckedAt": "2026-11-10T04:37:37.915537+00:00",
           "inventoryAudit": {
             "lastVerifiedAt": null,
             "ageMinutes": null,
@@ -898,10 +898,10 @@
           "oldestViewAt": null,
           "inventoryStatus": "partial",
           "inventoryComplete": false,
-          "inventoryCheckedAt": "2026-11-10T04:21:35.811271+00:00",
+          "inventoryCheckedAt": "2026-11-10T04:37:37.915537+00:00",
           "inventoryAudit": {
             "lastVerifiedAt": "2026-11-04T11:33:36.419Z",
-            "ageMinutes": 8208.0,
+            "ageMinutes": 8224.0,
             "overdue": true,
             "state": "overdue",
             "maxAgeMinutes": 120
@@ -913,7 +913,7 @@
             "method": "browser_bulk",
             "approximate": false
           },
-          "latestMetricAt": "2026-11-10T04:22:39.685607+00:00",
+          "latestMetricAt": "2026-11-10T04:38:35.185362+00:00",
           "access": "public_cloud"
         },
         "youtube": {
@@ -953,9 +953,9 @@
           "oldestViewAt": null,
           "inventoryStatus": "checked",
           "inventoryComplete": true,
-          "inventoryCheckedAt": "2026-11-10T04:22:40.057817+00:00",
+          "inventoryCheckedAt": "2026-11-10T04:38:35.472104+00:00",
           "inventoryAudit": {
-            "lastVerifiedAt": "2026-11-10T04:22:40.057817+00:00",
+            "lastVerifiedAt": "2026-11-10T04:38:35.472104+00:00",
             "ageMinutes": 0.0,
             "overdue": false,
             "state": "current",
@@ -963,12 +963,12 @@
           },
           "reportedPostCount": {
             "value": 0,
-            "at": "2026-11-10T04:22:43.539407+00:00",
+            "at": "2026-11-10T04:38:37.953774+00:00",
             "source": "https://www.youtube.com/channel/UCqsTDLISgGhzA_xiQT3E9yg",
             "approximate": false,
-            "collectionCycleAt": "2026-11-10T04:21:35.811271+00:00"
+            "collectionCycleAt": "2026-11-10T04:37:37.915537+00:00"
           },
-          "latestMetricAt": "2026-11-10T04:22:43.539432+00:00",
+          "latestMetricAt": "2026-11-10T04:38:37.953796+00:00",
           "access": "public_cloud"
         }
       },
@@ -976,7 +976,7 @@
     },
     "dumb-luck": {
       "status": "completed",
-      "checkedAt": "2026-11-10T04:21:35.811271+00:00",
+      "checkedAt": "2026-11-10T04:37:37.915537+00:00",
       "platforms": {
         "instagram": {
           "name": "Instagram",
@@ -991,13 +991,13 @@
               "known": 12,
               "updated": 12,
               "missing": 0,
-              "oldestAt": "2026-11-10T04:22:45.202686+00:00"
+              "oldestAt": "2026-11-10T04:38:39.359952+00:00"
             },
             "likes": {
               "known": 12,
               "updated": 12,
               "missing": 0,
-              "oldestAt": "2026-11-10T04:22:45.202671+00:00"
+              "oldestAt": "2026-11-10T04:38:39.359940+00:00"
             },
             "shares": {
               "known": 0,
@@ -1015,10 +1015,10 @@
           "oldestViewAt": "2026-11-05T17:27:36.183Z",
           "inventoryStatus": "session_required",
           "inventoryComplete": false,
-          "inventoryCheckedAt": "2026-11-10T04:21:35.811271+00:00",
+          "inventoryCheckedAt": "2026-11-10T04:37:37.915537+00:00",
           "inventoryAudit": {
             "lastVerifiedAt": "2026-11-05T17:27:36.183Z",
-            "ageMinutes": 6414.0,
+            "ageMinutes": 6430.0,
             "overdue": true,
             "state": "overdue",
             "maxAgeMinutes": 120
@@ -1032,7 +1032,7 @@
             "displayValue": "12",
             "definition": "Instagram visible profile total-post count; includes all public profile posts, not asserted to equal Reels inventory or tracked-video count"
           },
-          "latestMetricAt": "2026-11-10T04:22:56.704800+00:00",
+          "latestMetricAt": "2026-11-10T04:38:54.485906+00:00",
           "access": "authorization_required"
         },
         "tiktok": {
@@ -1098,9 +1098,9 @@
         "youtube": {
           "name": "YouTube",
           "status": "partial",
-          "metricsUpdated": 1,
+          "metricsUpdated": 11,
           "metricsKnown": 25,
-          "viewsUpdated": 0,
+          "viewsUpdated": 10,
           "postsKnown": 10,
           "viewsKnown": 10,
           "metricCoverage": {
@@ -1130,17 +1130,17 @@
             },
             "views": {
               "known": 10,
-              "updated": 0,
+              "updated": 10,
               "missing": 0,
-              "oldestAt": "2026-11-10T04:06:13.096428+00:00"
+              "oldestAt": "2026-11-10T04:38:38.465607+00:00"
             }
           },
-          "oldestViewAt": "2026-11-10T04:06:13.096428+00:00",
+          "oldestViewAt": "2026-11-10T04:38:38.465607+00:00",
           "inventoryStatus": "checked",
           "inventoryComplete": true,
-          "inventoryCheckedAt": "2026-11-10T04:22:43.864448+00:00",
+          "inventoryCheckedAt": "2026-11-10T04:38:38.332856+00:00",
           "inventoryAudit": {
-            "lastVerifiedAt": "2026-11-10T04:22:43.864448+00:00",
+            "lastVerifiedAt": "2026-11-10T04:38:38.332856+00:00",
             "ageMinutes": 0.0,
             "overdue": false,
             "state": "current",
@@ -1154,15 +1154,15 @@
             "approximate": false,
             "displayValue": "10"
           },
-          "latestMetricAt": "2026-11-10T04:22:56.946794+00:00",
+          "latestMetricAt": "2026-11-10T04:38:54.723191+00:00",
           "access": "public_cloud"
         }
       },
-      "metricsUpdated": 25
+      "metricsUpdated": 35
     },
     "no-code-kevin": {
       "status": "completed",
-      "checkedAt": "2026-11-10T04:21:35.811271+00:00",
+      "checkedAt": "2026-11-10T04:37:37.915537+00:00",
       "platforms": {
         "instagram": {
           "name": "Instagram",
@@ -1177,13 +1177,13 @@
               "known": 15,
               "updated": 15,
               "missing": 0,
-              "oldestAt": "2026-11-10T04:23:09.695058+00:00"
+              "oldestAt": "2026-11-10T04:39:04.485934+00:00"
             },
             "likes": {
               "known": 15,
               "updated": 15,
               "missing": 0,
-              "oldestAt": "2026-11-10T04:23:09.695045+00:00"
+              "oldestAt": "2026-11-10T04:39:04.485923+00:00"
             },
             "reposts": {
               "known": 3,
@@ -1207,10 +1207,10 @@
           "oldestViewAt": "2026-11-05T17:26:00.645Z",
           "inventoryStatus": "session_required",
           "inventoryComplete": false,
-          "inventoryCheckedAt": "2026-11-10T04:21:35.811271+00:00",
+          "inventoryCheckedAt": "2026-11-10T04:37:37.915537+00:00",
           "inventoryAudit": {
             "lastVerifiedAt": "2026-11-05T17:26:00.645Z",
-            "ageMinutes": 6415.6,
+            "ageMinutes": 6431.6,
             "overdue": true,
             "state": "overdue",
             "maxAgeMinutes": 120
@@ -1224,7 +1224,7 @@
             "displayValue": "12",
             "definition": "Instagram visible profile total-post count; includes all public profile posts, not asserted to equal Reels inventory or tracked-video count"
           },
-          "latestMetricAt": "2026-11-10T04:23:28.398254+00:00",
+          "latestMetricAt": "2026-11-10T04:39:27.547676+00:00",
           "access": "authorization_required"
         },
         "tiktok": {
@@ -1282,22 +1282,22 @@
           "oldestViewAt": "2026-11-03T13:49:53.281644+00:00",
           "inventoryStatus": "partial",
           "inventoryComplete": false,
-          "inventoryCheckedAt": "2026-11-10T04:21:35.811271+00:00",
+          "inventoryCheckedAt": "2026-11-10T04:37:37.915537+00:00",
           "inventoryAudit": {
             "lastVerifiedAt": "2026-11-03T13:50:28.471Z",
-            "ageMinutes": 9511.1,
+            "ageMinutes": 9527.2,
             "overdue": true,
             "state": "overdue",
             "maxAgeMinutes": 120
           },
           "reportedPostCount": {
             "value": 21,
-            "at": "2026-11-10T04:23:29.905093+00:00",
+            "at": "2026-11-10T04:39:28.042196+00:00",
             "source": "https://www.tiktok.com/@nocodekevin",
             "approximate": false,
-            "collectionCycleAt": "2026-11-10T04:21:35.811271+00:00"
+            "collectionCycleAt": "2026-11-10T04:37:37.915537+00:00"
           },
-          "latestMetricAt": "2026-11-10T04:23:46.974402+00:00",
+          "latestMetricAt": "2026-11-10T04:39:43.153107+00:00",
           "access": "public_cloud"
         }
       },
@@ -1305,7 +1305,7 @@
     },
     "barely-shipped": {
       "status": "completed",
-      "checkedAt": "2026-11-10T04:21:35.811271+00:00",
+      "checkedAt": "2026-11-10T04:37:37.915537+00:00",
       "platforms": {
         "instagram": {
           "name": "Instagram",
@@ -1320,13 +1320,13 @@
               "known": 6,
               "updated": 6,
               "missing": 0,
-              "oldestAt": "2026-11-10T04:23:49.190555+00:00"
+              "oldestAt": "2026-11-10T04:39:45.102057+00:00"
             },
             "likes": {
               "known": 6,
               "updated": 6,
               "missing": 0,
-              "oldestAt": "2026-11-10T04:23:49.190544+00:00"
+              "oldestAt": "2026-11-10T04:39:45.102046+00:00"
             },
             "shares": {
               "known": 0,
@@ -1344,10 +1344,10 @@
           "oldestViewAt": "2026-11-05T17:26:19.682Z",
           "inventoryStatus": "session_required",
           "inventoryComplete": false,
-          "inventoryCheckedAt": "2026-11-10T04:21:35.811271+00:00",
+          "inventoryCheckedAt": "2026-11-10T04:37:37.915537+00:00",
           "inventoryAudit": {
             "lastVerifiedAt": "2026-11-05T17:26:19.682Z",
-            "ageMinutes": 6415.3,
+            "ageMinutes": 6431.3,
             "overdue": true,
             "state": "overdue",
             "maxAgeMinutes": 120
@@ -1361,7 +1361,7 @@
             "displayValue": "4",
             "definition": "Instagram visible profile total-post count; includes all public profile posts, not asserted to equal Reels inventory or tracked-video count"
           },
-          "latestMetricAt": "2026-11-10T04:23:56.082704+00:00",
+          "latestMetricAt": "2026-11-10T04:39:48.865067+00:00",
           "access": "authorization_required"
         },
         "tiktok": {
@@ -1377,13 +1377,13 @@
               "known": 4,
               "updated": 4,
               "missing": 0,
-              "oldestAt": "2026-11-10T04:23:57.191224+00:00"
+              "oldestAt": "2026-11-10T04:39:49.815345+00:00"
             },
             "likes": {
               "known": 4,
               "updated": 4,
               "missing": 0,
-              "oldestAt": "2026-11-10T04:23:57.191220+00:00"
+              "oldestAt": "2026-11-10T04:39:49.815341+00:00"
             },
             "publicGridViews": {
               "known": 4,
@@ -1401,40 +1401,40 @@
               "known": 4,
               "updated": 4,
               "missing": 0,
-              "oldestAt": "2026-11-10T04:23:57.191229+00:00"
+              "oldestAt": "2026-11-10T04:39:49.815352+00:00"
             },
             "shares": {
               "known": 4,
               "updated": 4,
               "missing": 0,
-              "oldestAt": "2026-11-10T04:23:57.191227+00:00"
+              "oldestAt": "2026-11-10T04:39:49.815349+00:00"
             },
             "views": {
               "known": 4,
               "updated": 4,
               "missing": 0,
-              "oldestAt": "2026-11-10T04:23:57.191191+00:00"
+              "oldestAt": "2026-11-10T04:39:49.815318+00:00"
             }
           },
-          "oldestViewAt": "2026-11-10T04:23:57.191191+00:00",
+          "oldestViewAt": "2026-11-10T04:39:49.815318+00:00",
           "inventoryStatus": "partial",
           "inventoryComplete": false,
-          "inventoryCheckedAt": "2026-11-10T04:21:35.811271+00:00",
+          "inventoryCheckedAt": "2026-11-10T04:37:37.915537+00:00",
           "inventoryAudit": {
             "lastVerifiedAt": "2026-11-03T14:28:01.760Z",
-            "ageMinutes": 9473.6,
+            "ageMinutes": 9489.6,
             "overdue": true,
             "state": "overdue",
             "maxAgeMinutes": 120
           },
           "reportedPostCount": {
             "value": 4,
-            "at": "2026-11-10T04:23:56.593720+00:00",
+            "at": "2026-11-10T04:39:49.304504+00:00",
             "source": "https://www.tiktok.com/@barelyshipped",
             "approximate": false,
-            "collectionCycleAt": "2026-11-10T04:21:35.811271+00:00"
+            "collectionCycleAt": "2026-11-10T04:37:37.915537+00:00"
           },
-          "latestMetricAt": "2026-11-10T04:23:59.178016+00:00",
+          "latestMetricAt": "2026-11-10T04:39:51.576856+00:00",
           "access": "public_cloud"
         }
       },
@@ -1442,7 +1442,7 @@
     },
     "click-theory": {
       "status": "completed",
-      "checkedAt": "2026-11-10T04:21:35.811271+00:00",
+      "checkedAt": "2026-11-10T04:37:37.915537+00:00",
       "platforms": {
         "instagram": {
           "name": "Instagram",
@@ -1457,13 +1457,13 @@
               "known": 2,
               "updated": 2,
               "missing": 0,
-              "oldestAt": "2026-11-10T04:24:00.200101+00:00"
+              "oldestAt": "2026-11-10T04:39:52.619602+00:00"
             },
             "likes": {
               "known": 2,
               "updated": 2,
               "missing": 0,
-              "oldestAt": "2026-11-10T04:24:00.200090+00:00"
+              "oldestAt": "2026-11-10T04:39:52.619591+00:00"
             },
             "reposts": {
               "known": 1,
@@ -1487,16 +1487,16 @@
           "oldestViewAt": "2026-11-05T17:26:35.668Z",
           "inventoryStatus": "session_required",
           "inventoryComplete": false,
-          "inventoryCheckedAt": "2026-11-10T04:21:35.811271+00:00",
+          "inventoryCheckedAt": "2026-11-10T04:37:37.915537+00:00",
           "inventoryAudit": {
             "lastVerifiedAt": "2026-11-05T17:26:35.668Z",
-            "ageMinutes": 6415.0,
+            "ageMinutes": 6431.0,
             "overdue": true,
             "state": "overdue",
             "maxAgeMinutes": 120
           },
           "reportedPostCount": null,
-          "latestMetricAt": "2026-11-10T04:24:02.178708+00:00",
+          "latestMetricAt": "2026-11-10T04:39:53.907518+00:00",
           "access": "authorization_required"
         },
         "tiktok": {
@@ -1565,7 +1565,7 @@
     },
     "thug-coded": {
       "status": "completed",
-      "checkedAt": "2026-11-10T04:21:35.811271+00:00",
+      "checkedAt": "2026-11-10T04:37:37.915537+00:00",
       "platforms": {
         "instagram": {
           "name": "Instagram",
@@ -1580,13 +1580,13 @@
               "known": 2,
               "updated": 2,
               "missing": 0,
-              "oldestAt": "2026-11-10T04:24:03.515349+00:00"
+              "oldestAt": "2026-11-10T04:39:55.419772+00:00"
             },
             "likes": {
               "known": 2,
               "updated": 2,
               "missing": 0,
-              "oldestAt": "2026-11-10T04:24:03.515337+00:00"
+              "oldestAt": "2026-11-10T04:39:55.419762+00:00"
             },
             "reposts": {
               "known": 1,
@@ -1610,16 +1610,16 @@
           "oldestViewAt": "2026-11-05T17:27:06.518Z",
           "inventoryStatus": "session_required",
           "inventoryComplete": false,
-          "inventoryCheckedAt": "2026-11-10T04:21:35.811271+00:00",
+          "inventoryCheckedAt": "2026-11-10T04:37:37.915537+00:00",
           "inventoryAudit": {
             "lastVerifiedAt": "2026-11-05T17:27:06.518Z",
-            "ageMinutes": 6414.5,
+            "ageMinutes": 6430.5,
             "overdue": true,
             "state": "overdue",
             "maxAgeMinutes": 120
           },
           "reportedPostCount": null,
-          "latestMetricAt": "2026-11-10T04:24:04.669087+00:00",
+          "latestMetricAt": "2026-11-10T04:39:56.984738+00:00",
           "access": "authorization_required"
         }
       },
@@ -1627,9 +1627,9 @@
     }
   },
   "initiator": "continuous_clock",
-  "clockRunUrl": "https://github.com/Jautis5/cooked-dev-stats/actions/runs/42753351208",
+  "clockRunUrl": "https://github.com/Jautis5/cooked-dev-stats/actions/runs/42755088843",
   "clockDriver": "environment_wait_timer",
-  "completedAt": "2026-11-10T04:24:04.685822+00:00",
+  "completedAt": "2026-11-10T04:39:57.002712+00:00",
   "inventoryAttentionRequired": true,
   "status": "completed_with_gaps"
 }
