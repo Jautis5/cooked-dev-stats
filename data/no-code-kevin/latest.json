@@ -9912,15 +9912,11 @@
       "lastCompleteAt": "2026-11-10T10:01:13.784Z"
     },
     "tiktok": {
-      "status": "partial",
-      "method": "public_creator_embed",
-      "newVideos": 0,
-      "listedPosts": 10,
-      "complete": false,
-      "checkedAt": "2026-11-10T10:29:42.343579+00:00",
-      "feedStatus": "profile_checked",
-      "reportedPosts": 21,
-      "lastCompleteAt": "2026-11-03T13:50:28.471Z",
+      "status": "checked",
+      "complete": true,
+      "method": "browser_bulk",
+      "checkedAt": "2026-11-10T10:37:04.175Z",
+      "listedPosts": 21,
       "revokedCompleteChecks": [
         {
           "at": "2026-11-03T15:25:09.549Z",
@@ -9928,7 +9924,9 @@
           "fallbackAt": "2026-11-03T13:50:28.471Z",
           "reason": "Historical full-list claim retracted: outer-document end/count did not independently prove the actual TikTok inner video-list terminal state."
         }
-      ]
+      ],
+      "lastCompleteAt": "2026-11-10T10:37:04.175Z",
+      "lastCompletePostCount": 21
     }
   },
   "changes24h": {
