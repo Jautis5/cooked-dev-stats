@@ -294,12 +294,12 @@
             },
             "publicGridViews": {
               "value": 147,
-              "at": "2026-11-04T11:32:10.051Z",
+              "at": "2026-11-10T10:39:12.000Z",
               "source": "https://www.youtube.com/shorts/_wtrSJFWlJc",
               "method": "browser_bulk",
               "approximate": false,
-              "displayValue": "147",
-              "definition": "YouTube public Shorts/video grid view counter; retained separately from precise public views"
+              "displayValue": "147 views",
+              "definition": "YouTube public Shorts grid rounded view counter"
             }
           },
           "publicationVerifiedAt": "2026-10-22T21:34:23.190703+00:00",
@@ -15872,20 +15872,12 @@
   "discovery": {
     "youtube": {
       "status": "checked",
-      "method": "public_youtube_inventory",
-      "checkedAt": "2026-11-10T10:30:36.705514+00:00",
-      "source": "https://www.youtube.com/channel/UCgHxdk2zTRXwsoCrICSwiRg",
       "complete": true,
-      "newVideos": 0,
+      "method": "browser_bulk",
+      "checkedAt": "2026-11-10T10:39:17.034Z",
+      "lastCompleteAt": "2026-11-10T10:39:17.034Z",
       "listedPosts": 1,
-      "pages": 1,
-      "tabsChecked": [
-        "shorts"
-      ],
-      "scope": "tracked_public_video_tabs",
-      "lastCompleteAt": "2026-11-10T10:30:36.705514+00:00",
-      "lastCompletePostCount": 1,
-      "feedStatus": "checked"
+      "lastCompletePostCount": 1
     },
     "facebook": {
       "status": "session_required",
