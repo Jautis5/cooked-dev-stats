@@ -4,8 +4,8 @@
   "brand": {
     "name": "DUMB LUCK"
   },
-  "generatedAt": "2026-11-11T01:13:12.778430+00:00",
-  "lastAttemptAt": "2026-11-11T01:13:12.778430+00:00",
+  "generatedAt": "2026-11-11T01:27:36.752759+00:00",
+  "lastAttemptAt": "2026-11-11T01:27:36.752759+00:00",
   "schedule": {
     "provider": "GitHub Actions",
     "intervalMinutes": 15,
@@ -18,8 +18,8 @@
       "handle": "duumb_luck",
       "expectedHandle": "duumb_luck",
       "url": "https://www.instagram.com/duumb_luck/",
-      "status": "partial",
-      "message": "Public video metrics updated; per-metric dates retained.",
+      "status": "unavailable",
+      "message": "Public source unavailable; previous observations preserved.",
       "metrics": {
         "followers": {
           "value": 2,
@@ -53,7 +53,7 @@
           "approximate": false
         }
       },
-      "lastAttemptAt": "2026-11-11T01:13:12.778430+00:00",
+      "lastAttemptAt": "2026-11-11T01:27:36.752759+00:00",
       "lastSuccessAt": "2026-11-11T01:13:12.778430+00:00"
     },
     {
@@ -117,10 +117,10 @@
       "metrics": {
         "followers": {
           "value": 2,
-          "at": "2026-11-11T01:15:17.385363+00:00",
+          "at": "2026-11-11T01:29:07.445027+00:00",
           "source": "https://www.youtube.com/channel/UCB-BqPU60vRfUWGalt6fRtQ",
           "approximate": false,
-          "collectionCycleAt": "2026-11-11T01:13:12.778430+00:00"
+          "collectionCycleAt": "2026-11-11T01:27:36.752759+00:00"
         },
         "publishedCount": {
           "value": 10,
@@ -131,8 +131,8 @@
           "displayValue": "10"
         }
       },
-      "lastAttemptAt": "2026-11-11T01:13:12.778430+00:00",
-      "lastSuccessAt": "2026-11-11T01:13:12.778430+00:00"
+      "lastAttemptAt": "2026-11-11T01:27:36.752759+00:00",
+      "lastSuccessAt": "2026-11-11T01:27:36.752759+00:00"
     }
   ],
   "videos": [
@@ -10100,6 +10100,13 @@
       "posts": 26,
       "approximate": false,
       "partial": false
+    },
+    {
+      "at": "2026-11-11T01:27:36.752759+00:00",
+      "views": 6020,
+      "posts": 26,
+      "approximate": false,
+      "partial": false
     }
   ],
   "tracking": {
@@ -10110,7 +10117,7 @@
     "youtube": {
       "status": "checked",
       "method": "public_youtube_inventory",
-      "checkedAt": "2026-11-11T01:14:56.252646+00:00",
+      "checkedAt": "2026-11-11T01:28:55.299722+00:00",
       "source": "https://www.youtube.com/channel/UCB-BqPU60vRfUWGalt6fRtQ",
       "complete": true,
       "newVideos": 0,
@@ -10120,7 +10127,7 @@
         "shorts"
       ],
       "scope": "tracked_public_video_tabs",
-      "lastCompleteAt": "2026-11-11T01:14:56.252646+00:00",
+      "lastCompleteAt": "2026-11-11T01:28:55.299722+00:00",
       "lastCompletePostCount": 10,
       "feedStatus": "unavailable"
     },
@@ -10136,25 +10143,25 @@
     },
     "instagram": {
       "status": "session_required",
-      "checkedAt": "2026-11-11T01:13:12.778430+00:00",
+      "checkedAt": "2026-11-11T01:27:36.752759+00:00",
       "complete": false,
       "message": "New-publication discovery requires an authorized account list; a successful metrics check is not a complete list.",
       "lastCompleteAt": "2026-11-10T10:02:53.691Z"
     }
   },
   "cloudCollection": {
-    "at": "2026-11-11T01:13:12.778430+00:00",
+    "at": "2026-11-11T01:27:36.752759+00:00",
     "method": "public_cloud",
     "metricsUpdated": {
-      "instagram": 24,
+      "instagram": 0,
       "tiktok": 0,
       "youtube": 1
     },
-    "runUrl": "https://github.com/Jautis5/cooked-dev-stats/actions/runs/42936908089"
+    "runUrl": "https://github.com/Jautis5/cooked-dev-stats/actions/runs/42938834179"
   },
   "changes24h": {
-    "at": "2026-11-11T01:13:12.778430+00:00",
-    "baselineAt": "2026-11-10T01:11:06.773580+00:00",
+    "at": "2026-11-11T01:27:36.752759+00:00",
+    "baselineAt": "2026-11-10T01:27:22.884951+00:00",
     "views": null,
     "likes": null,
     "followers": null
