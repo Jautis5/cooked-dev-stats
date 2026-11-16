@@ -1,5 +1,5 @@
 import importlib.util, pathlib, unittest, tempfile, json, csv
-from unittest.mock import patch
+from unittest.mock import patch, MagicMock
 p=pathlib.Path(__file__).with_name('collect.py');s=importlib.util.spec_from_file_location('collector',p);m=importlib.util.module_from_spec(s);s.loader.exec_module(m)
 class CollectorTests(unittest.TestCase):
  def test_archive_keeps_original_metric_timestamp_and_is_idempotent(self):
@@ -81,5 +81,30 @@ class YoutubePublicMetricsTests(unittest.TestCase):
   with patch.object(m,'request',return_value=body):
    with self.assertRaises(ValueError):m.youtube_video(post,'channel')
   self.assertEqual(post,self.post())
+
+class YoutubeCommentCountTests(unittest.TestCase):
+ def initial(self):
+  section={'sectionIdentifier':'comment-item-section','targetId':'comments-section','contents':[{'continuationItemRenderer':{'continuationEndpoint':{'continuationCommand':{'token':'public-cursor','request':'CONTINUATION_REQUEST_TYPE_WATCH_NEXT'}}}}]}
+  return {'contents':{'twoColumnWatchNextResults':{'results':{'results':{'contents':[{'itemSectionRenderer':section}]}}}}}
+ def test_only_public_aggregate_is_returned_with_a_bounded_request(self):
+  for label,expected in [('2',(2,False)),('0',(0,False)),('1.2K',(1200,True)),('Comments',(None,False))]:
+   response=MagicMock();response.__enter__.return_value.read.return_value=json.dumps({'header':{'commentsHeaderRenderer':{'commentsCount':{'runs':[{'text':label}]}}},'comments':[{'text':'discard this text','author':'discard identity'}]}).encode()
+   with patch.object(m.urllib.request,'urlopen',return_value=response) as request:
+    self.assertEqual(m.youtube_comments(self.initial(),'"INNERTUBE_CLIENT_VERSION":"2.20261116"'),expected)
+    self.assertEqual(request.call_args.kwargs['timeout'],8)
+    req=request.call_args.args[0];self.assertEqual(req.full_url,'https://www.youtube.com/youtubei/v1/next')
+    self.assertEqual(json.loads(req.data)['continuation'],'public-cursor')
+ def test_recommendation_or_missing_cursors_never_trigger_a_request(self):
+  for initial in [{},json.loads(json.dumps(self.initial()).replace('comments-section','recommendations'))]:
+   with patch.object(m.urllib.request,'urlopen') as request:
+    self.assertEqual(m.youtube_comments(initial,'"INNERTUBE_CLIENT_VERSION":"2.20261116"'),(None,False));request.assert_not_called()
+ def test_unavailable_comments_preserve_prior_count_and_keep_working_likes(self):
+  post=YoutubePublicMetricsTests().post();post['metrics']['comments']={'value':2,'at':'earlier'}
+  with patch.object(m,'request',return_value=YoutubePublicMetricsTests().fixture()),patch.object(m,'youtube_comments',side_effect=TimeoutError):m.youtube_video(post,'channel')
+  self.assertEqual(post['metrics']['comments'],{'value':2,'at':'earlier'});self.assertEqual(post['metrics']['likes']['value'],11)
+ def test_wrong_owner_does_not_request_comments(self):
+  with patch.object(m,'request',return_value=YoutubePublicMetricsTests().fixture(owner='other')),patch.object(m,'youtube_comments') as comments:
+   with self.assertRaises(ValueError):m.youtube_video(YoutubePublicMetricsTests().post(),'channel')
+   comments.assert_not_called()
 
 if __name__=='__main__':unittest.main()
