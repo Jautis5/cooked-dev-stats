@@ -1,7 +1,7 @@
 import copy, datetime, hashlib, pathlib, tempfile, unittest
 import urllib.error
 from unittest.mock import patch
-from cloud_clock import collection_plan, clock_recovery_plan, ensure_successor, tick
+from cloud_clock import collection_plan, clock_recovery_plan, ensure_successor, tick, ensure_kit
 from cloud_api import CloudAPI
 from version_assets import version_assets
 
@@ -20,6 +20,7 @@ class FakeAPI:
     def call(self,path,body=None):
         self.calls.append((path,body))
         if path=='':return {'private':self.private}
+        if path.startswith('/actions/workflows/kit.yml/runs'):return {'workflow_runs':self.runs}
         if path.startswith('/actions/workflows/refresh.yml/runs'):return {'workflow_runs':self.runs}
         if path.startswith('/actions/workflows/clock.yml/runs'):return {'workflow_runs':[self.child] if self.child else []}
         if path=='/actions/workflows/clock.yml/dispatches':
@@ -67,6 +68,20 @@ class ClockTests(unittest.TestCase):
     def test_collection_dispatch_failure_still_hands_off_the_clock(self):
         api=FakeAPI([run()]);api.collect_error=True
         with self.assertRaises(RuntimeError):tick(api,12,NOW,lambda _:None)
+        self.assertIsNotNone(api.child)
+    def test_kit_is_recovered_when_cron_delivers_no_runs(self):
+        api=FakeAPI();ensure_kit(api,NOW)
+        self.assertIn(('/actions/workflows/kit.yml/dispatches',{'ref':'main'}),api.calls)
+    def test_kit_recent_active_run_is_not_duplicated(self):
+        api=FakeAPI([run(2,'in_progress')]);self.assertEqual(ensure_kit(api,NOW)['action'],'wait')
+        self.assertFalse(any(p.endswith('/dispatches') for p,b in api.calls))
+    def test_kit_stuck_queue_is_cancelled_before_recovery(self):
+        api=FakeAPI([run(11,'queued',id=55)]);ensure_kit(api,NOW)
+        self.assertLess(api.calls.index(('/actions/runs/55/cancel',{})),api.calls.index(('/actions/workflows/kit.yml/dispatches',{'ref':'main'})))
+    def test_social_failure_does_not_skip_kit_recovery(self):
+        api=FakeAPI();api.collect_error=True
+        with self.assertRaises(RuntimeError):tick(api,12,NOW,lambda _:None)
+        self.assertIn(('/actions/workflows/kit.yml/dispatches',{'ref':'main'}),api.calls)
         self.assertIsNotNone(api.child)
     def test_token_cannot_be_sent_to_another_host(self):
         with self.assertRaises(ValueError):CloudAPI('owner/repo','not-a-real-token').call('https://example.com/')
