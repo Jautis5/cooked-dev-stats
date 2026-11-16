@@ -1,9 +1,9 @@
 """Unattended cloud collection with optional official reads. No local browser."""
-import copy, datetime, json, os, pathlib, sys
+import concurrent.futures, copy, datetime, json, os, pathlib, re, sys
 import collect as base
 import collect_channels as extra
 from snapshot_merge import validate, timestamp
-from publications import reconcile
+from publications import reconcile, publication_id
 from inventory_health import inventory_health, preserve_verified_inventory
 from public_fallbacks import refresh_fallbacks
 import official_broker
@@ -54,6 +54,48 @@ def metric_health(data, observed_at):
     return out
 
 
+def prefetch_youtube(root, registry, read=None):
+    """Read owned public watch counters before inventory and other-platform load.
+
+    Every successful result keeps its actual observation time. Failed reads add
+    nothing; the normal collector can still retry and retain prior observations.
+    """
+    jobs=[]
+    for config in registry:
+        path=(root/config['dataPath']).resolve()
+        if not path.is_relative_to((root/'data').resolve()):raise ValueError('Unsafe channel data path')
+        data=json.loads(path.read_text())
+        account=next((a for a in data['accounts'] if a['id']=='youtube' and base.is_active(a)),None)
+        if not account:continue
+        owner=account.get('expectedChannelId') or account['url'].rstrip('/').split('/')[-1]
+        if not re.fullmatch(r'UC[A-Za-z0-9_-]{22}',owner):continue
+        for video in data['videos']:
+            post=video['posts'].get('youtube')
+            if not post or not re.fullmatch(r'[A-Za-z0-9_-]{11}',str(post.get('id',''))):continue
+            try:
+                if publication_id('youtube',post['url'],account)!=post['id']:continue
+            except ValueError:continue
+            jobs.append((config['id'],owner,{'id':post['id'],'url':post['url'],'metrics':{}}))
+    def collect_one(job):
+        channel,owner,post=job
+        result,error=base.attempt(read or base.youtube_video,post,owner)
+        return (channel,post['id']),result.get('metrics',{}) if result else {}
+    with concurrent.futures.ThreadPoolExecutor(max_workers=3) as pool:
+        found=dict(pool.map(collect_one,jobs))
+    print(json.dumps({'youtubePrefetch':{'attempted':len(jobs),'observed':sum(bool(m) for m in found.values())}}),flush=True)
+    return found
+
+
+def apply_youtube_prefetch(data, channel, found):
+    for video in data['videos']:
+        post=video['posts'].get('youtube')
+        if not post:continue
+        for key,metric in found.get((channel,post['id']),{}).items():
+            if timestamp(metric.get('at'))>timestamp(post.get('metrics',{}).get(key,{}).get('at')):
+                post.setdefault('metrics',{})[key]=copy.deepcopy(metric)
+    return data
+
+
 def refresh(root=ROOT):
     policy = json.loads((root / 'data/collection-policy.json').read_text())
     started = datetime.datetime.now(datetime.timezone.utc).isoformat()
@@ -69,13 +111,16 @@ def refresh(root=ROOT):
         health['clockRunUrl']='https://github.com/'+os.environ['GITHUB_REPOSITORY']+'/actions/runs/'+clock_id
     health['clockDriver']=policy.get('clockDriver') if policy.get('continuousClockEnabled') else None
     failed = 0
-    for config in json.loads((root / 'data/channels.json').read_text())['channels']:
+    registry=json.loads((root / 'data/channels.json').read_text())['channels']
+    youtube_early=prefetch_youtube(root,registry)
+    for config in registry:
         path = (root / config['dataPath']).resolve()
         if not path.is_relative_to((root / 'data').resolve()):
             raise ValueError('Unsafe channel data path')
         previous = json.loads(path.read_text())
         try:
             prepared = base.apply_account_policy(reconcile(copy.deepcopy(previous)), config)
+            apply_youtube_prefetch(prepared, config['id'], youtube_early)
             # Discover public URLs before per-post collectors visit known IDs.
             refresh_fallbacks(prepared)
             discoveries = copy.deepcopy(prepared.get('discovery', {}))
