@@ -36,3 +36,8 @@ body[data-channel="dont-get-traced"] #channel-logo{width:72px;height:72px;object
 .channel-metrics strong{font-size:22px;line-height:1.25;letter-spacing:-.5px;white-space:normal;overflow-wrap:anywhere}
 .channel-top>div{min-width:0}
 .channel-tagline{overflow-wrap:anywhere}
+
+/* Kit count joins the shared and Cooked Dev overview only. */
+.stats.has-email-stat{grid-template-columns:repeat(5,minmax(0,1fr))}.kit-subscribers{display:inline-block;margin-top:7px;font-size:11px}.email-stat .change{line-height:1.5}
+@media(max-width:1100px) and (min-width:651px){.stats.has-email-stat{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:650px){.stats.has-email-stat{grid-template-columns:repeat(2,minmax(0,1fr))}.email-stat{grid-column:1/-1}}
