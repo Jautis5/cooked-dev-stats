@@ -93,8 +93,8 @@ function validKitStats(d){
 function kitCard(d,failed=false,scope=selected()?.id||'all',now=Date.now()){
  if(scope!=='all'&&scope!=='cooked-dev')return '';
  const ok=validKitStats(d),m=ok?d.totalSubscribers:null,age=now-Date.parse(m?.at);
- const fresh=ok&&!failed&&d.status==='ok'&&m.method==='kit_api_v4'&&age>=0&&age<15*60000;
- const status=fresh?'Auto-updated · checks every 5 min':!ok?'Waiting for Kit data':failed?'Saved count · feed unavailable':d.status==='authorization_required'?'Connect Kit to enable auto-updates':d.status==='error'?'Saved count · Kit update failed':'Saved count · update overdue';
+ const fresh=ok&&!failed&&d.status==='ok'&&m.method==='kit_api_v4'&&age>=0&&age<30*60000;
+ const status=fresh?'Auto-updated · checks target 15 min':!ok?'Waiting for Kit data':failed?'Saved count · feed unavailable':d.status==='authorization_required'?'Connect Kit to enable auto-updates':d.status==='error'?'Saved count · Kit update failed':'Saved count · update overdue';
  const count=m?new Intl.NumberFormat('de-DE').format(m.value):'—';
  return '<article class="stat email-stat"><div class="stat-label">'+svg('<rect x="3" y="5" width="18" height="14" rx="3"/><path d="m3 6 9 7 9-7"/>')+'Emails collected</div><div class="stat-value" tabindex="0" title="Kit Total subscribers · confirmed subscribers">'+count+'</div><p class="kit-owner">Cooked Dev · Kit</p><div class="stat-bottom"><a class="kit-subscribers" href="https://app.kit.com/subscribers" target="_blank" rel="noopener">Subscribers '+svg('<path d="M7 17 17 7M7 7h10v10"/>')+'</a><span class="kit-state '+(fresh?'fresh':'limited')+'" title="'+esc(status)+'">'+(fresh?'Auto-updated':'Saved')+'</span></div></article>';
 
@@ -112,7 +112,7 @@ async function loadKit(){
 function renderKit(){
  const stats=$('stats'),html=kitCard(kitStats,kitFeedFailed);
  stats.className='stats'+(html?' has-email-stat':'');stats.innerHTML+=html;
- if($('kit-data-details')){$('kit-data-details').hidden=!html;$('kit-data-details').innerHTML='<h3>Emails collected</h3><p>Cooked Dev · Kit confirmed subscribers</p><p>Updated: '+esc(time(kitStats?.totalSubscribers?.at))+'</p><p>Checks target a five-minute interval. GitHub and Kit can delay updates. Saved values retain their real observation time.</p>';} 
+ if($('kit-data-details')){$('kit-data-details').hidden=!html;$('kit-data-details').innerHTML='<h3>Emails collected</h3><p>Cooked Dev · Kit confirmed subscribers</p><p>Updated: '+esc(time(kitStats?.totalSubscribers?.at))+'</p><p>Checks target a fifteen-minute interval, with a 30-minute freshness window. GitHub and Kit can delay updates. Saved values retain their real observation time.</p>';} 
 }
 function renderStats(s,data){
  const details=[];
