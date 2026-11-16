@@ -2,7 +2,7 @@
 import datetime, json, os, pathlib, re, urllib.request
 from snapshot_merge import timestamp
 from cloud_api import CloudAPI
-from cloud_clock import clock_recovery_plan
+from cloud_clock import clock_recovery_plan, ensure_kit
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 
 
@@ -47,6 +47,7 @@ def run():
                 api(repository,token,'/actions/runs/'+str(run_id)+'/cancel',{})
             api(repository,token,'/actions/workflows/clock.yml/dispatches',{'ref':'main'})
         print(json.dumps({'clockRecovery':clock_plan}))
+    ensure_kit(CloudAPI(repository, token), now)
     plan = recovery_plan(runs, health, now, policy)
     if plan['action'] == 'dispatch':
         for run_id in plan.get('cancelRunIds', []):
