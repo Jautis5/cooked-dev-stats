@@ -40,4 +40,46 @@ class CollectorTests(unittest.TestCase):
   health=metric_health(data,at)['x']['metricCoverage']
   self.assertEqual(health['views']['updated'],0);self.assertEqual(health['likes']['updated'],1)
   self.assertEqual(health['shares']['missing'],1)
+class YoutubePublicMetricsTests(unittest.TestCase):
+ def fixture(self,title='11',label='like this video along with 11 other people',owner='channel',video='video',player=None):
+  button={'buttonViewModel':{'iconName':'LIKE','title':title,'accessibilityText':label}}
+  toggle={'defaultButtonViewModel':button,'toggledButtonViewModel':{'buttonViewModel':{'iconName':'LIKE','title':'999999'}}}
+  actions={'segmentedLikeDislikeButtonViewModel':{'likeButtonViewModel':{'likeButtonViewModel':{'toggleButtonViewModel':{'toggleButtonViewModel':toggle}}}}}
+  sections=[{'videoPrimaryInfoRenderer':{'viewCount':{'videoViewCountRenderer':{'originalViewCount':'1256'}},'videoActions':{'menuRenderer':{'topLevelButtons':[actions]}}}}, {'videoSecondaryInfoRenderer':{'owner':{'videoOwnerRenderer':{'navigationEndpoint':{'browseEndpoint':{'browseId':owner}}}}}}]
+  initial={'currentVideoEndpoint':{'watchEndpoint':{'videoId':video}},'contents':{'twoColumnWatchNextResults':{'results':{'results':{'contents':sections}}}}}
+  return 'var ytInitialData = '+json.dumps(initial)+';var ytInitialPlayerResponse = '+json.dumps(player or {})+';'
+ def post(self):return {'id':'video','url':'https://www.youtube.com/shorts/video','metrics':{'likes':{'value':7,'at':'earlier'}}}
+ def test_current_primary_like_count_excludes_hypothetical_toggled_value(self):
+  with patch.object(m,'request',return_value=self.fixture()):result=m.youtube_video(self.post(),'channel')
+  self.assertEqual(result['metrics']['likes']['value'],11)
+  self.assertEqual(result['metrics']['views']['value'],1256)
+ def test_exact_accessible_count_overrides_rounded_button(self):
+  with patch.object(m,'request',return_value=self.fixture('1.2K','like this video along with 1,234 other people')):result=m.youtube_video(self.post(),'channel')
+  self.assertEqual(result['metrics']['likes']['value'],1234);self.assertFalse(result['metrics']['likes']['approximate'])
+ def test_rounded_count_remains_approximate(self):
+  with patch.object(m,'request',return_value=self.fixture('1.2K','Like')):result=m.youtube_video(self.post(),'channel')
+  self.assertEqual(result['metrics']['likes']['value'],1200);self.assertTrue(result['metrics']['likes']['approximate'])
+ def test_real_zero_and_hidden_likes_are_distinct(self):
+  with patch.object(m,'request',return_value=self.fixture('0','like this video')):result=m.youtube_video(self.post(),'channel')
+  self.assertEqual(result['metrics']['likes']['value'],0)
+  post=self.post()
+  with patch.object(m,'request',return_value=self.fixture('Like','like this video')):m.youtube_video(post,'channel')
+  self.assertEqual(post['metrics']['likes'],{'value':7,'at':'earlier'})
+ def test_mismatched_owner_or_video_cannot_change_any_count(self):
+  for body in [self.fixture(owner='other'),self.fixture(video='other'),self.fixture(player={'videoDetails':{'videoId':'other'}})]:
+   post=self.post()
+   with patch.object(m,'request',return_value=body):
+    with self.assertRaises(ValueError):m.youtube_video(post,'channel')
+   self.assertEqual(post,self.post())
+ def test_metadata_without_player_can_refresh_public_counters(self):
+  # A playback login wall does not hide verified public watch-page metadata.
+  with patch.object(m,'request',return_value=self.fixture(player={'playabilityStatus':{'status':'LOGIN_REQUIRED'}})):result=m.youtube_video(self.post(),'channel')
+  self.assertEqual(result['metrics']['likes']['value'],11)
+ def test_absent_primary_metadata_does_not_import_recommendation_likes(self):
+  body=self.fixture().replace('"results": {"results":','"secondaryResults": {"results":')
+  post=self.post()
+  with patch.object(m,'request',return_value=body):
+   with self.assertRaises(ValueError):m.youtube_video(post,'channel')
+  self.assertEqual(post,self.post())
+
 if __name__=='__main__':unittest.main()
