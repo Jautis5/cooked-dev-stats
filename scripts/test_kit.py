@@ -1,7 +1,9 @@
 import copy
 import json
 import unittest
-from collect_kit import PATH, refresh, count_from
+import urllib.error
+from unittest.mock import patch, MagicMock
+from collect_kit import PATH, refresh, count_from, request
 
 
 class KitTests(unittest.TestCase):
@@ -32,6 +34,16 @@ class KitTests(unittest.TestCase):
         result = refresh(self.saved, 'test-key', self.now, lambda *args: {'account': {'name': 'Other brand'}})
         self.assertEqual(result['status'], 'error')
 
+    def test_transient_read_failure_is_retried_without_exposing_credentials(self):
+        response=MagicMock()
+        response.__enter__.return_value.read.return_value=b'{"total_count": 1743}'
+        with patch('collect_kit.urllib.request.urlopen',side_effect=[urllib.error.URLError('temporary'), response]) as call, patch('collect_kit.time.sleep'):
+            self.assertEqual(request('subscribers','test-key')['total_count'],1743)
+            self.assertEqual(call.call_count,2)
+    def test_bad_credentials_are_not_retried(self):
+        with patch('collect_kit.urllib.request.urlopen',side_effect=urllib.error.HTTPError('url',401,'Unauthorized',{},None)) as call:
+            with self.assertRaises(urllib.error.HTTPError):request('account','test-key')
+            self.assertEqual(call.call_count,1)
     def test_zero_and_decreases_are_real_counts(self):
         for value in (0, 1700):
             def fetch(path, key):
