@@ -14,7 +14,7 @@ concurrency:
   cancel-in-progress: false
 jobs:
   collect:
-    if: github.repository == 'Jautis5/cooked-dev-stats'
+    if: github.repository == 'Jautis5/cooked-dev-stats' && github.event.repository.private == false
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
@@ -46,3 +46,11 @@ jobs:
           done
           if [ "$published" != true ]; then exit 1; fi
           gh workflow run pages.yml --repo "$GITHUB_REPOSITORY" --ref main
+      - name: Surface API failure after preserving the last verified count
+        run: |
+          python - <<'PYTHON'
+          import json, pathlib
+          status = json.loads(pathlib.Path('site/data/kit.json').read_text())['status']
+          if status != 'ok':
+              raise SystemExit('Kit update failed; the last verified observation was preserved.')
+          PYTHON
