@@ -9,6 +9,7 @@ const ICONS = {
 };
 let channels=[],entries=new Map(),active='all',loading=false,chartRange='24h',chartScope='all',renderedScope='all',cloudHealth=null,cloudConfig={},clockRuns=null;
 let publishingQueue=null;
+let kitStats=null,kitFeedFailed=false;
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const full=n=>n==null?'—':new Intl.NumberFormat('en-US').format(n);
 function compact(n) {
@@ -79,6 +80,31 @@ function changeFor(data,key){
  const m=data?.changes24h?.[key];
  const age=Date.now()-Date.parse(m?.at);
  return valid(m)&&m.comparable===true&&age>=0&&age<3*3600000?m:null;
+}
+function validKitStats(d){
+ return d?.version===1&&d.channelId==='cooked-dev'&&Number.isSafeInteger(d.totalSubscribers?.value)&&d.totalSubscribers.value>=0&&Number.isFinite(Date.parse(d.totalSubscribers.at));
+}
+function kitCard(d,failed=false,scope=selected()?.id||'all',now=Date.now()){
+ if(scope!=='all'&&scope!=='cooked-dev')return '';
+ const ok=validKitStats(d),m=ok?d.totalSubscribers:null,age=now-Date.parse(m?.at);
+ const fresh=ok&&!failed&&d.status==='ok'&&m.method==='kit_api_v4'&&age>=0&&age<15*60000;
+ const status=fresh?'Auto-updated · checks every 5 min':!ok?'Waiting for Kit data':failed?'Saved count · feed unavailable':d.status==='authorization_required'?'Connect Kit to enable auto-updates':d.status==='error'?'Saved count · Kit update failed':'Saved count · update overdue';
+ const count=m?new Intl.NumberFormat('de-DE').format(m.value):'—';
+ return '<article class="stat email-stat"><div class="stat-label"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="m3 6 9 7 9-7"/></svg>Emails collected</div><div class="stat-value" style="font-size:clamp(24px,3vw,46px)" tabindex="0" title="Kit Total subscribers · confirmed subscribers">'+count+'</div><p class="change '+(fresh?'':'pending')+'">'+esc(status)+'</p><p class="stat-meta">Cooked Dev · Kit total subscribers</p><p class="stat-meta">Updated: '+esc(time(m?.at))+'</p><a class="text-link kit-subscribers" href="https://app.kit.com/subscribers" target="_blank" rel="noopener">Subscribers ↗</a></article>';
+}
+async function loadKit(){
+ const urls=['https://raw.githubusercontent.com/Jautis5/cooked-dev-stats/main/site/data/kit.json','data/kit.json'];
+ const results=await Promise.allSettled(urls.map(async url=>{
+  const r=await fetch(url+'?v='+Date.now(),{cache:'no-store',signal:AbortSignal.timeout(8000)});
+  if(!r.ok)throw Error('Kit feed unavailable');const d=await r.json();if(!validKitStats(d))throw Error('Invalid Kit count');return d;
+ }));
+ kitFeedFailed=results[0].status==='rejected';
+ const candidates=[...results.flatMap(r=>r.status==='fulfilled'?[r.value]:[]),...(kitStats?[kitStats]:[])];
+ kitStats=candidates.sort((a,b)=>(Date.parse(b.lastAttemptAt||b.totalSubscribers.at)-Date.parse(a.lastAttemptAt||a.totalSubscribers.at)))[0]||null;
+}
+function renderKit(){
+ const stats=$('stats'),html=kitCard(kitStats,kitFeedFailed);
+ stats.className='stats'+(html?' has-email-stat':'');stats.innerHTML+=html;
 }
 function renderStats(s,data){
  $('stats').innerHTML=[['views','Views'],['likes','Likes'],['followers','Followers'],['posts','Confirmed posts']].map(([key,label])=>{
@@ -273,6 +299,7 @@ function render(){
  const available=scope.filter(x=>entries.get(x.id)?.data),summaries=available.map(x=>summary(entries.get(x.id).data));
  if(available.length)renderStats(combine(summaries),data||(available.length===1?entries.get(available[0].id).data:null));
  else $('stats').innerHTML='<p class="loading">Stats are unavailable. Try reloading the feed.</p>';
+ renderKit();
  const attempts=scope.map(x=>checkedAt(entries.get(x.id)?.data)).filter(Boolean).sort();
  $('last-check').textContent=attempts.length?(c?'Feed checked: ':'Oldest feed check: ')+time(attempts[0]):'No successful feed check';
  const states=scope.map(x=>sourceState(entries.get(x.id)));
@@ -488,6 +515,7 @@ async function load(manual=false){
  if(loading)return;loading=true;$('reload').disabled=true;
  try{
   try{await loadRegistry();}catch(error){if(!channels.length)throw error;}
+  const kitTask=loadKit();
   const healthTask=(async()=>{
    const urls=[cloudConfig.healthUrl||'https://raw.githubusercontent.com/Jautis5/cooked-dev-stats/main/data/health.json','data/health.json'];
    const results=await Promise.allSettled(urls.map(async url=>{const r=await fetch(url+'?v='+Date.now(),{cache:'no-store',signal:AbortSignal.timeout(8000)});if(!r.ok)throw Error('Health unavailable');return r.json();}));
@@ -504,7 +532,7 @@ async function load(manual=false){
    if(chosen){chosen.fallbackReason=chosen.fallback&&results[0].status==='fulfilled'?'newer_snapshot':'unreachable';entries.set(c.id,chosen);}
    else entries.set(c.id,{data:null,fallback:true});
   }));
-  await Promise.all([healthTask,scheduleTask]);render();void loadClock();
+  await Promise.all([healthTask,scheduleTask,kitTask]);render();void loadClock();
  }catch{$('notice').textContent='Could not load the channel list. Please try refreshing.';$('notice').hidden=false;}
  finally{loading=false;$('reload').disabled=false;}
 }
@@ -529,3 +557,4 @@ $('export-csv').addEventListener('click',()=>{
  toast('Filtered publication tracker exported');
 });
 load();setInterval(load,300000);
+setInterval(async()=>{await loadKit();render();},60000);
