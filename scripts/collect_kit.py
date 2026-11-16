@@ -3,6 +3,7 @@ import datetime
 import json
 import os
 import pathlib
+import time
 import urllib.error
 import urllib.request
 
@@ -16,8 +17,17 @@ def request(path, key):
         'X-Kit-Api-Key': key, 'Accept': 'application/json',
         'User-Agent': 'CookedDev-Stats/1.0',
     })
-    with urllib.request.urlopen(req, timeout=45) as response:
-        return json.load(response)
+    for attempt in range(3):
+        try:
+            with urllib.request.urlopen(req, timeout=30) as response:
+                return json.load(response)
+        except urllib.error.HTTPError as error:
+            if error.code not in (429, 500, 502, 503, 504) or attempt == 2:
+                raise
+        except (urllib.error.URLError, TimeoutError):
+            if attempt == 2:
+                raise
+        time.sleep(2 ** (attempt + 1))
 
 
 def count_from(payload):
