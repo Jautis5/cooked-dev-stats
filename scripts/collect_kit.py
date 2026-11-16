@@ -32,6 +32,7 @@ def refresh(saved, key, now, fetch=request):
     result = {k: saved[k] for k in (
         'version', 'channelId', 'provider', 'sourceUrl', 'definition',
         'refreshIntervalMinutes', 'totalSubscribers')}
+    result['refreshIntervalMinutes'] = 15
     result['lastAttemptAt'] = now
     if not key:
         result['status'] = 'authorization_required'
