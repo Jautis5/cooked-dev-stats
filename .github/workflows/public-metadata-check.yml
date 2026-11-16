@@ -3,7 +3,7 @@ on:
   workflow_dispatch:
   push:
     branches: [main]
-    paths: ['scripts/collect.py', '.github/workflows/public-metadata-check.yml']
+    paths: ['scripts/collect.py', 'scripts/refresh_all.py', '.github/workflows/public-metadata-check.yml']
 permissions:
   contents: read
 jobs:
@@ -18,30 +18,13 @@ jobs:
       - name: Verify owned public metadata from a hosted runner
         run: |
           python3 - <<'PY'
-          import concurrent.futures, json, pathlib, re, sys
+          import json, pathlib, sys
           sys.path.insert(0, 'scripts')
-          import collect
-          root = pathlib.Path.cwd()
-          jobs = []
-          for channel in json.loads((root/'data/channels.json').read_text())['channels']:
-              data = json.loads((root/channel['dataPath']).read_text())
-              account = next((a for a in data['accounts'] if a['id']=='youtube'), None)
-              if not account or not collect.is_active(account): continue
-              owner = account.get('expectedChannelId') or account['url'].rstrip('/').split('/')[-1]
-              if not re.fullmatch(r'UC[A-Za-z0-9_-]{22}', owner): raise ValueError('Invalid registered channel identity')
-              posts = [v['posts']['youtube'] for v in data['videos'] if 'youtube' in v['posts']]
-              if posts:
-                  post = max(posts, key=lambda p:p.get('metrics',{}).get('comments',{}).get('value',-1))
-                  jobs.append((channel['id'],owner,post))
-          def read(job):
-              channel,owner,saved = job
-              post = {'id':saved['id'],'url':saved['url'],'metrics':{}}
-              collect.youtube_video(post,owner)
-              if 'likes' not in post['metrics']: raise ValueError('Public likes unavailable for '+channel)
-              return {'channel':channel,'postId':post['id'],'metrics':post['metrics']}
-          with concurrent.futures.ThreadPoolExecutor(max_workers=3) as pool:
-              results = list(pool.map(read,jobs))
-          if not results: raise ValueError('No registered YouTube videos were tested')
-          # Aggregate counters only. No comments, account tokens or playback data.
-          for row in results: print(json.dumps(row),flush=True)
+          from refresh_all import prefetch_youtube
+          root=pathlib.Path.cwd()
+          registry=json.loads((root/'data/channels.json').read_text())['channels']
+          observed=prefetch_youtube(root,registry)
+          fresh=[{'channel':c,'postId':p,'metrics':m} for (c,p),m in observed.items() if m]
+          if not fresh:raise ValueError('Public YouTube metadata unavailable')
+          for row in fresh:print(json.dumps(row),flush=True)
           PY
