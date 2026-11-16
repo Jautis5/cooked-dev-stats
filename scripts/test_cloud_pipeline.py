@@ -142,7 +142,6 @@ class MergeTests(unittest.TestCase):
                 self.assertEqual(json.loads((writer / 'data/latest.json').read_text()), candidate)
 
 
-if __name__ == '__main__': unittest.main()
 
 class PublicYouTubeTests(unittest.TestCase):
     def test_only_verified_public_video_can_update(self):
@@ -155,3 +154,42 @@ class PublicYouTubeTests(unittest.TestCase):
         response['playabilityStatus']['status'] = 'LOGIN_REQUIRED'
         with patch.object(collect, 'request', return_value='var ytInitialPlayerResponse = ' + json.dumps(response) + ';'):
             with self.assertRaises(ValueError): collect.youtube_video(copy.deepcopy(post), 'correct')
+
+class YouTubeEarlyReadTests(unittest.TestCase):
+    def test_channel_scoped_results_keep_actual_dates_zero_and_failures(self):
+        from refresh_all import prefetch_youtube, apply_youtube_prefetch
+        with tempfile.TemporaryDirectory() as folder:
+            root=pathlib.Path(folder);(root/'data').mkdir()
+            registry=[]
+            for channel,letter in [('one','a'),('two','b')]:
+                owner='UC'+letter*22
+                data={'accounts':[{'id':'youtube','url':'https://www.youtube.com/channel/'+owner}],
+                    'videos':[{'posts':{'youtube':{'id':'abcdefghijk','url':'https://www.youtube.com/shorts/abcdefghijk','metrics':{'likes':metric(7,'2026-10-20T09:00:00Z')}}}}]}
+                (root/'data'/f'{channel}.json').write_text(json.dumps(data));registry.append({'id':channel,'dataPath':f'data/{channel}.json'})
+            def read(post,owner):
+                self.assertEqual(post['metrics'],{})
+                if owner.endswith('b'*22):raise TimeoutError('Public read failed')
+                post['metrics']={'likes':metric(0,'2026-10-20T10:00:00Z',post['url'])};return post
+            found=prefetch_youtube(root,registry,read)
+            one=json.loads((root/'data/one.json').read_text());two=json.loads((root/'data/two.json').read_text())
+            apply_youtube_prefetch(one,'one',found);apply_youtube_prefetch(two,'two',found)
+            self.assertEqual(one['videos'][0]['posts']['youtube']['metrics']['likes']['value'],0)
+            self.assertEqual(two['videos'][0]['posts']['youtube']['metrics']['likes']['value'],7)
+            self.assertEqual(json.loads((root/'data/one.json').read_text())['videos'][0]['posts']['youtube']['metrics']['likes']['value'],7)
+    def test_newer_existing_metric_survives_earlier_prefetch(self):
+        from refresh_all import apply_youtube_prefetch
+        data=fixture();post=data['videos'][0]['posts']['youtube'];post['metrics']['likes']=metric(9,'2026-10-20T11:00:00Z')
+        apply_youtube_prefetch(data,'one',{('one',post['id']):{'likes':metric(0,'2026-10-20T10:00:00Z')}})
+        self.assertEqual(post['metrics']['likes']['value'],9)
+    def test_registered_video_url_must_match_the_id_before_fetch(self):
+        from refresh_all import prefetch_youtube
+        with tempfile.TemporaryDirectory() as folder:
+            root=pathlib.Path(folder);(root/'data').mkdir()
+            data=fixture();data['accounts'][0]['url']='https://www.youtube.com/channel/UC'+'a'*22
+            data['videos'][0]['posts']['youtube']['url']='https://www.youtube.com/shorts/otherwrong1'
+            (root/'data/feed.json').write_text(json.dumps(data))
+            reader=unittest.mock.Mock()
+            self.assertEqual(prefetch_youtube(root,[{'id':'one','dataPath':'data/feed.json'}],reader),{})
+            reader.assert_not_called()
+
+if __name__ == '__main__': unittest.main()
