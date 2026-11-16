@@ -74,6 +74,25 @@ def ensure_successor(client, current_run, sleep=time.sleep):
     raise RuntimeError('Successor was not visible after dispatch; recovery workflow must restart the clock.')
 
 
+def ensure_kit(client, now):
+    """Audit Kit independently of the social collector and GitHub cron delivery.
+
+    Reuse the existing Kit workflow and secret. Never start a duplicate recent
+    run; replace only runs beyond the five-minute job timeout plus queue grace.
+    """
+    if client.call('').get('private') is not False:
+        raise RuntimeError('Kit recovery requires the free public repository.')
+    runs = client.call('/actions/workflows/kit.yml/runs?per_page=20')['workflow_runs']
+    plan = collection_plan(runs, now, {'recoveryAfterMinutes':10,
+        'failureRetryMinutes':3, 'duplicateCooldownSeconds':300})
+    if plan['action'] == 'dispatch':
+        for run_id in plan.get('cancelRunIds', []):
+            client.call('/actions/runs/'+str(run_id)+'/cancel', {})
+        client.call('/actions/workflows/kit.yml/dispatches', {'ref':'main'})
+    print(json.dumps({'kitRecovery':plan}), flush=True)
+    return plan
+
+
 def tick(client, current_run, now=None, sleep=time.sleep):
     repository = client.call('')
     if repository.get('private') is not False:
@@ -94,6 +113,10 @@ def tick(client, current_run, now=None, sleep=time.sleep):
                         {'ref':'main','inputs':{'reason':'continuous_clock','clock_run_id':str(current_run)}})
     except Exception as error:
         failure = error
+    try:
+        ensure_kit(client, now)
+    except Exception as error:
+        failure = failure or error
     child = ensure_successor(client, current_run, sleep)
     result = {**plan, 'clockRunId':str(current_run),'successor':child['id'],
               'nextIntervalMinutes':policy['intervalMinutes'],'driver':'environment_wait_timer'}
