@@ -8,8 +8,8 @@
     "intervalMinutes": 15,
     "cron": "7-59/15 * * * *"
   },
-  "generatedAt": "2026-11-16T10:37:57.607276+00:00",
-  "lastAttemptAt": "2026-11-16T10:37:57.607276+00:00",
+  "generatedAt": "2026-11-16T10:43:04.217Z",
+  "lastAttemptAt": "2026-11-16T10:43:04.217Z",
   "accounts": [
     {
       "id": "instagram",
@@ -212,11 +212,10 @@
       "metrics": {
         "followers": {
           "value": 187,
-          "at": "2026-11-04T11:35:52.545Z",
+          "at": "2026-11-16T10:43:15.788Z",
           "source": "https://www.facebook.com/profile.php?id=61595564490107",
           "method": "browser_bulk",
-          "approximate": false,
-          "displayValue": "187"
+          "approximate": false
         },
         "publishedCount": {
           "value": 7,
@@ -234,17 +233,16 @@
         },
         "following": {
           "value": 0,
-          "at": "2026-11-04T11:35:52.545Z",
+          "at": "2026-11-16T10:43:15.788Z",
           "source": "https://www.facebook.com/profile.php?id=61595564490107",
           "method": "browser_bulk",
-          "approximate": false,
-          "displayValue": "0"
+          "approximate": false
         }
       },
-      "status": "unavailable",
-      "lastAttemptAt": "2026-11-16T10:37:57.607276+00:00",
-      "lastSuccessAt": "2026-11-05T23:33:21.028554+00:00",
-      "message": "Automatinė vieša statistika nepasiekiama. Palikti paskutiniai patikrinti duomenys.",
+      "status": "partial",
+      "lastAttemptAt": "2026-11-16T10:43:04.217Z",
+      "lastSuccessAt": "2026-11-16T10:43:04.217Z",
+      "message": "Visible profile and video list checked; legacy posts excluded.",
       "browserObservedAt": "2026-10-20T09:21:39.659000+00:00"
     }
   ],
@@ -470,35 +468,35 @@
           "metrics": {
             "comments": {
               "value": 0,
-              "at": "2026-10-26T10:03:37.184Z",
+              "at": "2026-11-16T10:45:19.286Z",
               "source": "https://www.facebook.com/reel/1083659674446042",
-              "method": "browser_bulk",
+              "method": "browser_owner_insights",
               "approximate": false,
-              "definition": "facebook_public_comment_count"
+              "definition": "Facebook visible comments counter; exact public Reel ID verified"
             },
             "views": {
-              "value": 253,
-              "at": "2026-11-03T13:39:24.895Z",
+              "value": 255,
+              "at": "2026-11-16T10:45:19.286Z",
               "source": "https://www.facebook.com/reel/1083659674446042",
-              "method": "browser_bulk",
+              "method": "browser_owner_insights",
               "approximate": false,
-              "displayValue": "253"
+              "definition": "Facebook visible views counter; exact public Reel ID verified"
             },
             "likes": {
               "value": 1,
-              "at": "2026-10-26T10:03:37.184Z",
+              "at": "2026-11-16T10:45:19.286Z",
               "source": "https://www.facebook.com/reel/1083659674446042",
-              "method": "browser_bulk",
+              "method": "browser_owner_insights",
               "approximate": false,
-              "definition": "facebook_visible_reactions"
+              "definition": "Facebook visible likes counter; exact public Reel ID verified"
             },
             "shares": {
               "value": 0,
-              "at": "2026-10-26T10:03:37.184Z",
+              "at": "2026-11-16T10:45:19.286Z",
               "source": "https://www.facebook.com/reel/1083659674446042",
-              "method": "browser_bulk",
+              "method": "browser_owner_insights",
               "approximate": false,
-              "definition": "facebook_public_share_count"
+              "definition": "Facebook visible shares counter; exact public Reel ID verified"
             },
             "publicReelViews": {
               "value": 251,
@@ -750,27 +748,27 @@
           "metrics": {
             "comments": {
               "value": 0,
-              "at": "2026-10-26T10:02:20.505Z",
+              "at": "2026-11-16T10:45:15.806Z",
               "source": "https://www.facebook.com/reel/1110516211335577",
-              "method": "browser_bulk",
+              "method": "browser_owner_insights",
               "approximate": false,
-              "definition": "facebook_public_comment_count"
+              "definition": "Facebook visible comments counter; exact public Reel ID verified"
             },
             "views": {
-              "value": 58,
-              "at": "2026-11-03T13:39:24.895Z",
+              "value": 60,
+              "at": "2026-11-16T10:45:15.806Z",
               "source": "https://www.facebook.com/reel/1110516211335577",
-              "method": "browser_bulk",
+              "method": "browser_owner_insights",
               "approximate": false,
-              "displayValue": "58"
+              "definition": "Facebook visible views counter; exact public Reel ID verified"
             },
             "shares": {
               "value": 0,
-              "at": "2026-10-26T10:02:20.505Z",
+              "at": "2026-11-16T10:45:15.806Z",
               "source": "https://www.facebook.com/reel/1110516211335577",
-              "method": "browser_bulk",
+              "method": "browser_owner_insights",
               "approximate": false,
-              "definition": "facebook_public_share_count"
+              "definition": "Facebook visible shares counter; exact public Reel ID verified"
             },
             "publicReelViews": {
               "value": 55,
@@ -797,6 +795,14 @@
               "approximate": false,
               "displayValue": "58",
               "definition": "Facebook public Reels grid view counter; distinct from Content Library Views and facebookPublicVideoViews"
+            },
+            "likes": {
+              "value": 0,
+              "at": "2026-11-16T10:45:15.806Z",
+              "source": "https://www.facebook.com/reel/1110516211335577",
+              "method": "browser_owner_insights",
+              "approximate": false,
+              "definition": "Facebook visible likes counter; exact public Reel ID verified"
             }
           }
         }
@@ -949,35 +955,35 @@
           "metrics": {
             "comments": {
               "value": 0,
-              "at": "2026-10-26T10:00:53.249Z",
+              "at": "2026-11-16T10:45:17.857Z",
               "source": "https://www.facebook.com/reel/1478429110840610",
-              "method": "browser_bulk",
+              "method": "browser_owner_insights",
               "approximate": false,
-              "definition": "facebook_public_comment_count"
+              "definition": "Facebook visible comments counter; exact public Reel ID verified"
             },
             "views": {
-              "value": 294,
-              "at": "2026-11-03T13:39:24.895Z",
+              "value": 295,
+              "at": "2026-11-16T10:45:17.857Z",
               "source": "https://www.facebook.com/reel/1478429110840610",
-              "method": "browser_bulk",
+              "method": "browser_owner_insights",
               "approximate": false,
-              "displayValue": "294"
+              "definition": "Facebook visible views counter; exact public Reel ID verified"
             },
             "likes": {
-              "value": 3,
-              "at": "2026-10-26T10:00:53.249Z",
+              "value": 4,
+              "at": "2026-11-16T10:45:17.857Z",
               "source": "https://www.facebook.com/reel/1478429110840610",
-              "method": "browser_bulk",
+              "method": "browser_owner_insights",
               "approximate": false,
-              "definition": "facebook_visible_reactions"
+              "definition": "Facebook visible likes counter; exact public Reel ID verified"
             },
             "shares": {
               "value": 0,
-              "at": "2026-10-26T10:00:53.249Z",
+              "at": "2026-11-16T10:45:17.857Z",
               "source": "https://www.facebook.com/reel/1478429110840610",
-              "method": "browser_bulk",
+              "method": "browser_owner_insights",
               "approximate": false,
-              "definition": "facebook_public_share_count"
+              "definition": "Facebook visible shares counter; exact public Reel ID verified"
             },
             "publicReelViews": {
               "value": 292,
@@ -1251,28 +1257,28 @@
           "url": "https://www.facebook.com/reel/1987587828602453/",
           "metrics": {
             "views": {
-              "value": 65,
-              "at": "2026-11-03T13:39:24.895Z",
+              "value": 70,
+              "at": "2026-11-16T10:45:12.147Z",
               "source": "https://www.facebook.com/reel/1987587828602453/",
-              "method": "browser_bulk",
+              "method": "browser_owner_insights",
               "approximate": false,
-              "displayValue": "65"
+              "definition": "Facebook visible views counter; exact public Reel ID verified"
             },
             "comments": {
               "value": 0,
-              "at": "2026-10-26T09:59:45.625Z",
+              "at": "2026-11-16T10:45:12.147Z",
               "source": "https://www.facebook.com/reel/1987587828602453/",
-              "method": "browser_bulk",
+              "method": "browser_owner_insights",
               "approximate": false,
-              "definition": "facebook_public_comment_count"
+              "definition": "Facebook visible comments counter; exact public Reel ID verified"
             },
             "shares": {
               "value": 0,
-              "at": "2026-10-26T09:59:45.625Z",
+              "at": "2026-11-16T10:45:12.147Z",
               "source": "https://www.facebook.com/reel/1987587828602453/",
-              "method": "browser_bulk",
+              "method": "browser_owner_insights",
               "approximate": false,
-              "definition": "facebook_public_share_count"
+              "definition": "Facebook visible shares counter; exact public Reel ID verified"
             },
             "publicReelViews": {
               "value": 63,
@@ -1299,6 +1305,14 @@
               "approximate": false,
               "displayValue": "66",
               "definition": "Facebook public Reels grid view counter; distinct from Content Library Views and facebookPublicVideoViews"
+            },
+            "likes": {
+              "value": 0,
+              "at": "2026-11-16T10:45:12.147Z",
+              "source": "https://www.facebook.com/reel/1987587828602453/",
+              "method": "browser_owner_insights",
+              "approximate": false,
+              "definition": "Facebook visible likes counter; exact public Reel ID verified"
             }
           },
           "publicationVerifiedAt": "2026-10-22T06:12:33.027Z",
@@ -1446,36 +1460,36 @@
           "url": "https://www.facebook.com/reel/1936071671111207/",
           "metrics": {
             "views": {
-              "value": 377,
-              "at": "2026-11-03T13:39:24.895Z",
+              "value": 378,
+              "at": "2026-11-16T10:45:09.644Z",
               "source": "https://www.facebook.com/reel/1936071671111207/",
-              "method": "browser_bulk",
+              "method": "browser_owner_insights",
               "approximate": false,
-              "displayValue": "377"
+              "definition": "Facebook visible views counter; exact public Reel ID verified"
             },
             "likes": {
-              "value": 2,
-              "at": "2026-10-26T09:57:59.726Z",
+              "value": 1,
+              "at": "2026-11-16T10:45:09.644Z",
               "source": "https://www.facebook.com/reel/1936071671111207/",
-              "method": "browser_bulk",
+              "method": "browser_owner_insights",
               "approximate": false,
-              "definition": "facebook_visible_reactions"
+              "definition": "Facebook visible likes counter; exact public Reel ID verified"
             },
             "comments": {
               "value": 0,
-              "at": "2026-10-26T09:57:59.726Z",
+              "at": "2026-11-16T10:45:09.644Z",
               "source": "https://www.facebook.com/reel/1936071671111207/",
-              "method": "browser_bulk",
+              "method": "browser_owner_insights",
               "approximate": false,
-              "definition": "facebook_public_comment_count"
+              "definition": "Facebook visible comments counter; exact public Reel ID verified"
             },
             "shares": {
               "value": 0,
-              "at": "2026-10-26T09:57:59.726Z",
+              "at": "2026-11-16T10:45:09.644Z",
               "source": "https://www.facebook.com/reel/1936071671111207/",
-              "method": "browser_bulk",
+              "method": "browser_owner_insights",
               "approximate": false,
-              "definition": "facebook_public_share_count"
+              "definition": "Facebook visible shares counter; exact public Reel ID verified"
             },
             "publicReelViews": {
               "value": 366,
@@ -1723,28 +1737,28 @@
           "url": "https://www.facebook.com/reel/1526787982543387/",
           "metrics": {
             "views": {
-              "value": 37,
-              "at": "2026-11-03T13:39:24.895Z",
+              "value": 43,
+              "at": "2026-11-16T10:44:53.545Z",
               "source": "https://www.facebook.com/reel/1526787982543387/",
-              "method": "browser_bulk",
+              "method": "browser_owner_insights",
               "approximate": false,
-              "displayValue": "37"
+              "definition": "Facebook visible views counter; exact public Reel ID verified"
             },
             "comments": {
               "value": 0,
-              "at": "2026-10-26T09:56:50.868Z",
+              "at": "2026-11-16T10:44:53.545Z",
               "source": "https://www.facebook.com/reel/1526787982543387/",
-              "method": "browser_bulk",
+              "method": "browser_owner_insights",
               "approximate": false,
-              "definition": "facebook_public_comment_count"
+              "definition": "Facebook visible comments counter; exact public Reel ID verified"
             },
             "shares": {
               "value": 0,
-              "at": "2026-10-26T09:56:50.868Z",
+              "at": "2026-11-16T10:44:53.545Z",
               "source": "https://www.facebook.com/reel/1526787982543387/",
-              "method": "browser_bulk",
+              "method": "browser_owner_insights",
               "approximate": false,
-              "definition": "facebook_public_share_count"
+              "definition": "Facebook visible shares counter; exact public Reel ID verified"
             },
             "publicReelViews": {
               "value": 30,
@@ -1771,6 +1785,14 @@
               "approximate": false,
               "displayValue": "38",
               "definition": "Facebook public Reels grid view counter; distinct from Content Library Views and facebookPublicVideoViews"
+            },
+            "likes": {
+              "value": 0,
+              "at": "2026-11-16T10:44:53.545Z",
+              "source": "https://www.facebook.com/reel/1526787982543387/",
+              "method": "browser_owner_insights",
+              "approximate": false,
+              "definition": "Facebook visible likes counter; exact public Reel ID verified"
             }
           },
           "publicationVerifiedAt": "2026-10-21T14:13:13.128614+03:00",
@@ -1997,27 +2019,27 @@
           "metrics": {
             "views": {
               "value": 35,
-              "at": "2026-11-03T13:39:24.895Z",
+              "at": "2026-11-16T10:44:52.016Z",
               "source": "https://www.facebook.com/reel/1122303600694016",
-              "method": "browser_bulk",
+              "method": "browser_owner_insights",
               "approximate": false,
-              "displayValue": "35"
+              "definition": "Facebook visible views counter; exact public Reel ID verified"
             },
             "comments": {
               "value": 0,
-              "at": "2026-10-26T09:56:22.370Z",
+              "at": "2026-11-16T10:44:52.016Z",
               "source": "https://www.facebook.com/reel/1122303600694016",
-              "method": "browser_bulk",
+              "method": "browser_owner_insights",
               "approximate": false,
-              "definition": "facebook_public_comment_count"
+              "definition": "Facebook visible comments counter; exact public Reel ID verified"
             },
             "shares": {
               "value": 0,
-              "at": "2026-10-26T09:56:22.370Z",
+              "at": "2026-11-16T10:44:52.016Z",
               "source": "https://www.facebook.com/reel/1122303600694016",
-              "method": "browser_bulk",
+              "method": "browser_owner_insights",
               "approximate": false,
-              "definition": "facebook_public_share_count"
+              "definition": "Facebook visible shares counter; exact public Reel ID verified"
             },
             "publicReelViews": {
               "value": 27,
@@ -2044,6 +2066,14 @@
               "approximate": false,
               "displayValue": "35",
               "definition": "Facebook public Reels grid view counter; distinct from Content Library Views and facebookPublicVideoViews"
+            },
+            "likes": {
+              "value": 0,
+              "at": "2026-11-16T10:44:52.016Z",
+              "source": "https://www.facebook.com/reel/1122303600694016",
+              "method": "browser_owner_insights",
+              "approximate": false,
+              "definition": "Facebook visible likes counter; exact public Reel ID verified"
             }
           },
           "publicationVerifiedAt": "2026-10-23T16:40:41.022822+00:00",
@@ -2403,27 +2433,27 @@
           "metrics": {
             "views": {
               "value": 39,
-              "at": "2026-11-03T13:39:24.895Z",
+              "at": "2026-11-16T10:44:49.966Z",
               "source": "https://www.facebook.com/reel/1002067242938061",
-              "method": "browser_bulk",
+              "method": "browser_owner_insights",
               "approximate": false,
-              "displayValue": "39"
+              "definition": "Facebook visible views counter; exact public Reel ID verified"
             },
             "shares": {
               "value": 0,
-              "at": "2026-10-26T09:55:41.639Z",
+              "at": "2026-11-16T10:44:49.966Z",
               "source": "https://www.facebook.com/reel/1002067242938061",
-              "method": "browser_bulk",
+              "method": "browser_owner_insights",
               "approximate": false,
-              "definition": "facebook_public_share_count"
+              "definition": "Facebook visible shares counter; exact public Reel ID verified"
             },
             "comments": {
               "value": 0,
-              "at": "2026-10-26T09:55:41.639Z",
+              "at": "2026-11-16T10:44:49.966Z",
               "source": "https://www.facebook.com/reel/1002067242938061",
-              "method": "browser_bulk",
+              "method": "browser_owner_insights",
               "approximate": false,
-              "definition": "facebook_public_comment_count"
+              "definition": "Facebook visible comments counter; exact public Reel ID verified"
             },
             "publicReelViews": {
               "value": 31,
@@ -2450,6 +2480,14 @@
               "approximate": false,
               "displayValue": "39",
               "definition": "Facebook public Reels grid view counter; distinct from Content Library Views and facebookPublicVideoViews"
+            },
+            "likes": {
+              "value": 0,
+              "at": "2026-11-16T10:44:49.966Z",
+              "source": "https://www.facebook.com/reel/1002067242938061",
+              "method": "browser_owner_insights",
+              "approximate": false,
+              "definition": "Facebook visible likes counter; exact public Reel ID verified"
             }
           },
           "publicationVerifiedAt": "2026-10-26T10:00:04.981558+00:00",
@@ -2675,28 +2713,28 @@
           "url": "https://www.facebook.com/reel/904315345980989",
           "metrics": {
             "views": {
-              "value": 54,
-              "at": "2026-11-03T13:39:24.895Z",
+              "value": 56,
+              "at": "2026-11-16T10:44:48.334Z",
               "source": "https://www.facebook.com/reel/904315345980989",
-              "method": "browser_bulk",
+              "method": "browser_owner_insights",
               "approximate": false,
-              "displayValue": "54"
+              "definition": "Facebook visible views counter; exact public Reel ID verified"
             },
             "shares": {
               "value": 0,
-              "at": "2026-10-26T09:54:45.946Z",
+              "at": "2026-11-16T10:44:48.334Z",
               "source": "https://www.facebook.com/reel/904315345980989",
-              "method": "browser_bulk",
+              "method": "browser_owner_insights",
               "approximate": false,
-              "definition": "facebook_public_share_count"
+              "definition": "Facebook visible shares counter; exact public Reel ID verified"
             },
             "comments": {
               "value": 0,
-              "at": "2026-10-26T09:54:45.946Z",
+              "at": "2026-11-16T10:44:48.334Z",
               "source": "https://www.facebook.com/reel/904315345980989",
-              "method": "browser_bulk",
+              "method": "browser_owner_insights",
               "approximate": false,
-              "definition": "facebook_public_comment_count"
+              "definition": "Facebook visible comments counter; exact public Reel ID verified"
             },
             "publicReelViews": {
               "value": 11,
@@ -2723,6 +2761,14 @@
               "approximate": false,
               "displayValue": "55",
               "definition": "Facebook public Reels grid view counter; distinct from Content Library Views and facebookPublicVideoViews"
+            },
+            "likes": {
+              "value": 1,
+              "at": "2026-11-16T10:44:48.334Z",
+              "source": "https://www.facebook.com/reel/904315345980989",
+              "method": "browser_owner_insights",
+              "approximate": false,
+              "definition": "Facebook visible likes counter; exact public Reel ID verified"
             }
           },
           "publicationVerifiedAt": "2026-10-26T10:00:04.981691+00:00",
@@ -2894,28 +2940,28 @@
           "url": "https://www.facebook.com/reel/1116350617523708",
           "metrics": {
             "views": {
-              "value": 39,
-              "at": "2026-11-03T13:39:24.895Z",
+              "value": 46,
+              "at": "2026-11-16T10:44:35.561Z",
               "source": "https://www.facebook.com/reel/1116350617523708",
-              "method": "browser_bulk",
+              "method": "browser_owner_insights",
               "approximate": false,
-              "displayValue": "39"
+              "definition": "Facebook visible views counter; exact public Reel ID verified"
             },
             "shares": {
-              "value": 0,
-              "at": "2026-10-26T09:53:04.939Z",
+              "value": 1,
+              "at": "2026-11-16T10:44:35.561Z",
               "source": "https://www.facebook.com/reel/1116350617523708",
-              "method": "browser_bulk",
+              "method": "browser_owner_insights",
               "approximate": false,
-              "definition": "facebook_public_share_count"
+              "definition": "Facebook visible shares counter; exact public Reel ID verified"
             },
             "comments": {
               "value": 0,
-              "at": "2026-10-26T09:53:04.939Z",
+              "at": "2026-11-16T10:44:35.561Z",
               "source": "https://www.facebook.com/reel/1116350617523708",
-              "method": "browser_bulk",
+              "method": "browser_owner_insights",
               "approximate": false,
-              "definition": "facebook_public_comment_count"
+              "definition": "Facebook visible comments counter; exact public Reel ID verified"
             },
             "publicReelViews": {
               "value": 22,
@@ -2942,6 +2988,14 @@
               "approximate": false,
               "displayValue": "44",
               "definition": "Facebook public Reels grid view counter; distinct from Content Library Views and facebookPublicVideoViews"
+            },
+            "likes": {
+              "value": 0,
+              "at": "2026-11-16T10:44:35.561Z",
+              "source": "https://www.facebook.com/reel/1116350617523708",
+              "method": "browser_owner_insights",
+              "approximate": false,
+              "definition": "Facebook visible likes counter; exact public Reel ID verified"
             }
           },
           "publicationVerifiedAt": "2026-10-26T10:00:04.981701+00:00",
@@ -3114,27 +3168,27 @@
           "metrics": {
             "views": {
               "value": 24,
-              "at": "2026-11-03T13:39:24.895Z",
+              "at": "2026-11-16T10:44:42.685Z",
               "source": "https://www.facebook.com/reel/1084245354417173",
-              "method": "browser_bulk",
+              "method": "browser_owner_insights",
               "approximate": false,
-              "displayValue": "24"
+              "definition": "Facebook visible views counter; exact public Reel ID verified"
             },
             "shares": {
               "value": 0,
-              "at": "2026-10-26T09:51:36.360Z",
+              "at": "2026-11-16T10:44:42.685Z",
               "source": "https://www.facebook.com/reel/1084245354417173",
-              "method": "browser_bulk",
+              "method": "browser_owner_insights",
               "approximate": false,
-              "definition": "facebook_public_share_count"
+              "definition": "Facebook visible shares counter; exact public Reel ID verified"
             },
             "comments": {
               "value": 0,
-              "at": "2026-10-26T09:51:36.360Z",
+              "at": "2026-11-16T10:44:42.685Z",
               "source": "https://www.facebook.com/reel/1084245354417173",
-              "method": "browser_bulk",
+              "method": "browser_owner_insights",
               "approximate": false,
-              "definition": "facebook_public_comment_count"
+              "definition": "Facebook visible comments counter; exact public Reel ID verified"
             },
             "publicReelViews": {
               "value": 8,
@@ -3161,6 +3215,14 @@
               "approximate": false,
               "displayValue": "24",
               "definition": "Facebook public Reels grid view counter; distinct from Content Library Views and facebookPublicVideoViews"
+            },
+            "likes": {
+              "value": 0,
+              "at": "2026-11-16T10:44:42.685Z",
+              "source": "https://www.facebook.com/reel/1084245354417173",
+              "method": "browser_owner_insights",
+              "approximate": false,
+              "definition": "Facebook visible likes counter; exact public Reel ID verified"
             }
           },
           "publicationVerifiedAt": "2026-10-26T10:00:04.981709+00:00",
@@ -3332,28 +3394,28 @@
           "url": "https://www.facebook.com/reel/1478671147473530",
           "metrics": {
             "views": {
-              "value": 23,
-              "at": "2026-11-03T13:39:24.895Z",
+              "value": 29,
+              "at": "2026-11-16T10:44:44.787Z",
               "source": "https://www.facebook.com/reel/1478671147473530",
-              "method": "browser_bulk",
+              "method": "browser_owner_insights",
               "approximate": false,
-              "displayValue": "23"
+              "definition": "Facebook visible views counter; exact public Reel ID verified"
             },
             "shares": {
               "value": 0,
-              "at": "2026-10-26T09:52:49.153Z",
+              "at": "2026-11-16T10:44:44.787Z",
               "source": "https://www.facebook.com/reel/1478671147473530",
-              "method": "browser_bulk",
+              "method": "browser_owner_insights",
               "approximate": false,
-              "definition": "facebook_public_share_count"
+              "definition": "Facebook visible shares counter; exact public Reel ID verified"
             },
             "comments": {
               "value": 0,
-              "at": "2026-10-26T09:52:49.153Z",
+              "at": "2026-11-16T10:44:44.787Z",
               "source": "https://www.facebook.com/reel/1478671147473530",
-              "method": "browser_bulk",
+              "method": "browser_owner_insights",
               "approximate": false,
-              "definition": "facebook_public_comment_count"
+              "definition": "Facebook visible comments counter; exact public Reel ID verified"
             },
             "publicReelViews": {
               "value": 3,
@@ -3380,6 +3442,14 @@
               "approximate": false,
               "displayValue": "23",
               "definition": "Facebook public Reels grid view counter; distinct from Content Library Views and facebookPublicVideoViews"
+            },
+            "likes": {
+              "value": 0,
+              "at": "2026-11-16T10:44:44.787Z",
+              "source": "https://www.facebook.com/reel/1478671147473530",
+              "method": "browser_owner_insights",
+              "approximate": false,
+              "definition": "Facebook visible likes counter; exact public Reel ID verified"
             }
           },
           "publicationVerifiedAt": "2026-10-26T10:00:04.981718+00:00",
@@ -4032,27 +4102,27 @@
           "metrics": {
             "views": {
               "value": 246,
-              "at": "2026-11-03T13:39:24.895Z",
+              "at": "2026-11-16T10:45:13.977Z",
               "source": "https://www.facebook.com/reel/1090555450355572/",
-              "method": "browser_bulk",
+              "method": "browser_owner_insights",
               "approximate": false,
-              "displayValue": "246"
+              "definition": "Facebook visible views counter; exact public Reel ID verified"
             },
             "comments": {
               "value": 0,
-              "at": "2026-10-26T09:58:27.520Z",
+              "at": "2026-11-16T10:45:13.977Z",
               "source": "https://www.facebook.com/reel/1090555450355572/",
-              "method": "browser_bulk",
+              "method": "browser_owner_insights",
               "approximate": false,
-              "definition": "facebook_public_comment_count"
+              "definition": "Facebook visible comments counter; exact public Reel ID verified"
             },
             "shares": {
               "value": 0,
-              "at": "2026-10-26T09:58:27.520Z",
+              "at": "2026-11-16T10:45:13.977Z",
               "source": "https://www.facebook.com/reel/1090555450355572/",
-              "method": "browser_bulk",
+              "method": "browser_owner_insights",
               "approximate": false,
-              "definition": "facebook_public_share_count"
+              "definition": "Facebook visible shares counter; exact public Reel ID verified"
             },
             "publicReelViews": {
               "value": 245,
@@ -4079,6 +4149,14 @@
               "approximate": false,
               "displayValue": "246",
               "definition": "Facebook public Reels grid view counter; distinct from Content Library Views and facebookPublicVideoViews"
+            },
+            "likes": {
+              "value": 0,
+              "at": "2026-11-16T10:45:13.977Z",
+              "source": "https://www.facebook.com/reel/1090555450355572/",
+              "method": "browser_owner_insights",
+              "approximate": false,
+              "definition": "Facebook visible likes counter; exact public Reel ID verified"
             }
           },
           "publicationVerifiedAt": "2026-10-22T06:12:33.027Z",
@@ -4575,10 +4653,11 @@
           "metrics": {
             "shares": {
               "value": 0,
-              "at": "2026-10-28T16:26:00.070Z",
+              "at": "2026-11-16T10:44:18.975Z",
               "source": "https://www.facebook.com/reel/1881367816191083/",
-              "method": "browser_bulk",
-              "approximate": false
+              "method": "browser_owner_insights",
+              "approximate": false,
+              "definition": "Facebook visible shares counter; exact public Reel ID verified"
             },
             "publicReelViews": {
               "value": 11,
@@ -4597,11 +4676,12 @@
               "extractorVersion": "2026.10.26"
             },
             "views": {
-              "value": 47,
-              "at": "2026-11-05T23:33:21.028554+00:00",
+              "value": 52,
+              "at": "2026-11-16T10:44:18.975Z",
               "source": "https://www.facebook.com/reel/1881367816191083/",
-              "method": "cloud_browser_facebook_grid",
-              "approximate": false
+              "method": "browser_owner_insights",
+              "approximate": false,
+              "definition": "Facebook visible views counter; exact public Reel ID verified"
             },
             "publicGridViews": {
               "value": 47,
@@ -4611,6 +4691,22 @@
               "approximate": false,
               "displayValue": "47",
               "definition": "Facebook public Reels grid view counter; distinct from Content Library Views and facebookPublicVideoViews"
+            },
+            "comments": {
+              "value": 0,
+              "at": "2026-11-16T10:44:18.975Z",
+              "source": "https://www.facebook.com/reel/1881367816191083/",
+              "method": "browser_owner_insights",
+              "approximate": false,
+              "definition": "Facebook visible comments counter; exact public Reel ID verified"
+            },
+            "likes": {
+              "value": 0,
+              "at": "2026-11-16T10:44:18.975Z",
+              "source": "https://www.facebook.com/reel/1881367816191083/",
+              "method": "browser_owner_insights",
+              "approximate": false,
+              "definition": "Facebook visible likes counter; exact public Reel ID verified"
             }
           },
           "publicationVerifiedAt": "2026-11-03T21:52:55.544Z",
@@ -5592,11 +5688,12 @@
               "extractorVersion": "2026.10.26"
             },
             "views": {
-              "value": 29,
-              "at": "2026-11-05T23:33:21.028554+00:00",
+              "value": 30,
+              "at": "2026-11-16T10:44:22.125Z",
               "source": "https://www.facebook.com/reel/1142246968326237/",
-              "method": "cloud_browser_facebook_grid",
-              "approximate": false
+              "method": "browser_owner_insights",
+              "approximate": false,
+              "definition": "Facebook visible views counter; exact public Reel ID verified"
             },
             "publicGridViews": {
               "value": 29,
@@ -5606,6 +5703,30 @@
               "approximate": false,
               "displayValue": "29",
               "definition": "Facebook public Reels grid view counter; distinct from Content Library Views and facebookPublicVideoViews"
+            },
+            "comments": {
+              "value": 0,
+              "at": "2026-11-16T10:44:22.125Z",
+              "source": "https://www.facebook.com/reel/1142246968326237/",
+              "method": "browser_owner_insights",
+              "approximate": false,
+              "definition": "Facebook visible comments counter; exact public Reel ID verified"
+            },
+            "likes": {
+              "value": 0,
+              "at": "2026-11-16T10:44:22.125Z",
+              "source": "https://www.facebook.com/reel/1142246968326237/",
+              "method": "browser_owner_insights",
+              "approximate": false,
+              "definition": "Facebook visible likes counter; exact public Reel ID verified"
+            },
+            "shares": {
+              "value": 0,
+              "at": "2026-11-16T10:44:22.125Z",
+              "source": "https://www.facebook.com/reel/1142246968326237/",
+              "method": "browser_owner_insights",
+              "approximate": false,
+              "definition": "Facebook visible shares counter; exact public Reel ID verified"
             }
           }
         }
@@ -5641,11 +5762,12 @@
               "extractorVersion": "2026.10.26"
             },
             "views": {
-              "value": 39,
-              "at": "2026-11-05T23:33:21.028554+00:00",
+              "value": 40,
+              "at": "2026-11-16T10:45:27.360Z",
               "source": "https://www.facebook.com/reel/3289585791431064/",
-              "method": "cloud_browser_facebook_grid",
-              "approximate": false
+              "method": "browser_owner_insights",
+              "approximate": false,
+              "definition": "Facebook visible views counter; exact public Reel ID verified"
             },
             "publicGridViews": {
               "value": 39,
@@ -5655,6 +5777,30 @@
               "approximate": false,
               "displayValue": "39",
               "definition": "Facebook public Reels grid view counter; distinct from Content Library Views and facebookPublicVideoViews"
+            },
+            "comments": {
+              "value": 0,
+              "at": "2026-11-16T10:45:27.360Z",
+              "source": "https://www.facebook.com/reel/3289585791431064/",
+              "method": "browser_owner_insights",
+              "approximate": false,
+              "definition": "Facebook visible comments counter; exact public Reel ID verified"
+            },
+            "likes": {
+              "value": 1,
+              "at": "2026-11-16T10:45:27.360Z",
+              "source": "https://www.facebook.com/reel/3289585791431064/",
+              "method": "browser_owner_insights",
+              "approximate": false,
+              "definition": "Facebook visible likes counter; exact public Reel ID verified"
+            },
+            "shares": {
+              "value": 1,
+              "at": "2026-11-16T10:45:27.360Z",
+              "source": "https://www.facebook.com/reel/3289585791431064/",
+              "method": "browser_owner_insights",
+              "approximate": false,
+              "definition": "Facebook visible shares counter; exact public Reel ID verified"
             }
           }
         }
@@ -5690,12 +5836,12 @@
               "extractorVersion": "2026.10.26"
             },
             "views": {
-              "value": 24,
-              "at": "2026-11-03T13:39:24.895Z",
+              "value": 25,
+              "at": "2026-11-16T10:44:26.139Z",
               "source": "https://www.facebook.com/reel/2037357013642428/",
-              "method": "browser_bulk",
+              "method": "browser_owner_insights",
               "approximate": false,
-              "displayValue": "24"
+              "definition": "Facebook visible views counter; exact public Reel ID verified"
             },
             "publicGridViews": {
               "value": 24,
@@ -5705,6 +5851,30 @@
               "approximate": false,
               "displayValue": "24",
               "definition": "Facebook public Reels grid view counter; distinct from Content Library Views and facebookPublicVideoViews"
+            },
+            "comments": {
+              "value": 0,
+              "at": "2026-11-16T10:44:26.139Z",
+              "source": "https://www.facebook.com/reel/2037357013642428/",
+              "method": "browser_owner_insights",
+              "approximate": false,
+              "definition": "Facebook visible comments counter; exact public Reel ID verified"
+            },
+            "likes": {
+              "value": 0,
+              "at": "2026-11-16T10:44:26.139Z",
+              "source": "https://www.facebook.com/reel/2037357013642428/",
+              "method": "browser_owner_insights",
+              "approximate": false,
+              "definition": "Facebook visible likes counter; exact public Reel ID verified"
+            },
+            "shares": {
+              "value": 0,
+              "at": "2026-11-16T10:44:26.139Z",
+              "source": "https://www.facebook.com/reel/2037357013642428/",
+              "method": "browser_owner_insights",
+              "approximate": false,
+              "definition": "Facebook visible shares counter; exact public Reel ID verified"
             }
           }
         }
@@ -5740,12 +5910,12 @@
               "extractorVersion": "2026.10.26"
             },
             "views": {
-              "value": 11,
-              "at": "2026-11-03T13:39:24.895Z",
+              "value": 13,
+              "at": "2026-11-16T10:44:46.517Z",
               "source": "https://www.facebook.com/reel/2443858503023426/",
-              "method": "browser_bulk",
+              "method": "browser_owner_insights",
               "approximate": false,
-              "displayValue": "11"
+              "definition": "Facebook visible views counter; exact public Reel ID verified"
             },
             "publicGridViews": {
               "value": 11,
@@ -5755,6 +5925,30 @@
               "approximate": false,
               "displayValue": "11",
               "definition": "Facebook public Reels grid view counter; distinct from Content Library Views and facebookPublicVideoViews"
+            },
+            "comments": {
+              "value": 0,
+              "at": "2026-11-16T10:44:46.517Z",
+              "source": "https://www.facebook.com/reel/2443858503023426/",
+              "method": "browser_owner_insights",
+              "approximate": false,
+              "definition": "Facebook visible comments counter; exact public Reel ID verified"
+            },
+            "likes": {
+              "value": 0,
+              "at": "2026-11-16T10:44:46.517Z",
+              "source": "https://www.facebook.com/reel/2443858503023426/",
+              "method": "browser_owner_insights",
+              "approximate": false,
+              "definition": "Facebook visible likes counter; exact public Reel ID verified"
+            },
+            "shares": {
+              "value": 0,
+              "at": "2026-11-16T10:44:46.517Z",
+              "source": "https://www.facebook.com/reel/2443858503023426/",
+              "method": "browser_owner_insights",
+              "approximate": false,
+              "definition": "Facebook visible shares counter; exact public Reel ID verified"
             }
           }
         }
@@ -7710,11 +7904,12 @@
           "url": "https://www.facebook.com/reel/29547357861514590/",
           "metrics": {
             "views": {
-              "value": 309,
-              "at": "2026-11-05T23:33:21.028554+00:00",
+              "value": 329,
+              "at": "2026-11-16T10:44:40.509Z",
               "source": "https://www.facebook.com/reel/29547357861514590/",
-              "method": "cloud_browser_facebook_grid",
-              "approximate": false
+              "method": "browser_owner_insights",
+              "approximate": false,
+              "definition": "Facebook visible views counter; exact public Reel ID verified"
             },
             "facebookPublicVideoViews": {
               "value": 96,
@@ -7733,6 +7928,30 @@
               "approximate": false,
               "displayValue": "315",
               "definition": "Facebook public Reels grid view counter; distinct from Content Library Views and facebookPublicVideoViews"
+            },
+            "comments": {
+              "value": 0,
+              "at": "2026-11-16T10:44:40.509Z",
+              "source": "https://www.facebook.com/reel/29547357861514590/",
+              "method": "browser_owner_insights",
+              "approximate": false,
+              "definition": "Facebook visible comments counter; exact public Reel ID verified"
+            },
+            "likes": {
+              "value": 3,
+              "at": "2026-11-16T10:44:40.509Z",
+              "source": "https://www.facebook.com/reel/29547357861514590/",
+              "method": "browser_owner_insights",
+              "approximate": false,
+              "definition": "Facebook visible likes counter; exact public Reel ID verified"
+            },
+            "shares": {
+              "value": 0,
+              "at": "2026-11-16T10:44:40.509Z",
+              "source": "https://www.facebook.com/reel/29547357861514590/",
+              "method": "browser_owner_insights",
+              "approximate": false,
+              "definition": "Facebook visible shares counter; exact public Reel ID verified"
             }
           }
         }
@@ -7752,11 +7971,12 @@
           "url": "https://www.facebook.com/reel/3135775253294557/",
           "metrics": {
             "views": {
-              "value": 1400,
-              "at": "2026-11-05T23:33:21.028554+00:00",
+              "value": 1505,
+              "at": "2026-11-16T10:44:06.911Z",
               "source": "https://www.facebook.com/reel/3135775253294557/",
-              "method": "cloud_browser_facebook_grid",
-              "approximate": true
+              "method": "browser_owner_insights",
+              "approximate": false,
+              "definition": "Facebook visible views counter; exact public Reel ID verified"
             },
             "facebookPublicVideoViews": {
               "value": 513,
@@ -7775,6 +7995,30 @@
               "approximate": true,
               "displayValue": "1.5K",
               "definition": "Facebook public Reels grid view counter; distinct from Content Library Views and facebookPublicVideoViews"
+            },
+            "comments": {
+              "value": 0,
+              "at": "2026-11-16T10:44:06.911Z",
+              "source": "https://www.facebook.com/reel/3135775253294557/",
+              "method": "browser_owner_insights",
+              "approximate": false,
+              "definition": "Facebook visible comments counter; exact public Reel ID verified"
+            },
+            "likes": {
+              "value": 10,
+              "at": "2026-11-16T10:44:06.911Z",
+              "source": "https://www.facebook.com/reel/3135775253294557/",
+              "method": "browser_owner_insights",
+              "approximate": false,
+              "definition": "Facebook visible likes counter; exact public Reel ID verified"
+            },
+            "shares": {
+              "value": 0,
+              "at": "2026-11-16T10:44:06.911Z",
+              "source": "https://www.facebook.com/reel/3135775253294557/",
+              "method": "browser_owner_insights",
+              "approximate": false,
+              "definition": "Facebook visible shares counter; exact public Reel ID verified"
             }
           }
         }
@@ -7794,11 +8038,12 @@
           "url": "https://www.facebook.com/reel/2170933640452458/",
           "metrics": {
             "views": {
-              "value": 67000,
-              "at": "2026-11-05T23:33:21.028554+00:00",
+              "value": 67311,
+              "at": "2026-11-16T10:44:08.934Z",
               "source": "https://www.facebook.com/reel/2170933640452458/",
-              "method": "cloud_browser_facebook_grid",
-              "approximate": true
+              "method": "browser_owner_insights",
+              "approximate": false,
+              "definition": "Facebook visible views counter; exact public Reel ID verified"
             },
             "facebookPublicVideoViews": {
               "value": 25437,
@@ -7817,6 +8062,30 @@
               "approximate": true,
               "displayValue": "67K",
               "definition": "Facebook public Reels grid view counter; distinct from Content Library Views and facebookPublicVideoViews"
+            },
+            "comments": {
+              "value": 2,
+              "at": "2026-11-16T10:44:08.934Z",
+              "source": "https://www.facebook.com/reel/2170933640452458/",
+              "method": "browser_owner_insights",
+              "approximate": false,
+              "definition": "Facebook visible comments counter; exact public Reel ID verified"
+            },
+            "likes": {
+              "value": 354,
+              "at": "2026-11-16T10:44:08.934Z",
+              "source": "https://www.facebook.com/reel/2170933640452458/",
+              "method": "browser_owner_insights",
+              "approximate": false,
+              "definition": "Facebook visible likes counter; exact public Reel ID verified"
+            },
+            "shares": {
+              "value": 24,
+              "at": "2026-11-16T10:44:08.934Z",
+              "source": "https://www.facebook.com/reel/2170933640452458/",
+              "method": "browser_owner_insights",
+              "approximate": false,
+              "definition": "Facebook visible shares counter; exact public Reel ID verified"
             }
           }
         }
@@ -7836,11 +8105,12 @@
           "url": "https://www.facebook.com/reel/4578538035794270/",
           "metrics": {
             "views": {
-              "value": 1200,
-              "at": "2026-11-05T23:33:21.028554+00:00",
+              "value": 1304,
+              "at": "2026-11-16T10:44:10.890Z",
               "source": "https://www.facebook.com/reel/4578538035794270/",
-              "method": "cloud_browser_facebook_grid",
-              "approximate": true
+              "method": "browser_owner_insights",
+              "approximate": false,
+              "definition": "Facebook visible views counter; exact public Reel ID verified"
             },
             "facebookPublicVideoViews": {
               "value": 415,
@@ -7859,6 +8129,30 @@
               "approximate": true,
               "displayValue": "1.3K",
               "definition": "Facebook public Reels grid view counter; distinct from Content Library Views and facebookPublicVideoViews"
+            },
+            "comments": {
+              "value": 0,
+              "at": "2026-11-16T10:44:10.890Z",
+              "source": "https://www.facebook.com/reel/4578538035794270/",
+              "method": "browser_owner_insights",
+              "approximate": false,
+              "definition": "Facebook visible comments counter; exact public Reel ID verified"
+            },
+            "likes": {
+              "value": 8,
+              "at": "2026-11-16T10:44:10.890Z",
+              "source": "https://www.facebook.com/reel/4578538035794270/",
+              "method": "browser_owner_insights",
+              "approximate": false,
+              "definition": "Facebook visible likes counter; exact public Reel ID verified"
+            },
+            "shares": {
+              "value": 0,
+              "at": "2026-11-16T10:44:10.890Z",
+              "source": "https://www.facebook.com/reel/4578538035794270/",
+              "method": "browser_owner_insights",
+              "approximate": false,
+              "definition": "Facebook visible shares counter; exact public Reel ID verified"
             }
           }
         }
@@ -7878,11 +8172,12 @@
           "url": "https://www.facebook.com/reel/1116608791070673/",
           "metrics": {
             "views": {
-              "value": 465,
-              "at": "2026-11-05T23:33:21.028554+00:00",
+              "value": 468,
+              "at": "2026-11-16T10:44:13.288Z",
               "source": "https://www.facebook.com/reel/1116608791070673/",
-              "method": "cloud_browser_facebook_grid",
-              "approximate": false
+              "method": "browser_owner_insights",
+              "approximate": false,
+              "definition": "Facebook visible views counter; exact public Reel ID verified"
             },
             "facebookPublicVideoViews": {
               "value": 112,
@@ -7901,6 +8196,30 @@
               "approximate": false,
               "displayValue": "466",
               "definition": "Facebook public Reels grid view counter; distinct from Content Library Views and facebookPublicVideoViews"
+            },
+            "comments": {
+              "value": 0,
+              "at": "2026-11-16T10:44:13.288Z",
+              "source": "https://www.facebook.com/reel/1116608791070673/",
+              "method": "browser_owner_insights",
+              "approximate": false,
+              "definition": "Facebook visible comments counter; exact public Reel ID verified"
+            },
+            "likes": {
+              "value": 0,
+              "at": "2026-11-16T10:44:13.288Z",
+              "source": "https://www.facebook.com/reel/1116608791070673/",
+              "method": "browser_owner_insights",
+              "approximate": false,
+              "definition": "Facebook visible likes counter; exact public Reel ID verified"
+            },
+            "shares": {
+              "value": 0,
+              "at": "2026-11-16T10:44:13.288Z",
+              "source": "https://www.facebook.com/reel/1116608791070673/",
+              "method": "browser_owner_insights",
+              "approximate": false,
+              "definition": "Facebook visible shares counter; exact public Reel ID verified"
             }
           }
         }
@@ -7920,11 +8239,12 @@
           "url": "https://www.facebook.com/reel/1474420914564861/",
           "metrics": {
             "views": {
-              "value": 633,
-              "at": "2026-11-05T23:33:21.028554+00:00",
+              "value": 635,
+              "at": "2026-11-16T10:44:15.084Z",
               "source": "https://www.facebook.com/reel/1474420914564861/",
-              "method": "cloud_browser_facebook_grid",
-              "approximate": false
+              "method": "browser_owner_insights",
+              "approximate": false,
+              "definition": "Facebook visible views counter; exact public Reel ID verified"
             },
             "facebookPublicVideoViews": {
               "value": 154,
@@ -7943,6 +8263,30 @@
               "approximate": false,
               "displayValue": "633",
               "definition": "Facebook public Reels grid view counter; distinct from Content Library Views and facebookPublicVideoViews"
+            },
+            "comments": {
+              "value": 0,
+              "at": "2026-11-16T10:44:15.084Z",
+              "source": "https://www.facebook.com/reel/1474420914564861/",
+              "method": "browser_owner_insights",
+              "approximate": false,
+              "definition": "Facebook visible comments counter; exact public Reel ID verified"
+            },
+            "likes": {
+              "value": 1,
+              "at": "2026-11-16T10:44:15.084Z",
+              "source": "https://www.facebook.com/reel/1474420914564861/",
+              "method": "browser_owner_insights",
+              "approximate": false,
+              "definition": "Facebook visible likes counter; exact public Reel ID verified"
+            },
+            "shares": {
+              "value": 0,
+              "at": "2026-11-16T10:44:15.084Z",
+              "source": "https://www.facebook.com/reel/1474420914564861/",
+              "method": "browser_owner_insights",
+              "approximate": false,
+              "definition": "Facebook visible shares counter; exact public Reel ID verified"
             }
           }
         }
@@ -7962,11 +8306,12 @@
           "url": "https://www.facebook.com/reel/1001674752187349/",
           "metrics": {
             "views": {
-              "value": 469,
-              "at": "2026-11-05T23:33:21.028554+00:00",
+              "value": 472,
+              "at": "2026-11-16T10:44:17.632Z",
               "source": "https://www.facebook.com/reel/1001674752187349/",
-              "method": "cloud_browser_facebook_grid",
-              "approximate": false
+              "method": "browser_owner_insights",
+              "approximate": false,
+              "definition": "Facebook visible views counter; exact public Reel ID verified"
             },
             "facebookPublicVideoViews": {
               "value": 143,
@@ -7985,6 +8330,30 @@
               "approximate": false,
               "displayValue": "469",
               "definition": "Facebook public Reels grid view counter; distinct from Content Library Views and facebookPublicVideoViews"
+            },
+            "comments": {
+              "value": 0,
+              "at": "2026-11-16T10:44:17.632Z",
+              "source": "https://www.facebook.com/reel/1001674752187349/",
+              "method": "browser_owner_insights",
+              "approximate": false,
+              "definition": "Facebook visible comments counter; exact public Reel ID verified"
+            },
+            "likes": {
+              "value": 3,
+              "at": "2026-11-16T10:44:17.632Z",
+              "source": "https://www.facebook.com/reel/1001674752187349/",
+              "method": "browser_owner_insights",
+              "approximate": false,
+              "definition": "Facebook visible likes counter; exact public Reel ID verified"
+            },
+            "shares": {
+              "value": 0,
+              "at": "2026-11-16T10:44:17.632Z",
+              "source": "https://www.facebook.com/reel/1001674752187349/",
+              "method": "browser_owner_insights",
+              "approximate": false,
+              "definition": "Facebook visible shares counter; exact public Reel ID verified"
             }
           }
         }
@@ -8065,12 +8434,12 @@
           "url": "https://www.facebook.com/reel/1130136016099661",
           "metrics": {
             "views": {
-              "value": 20,
-              "at": "2026-11-03T13:39:24.895Z",
+              "value": 22,
+              "at": "2026-11-16T10:44:38.470Z",
               "source": "https://www.facebook.com/reel/1130136016099661",
-              "method": "browser_bulk",
+              "method": "browser_owner_insights",
               "approximate": false,
-              "displayValue": "20"
+              "definition": "Facebook visible views counter; exact public Reel ID verified"
             },
             "facebookPublicVideoViews": {
               "value": 10,
@@ -8089,6 +8458,30 @@
               "approximate": false,
               "displayValue": "20",
               "definition": "Facebook public Reels grid view counter; distinct from Content Library Views and facebookPublicVideoViews"
+            },
+            "comments": {
+              "value": 0,
+              "at": "2026-11-16T10:44:38.470Z",
+              "source": "https://www.facebook.com/reel/1130136016099661",
+              "method": "browser_owner_insights",
+              "approximate": false,
+              "definition": "Facebook visible comments counter; exact public Reel ID verified"
+            },
+            "likes": {
+              "value": 0,
+              "at": "2026-11-16T10:44:38.470Z",
+              "source": "https://www.facebook.com/reel/1130136016099661",
+              "method": "browser_owner_insights",
+              "approximate": false,
+              "definition": "Facebook visible likes counter; exact public Reel ID verified"
+            },
+            "shares": {
+              "value": 0,
+              "at": "2026-11-16T10:44:38.470Z",
+              "source": "https://www.facebook.com/reel/1130136016099661",
+              "method": "browser_owner_insights",
+              "approximate": false,
+              "definition": "Facebook visible shares counter; exact public Reel ID verified"
             }
           }
         }
@@ -10584,16 +10977,6 @@
     }
   ],
   "history": [
-    {
-      "at": "2026-10-25T19:18:06.258126+00:00",
-      "views": 686971,
-      "posts": 76,
-      "updatedPlatforms": [
-        "instagram",
-        "tiktok",
-        "youtube"
-      ]
-    },
     {
       "at": "2026-10-25T19:34:51.695950+00:00",
       "views": 688123,
@@ -27612,6 +27995,13 @@
       "posts": 191,
       "approximate": true,
       "partial": false
+    },
+    {
+      "at": "2026-11-16T10:43:04.217Z",
+      "views": 3399369,
+      "posts": 191,
+      "approximate": true,
+      "partial": false
     }
   ],
   "assetLibrary": {
@@ -27622,7 +28012,7 @@
   },
   "mcpMergedAt": "2026-10-20T09:22:29.266077+00:00",
   "changes24h": {
-    "at": "2026-11-16T10:37:57.607276+00:00",
+    "at": "2026-11-16T10:43:04.217Z",
     "baselineAt": "2026-11-15T10:42:13.561862+00:00",
     "views": null,
     "likes": null,
@@ -27687,11 +28077,15 @@
       "lastCompleteAt": "2026-11-04T11:35:52.431Z"
     },
     "facebook": {
-      "status": "session_required",
-      "checkedAt": "2026-11-16T10:37:57.607276+00:00",
-      "complete": false,
-      "message": "New-publication discovery requires an authorized account list; a successful metrics check is not a complete list.",
-      "lastCompleteAt": "2026-11-04T11:35:52.545Z"
+      "status": "checked",
+      "complete": true,
+      "method": "browser_bulk",
+      "checkedAt": "2026-11-16T10:43:04.217Z",
+      "lastCompleteAt": "2026-11-16T10:43:04.217Z",
+      "listedPosts": 26,
+      "lastCompletePostCount": 26,
+      "scope": "all_public_reels",
+      "evidence": "Owner Content Library, lifetime published content; all public video IDs verified and photo-only rows excluded."
     }
   },
   "localCollection": {

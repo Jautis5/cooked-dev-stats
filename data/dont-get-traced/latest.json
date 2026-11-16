@@ -5,8 +5,8 @@
     "name": "DontGetTraced"
   },
   "sheetUrl": "https://docs.google.com/spreadsheets/d/1sT8AqlGMMqnJUCcA697DaVcLvRqsJhCT4xMIdl52WYY/edit#gid=1732102601",
-  "generatedAt": "2026-11-16T10:37:57.607276+00:00",
-  "lastAttemptAt": "2026-11-16T10:37:57.607276+00:00",
+  "generatedAt": "2026-11-16T10:43:04.213Z",
+  "lastAttemptAt": "2026-11-16T10:43:04.213Z",
   "schedule": {
     "provider": "GitHub Actions",
     "intervalMinutes": 15,
@@ -134,10 +134,10 @@
       "handle": "Don't Get Traced",
       "url": "https://www.facebook.com/profile.php?id=61595574064670",
       "expectedPageId": "61595574064670",
-      "status": "unavailable",
-      "message": "Facebook list metrics need the connected Lost Chrome session; previous observations preserved.",
-      "lastAttemptAt": "2026-11-16T10:37:57.607276+00:00",
-      "lastSuccessAt": "2026-11-04T11:34:05.102Z",
+      "status": "partial",
+      "message": "Visible profile and video list checked; legacy posts excluded.",
+      "lastAttemptAt": "2026-11-16T10:43:04.213Z",
+      "lastSuccessAt": "2026-11-16T10:43:04.213Z",
       "metrics": {
         "followers": {
           "value": 0,
@@ -154,8 +154,16 @@
           "method": "browser_bulk",
           "approximate": false,
           "displayValue": "0"
+        },
+        "trackedPublishedCount": {
+          "value": 0,
+          "at": "2026-11-16T10:43:04.213Z",
+          "source": "https://www.facebook.com/profile.php?id=61595574064670",
+          "method": "browser_bulk",
+          "approximate": false
         }
-      }
+      },
+      "trackedEmptyConfirmedAt": "2026-11-16T10:43:04.213Z"
     },
     {
       "id": "x",
@@ -347,13 +355,6 @@
     }
   ],
   "history": [
-    {
-      "at": "2026-10-23T02:59:39.138492+00:00",
-      "views": 3028,
-      "posts": 2,
-      "approximate": false,
-      "partial": false
-    },
     {
       "at": "2026-10-23T03:15:00.304020+00:00",
       "views": 3028,
@@ -15466,6 +15467,13 @@
       "posts": 2,
       "approximate": false,
       "partial": false
+    },
+    {
+      "at": "2026-11-16T10:43:04.213Z",
+      "views": 5365,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
     }
   ],
   "tracking": {
@@ -15489,7 +15497,7 @@
     "runUrl": "https://github.com/Jautis5/cooked-dev-stats/actions/runs/43849961398"
   },
   "changes24h": {
-    "at": "2026-11-16T10:37:57.607276+00:00",
+    "at": "2026-11-16T10:43:04.213Z",
     "baselineAt": "2026-11-15T10:42:13.561862+00:00",
     "views": null,
     "likes": null,
@@ -15519,10 +15527,15 @@
       "lastCompleteAt": "2026-11-10T10:02:36.991Z"
     },
     "facebook": {
-      "status": "session_required",
-      "checkedAt": "2026-11-16T10:37:57.607276+00:00",
-      "complete": false,
-      "message": "New-publication discovery requires an authorized account list; a successful metrics check is not a complete list."
+      "status": "checked",
+      "complete": true,
+      "method": "browser_bulk",
+      "checkedAt": "2026-11-16T10:43:04.213Z",
+      "lastCompleteAt": "2026-11-16T10:43:04.213Z",
+      "listedPosts": 0,
+      "lastCompletePostCount": 0,
+      "scope": "all_public_reels",
+      "evidence": "Owner Content Library, lifetime published content; all public video IDs verified and photo-only rows excluded."
     },
     "x": {
       "status": "unavailable",
@@ -15539,8 +15552,6 @@
       "feedStatus": "unavailable",
       "newVideos": 0,
       "reportedPosts": 1,
-      "lastCompleteAt": "2026-11-10T10:36:45.390Z",
-      "lastCompletePostCount": 1,
       "revokedCompleteChecks": [
         {
           "at": "2026-11-03T15:24:44.629Z",
@@ -15548,7 +15559,9 @@
           "fallbackAt": "2026-11-03T13:39:48.741Z",
           "reason": "Historical full-list claim retracted: outer-document end/count did not independently prove the actual TikTok inner video-list terminal state."
         }
-      ]
+      ],
+      "lastCompleteAt": "2026-11-10T10:36:45.390Z",
+      "lastCompletePostCount": 1
     }
   },
   "identityCorrections": [
