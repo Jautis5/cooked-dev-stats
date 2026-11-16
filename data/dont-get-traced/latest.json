@@ -166,14 +166,14 @@
       "status": "unavailable",
       "message": "X list metrics need the connected Lost Chrome session; previous observations preserved.",
       "lastAttemptAt": "2026-11-16T10:21:09.854110+00:00",
-      "lastSuccessAt": "2026-11-16T09:47:59.416378+00:00",
+      "lastSuccessAt": "2026-11-16T09:51:44.262348+00:00",
       "metrics": {
         "followers": {
           "value": 0,
-          "at": "2026-11-16T09:49:06.572146+00:00",
+          "at": "2026-11-16T09:54:29.833724+00:00",
           "source": "https://x.com/DontGetTraced",
           "approximate": false,
-          "collectionCycleAt": "2026-11-16T09:47:59.416378+00:00",
+          "collectionCycleAt": "2026-11-16T09:51:44.262348+00:00",
           "method": "fxembed_public",
           "via": "https://api.fxtwitter.com/2/profile/DontGetTraced",
           "upstreamObservedAt": null
@@ -15539,8 +15539,6 @@
       "feedStatus": "unavailable",
       "newVideos": 0,
       "reportedPosts": 1,
-      "lastCompleteAt": "2026-11-10T10:36:45.390Z",
-      "lastCompletePostCount": 1,
       "revokedCompleteChecks": [
         {
           "at": "2026-11-03T15:24:44.629Z",
@@ -15548,7 +15546,9 @@
           "fallbackAt": "2026-11-03T13:39:48.741Z",
           "reason": "Historical full-list claim retracted: outer-document end/count did not independently prove the actual TikTok inner video-list terminal state."
         }
-      ]
+      ],
+      "lastCompleteAt": "2026-11-10T10:36:45.390Z",
+      "lastCompletePostCount": 1
     }
   },
   "identityCorrections": [
