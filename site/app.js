@@ -21,6 +21,12 @@ function compact(n) {
  return value+suffix;
 }
 
+function headline(n){
+ if(!Number.isFinite(n))return '—';
+ return n>=1e6?new Intl.NumberFormat('en-US',{maximumFractionDigits:2}).format(n/1e6)+'M':n>=1e5?new Intl.NumberFormat('en-US',{maximumFractionDigits:1}).format(n/1e3)+'K':full(n);
+}
+const svg=(path,cls='')=>'<svg class="'+cls+'" viewBox="0 0 24 24" aria-hidden="true">'+path+'</svg>';
+const NAV_ICONS={overview:'<rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/>',videos:'<rect x="3" y="4" width="18" height="16" rx="3"/><path d="m10 8 6 4-6 4Z"/>',accounts:'<path d="M9 8 7 6a4 4 0 0 0-6 6l4 4a4 4 0 0 0 6 0m4 0 2 2a4 4 0 0 0 6-6l-4-4a4 4 0 0 0-6 0m-4 4 6-6"/>'};
 const time=t=>{const ms=typeof t==='number'?t:Date.parse(t);return Number.isFinite(ms)?new Intl.DateTimeFormat('en-GB',{day:'2-digit',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit',timeZone:'Europe/Vilnius'}).format(new Date(ms))+' Vilnius':'Not checked';};
 const safe=u=>{try{const v=new URL(u,location.href);return v.protocol==='https:'||v.origin===location.origin?esc(v.href):'#';}catch{return '#';}};
 const currentId=()=>{try{return decodeURIComponent(location.hash.match(/^#channel\/([^/]+)/)?.[1]||'');}catch{return '';}};
@@ -90,7 +96,8 @@ function kitCard(d,failed=false,scope=selected()?.id||'all',now=Date.now()){
  const fresh=ok&&!failed&&d.status==='ok'&&m.method==='kit_api_v4'&&age>=0&&age<15*60000;
  const status=fresh?'Auto-updated · checks every 5 min':!ok?'Waiting for Kit data':failed?'Saved count · feed unavailable':d.status==='authorization_required'?'Connect Kit to enable auto-updates':d.status==='error'?'Saved count · Kit update failed':'Saved count · update overdue';
  const count=m?new Intl.NumberFormat('de-DE').format(m.value):'—';
- return '<article class="stat email-stat"><div class="stat-label"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="m3 6 9 7 9-7"/></svg>Emails collected</div><div class="stat-value" style="font-size:clamp(24px,3vw,46px)" tabindex="0" title="Kit Total subscribers · confirmed subscribers">'+count+'</div><p class="change '+(fresh?'':'pending')+'">'+esc(status)+'</p><p class="stat-meta">Cooked Dev · Kit total subscribers</p><p class="stat-meta">Updated: '+esc(time(m?.at))+'</p><a class="text-link kit-subscribers" href="https://app.kit.com/subscribers" target="_blank" rel="noopener">Subscribers ↗</a></article>';
+ return '<article class="stat email-stat"><div class="stat-label">'+svg('<rect x="3" y="5" width="18" height="14" rx="3"/><path d="m3 6 9 7 9-7"/>')+'Emails collected</div><div class="stat-value" tabindex="0" title="Kit Total subscribers · confirmed subscribers">'+count+'</div><p class="kit-owner">Cooked Dev · Kit</p><div class="stat-bottom"><a class="kit-subscribers" href="https://app.kit.com/subscribers" target="_blank" rel="noopener">Subscribers '+svg('<path d="M7 17 17 7M7 7h10v10"/>')+'</a><span class="kit-state '+(fresh?'fresh':'limited')+'" title="'+esc(status)+'">'+(fresh?'Auto-updated':'Saved')+'</span></div></article>';
+
 }
 async function loadKit(){
  const urls=['https://raw.githubusercontent.com/Jautis5/cooked-dev-stats/main/site/data/kit.json','data/kit.json'];
@@ -105,15 +112,18 @@ async function loadKit(){
 function renderKit(){
  const stats=$('stats'),html=kitCard(kitStats,kitFeedFailed);
  stats.className='stats'+(html?' has-email-stat':'');stats.innerHTML+=html;
+ if($('kit-data-details')){$('kit-data-details').hidden=!html;$('kit-data-details').innerHTML='<h3>Emails collected</h3><p>Cooked Dev · Kit confirmed subscribers</p><p>Updated: '+esc(time(kitStats?.totalSubscribers?.at))+'</p><p>Checks target a five-minute interval. GitHub and Kit can delay updates. Saved values retain their real observation time.</p>';} 
 }
 function renderStats(s,data){
- $('stats').innerHTML=[['views','Views'],['likes','Likes'],['followers','Followers'],['posts','Confirmed posts']].map(([key,label])=>{
-  const m=s[key],expected=key==='followers'?s.accountCount:s.postCount,partial=key!=='posts'&&m.count<expected;
-  const delta=changeFor(data,key);
-  const change=key==='posts'?`${s.videoCount} tracked videos`:expected===0&&key!=='followers'?'No confirmed posts in this scope':delta?`${delta.value>0?'+':''}${compact(delta.value)} in 24h`:(data?.changes24h?.baselineAt?'24h change unavailable':'24h change · collecting history');
+ const details=[];
+ $('stats').innerHTML=[['views','Views'],['likes','Likes'],['followers','Followers'],['posts','Published posts']].map(([key,label])=>{
+  const m=s[key],expected=key==='followers'?s.accountCount:s.postCount,partial=key!=='posts'&&m.count<expected,delta=changeFor(data,key);
   const valueTitle=key==='posts'?full(m.value)+' confirmed publication links in the loaded feed':metricTitle(m);
-  return '<article class="stat"><div class="stat-label"><svg viewBox="0 0 24 24" aria-hidden="true">'+ICONS[key]+'</svg>'+label+'</div><div class="stat-value" style="font-size:clamp(24px,3vw,46px)" title="'+esc(valueTitle)+'" tabindex="0">'+approx(m)+full(m.value)+'</div><p class="change '+(key==='posts'||!delta?'pending':delta.value<0?'negative':'')+'">'+esc(change)+'</p><p class="stat-meta">'+(key==='posts'?`${s.accountCount} social accounts`:key==='followers'?`${m.count} of ${expected} accounts`:`${m.count} of ${expected} publications`)+(partial?' · partial data':'')+'</p>'+(key!=='posts'?'<p class="stat-meta">Newest observation: '+esc(time(m.latest||m.oldest))+'</p><p class="stat-meta">Oldest included: '+esc(time(m.oldest))+'</p>':'')+'</article>';
+  if(key!=='posts')details.push('<div class="metric-coverage"><strong>'+label+'</strong><span>'+m.count+' / '+expected+(key==='followers'?' accounts':' publications')+'</span><small>Newest: '+esc(time(m.latest||m.oldest))+'<br>Oldest included: '+esc(time(m.oldest))+'</small></div>');
+  const note=key==='posts'?s.videoCount+' videos':delta?(delta.value>0?'+':'')+compact(delta.value)+' in 24h':'';
+  return '<article class="stat"><div class="stat-label">'+svg(ICONS[key])+label+(partial?'<span class="coverage-indicator" title="Partial coverage. Open Data status for details.">'+svg('<circle cx="12" cy="12" r="9"/><path d="M12 8v5m0 3v.1"/>')+'</span>':'')+'</div><div class="stat-value" title="'+esc(valueTitle)+'" tabindex="0">'+approx(m)+headline(m.value)+'</div><p class="stat-bottom '+(delta?(delta.value<0?'negative':'positive'):'')+'">'+esc(note)+'</p></article>';
  }).join('');
+ if($('metric-details'))$('metric-details').innerHTML='<h3>Metric coverage</h3>'+details.join('');
 }
 function viewHistory(data,now=Date.now()){
  const points=new Map();
@@ -186,9 +196,9 @@ function renderViewsChart(){
  $('chart-subtitle').textContent=scope==='all'?'Total tracked views across all channels':(channels.find(c=>c.id===scope)?.name||'Channel')+' · all platforms';
  $('views-chart').querySelectorAll('[data-range]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.range===chartRange)));
  const series=chartSeries(channels,entries,scope),complete=series.complete,all=series.points,points=sampleChartPoints(chartWindow(all,chartRange)),latest=points[points.length-1];
- $('chart-total').textContent=latest?(latest.approximate?'≈ ':'')+full(latest.value):'—';
+ $('chart-total').textContent=latest?(latest.approximate?'≈ ':'')+headline(latest.value):'—';
  $('chart-total').title=latest?full(latest.value)+' recorded views':'';
- $('chart-period').textContent=points.length?time(points[0].t)+' — '+time(latest.t):'';
+ $('chart-period').textContent=points.length?new Intl.DateTimeFormat('en-GB',{day:'2-digit',month:'short'}).format(new Date(points[0].t))+' – '+new Intl.DateTimeFormat('en-GB',{day:'2-digit',month:'short'}).format(new Date(latest.t)):'';
  $('chart-history-start').textContent=all.length?'History since '+new Intl.DateTimeFormat('en-GB',{day:'2-digit',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit',timeZone:'Europe/Vilnius'}).format(new Date(all[0].t))+' · Vilnius time':'';
  $('chart-note').textContent=scope==='all'?'Combined history starts when every channel has a saved observation. Choose a channel to see its earlier history. Totals include rounded or earlier source values.':'Saved observations only. This chart covers all platforms for this channel. Changes can include newly tracked publications; older source values are preserved.';
  if(!points.length){$('chart-plot').innerHTML='<div class="chart-empty">'+(!complete?'Waiting for all channel sources. No estimate is plotted.':all.length?'No saved snapshots in this period. Try a longer range.':'The graph will appear after the first saved views snapshot.')+'</div>';return;}
@@ -274,9 +284,9 @@ function renderNavigation(){
  const c=selected(),view=currentView();
  document.body.dataset.channel=c?.id||'all';
  const icon=document.querySelector('link[rel~="icon"]');if(icon)icon.href=c?.logo||'assets/logo.jpg';
- $('workspace-switcher').innerHTML='<a class="workspace '+(!c?'active':'')+'" href="'+scopeHref(null,view)+'" '+(!c?'aria-current="page"':'')+'><span class="scope-icon" aria-hidden="true">▦</span>All channels<span class="workspace-count">'+channels.length+'</span></a>'+channels.map(x=>'<a class="workspace '+(c?.id===x.id?'active':'')+'" data-channel="'+esc(x.id)+'" href="'+scopeHref(x.id,view)+'" '+(c?.id===x.id?'aria-current="page"':'')+'><img src="'+safe(x.logo)+'" alt="">'+esc(x.name)+'</a>').join('');
+ $('workspace-switcher').innerHTML='<a class="workspace '+(!c?'active':'')+'" href="'+scopeHref(null,view)+'" '+(!c?'aria-current="page"':'')+'><span class="scope-icon" aria-hidden="true">'+svg(NAV_ICONS.overview)+'</span>All channels<span class="workspace-count">'+channels.length+'</span></a>'+channels.map(x=>'<a class="workspace '+(c?.id===x.id?'active':'')+'" data-channel="'+esc(x.id)+'" href="'+scopeHref(x.id,view)+'" '+(c?.id===x.id?'aria-current="page"':'')+'><img src="'+safe(x.logo)+'" alt="">'+esc(x.name)+'</a>').join('');
  const count=scopedChannels().reduce((n,x)=>n+(entries.get(x.id)?.data?.videos.length||0),0);
- $('page-tabs').innerHTML=[['overview','Overview'],['videos','Video tracker'],['accounts','Accounts & sources']].map(([id,label])=>'<a class="page-tab '+(view===id?'active':'')+'" href="'+scopeHref(c?.id,id)+'" '+(view===id?'aria-current="page"':'')+'>'+label+(id==='videos'?'<span class="tab-count">'+count+'</span>':'')+'</a>').join('');
+ $('page-tabs').innerHTML=[['overview','Overview'],['videos','Content library'],['accounts','Connections']].map(([id,label])=>'<a class="page-tab '+(view===id?'active':'')+'" href="'+scopeHref(c?.id,id)+'" '+(view===id?'aria-current="page"':'')+'>'+svg(NAV_ICONS[id])+'<span>'+label+'</span>'+(id==='videos'?'<span class="tab-count">'+count+'</span>':'')+'</a>').join('');
 }
 function render(){
  const c=selected(),entry=c&&entries.get(c.id),data=entry?.data,view=currentView(),scope=scopedChannels();
@@ -284,17 +294,21 @@ function render(){
  renderNavigation();renderCloudHealth();renderClock();
  $('channel-logo').hidden=!c;
  if(c){$('channel-logo').src=c.logo;$('channel-logo').alt=c.name;}
- $('eyebrow').textContent=c?'YOUR CHANNEL WORKSPACE':'SHARED WORKSPACE';
- $('page-title').textContent=c?c.name+'.':'All channels.';
- $('description').textContent=c?'Your stats, publications and source links. Kept together for this channel.':channels.map(channel=>channel.name).join(' + ')+'. See the whole picture, or focus on one channel.';
+ $('page-title').textContent=c?c.name+'.':({overview:'Overview',videos:'Content library',accounts:'Connections'}[view]);
+ $('description').textContent=({overview:c?'Your content performance, all in one place.':'Your content at a glance.',videos:'Every video, ready to explore.',accounts:'Your profiles and data sources.'}[view]);
+ if($('header-scope'))$('header-scope').textContent=c?.name||'Workspace';
+ if($('header-view'))$('header-view').textContent=({overview:'Overview',videos:'Content library',accounts:'Connections'}[view]);
+ if($('scope-label'))$('scope-label').textContent=c?c.name:channels.length+' channels';
  document.title=(c?c.name:'All channels')+' · '+({overview:'Overview',videos:'Video tracker',accounts:'Accounts & sources'}[view])+' · Social Stats';
+ $('stats').hidden=view!=='overview';
+ if($('workspace-error'))$('workspace-error').hidden=true;
  $('overview-section').hidden=view!=='overview';$('video-section').hidden=view!=='videos';$('accounts-section').hidden=view!=='accounts';
  $('channels-section').hidden=!!c;$('comparison-section').hidden=!!c;$('channel-section').hidden=!c||!data;
  $('sheet-link').href=c?.sheetUrl||'#';$('sheet-link').hidden=!c?.sheetUrl;
  $('library-link').href=c?.assetLibraryUrl||'#';$('library-link').hidden=!c?.assetLibraryUrl;
  const plan=c?.publishingPlan,planBox=$('publishing-plan');
- planBox.hidden=!plan;
- if(plan)planBox.innerHTML='<div><p class="eyebrow">PUBLISHING PLAN · PROPOSED</p><h2>3 episodes a week · US first</h2><p>Tue · Thu · Sun at 6:00 PM New York time. '+esc(plan.voteWindowHours)+' hours for the Instagram vote.</p><p class="muted">Instagram Reels → TikTok · YouTube Shorts · Facebook Reels · X.</p><p class="publishing-status">No posts scheduled. Automatic publishing is not connected.</p></div><a class="btn" href="'+safe(c.assetLibraryUrl)+'" target="_blank" rel="noopener">Open video source ↗</a>';
+ planBox.hidden=!plan||view!=='overview';
+ if(plan)planBox.innerHTML='<div><h2>3 episodes a week · US first</h2><p>Tue · Thu · Sun at 6:00 PM New York time. '+esc(plan.voteWindowHours)+' hours for the Instagram vote.</p><p class="muted">Instagram Reels → TikTok · YouTube Shorts · Facebook Reels · X.</p><p class="publishing-status">No posts scheduled. Automatic publishing is not connected.</p></div><a class="btn" href="'+safe(c.assetLibraryUrl)+'" target="_blank" rel="noopener">Open video source ↗</a>';
 
  const available=scope.filter(x=>entries.get(x.id)?.data),summaries=available.map(x=>summary(entries.get(x.id).data));
  if(available.length)renderStats(combine(summaries),data||(available.length===1?entries.get(available[0].id).data:null));
@@ -315,16 +329,26 @@ function render(){
  if(view==='overview'){
   if(c&&data)renderChannel(c,data);else renderChannels();
   if(!c)renderComparison();
-  renderAttention();renderViewsChart();
+  renderAttention();renderViewsChart();renderTopContent();
  }else if(view==='videos'){renderVideoFilters();renderVideos();renderResources();}
  else renderAccounts();
 }
 function renderChannels(){
- $('channel-count').textContent='('+channels.length+')';
+ $('channel-count').textContent=channels.length;
  $('channels').innerHTML=channels.map(c=>{
   const entry=entries.get(c.id),d=entry?.data,s=d&&summary(d);
-  return '<article class="channel" data-channel="'+esc(c.id)+'"><a class="channel-top" href="'+scopeHref(c.id)+'"><img class="channel-logo" src="'+safe(c.logo)+'" alt=""><div><h3 class="channel-name">'+esc(c.name)+'</h3><p class="channel-tagline">'+(s?s.accountCount+' platforms · '+s.postCount+' confirmed posts':'Source unavailable')+'</p></div><span class="channel-arrow" aria-hidden="true">↗</span></a><div class="channel-metrics">'+[['views','Views'],['followers','Followers'],['likes','Likes']].map(([k,label])=>'<div><strong tabindex="0" title="'+esc(metricTitle(s?.[k]))+'">'+approx(s?.[k])+full(s?.[k]?.value)+'</strong><small>'+label+'</small></div>').join('')+'<div><strong>'+ (s?s.videoCount:'—')+'</strong><small>Videos</small></div></div><div class="channel-foot"><div>'+sourceBadge(entry)+'<span class="tiny">Feed: '+esc(time(checkedAt(d)))+'</span><span class="tiny">Oldest views: '+esc(time(s?.views?.oldest))+'</span></div><span>'+ (d?d.accounts.map(a=>ABBR[a.id]||a.name).join(' · '):'No data')+'</span></div><div class="channel-actions"><a href="'+scopeHref(c.id,'videos')+'">Video tracker ↗</a>'+(c.assetLibraryUrl?'<a href="'+safe(c.assetLibraryUrl)+'" target="_blank" rel="noopener">Video library ↗</a>':'')+(c.sheetUrl?'<a href="'+safe(c.sheetUrl)+'" target="_blank" rel="noopener">Sheet ↗</a>':'')+'</div></article>';
+  return '<a class="channel-row" data-channel="'+esc(c.id)+'" href="'+scopeHref(c.id)+'"><img class="channel-logo" src="'+safe(c.logo)+'" alt=""><span class="channel-identity"><strong>'+esc(c.name)+'</strong><small>'+(s?s.videoCount+' videos':'Source unavailable')+'</small></span><span class="channel-result" title="'+esc(metricTitle(s?.views))+'">'+approx(s?.views)+headline(s?.views?.value)+'<small>views</small></span>'+svg('<path d="m9 6 6 6-6 6"/>','channel-chevron')+'</a>';
  }).join('');
+}
+function renderTopContent(){
+ const host=$('top-content');if(!host)return;
+ const rows=collectVideoRows(scopedChannels(),entries).filter(r=>valid(total(Object.values(r.video.posts),'views'))).sort((a,b)=>total(Object.values(b.video.posts),'views').value-total(Object.values(a.video.posts),'views').value).slice(0,4);
+ $('top-content-link').href=scopeHref(selected()?.id,'videos');
+ host.innerHTML=rows.length?rows.map((r,i)=>{
+  const v=r.video,m=total(Object.values(v.posts),'views');
+  return '<button class="content-card" data-top-row="'+i+'"><span class="content-image">'+(v.thumbnail?'<img src="'+safe(v.thumbnail)+'" alt="" loading="lazy">':'<img class="content-avatar" src="'+safe(r.channel.logo)+'" alt="">')+'<span class="content-play">'+svg('<path d="m9 6 9 6-9 6Z"/>')+'</span><span class="content-platforms">'+Object.keys(v.posts).map(p=>ABBR[p]||p).join(' · ')+'</span></span><span class="content-card-body"><span class="content-channel"><img src="'+safe(r.channel.logo)+'" alt="">'+esc(r.channel.name)+'</span><strong class="content-caption">'+esc(videoTitle(v))+'</strong><span class="content-performance"><span>'+svg(ICONS.views)+approx(m)+headline(m.value)+' views</span>'+svg('<path d="M7 17 17 7M7 7h10v10"/>')+'</span></span></button>';
+ }).join(''):'<div class="empty"><strong>Your content will appear here.</strong>Confirmed posts with measured views are shown automatically.</div>';
+ host.querySelectorAll('[data-top-row]').forEach(button=>button.addEventListener('click',()=>{const r=rows[Number(button.dataset.topRow)];detail(r.channel.id,r.video.id);}));
 }
 function renderComparison(){
  $('comparison-rows').innerHTML=channels.map(c=>{
@@ -443,6 +467,7 @@ function renderSchedule(){
  if(!block)return;
  const ids=scopedChannels().map(c=>c.id);
  block.hidden=!publishingQueue||!ids.includes(publishingQueue.channelId);
+ if($('schedule-disclosure'))$('schedule-disclosure').hidden=block.hidden;
  if(block.hidden)return;
  const q=publishingQueue,scheduled=q.items.flatMap(v=>Object.values(v.posts)).filter(p=>p.status==='scheduled').length;
  $('schedule-summary').textContent=q.items.length+' source videos · '+scheduled+' confirmed saved schedules · target: 2 videos per day per platform · Vilnius time';
@@ -533,12 +558,26 @@ async function load(manual=false){
    else entries.set(c.id,{data:null,fallback:true});
   }));
   await Promise.all([healthTask,scheduleTask,kitTask]);render();void loadClock();
- }catch{$('notice').textContent='Could not load the channel list. Please try refreshing.';$('notice').hidden=false;}
+ }catch{
+  const message='Could not load your workspace. Use Refresh to try again.';
+  $('notice').textContent=message;$('notice').hidden=false;
+  if(!entries.size){$('stats').innerHTML='<div class="empty"><strong>Could not load your workspace.</strong>Use Refresh to try again.</div>';if($('workspace-error')){$('workspace-error').textContent=message;$('workspace-error').hidden=false;}}
+ }
  finally{loading=false;$('reload').disabled=false;}
 }
+function closeNavigation(){
+ document.body.classList?.remove('navigation-open');
+ $('menu-toggle')?.setAttribute('aria-expanded','false');
+ if($('sidebar-backdrop'))$('sidebar-backdrop').hidden=true;
+ const rail=$('sidebar');
+ if(rail){rail.removeAttribute?.('role');rail.removeAttribute?.('aria-modal');rail.inert=typeof matchMedia==='function'&&matchMedia('(max-width:900px)').matches;}
+ if($('main'))$('main').inert=false;
+}
 window.addEventListener('hashchange',()=>{
+ const fromDrawer=document.body.classList?.contains('navigation-open');
+ closeNavigation();
  if((selected()?.id||'all')!==renderedScope){active='all';$('search').value='';$('video-channel').value='all';$('video-coverage').value='all';$('sort').value='views';}
- render();window.scrollTo({top:0,behavior:'instant'});
+ render();if(fromDrawer)$('page-title')?.focus?.({preventScroll:true});window.scrollTo({top:0,behavior:'instant'});
 });
 $('views-chart').querySelectorAll('[data-range]').forEach(b=>b.addEventListener('click',()=>{chartRange=b.dataset.range;renderViewsChart();}));
 $('chart-plot').addEventListener('pointerleave',()=>{const t=$('chart-tooltip');if(t)t.hidden=true;$('chart-plot').querySelectorAll('.point-active').forEach(el=>el.classList.remove('point-active'));});
@@ -556,5 +595,14 @@ $('export-csv').addEventListener('click',()=>{
  const link=document.createElement('a');link.href=url;link.download='social-stats-'+(selected()?.id||'all-channels')+'-'+new Date().toISOString().slice(0,10)+'.csv';link.click();setTimeout(()=>URL.revokeObjectURL(url),1000);
  toast('Filtered publication tracker exported');
 });
+$('menu-toggle')?.addEventListener('click',()=>{const open=document.body.classList.toggle('navigation-open');$('menu-toggle').setAttribute('aria-expanded',String(open));$('sidebar-backdrop').hidden=!open;const rail=$('sidebar');rail.inert=false;rail.setAttribute('role',open?'dialog':'navigation');rail.setAttribute('aria-modal',String(open));$('main').inert=open;if(open)$('menu-close').focus();});
+$('sidebar-backdrop')?.addEventListener('click',()=>{closeNavigation();$('menu-toggle').focus();});
+$('menu-close')?.addEventListener('click',()=>{closeNavigation();$('menu-toggle').focus();});
+document.addEventListener('keydown',event=>{if(event.key==='Escape'){const wasOpen=document.body.classList.contains('navigation-open');closeNavigation();if($('data-status'))$('data-status').open=false;if(wasOpen)$('menu-toggle').focus();}if(event.key==='Tab'&&document.body.classList.contains('navigation-open')){const items=[...$('sidebar').querySelectorAll('a,button')].filter(e=>e.getClientRects().length),first=items[0],last=items.at(-1);if(event.shiftKey&&document.activeElement===first){event.preventDefault();last.focus();}else if(!event.shiftKey&&document.activeElement===last){event.preventDefault();first.focus();}}});
+function syncNavigation(){const mobile=matchMedia('(max-width:900px)').matches;$('sidebar').inert=mobile&&!document.body.classList.contains('navigation-open');if(!mobile)closeNavigation();}
+syncNavigation();window.addEventListener('resize',syncNavigation);
+$('sidebar')?.addEventListener('click',event=>{const link=event.target.closest('a');if(link&&new URL(link.href).hash===location.hash&&document.body.classList.contains('navigation-open')){closeNavigation();$('page-title').focus({preventScroll:true});}});
+document.querySelector('.skip-link')?.addEventListener('click',event=>{event.preventDefault();$('main').focus();});
+
 load();setInterval(load,300000);
-setInterval(async()=>{await loadKit();render();},60000);
+setInterval(async()=>{await loadKit();const email=$('stats').querySelector('.email-stat');if(email){const node=document.createElement('div');node.innerHTML=kitCard(kitStats,kitFeedFailed);email.replaceWith(node.firstElementChild);}},60000);
