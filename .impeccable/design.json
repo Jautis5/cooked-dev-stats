@@ -1,0 +1,519 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-11-16T15:28:38.856379+00:00",
+  "title": "Design System: Social Stats",
+  "extensions": {
+    "colorMeta": {
+      "ink": {
+        "role": "neutral",
+        "displayName": "Ink",
+        "tonalRamp": [
+          "oklch(15% 0.0065 264.2)",
+          "oklch(27% 0.0105 264.2)",
+          "oklch(39% 0.0137 264.2)",
+          "oklch(51% 0.0162 264.2)",
+          "oklch(63% 0.0162 264.2)",
+          "oklch(75% 0.0137 264.2)",
+          "oklch(87% 0.0089 264.2)",
+          "oklch(95% 0.0032 264.2)"
+        ]
+      },
+      "muted": {
+        "role": "neutral",
+        "displayName": "Muted gray",
+        "tonalRamp": [
+          "oklch(15% 0.0079 256.3)",
+          "oklch(27% 0.0128 256.3)",
+          "oklch(39% 0.0168 256.3)",
+          "oklch(51% 0.0197 256.3)",
+          "oklch(63% 0.0197 256.3)",
+          "oklch(75% 0.0168 256.3)",
+          "oklch(87% 0.0108 256.3)",
+          "oklch(95% 0.0039 256.3)"
+        ]
+      },
+      "line": {
+        "role": "neutral",
+        "displayName": "Soft divider",
+        "tonalRamp": [
+          "oklch(15% 0.0023 264.5)",
+          "oklch(27% 0.0038 264.5)",
+          "oklch(39% 0.0049 264.5)",
+          "oklch(51% 0.0058 264.5)",
+          "oklch(63% 0.0058 264.5)",
+          "oklch(75% 0.0049 264.5)",
+          "oklch(87% 0.0032 264.5)",
+          "oklch(95% 0.0012 264.5)"
+        ]
+      },
+      "paper": {
+        "role": "neutral",
+        "displayName": "Cool off-white",
+        "tonalRamp": [
+          "oklch(15% 0.0011 264.5)",
+          "oklch(27% 0.0019 264.5)",
+          "oklch(39% 0.0024 264.5)",
+          "oklch(51% 0.0029 264.5)",
+          "oklch(63% 0.0029 264.5)",
+          "oklch(75% 0.0024 264.5)",
+          "oklch(87% 0.0016 264.5)",
+          "oklch(95% 0.0006 264.5)"
+        ]
+      },
+      "surface": {
+        "role": "neutral",
+        "displayName": "White surface",
+        "tonalRamp": [
+          "oklch(15% 0.0000 89.9)",
+          "oklch(27% 0.0000 89.9)",
+          "oklch(39% 0.0000 89.9)",
+          "oklch(51% 0.0000 89.9)",
+          "oklch(63% 0.0000 89.9)",
+          "oklch(75% 0.0000 89.9)",
+          "oklch(87% 0.0000 89.9)",
+          "oklch(95% 0.0000 89.9)"
+        ]
+      },
+      "rail": {
+        "role": "neutral",
+        "displayName": "Graphite rail",
+        "tonalRamp": [
+          "oklch(15% 0.0065 264.2)",
+          "oklch(27% 0.0106 264.2)",
+          "oklch(39% 0.0139 264.2)",
+          "oklch(51% 0.0164 264.2)",
+          "oklch(63% 0.0164 264.2)",
+          "oklch(75% 0.0139 264.2)",
+          "oklch(87% 0.0090 264.2)",
+          "oklch(95% 0.0033 264.2)"
+        ]
+      },
+      "rail-text": {
+        "role": "neutral",
+        "displayName": "Rail label gray",
+        "tonalRamp": [
+          "oklch(15% 0.0060 264.5)",
+          "oklch(27% 0.0098 264.5)",
+          "oklch(39% 0.0128 264.5)",
+          "oklch(51% 0.0150 264.5)",
+          "oklch(63% 0.0150 264.5)",
+          "oklch(75% 0.0128 264.5)",
+          "oklch(87% 0.0083 264.5)",
+          "oklch(95% 0.0030 264.5)"
+        ]
+      },
+      "accent": {
+        "role": "primary",
+        "displayName": "Warm coral",
+        "tonalRamp": [
+          "oklch(15% 0.0565 33.0)",
+          "oklch(27% 0.0917 33.0)",
+          "oklch(39% 0.1200 33.0)",
+          "oklch(51% 0.1411 33.0)",
+          "oklch(63% 0.1411 33.0)",
+          "oklch(75% 0.1200 33.0)",
+          "oklch(87% 0.0776 33.0)",
+          "oklch(95% 0.0282 33.0)"
+        ]
+      },
+      "accent-ink": {
+        "role": "primary",
+        "displayName": "Deep coral",
+        "tonalRamp": [
+          "oklch(15% 0.0501 33.7)",
+          "oklch(27% 0.0814 33.7)",
+          "oklch(39% 0.1065 33.7)",
+          "oklch(51% 0.1253 33.7)",
+          "oklch(63% 0.1253 33.7)",
+          "oklch(75% 0.1065 33.7)",
+          "oklch(87% 0.0689 33.7)",
+          "oklch(95% 0.0251 33.7)"
+        ]
+      },
+      "tint": {
+        "role": "primary",
+        "displayName": "Pale coral",
+        "tonalRamp": [
+          "oklch(15% 0.0071 39.4)",
+          "oklch(27% 0.0115 39.4)",
+          "oklch(39% 0.0150 39.4)",
+          "oklch(51% 0.0176 39.4)",
+          "oklch(63% 0.0176 39.4)",
+          "oklch(75% 0.0150 39.4)",
+          "oklch(87% 0.0097 39.4)",
+          "oklch(95% 0.0035 39.4)"
+        ]
+      },
+      "green": {
+        "role": "secondary",
+        "displayName": "Measured green",
+        "tonalRamp": [
+          "oklch(15% 0.0366 163.3)",
+          "oklch(27% 0.0594 163.3)",
+          "oklch(39% 0.0777 163.3)",
+          "oklch(51% 0.0914 163.3)",
+          "oklch(63% 0.0914 163.3)",
+          "oklch(75% 0.0777 163.3)",
+          "oklch(87% 0.0503 163.3)",
+          "oklch(95% 0.0183 163.3)"
+        ]
+      },
+      "orange": {
+        "role": "secondary",
+        "displayName": "Muted amber",
+        "tonalRamp": [
+          "oklch(15% 0.0380 71.8)",
+          "oklch(27% 0.0618 71.8)",
+          "oklch(39% 0.0808 71.8)",
+          "oklch(51% 0.0951 71.8)",
+          "oklch(63% 0.0951 71.8)",
+          "oklch(75% 0.0808 71.8)",
+          "oklch(87% 0.0523 71.8)",
+          "oklch(95% 0.0190 71.8)"
+        ]
+      },
+      "focus": {
+        "role": "primary",
+        "displayName": "Warm focus outline",
+        "tonalRamp": [
+          "oklch(15% 0.0547 33.9)",
+          "oklch(27% 0.0888 33.9)",
+          "oklch(39% 0.1162 33.9)",
+          "oklch(51% 0.1367 33.9)",
+          "oklch(63% 0.1367 33.9)",
+          "oklch(75% 0.1162 33.9)",
+          "oklch(87% 0.0752 33.9)",
+          "oklch(95% 0.0273 33.9)"
+        ]
+      },
+      "chart-green": {
+        "role": "secondary",
+        "displayName": "Recorded-view green",
+        "tonalRamp": [
+          "oklch(15% 0.0363 167.3)",
+          "oklch(27% 0.0590 167.3)",
+          "oklch(39% 0.0771 167.3)",
+          "oklch(51% 0.0908 167.3)",
+          "oklch(63% 0.0908 167.3)",
+          "oklch(75% 0.0771 167.3)",
+          "oklch(87% 0.0499 167.3)",
+          "oklch(95% 0.0182 167.3)"
+        ]
+      },
+      "action": {
+        "role": "neutral",
+        "displayName": "Graphite action",
+        "tonalRamp": [
+          "oklch(15% 0.0079 264.2)",
+          "oklch(27% 0.0128 264.2)",
+          "oklch(39% 0.0168 264.2)",
+          "oklch(51% 0.0198 264.2)",
+          "oklch(63% 0.0198 264.2)",
+          "oklch(75% 0.0168 264.2)",
+          "oklch(87% 0.0109 264.2)",
+          "oklch(95% 0.0040 264.2)"
+        ]
+      },
+      "action-hover": {
+        "role": "neutral",
+        "displayName": "Graphite action hover",
+        "tonalRamp": [
+          "oklch(15% 0.0096 262.8)",
+          "oklch(27% 0.0157 262.8)",
+          "oklch(39% 0.0205 262.8)",
+          "oklch(51% 0.0241 262.8)",
+          "oklch(63% 0.0241 262.8)",
+          "oklch(75% 0.0205 262.8)",
+          "oklch(87% 0.0133 262.8)",
+          "oklch(95% 0.0048 262.8)"
+        ]
+      },
+      "nav-active": {
+        "role": "neutral",
+        "displayName": "Pale section selection",
+        "tonalRamp": [
+          "oklch(15% 0.0011 264.5)",
+          "oklch(27% 0.0019 264.5)",
+          "oklch(39% 0.0024 264.5)",
+          "oklch(51% 0.0029 264.5)",
+          "oklch(63% 0.0029 264.5)",
+          "oklch(75% 0.0024 264.5)",
+          "oklch(87% 0.0016 264.5)",
+          "oklch(95% 0.0006 264.5)"
+        ]
+      },
+      "nav-hover": {
+        "role": "neutral",
+        "displayName": "Navigation hover",
+        "tonalRamp": [
+          "oklch(15% 0.0078 264.2)",
+          "oklch(27% 0.0126 264.2)",
+          "oklch(39% 0.0165 264.2)",
+          "oklch(51% 0.0194 264.2)",
+          "oklch(63% 0.0194 264.2)",
+          "oklch(75% 0.0165 264.2)",
+          "oklch(87% 0.0107 264.2)",
+          "oklch(95% 0.0039 264.2)"
+        ]
+      },
+      "brand-active": {
+        "role": "neutral",
+        "displayName": "Graphite brand selection",
+        "tonalRamp": [
+          "oklch(15% 0.0084 262.6)",
+          "oklch(27% 0.0136 262.6)",
+          "oklch(39% 0.0178 262.6)",
+          "oklch(51% 0.0209 262.6)",
+          "oklch(63% 0.0209 262.6)",
+          "oklch(75% 0.0178 262.6)",
+          "oklch(87% 0.0115 262.6)",
+          "oklch(95% 0.0042 262.6)"
+        ]
+      },
+      "range-bg": {
+        "role": "neutral",
+        "displayName": "Range group gray",
+        "tonalRamp": [
+          "oklch(15% 0.0011 264.5)",
+          "oklch(27% 0.0019 264.5)",
+          "oklch(39% 0.0024 264.5)",
+          "oklch(51% 0.0029 264.5)",
+          "oklch(63% 0.0029 264.5)",
+          "oklch(75% 0.0024 264.5)",
+          "oklch(87% 0.0016 264.5)",
+          "oklch(95% 0.0006 264.5)"
+        ]
+      },
+      "field-line": {
+        "role": "neutral",
+        "displayName": "Field border",
+        "tonalRamp": [
+          "oklch(15% 0.0039 252.8)",
+          "oklch(27% 0.0064 252.8)",
+          "oklch(39% 0.0083 252.8)",
+          "oklch(51% 0.0098 252.8)",
+          "oklch(63% 0.0098 252.8)",
+          "oklch(75% 0.0083 252.8)",
+          "oklch(87% 0.0054 252.8)",
+          "oklch(95% 0.0020 252.8)"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Page title."
+      },
+      "metric": {
+        "displayName": "Metric",
+        "purpose": "Measured totals with tabular numerals."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "Section titles."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "General supporting text."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Controls and compact labels."
+      },
+      "table-heading": {
+        "displayName": "Table Heading",
+        "purpose": "Uppercase table headings."
+      }
+    },
+    "shadows": [
+      {
+        "name": "data-panel",
+        "value": "0 14px 55px #15213a26",
+        "purpose": "Floating source diagnostics."
+      },
+      {
+        "name": "dialog",
+        "value": "0 20px 80px #11182733",
+        "purpose": "Video-detail modal."
+      },
+      {
+        "name": "chart-tooltip",
+        "value": "0 5px 18px #182c2525",
+        "purpose": "Exact recorded observation."
+      },
+      {
+        "name": "content-hover",
+        "value": "0 6px 20px #2636500c",
+        "purpose": "Content card hover."
+      },
+      {
+        "name": "range-selected",
+        "value": "0 1px 3px #20242c12",
+        "purpose": "Pressed chart range."
+      }
+    ],
+    "motion": [
+      {
+        "name": "control-state",
+        "value": ".18s",
+        "purpose": "Background, border and text state changes."
+      },
+      {
+        "name": "card-toast",
+        "value": ".2s",
+        "purpose": "Card hover shadow/border and toast opacity/position."
+      },
+      {
+        "name": "media-hover",
+        "value": ".25s ease-out",
+        "purpose": "Media transform scale(1.025)."
+      },
+      {
+        "name": "drawer",
+        "value": ".22s cubic-bezier(.16,1,.3,1)",
+        "purpose": "Mobile navigation transform."
+      },
+      {
+        "name": "loading",
+        "value": "1.4s ease-in-out infinite alternate",
+        "purpose": "Placeholder opacity pulse."
+      },
+      {
+        "name": "reduced-motion",
+        "value": "prefers-reduced-motion: reduce",
+        "purpose": "Disable animations/transitions and use automatic scrolling."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "wide",
+        "value": "1600px"
+      },
+      {
+        "name": "compact-desktop",
+        "value": "1250px"
+      },
+      {
+        "name": "single-overview-grid",
+        "value": "1050px"
+      },
+      {
+        "name": "drawer",
+        "value": "900px"
+      },
+      {
+        "name": "phone",
+        "value": "700px"
+      },
+      {
+        "name": "narrow-phone",
+        "value": "370px"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Refresh button",
+      "kind": "button",
+      "refersTo": "button-refresh",
+      "description": "Refreshes saved workspace observations; disabled during loading.",
+      "html": "<button class=\"ds-refresh\"><svg viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M20 7v5h-5M4 17v-5h5M6.1 7a7 7 0 0 1 11.6-1L20 9M4 15l2.3 3A7 7 0 0 0 18 17\"/></svg>Refresh</button>",
+      "css": ".ds-refresh{font:550 12px/1.5 -apple-system,BlinkMacSystemFont,\"Segoe UI\",sans-serif;display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:37px;padding:8px 12px;border:1px solid #252a34;border-radius:8px;background:#252a34;color:#fff;cursor:pointer;transition:background .18s,border-color .18s}.ds-refresh svg{width:17px;height:17px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}.ds-refresh:hover{background:#3c4350;border-color:#3c4350}.ds-refresh:focus-visible{outline:2px solid var(--focus,#aa4630);outline-offset:4px;}.ds-refresh:disabled{opacity:.55;cursor:wait}@media(prefers-reduced-motion:reduce){.ds-refresh{transition:none}}"
+    },
+    {
+      "name": "Secondary button",
+      "kind": "button",
+      "refersTo": "button-secondary",
+      "description": "Compact bordered export and resource action.",
+      "html": "<button class=\"ds-secondary\">Export CSV ↓</button>",
+      "css": ".ds-secondary{font:550 12px/1.5 -apple-system,BlinkMacSystemFont,\"Segoe UI\",sans-serif;min-height:37px;padding:8px 12px;border:1px solid var(--line,#e6e8ec);border-radius:8px;background:var(--surface,#fff);color:var(--ink,#20242c);cursor:pointer;transition:background .18s,border-color .18s}.ds-secondary:hover{background:#f4f5f7;border-color:#c4cad3}.ds-secondary:focus-visible{outline:2px solid var(--focus,#aa4630);outline-offset:4px;}.ds-secondary:disabled{opacity:.55;cursor:wait}@media(prefers-reduced-motion:reduce){.ds-secondary{transition:none}}"
+    },
+    {
+      "name": "Search field",
+      "kind": "input",
+      "refersTo": "search-field",
+      "description": "Full-width search within content filters.",
+      "html": "<input class=\"ds-search\" type=\"search\" aria-label=\"Search videos\" placeholder=\"Search videos or channels…\">",
+      "css": ".ds-search{font:400 12px/1.5 -apple-system,BlinkMacSystemFont,\"Segoe UI\",sans-serif;width:100%;min-height:37px;border:1px solid #dde2e8;border-radius:7px;padding:8px 10px 8px 13px;background:var(--surface,#fff);color:#4a5564;caret-color:var(--accent-ink,#8e3522)}.ds-search::placeholder{color:var(--muted,#69717c)}.ds-search:focus-visible{outline:2px solid var(--focus,#aa4630);outline-offset:4px;}@media(max-width:700px){.ds-search{min-height:40px}}"
+    },
+    {
+      "name": "Section navigation",
+      "kind": "nav",
+      "refersTo": "section-navigation",
+      "description": "Stable section links on the graphite rail.",
+      "html": "<nav class=\"ds-nav\" aria-label=\"Workspace sections\"><a class=\"ds-nav-link\" aria-current=\"page\" href=\"#\"><svg viewBox=\"0 0 24 24\" aria-hidden=\"true\"><rect x=\"3\" y=\"3\" width=\"7\" height=\"7\" rx=\"1.5\"/><rect x=\"14\" y=\"3\" width=\"7\" height=\"7\" rx=\"1.5\"/><rect x=\"3\" y=\"14\" width=\"7\" height=\"7\" rx=\"1.5\"/><rect x=\"14\" y=\"14\" width=\"7\" height=\"7\" rx=\"1.5\"/></svg>Overview</a><a class=\"ds-nav-link\" href=\"#videos\">Content library</a></nav>",
+      "css": ".ds-nav{display:grid;gap:6px;background:var(--rail,#1d2129);padding:16px}.ds-nav-link{font:550 14px/1.5 -apple-system,BlinkMacSystemFont,\"Segoe UI\",sans-serif;min-height:44px;display:flex;align-items:center;gap:11px;padding:10px 12px;border-radius:8px;color:var(--rail-text,#c1c6d0);text-decoration:none;transition:background .18s ease,color .18s ease}.ds-nav-link svg{width:19px;height:19px;fill:none;stroke:currentColor;stroke-width:1.7}.ds-nav-link[aria-current=page]{background:#f6f7f9;color:var(--ink,#20242c)}.ds-nav-link[aria-current=page] svg{color:#a7432c}.ds-nav-link:hover:not([aria-current=page]){background:#2a2f39;color:#fff}.ds-nav-link:focus-visible{outline:2px solid var(--focus,#aa4630);outline-offset:4px;}@media(prefers-reduced-motion:reduce){.ds-nav-link{transition:none}}"
+    },
+    {
+      "name": "Publication link",
+      "kind": "chip",
+      "refersTo": "publication-link",
+      "description": "Green confirmed external URL; neutral dashed unconfirmed state.",
+      "html": "<div class=\"ds-publications\"><a class=\"ds-post\" href=\"#\">YT ↗</a><span class=\"ds-post ds-unconfirmed\">IG · not confirmed</span></div>",
+      "css": ".ds-publications{display:flex;gap:5px;flex-wrap:wrap}.ds-post{font:400 10px/1.5 -apple-system,BlinkMacSystemFont,\"Segoe UI\",sans-serif;padding:4px 6px;border:1px solid #e3e8e4;border-radius:4px;background:#f2f7f4;color:#38684d;text-decoration:none;white-space:nowrap}.ds-post:hover{background:#e4f0e9}.ds-post:focus-visible{outline:2px solid var(--focus,#aa4630);outline-offset:4px;}.ds-unconfirmed,.ds-unconfirmed:hover{color:var(--muted,#69717c);border-style:dashed;background:transparent}"
+    },
+    {
+      "name": "Surface card",
+      "kind": "card",
+      "refersTo": "surface-card",
+      "description": "White bordered container for chart or account content.",
+      "html": "<section class=\"ds-card\"><h2 class=\"ds-card-title\">Views over time</h2><p class=\"ds-card-context\">Recorded views</p></section>",
+      "css": ".ds-card{background:var(--surface,#fff);border:1px solid var(--line,#e6e8ec);border-radius:var(--radius,14px);padding:23px 24px 19px;color:var(--ink,#20242c)}.ds-card-title{font:650 17px/1.5 -apple-system,BlinkMacSystemFont,\"Segoe UI\",sans-serif;letter-spacing:-.02em;margin:0}.ds-card-context{font:400 11px/1.5 -apple-system,BlinkMacSystemFont,\"Segoe UI\",sans-serif;color:var(--muted,#69717c);margin:15px 0 0}"
+    },
+    {
+      "name": "Chart range group",
+      "kind": "custom",
+      "refersTo": "chart-range",
+      "description": "Pressed-state range selection for saved history.",
+      "html": "<div class=\"ds-ranges\" role=\"group\" aria-label=\"Chart time range\"><button aria-pressed=\"true\">24h</button><button aria-pressed=\"false\">7d</button><button aria-pressed=\"false\">30d</button><button aria-pressed=\"false\">All</button></div>",
+      "css": ".ds-ranges{display:inline-flex;gap:1px;padding:3px;border-radius:7px;background:#f4f5f7}.ds-ranges button{font:550 11px/1.5 -apple-system,BlinkMacSystemFont,\"Segoe UI\",sans-serif;border:0;background:none;color:var(--muted,#69717c);border-radius:5px;min-height:28px;min-width:35px;padding:4px 8px;cursor:pointer}.ds-ranges button[aria-pressed=true]{background:#fff;color:#272e39;box-shadow:0 1px 3px #20242c12}.ds-ranges button:hover{color:var(--ink,#20242c);background:#e9ecf1}.ds-ranges button:focus-visible{outline:2px solid var(--focus,#aa4630);outline-offset:4px;}@media(max-width:700px){.ds-ranges button{min-height:31px;min-width:32px;font-size:10px}}"
+    },
+    {
+      "name": "Data status disclosure",
+      "kind": "custom",
+      "refersTo": "data-disclosure",
+      "description": "Native disclosure keeps technical details out of the overview.",
+      "html": "<details class=\"ds-status\"><summary><span class=\"ds-status-dot\"></span>Data status <svg viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"m8 10 4 4 4-4\"/></svg></summary><div class=\"ds-status-panel\"><h2>Data status</h2><p>Saved observations retain their original observation time.</p></div></details>",
+      "css": ".ds-status{position:relative;color:var(--ink,#20242c);font:400 12px/1.6 -apple-system,BlinkMacSystemFont,\"Segoe UI\",sans-serif}.ds-status summary{list-style:none;display:flex;align-items:center;gap:7px;padding:8px 9px;font-weight:500;cursor:pointer;border-radius:8px;min-height:37px}.ds-status summary::-webkit-details-marker{display:none}.ds-status summary:hover{background:#f4f5f7}.ds-status[open] summary{background:#f0f2f5}.ds-status summary:focus-visible{outline:2px solid var(--focus,#aa4630);outline-offset:4px;}.ds-status svg{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:1.7}.ds-status-dot{width:6px;height:6px;border-radius:50%;background:#aa7d34}.ds-status-panel{margin-top:11px;max-width:420px;padding:24px;background:var(--surface,#fff);border-radius:14px;box-shadow:0 14px 55px #15213a26}.ds-status-panel h2{font-size:19px;font-weight:650;margin:0}.ds-status-panel p{color:var(--muted,#69717c);margin:5px 0 0}"
+    },
+    {
+      "name": "Metric strip",
+      "kind": "custom",
+      "refersTo": "metric-strip",
+      "description": "Large measured totals with quiet labels and thin dividers.",
+      "html": "<div class=\"ds-metrics\"><article class=\"ds-stat\"><span>Views</span><strong tabindex=\"0\">—</strong></article><article class=\"ds-stat\"><span>Likes</span><strong tabindex=\"0\">—</strong></article></div>",
+      "css": ".ds-metrics{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));background:var(--surface,#fff);border:1px solid var(--line,#e6e8ec);border-radius:var(--radius,14px);color:var(--ink,#20242c)}.ds-stat{padding:22px 23px 19px;position:relative}.ds-stat+.ds-stat:before{content:\"\";position:absolute;left:0;top:24px;bottom:24px;width:1px;background:var(--line,#e6e8ec)}.ds-stat span{font:500 12px/1.5 -apple-system,BlinkMacSystemFont,\"Segoe UI\",sans-serif;color:#656f7c}.ds-stat strong{display:block;font:650 34px/1.25 -apple-system,BlinkMacSystemFont,\"Segoe UI\",sans-serif;letter-spacing:-.03em;font-variant-numeric:tabular-nums;margin:14px 0 11px}.ds-stat strong:focus-visible{outline:2px solid var(--focus,#aa4630);outline-offset:4px;}"
+    },
+    {
+      "name": "Performance table",
+      "kind": "custom",
+      "refersTo": "data-table",
+      "description": "Scrollable data table with right-aligned measured values.",
+      "html": "<div class=\"ds-table-wrap\"><table class=\"ds-table\"><thead><tr><th>Video / channel</th><th class=\"ds-number\">Views</th></tr></thead><tbody><tr><td>Observed publication</td><td class=\"ds-number\"><span tabindex=\"0\">—</span></td></tr></tbody></table></div>",
+      "css": ".ds-table-wrap{overflow-x:auto}.ds-table{width:100%;border-collapse:collapse;text-align:left;background:var(--surface,#fff);color:var(--ink,#20242c);font:400 12px/1.5 -apple-system,BlinkMacSystemFont,\"Segoe UI\",sans-serif;font-variant-numeric:tabular-nums}.ds-table th{font-size:10px;font-weight:550;color:var(--muted,#69717c);letter-spacing:.03em;background:#fafbfc;text-transform:uppercase;border-top:1px solid var(--line,#e6e8ec);border-bottom:1px solid var(--line,#e6e8ec);white-space:nowrap}.ds-table td,.ds-table th{padding:15px 20px;vertical-align:middle}.ds-table td{border-bottom:1px solid #edf0f3}.ds-table tbody tr:hover{background:#fcfcfd}.ds-table tbody tr:last-child td{border-bottom:0}.ds-number{text-align:right;white-space:nowrap}.ds-table [tabindex]:focus-visible{outline:2px solid var(--focus,#aa4630);outline-offset:4px;}"
+    }
+  ],
+  "narrative": {
+    "northStar": "Organic content workspace",
+    "overview": "An English-language organic-content workspace with a fixed graphite navigation rail and white, bordered work surfaces on a cool off-white ground. System sans typography, large tabular totals, restrained warm accents and a green recorded-view chart support quick comparison without a promotional hero.\n\nKeep the same navigation while switching between all channels and one brand. Put detailed freshness, coverage, collection failures and number definitions inside Data status; retain truthful approximation marks and missing values in the content being read. The implemented primary Refresh action is graphite, and the active section is pale; coral is a small brand/detail accent.",
+    "keyCharacteristics": [
+      "Stable section and brand navigation.",
+      "White bordered surfaces with generous internal spacing.",
+      "Large measured totals; quiet supporting labels.",
+      "Recorded history and explicit data states."
+    ],
+    "rules": [],
+    "dos": [
+      "Do retain the registered brand identities and their original asset links.",
+      "Do use tabular numerals, ≈ for rounded values, and — for unknown values.",
+      "Do preserve keyboard focus, drawer focus management and reduced-motion behavior.",
+      "Do put detailed source diagnostics behind Data status and keep the overview focused on results and content."
+    ],
+    "donts": [
+      "Don't introduce ads-manager controls, invented growth, deduplicated audience claims or publishing capabilities.",
+      "Don't replace missing observations with zero or draw estimated history.",
+      "Don't present a fallback brand avatar as a video frame or a newly produced thumbnail.",
+      "Don't promote the tiny source counters and technical paragraphs back into the opening layout."
+    ]
+  }
+}
