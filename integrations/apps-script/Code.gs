@@ -5,8 +5,8 @@ const SS_CHANNELS = {
   'dont-get-traced': {youtube:'UCqsTDLISgGhzA_xiQT3E9yg',instagram:'dontgettraced',tiktok:'dontgettraced',facebook:'61595574064670',since:'2026-10-21T00:00:00Z'},
   'dumb-luck': {youtube:'UCB-BqPU60vRfUWGalt6fRtQ',instagram:'duumb_luck',tiktok:'duumbluck',since:null},
   'no-code-kevin': {instagram:'nocode_kevin',tiktok:'nocodekevin',since:null},
-  'barely-shipped': {instagram:'bareelyshipped',tiktok:'barelyshipped',since:null},
-  'click-theory': {instagram:'click_theoory',tiktok:'click_theory',since:null}
+  'barely-shipped': {instagram:'bareelyshipped',since:null},
+  'selma-unsupervised': {instagram:'selmaunsupervised',tiktok:'barelyshipped',since:'2026-11-17T12:00:00Z'}
 };
 const SS_PLATFORMS = ['youtube','tiktok','instagram','facebook'];
 
@@ -305,6 +305,7 @@ function ssFacebook_(channel,knownIds) {
 
 function ssBegin_(platform,channel) {
   if(!Object.prototype.hasOwnProperty.call(SS_CHANNELS,channel)||!['tiktok','meta'].includes(platform)) throw new Error('INVALID_REQUEST');
+  if(platform==='tiktok'&&!SS_CHANNELS[channel].tiktok) throw new Error('INVALID_REQUEST');
   // No guessed Facebook Page for a brand registered only on Instagram.
   if(platform==='meta'&&!SS_CHANNELS[channel].facebook) throw new Error('CONFIGURATION_REQUIRED');
   const state=Utilities.getUuid().replace(/-/g,'')+Utilities.getUuid().replace(/-/g,'');
@@ -323,8 +324,7 @@ function connectTikTokIndian() { return ssBegin_('tiktok','indian-builds'); }
 function connectTikTokTraced() { return ssBegin_('tiktok','dont-get-traced'); }
 function connectTikTokDumbLuck() { return ssBegin_('tiktok','dumb-luck'); }
 function connectTikTokKevin() { return ssBegin_('tiktok','no-code-kevin'); }
-function connectTikTokBarely() { return ssBegin_('tiktok','barely-shipped'); }
-function connectTikTokClickTheory() { return ssBegin_('tiktok','click-theory'); }
+function connectTikTokSelma() { return ssBegin_('tiktok','selma-unsupervised'); }
 function connectMetaCooked() { return ssBegin_('meta','cooked-dev'); }
 function connectMetaIndian() { return ssBegin_('meta','indian-builds'); }
 function connectMetaTraced() { return ssBegin_('meta','dont-get-traced'); }
