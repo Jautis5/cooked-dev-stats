@@ -153,7 +153,7 @@ const manifest=JSON.parse(fs.readFileSync(require('node:path').join(__dirname,'.
   const {context}=runtime({BROKER_SIGNING_KEY:'test-only-signing-key-32-characters-long'});
   const channels=vm.runInContext('SS_CHANNELS',context);
   const registry=JSON.parse(fs.readFileSync(require('node:path').join(__dirname,'../data/channels.json'),'utf8')).channels;
-  assert.deepEqual(Object.keys(channels).sort(),['cooked-dev','indian-builds','dont-get-traced','dumb-luck','no-code-kevin','barely-shipped','click-theory'].sort());
+  assert.deepEqual(Object.keys(channels).sort(),['cooked-dev','indian-builds','dont-get-traced','dumb-luck','no-code-kevin','barely-shipped','selma-unsupervised'].sort());
   assert.ok(Object.keys(channels).every(id=>registry.some(c=>c.id===id)));
   for(const channel of registry) {
     if(!channels[channel.id])continue; // Future unconnected registrations do not disable the public pass.
@@ -169,6 +169,7 @@ const manifest=JSON.parse(fs.readFileSync(require('node:path').join(__dirname,'.
   const signature=crypto.createHmac('sha256','test-only-signing-key-32-characters-long').update(message).digest('hex');
   assert.throws(()=>context.ssRequest_({postData:{contents:JSON.stringify({message,signature})}}),/INVALID_REQUEST/);
   assert.throws(()=>context.ssBegin_('meta','barely-shipped'),/CONFIGURATION_REQUIRED/);
+  assert.throws(()=>context.ssBegin_('tiktok','barely-shipped'),/INVALID_REQUEST/);
 }
 {
   // Distinct real provider-response instants must not collapse to batch start.
@@ -202,23 +203,23 @@ const manifest=JSON.parse(fs.readFileSync(require('node:path').join(__dirname,'.
 {
   // Display API alone lists an explicitly authorized new brand's public posts.
   const saved={access_token:'test-display',refresh_token:'test-refresh',open_id:'owner',expiresAt:Date.now()+86400000};
-  const {context}=runtime({'TIKTOK_barely-shipped':JSON.stringify(saved),BROKER_SIGNING_KEY:'test-only-signing-key-32-characters-long'});
+  const {context}=runtime({'TIKTOK_selma-unsupervised':JSON.stringify(saved),BROKER_SIGNING_KEY:'test-only-signing-key-32-characters-long'});
   let wrongOwner=false;
   context.ssHTTP_=(url,options)=>{
     if(url.includes('/user/info/')) return {data:{user:{username:wrongOwner?'nocodekevin':'barelyshipped',open_id:'owner'}}};
     assert.ok(url.includes('/v2/video/list/'));
     return {data:{videos:[{id:'123',share_url:'https://www.tiktok.com/@barelyshipped/video/123',create_time:1793793600,title:'Owned'}],has_more:false}};
   };
-  const result=context.ssPosts_('barely-shipped','tiktok',{});
+  const result=context.ssPosts_('selma-unsupervised','tiktok',{});
   assert.equal(result.posts[0].id,'123');
   assert.equal(result.pageComplete,true);
-  assert.equal(context.ssCapabilities_('barely-shipped','tiktok').businessCredentialConfigured,false);
-  assert.equal(context.ssCapabilities_('barely-shipped','tiktok').status,'display_credentials_unverified');
+  assert.equal(context.ssCapabilities_('selma-unsupervised','tiktok').businessCredentialConfigured,false);
+  assert.equal(context.ssCapabilities_('selma-unsupervised','tiktok').status,'display_credentials_unverified');
   wrongOwner=true;
-  assert.throws(()=>context.ssPosts_('barely-shipped','tiktok',{}),/IDENTITY_MISMATCH/);
+  assert.throws(()=>context.ssPosts_('selma-unsupervised','tiktok',{}),/IDENTITY_MISMATCH/);
   wrongOwner=false;
   context.ssHTTP_=(url)=>url.includes('/user/info/')?{data:{user:{username:'barelyshipped',open_id:'owner'}}}:{data:{videos:[{id:'123',share_url:'https://www.tiktok.com/@nocodekevin/video/123',create_time:1793793600}],has_more:false}};
-  assert.throws(()=>context.ssTikTok_('barely-shipped',[]),/IDENTITY_MISMATCH/,'A foreign listed video cannot silently become a complete inventory');
+  assert.throws(()=>context.ssTikTok_('selma-unsupervised',[]),/IDENTITY_MISMATCH/,'A foreign listed video cannot silently become a complete inventory');
 }
 {
   const {context}=runtime();
