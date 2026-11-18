@@ -20,9 +20,10 @@ CHANNELS = {
     'dont-get-traced': {'instagram': 'dontgettraced', 'tiktok': 'dontgettraced'},
     'dumb-luck': {'instagram': 'duumb_luck', 'tiktok': 'duumbluck'},
     'no-code-kevin': {'instagram': 'nocode_kevin', 'tiktok': 'nocodekevin'},
-    'barely-shipped': {'instagram': 'bareelyshipped', 'tiktok': 'barelyshipped'},
-    'click-theory': {'instagram': 'click_theoory', 'tiktok': 'click_theory'},
+    'barely-shipped': {'instagram': 'bareelyshipped'},
+    'selma-unsupervised': {'instagram': 'selmaunsupervised', 'tiktok': 'barelyshipped'},
 }
+FEED_FOLDERS = {'cooked-dev': 'data', 'barely-shipped': 'data/barely-shipped-instagram'}
 ERRORS = {'CONFIGURATION_REQUIRED', 'UNAUTHORIZED', 'INVALID_REQUEST', 'REPLAY_REJECTED',
           'IDENTITY_MISMATCH', 'RECONNECT_REQUIRED', 'SOURCE_UNAVAILABLE',
           'BUSINESS_ACCESS_REQUIRED', 'PERMISSION_REQUIRED', 'POST_NOT_FOUND'}
@@ -73,7 +74,7 @@ class Backend:
         return json.loads(value)
 
     def call(self, channel, action, options=None):
-        if channel not in CHANNELS or action not in ('capabilities', 'posts', 'comments', 'traffic'):
+        if self.platform not in CHANNELS.get(channel, {}) or action not in ('capabilities', 'posts', 'comments', 'traffic'):
             raise BackendError('INVALID_REQUEST')
         url, key = self._configuration()
         message = json.dumps([1, action, int(time.time()), secrets.token_hex(16), channel,
@@ -101,8 +102,8 @@ class Backend:
             raise BackendError('SOURCE_UNAVAILABLE') from None
 
     def status(self, channel='all'):
-        channels = list(CHANNELS) if channel == 'all' else [channel]
-        if any(c not in CHANNELS for c in channels):
+        channels = [c for c, handles in CHANNELS.items() if self.platform in handles] if channel == 'all' else [channel]
+        if any(self.platform not in CHANNELS.get(c, {}) for c in channels):
             raise BackendError('INVALID_REQUEST')
         with concurrent.futures.ThreadPoolExecutor(max_workers=3) as pool:
             pending = {c: pool.submit(self.call, c, 'capabilities') for c in channels}
@@ -129,9 +130,9 @@ class Backend:
         return self.call(channel, 'traffic', options)
 
     def _public_feed(self, channel, suffix):
-        if channel not in CHANNELS or not re.fullmatch(r'latest\.json|archive/\d{4}-\d{2}\.jsonl', suffix):
+        if self.platform not in CHANNELS.get(channel, {}) or not re.fullmatch(r'latest\.json|archive/\d{4}-\d{2}\.jsonl', suffix):
             raise BackendError('INVALID_REQUEST')
-        folder = 'data' if channel == 'cooked-dev' else 'data/' + channel
+        folder = FEED_FOLDERS.get(channel, 'data/' + channel)
         url = 'https://raw.githubusercontent.com/Jautis5/cooked-dev-stats/main/' + folder + '/' + suffix
         try:
             request = urllib.request.Request(url, headers={'User-Agent': 'Social-Stats-Read-Only-MCP'})
@@ -200,7 +201,7 @@ class Backend:
 
     def scan_comments(self, channel, post_id, max_pages=10, continuation=''):
         """Traverse comment and reply pages. Resume is explicit; a failed page stays pending."""
-        if channel not in CHANNELS or not re.fullmatch(r'[-A-Za-z0-9_]{1,64}', post_id) or not 1 <= max_pages <= 30:
+        if self.platform not in CHANNELS.get(channel, {}) or not re.fullmatch(r'[-A-Za-z0-9_]{1,64}', post_id) or not 1 <= max_pages <= 30:
             raise BackendError('INVALID_REQUEST')
         pending, seen = [''], set()
         if continuation:
