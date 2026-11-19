@@ -11,8 +11,8 @@
       "handle": "hoood_dev",
       "expectedHandle": "hoood_dev",
       "url": "https://www.instagram.com/hoood_dev/",
-      "status": "partial",
-      "message": "Public video metrics updated; per-metric dates retained.",
+      "status": "unavailable",
+      "message": "Public source unavailable; previous observations preserved.",
       "metrics": {
         "followers": {
           "value": 3,
@@ -29,7 +29,7 @@
           "approximate": false
         }
       },
-      "lastAttemptAt": "2026-11-19T07:14:50.379926+00:00",
+      "lastAttemptAt": "2026-11-19T07:30:50.962576+00:00",
       "lastSuccessAt": "2026-11-19T07:14:50.379926+00:00"
     }
   ],
@@ -9518,12 +9518,19 @@
       "posts": 25,
       "approximate": false,
       "partial": false
+    },
+    {
+      "at": "2026-11-19T07:30:50.962576+00:00",
+      "views": 21608,
+      "posts": 25,
+      "approximate": false,
+      "partial": false
     }
   ],
   "discovery": {
     "instagram": {
       "status": "session_required",
-      "checkedAt": "2026-11-19T07:14:50.379926+00:00",
+      "checkedAt": "2026-11-19T07:30:50.962576+00:00",
       "complete": false,
       "message": "New-publication discovery requires an authorized account list; a successful metrics check is not a complete list.",
       "lastCompleteAt": "2026-11-16T09:41:09.723Z"
@@ -9533,15 +9540,15 @@
     "excludedPostIds": {},
     "note": "Registered owned identities only; no complete inventory or public metric was inferred from registration."
   },
-  "lastAttemptAt": "2026-11-19T07:14:50.379926+00:00",
-  "generatedAt": "2026-11-19T07:14:50.379926+00:00",
+  "lastAttemptAt": "2026-11-19T07:30:50.962576+00:00",
+  "generatedAt": "2026-11-19T07:30:50.962576+00:00",
   "cloudCollection": {
-    "at": "2026-11-19T07:14:50.379926+00:00",
+    "at": "2026-11-19T07:30:50.962576+00:00",
     "method": "public_cloud",
     "metricsUpdated": {
-      "instagram": 50
+      "instagram": 0
     },
-    "runUrl": "https://github.com/Jautis5/cooked-dev-stats/actions/runs/44477529078"
+    "runUrl": "https://github.com/Jautis5/cooked-dev-stats/actions/runs/44479692563"
   },
   "schedule": {
     "provider": "GitHub Actions",
@@ -9549,8 +9556,8 @@
     "cron": "7-59/15 * * * *"
   },
   "changes24h": {
-    "at": "2026-11-19T07:14:50.379926+00:00",
-    "baselineAt": "2026-11-18T07:20:37.754620+00:00",
+    "at": "2026-11-19T07:30:50.962576+00:00",
+    "baselineAt": "2026-11-18T07:37:09.208860+00:00",
     "views": null,
     "likes": null,
     "followers": null
