@@ -5,8 +5,8 @@
     "name": "DontGetTraced"
   },
   "sheetUrl": "https://docs.google.com/spreadsheets/d/1sT8AqlGMMqnJUCcA697DaVcLvRqsJhCT4xMIdl52WYY/edit#gid=1732102601",
-  "generatedAt": "2026-11-20T11:14:28.484464+00:00",
-  "lastAttemptAt": "2026-11-20T11:14:28.484464+00:00",
+  "generatedAt": "2026-11-20T11:16:15.896Z",
+  "lastAttemptAt": "2026-11-20T11:16:15.896Z",
   "schedule": {
     "provider": "GitHub Actions",
     "intervalMinutes": 15,
@@ -134,14 +134,14 @@
       "handle": "Don't Get Traced",
       "url": "https://www.facebook.com/profile.php?id=61595574064670",
       "expectedPageId": "61595574064670",
-      "status": "unavailable",
-      "message": "Facebook list metrics need the connected Lost Chrome session; previous observations preserved.",
-      "lastAttemptAt": "2026-11-20T11:14:28.484464+00:00",
-      "lastSuccessAt": "2026-11-16T10:43:04.213Z",
+      "status": "partial",
+      "message": "Public profile and visible video metrics checked in the browser.",
+      "lastAttemptAt": "2026-11-20T11:14:51.670Z",
+      "lastSuccessAt": "2026-11-20T11:14:51.670Z",
       "metrics": {
         "followers": {
           "value": 0,
-          "at": "2026-11-04T11:34:05.102Z",
+          "at": "2026-11-20T11:14:51.670Z",
           "source": "https://www.facebook.com/profile.php?id=61595574064670",
           "method": "browser_bulk",
           "approximate": false,
@@ -149,7 +149,7 @@
         },
         "following": {
           "value": 0,
-          "at": "2026-11-04T11:34:05.102Z",
+          "at": "2026-11-20T11:14:51.670Z",
           "source": "https://www.facebook.com/profile.php?id=61595574064670",
           "method": "browser_bulk",
           "approximate": false,
@@ -171,20 +171,18 @@
       "handle": "DontGetTraced",
       "url": "https://x.com/DontGetTraced",
       "expectedHandle": "DontGetTraced",
-      "status": "unavailable",
-      "message": "X list metrics need the connected Lost Chrome session; previous observations preserved.",
-      "lastAttemptAt": "2026-11-20T11:14:28.484464+00:00",
-      "lastSuccessAt": "2026-11-20T10:57:45.489912+00:00",
+      "status": "partial",
+      "message": "Public profile and visible video metrics checked in the browser.",
+      "lastAttemptAt": "2026-11-20T11:16:15.896Z",
+      "lastSuccessAt": "2026-11-20T11:16:15.896Z",
       "metrics": {
         "followers": {
           "value": 0,
-          "at": "2026-11-20T10:59:19.961501+00:00",
+          "at": "2026-11-20T11:16:15.896Z",
           "source": "https://x.com/DontGetTraced",
+          "method": "browser_bulk",
           "approximate": false,
-          "collectionCycleAt": "2026-11-20T10:57:45.489912+00:00",
-          "method": "fxembed_public",
-          "via": "https://api.fxtwitter.com/2/profile/DontGetTraced",
-          "upstreamObservedAt": null
+          "displayValue": "0"
         },
         "publishedCount": {
           "value": 0,
@@ -202,7 +200,7 @@
         },
         "following": {
           "value": 2,
-          "at": "2026-11-04T11:32:10.711Z",
+          "at": "2026-11-20T11:16:15.896Z",
           "source": "https://x.com/DontGetTraced",
           "method": "browser_bulk",
           "approximate": false,
@@ -355,13 +353,6 @@
     }
   ],
   "history": [
-    {
-      "at": "2026-10-26T09:52:55.613325+00:00",
-      "views": 4738,
-      "posts": 2,
-      "approximate": false,
-      "partial": false
-    },
     {
       "at": "2026-10-26T09:56:22.693Z",
       "views": 4987,
@@ -15474,6 +15465,13 @@
       "posts": 2,
       "approximate": false,
       "partial": false
+    },
+    {
+      "at": "2026-11-20T11:16:15.896Z",
+      "views": 5365,
+      "posts": 2,
+      "approximate": false,
+      "partial": false
     }
   ],
   "tracking": {
@@ -15497,7 +15495,7 @@
     "runUrl": "https://github.com/Jautis5/cooked-dev-stats/actions/runs/44725259850"
   },
   "changes24h": {
-    "at": "2026-11-20T11:14:28.484464+00:00",
+    "at": "2026-11-20T11:16:15.896Z",
     "baselineAt": "2026-11-19T11:10:16.230994+00:00",
     "views": null,
     "likes": null,
@@ -15548,8 +15546,6 @@
       "feedStatus": "unavailable",
       "newVideos": 0,
       "reportedPosts": 1,
-      "lastCompleteAt": "2026-11-10T10:36:45.390Z",
-      "lastCompletePostCount": 1,
       "revokedCompleteChecks": [
         {
           "at": "2026-11-03T15:24:44.629Z",
@@ -15557,7 +15553,9 @@
           "fallbackAt": "2026-11-03T13:39:48.741Z",
           "reason": "Historical full-list claim retracted: outer-document end/count did not independently prove the actual TikTok inner video-list terminal state."
         }
-      ]
+      ],
+      "lastCompleteAt": "2026-11-10T10:36:45.390Z",
+      "lastCompletePostCount": 1
     }
   },
   "identityCorrections": [

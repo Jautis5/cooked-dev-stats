@@ -6,8 +6,8 @@
   },
   "sheetUrl": "https://docs.google.com/spreadsheets/d/1sT8AqlGMMqnJUCcA697DaVcLvRqsJhCT4xMIdl52WYY/edit#gid=785807837",
   "sourceUrl": "https://github.com/Jautis5/cooked-dev-stats",
-  "generatedAt": "2026-11-20T11:14:28.484464+00:00",
-  "lastAttemptAt": "2026-11-20T11:14:28.484464+00:00",
+  "generatedAt": "2026-11-20T11:22:19.824Z",
+  "lastAttemptAt": "2026-11-20T11:22:19.824Z",
   "schedule": {
     "provider": "GitHub Actions",
     "intervalMinutes": 15,
@@ -132,11 +132,11 @@
       "name": "Facebook",
       "url": "https://www.facebook.com/profile.php?id=61594164374065",
       "expectedPageId": "61594164374065",
-      "status": "unavailable",
+      "status": "partial",
       "metrics": {
         "followers": {
           "value": 0,
-          "at": "2026-11-04T11:35:52.714Z",
+          "at": "2026-11-20T11:14:51.670Z",
           "source": "https://www.facebook.com/profile.php?id=61594164374065",
           "method": "browser_bulk",
           "approximate": false,
@@ -158,16 +158,16 @@
         },
         "following": {
           "value": 0,
-          "at": "2026-11-04T11:35:52.714Z",
+          "at": "2026-11-20T11:14:51.670Z",
           "source": "https://www.facebook.com/profile.php?id=61594164374065",
           "method": "browser_bulk",
           "approximate": false,
           "displayValue": "0"
         }
       },
-      "lastAttemptAt": "2026-11-20T11:14:28.484464+00:00",
-      "lastSuccessAt": "2026-11-16T10:41:43.905Z",
-      "message": "Facebook list metrics need the connected Lost Chrome session; previous observations preserved."
+      "lastAttemptAt": "2026-11-20T11:22:19.824Z",
+      "lastSuccessAt": "2026-11-20T11:22:19.824Z",
+      "message": "Public profile and visible video metrics checked in the browser."
     },
     {
       "id": "x",
@@ -178,13 +178,11 @@
       "metrics": {
         "followers": {
           "value": 0,
-          "at": "2026-11-20T11:15:50.372521+00:00",
+          "at": "2026-11-20T11:16:15.891Z",
           "source": "https://x.com/IndiaanBuilds",
+          "method": "browser_bulk",
           "approximate": false,
-          "collectionCycleAt": "2026-11-20T11:14:28.484464+00:00",
-          "method": "fxembed_public",
-          "via": "https://api.fxtwitter.com/2/status/2112922413596115454",
-          "upstreamObservedAt": null
+          "displayValue": "0"
         },
         "trackedPublishedCount": {
           "value": 1,
@@ -202,16 +200,16 @@
         },
         "following": {
           "value": 3,
-          "at": "2026-11-04T11:32:10.576Z",
+          "at": "2026-11-20T11:16:15.891Z",
           "source": "https://x.com/IndiaanBuilds",
           "method": "browser_bulk",
           "approximate": false,
           "displayValue": "3"
         }
       },
-      "lastAttemptAt": "2026-11-20T11:14:28.484464+00:00",
-      "lastSuccessAt": "2026-11-20T11:14:28.484464+00:00",
-      "message": "Public video metrics updated; per-metric dates retained."
+      "lastAttemptAt": "2026-11-20T11:16:15.891Z",
+      "lastSuccessAt": "2026-11-20T11:16:15.891Z",
+      "message": "Public profile and visible video metrics checked in the browser."
     },
     {
       "id": "youtube",
@@ -245,9 +243,9 @@
           "approximate": false
         }
       },
-      "lastAttemptAt": "2026-11-20T11:14:28.484464+00:00",
-      "lastSuccessAt": "2026-11-20T11:14:28.484464+00:00",
-      "message": "Public video metrics updated; per-metric dates retained."
+      "lastAttemptAt": "2026-11-20T11:16:15.886Z",
+      "lastSuccessAt": "2026-11-20T11:16:15.886Z",
+      "message": "Public profile and visible video metrics checked in the browser."
     }
   ],
   "videos": [
@@ -266,10 +264,11 @@
           "metrics": {
             "views": {
               "value": 147,
-              "at": "2026-11-20T11:15:57.564330+00:00",
+              "at": "2026-11-20T11:16:15.886Z",
               "source": "https://www.youtube.com/shorts/_wtrSJFWlJc",
+              "method": "browser_bulk",
               "approximate": false,
-              "collectionCycleAt": "2026-11-20T11:14:28.484464+00:00"
+              "displayValue": "147"
             },
             "comments": {
               "value": 1,
@@ -303,12 +302,12 @@
           "url": "https://www.facebook.com/reel/2392321408243345",
           "metrics": {
             "views": {
-              "value": 460,
-              "at": "2026-11-16T10:41:14.151Z",
+              "value": 462,
+              "at": "2026-11-20T11:14:51.670Z",
               "source": "https://www.facebook.com/reel/2392321408243345",
-              "method": "browser_owner_insights",
+              "method": "browser_bulk",
               "approximate": false,
-              "definition": "Facebook visible views counter; exact public Reel ID verified"
+              "displayValue": "462"
             },
             "likes": {
               "value": 1,
@@ -328,11 +327,11 @@
             },
             "shares": {
               "value": 0,
-              "at": "2026-11-16T10:41:14.151Z",
+              "at": "2026-11-20T11:22:19.824Z",
               "source": "https://www.facebook.com/reel/2392321408243345",
-              "method": "browser_owner_insights",
+              "method": "browser_bulk",
               "approximate": false,
-              "definition": "Facebook visible shares counter; exact public Reel ID verified"
+              "displayValue": "0"
             },
             "publicReelViews": {
               "value": 444,
@@ -359,6 +358,14 @@
               "approximate": false,
               "displayValue": "454",
               "definition": "Facebook public Reels grid view counter; distinct from Content Library Views and facebookPublicVideoViews"
+            },
+            "reactions": {
+              "value": 1,
+              "at": "2026-11-20T11:22:19.824Z",
+              "source": "https://www.facebook.com/reel/2392321408243345",
+              "method": "browser_bulk",
+              "approximate": false,
+              "displayValue": "1"
             }
           },
           "publicationVerifiedAt": "2026-10-22T21:34:23.190703+00:00",
@@ -370,23 +377,19 @@
           "metrics": {
             "likes": {
               "value": 0,
-              "at": "2026-11-20T11:15:50.558439+00:00",
+              "at": "2026-11-20T11:16:15.891Z",
               "source": "https://x.com/IndiaanBuilds/status/2112922413596115454",
+              "method": "browser_bulk",
               "approximate": false,
-              "collectionCycleAt": "2026-11-20T11:14:28.484464+00:00",
-              "method": "fxembed_public",
-              "via": "https://api.fxtwitter.com/2/profile/id:2112484311718932480/media?count=100",
-              "upstreamObservedAt": null
+              "displayValue": "0"
             },
             "comments": {
               "value": 0,
-              "at": "2026-11-20T11:15:50.558445+00:00",
+              "at": "2026-11-20T11:16:15.891Z",
               "source": "https://x.com/IndiaanBuilds/status/2112922413596115454",
+              "method": "browser_bulk",
               "approximate": false,
-              "collectionCycleAt": "2026-11-20T11:14:28.484464+00:00",
-              "method": "fxembed_public",
-              "via": "https://api.fxtwitter.com/2/profile/id:2112484311718932480/media?count=100",
-              "upstreamObservedAt": null
+              "displayValue": "0"
             },
             "views": {
               "value": 52,
@@ -410,20 +413,19 @@
             },
             "reposts": {
               "value": 0,
-              "at": "2026-11-04T11:32:10.576Z",
+              "at": "2026-11-20T11:16:15.891Z",
               "source": "https://x.com/IndiaanBuilds/status/2112922413596115454",
               "method": "browser_bulk",
               "approximate": false,
               "displayValue": "0"
             },
             "postViews": {
-              "value": 50,
-              "at": "2026-11-04T11:32:10.576Z",
+              "value": 51,
+              "at": "2026-11-20T11:16:15.891Z",
               "source": "https://x.com/IndiaanBuilds/status/2112922413596115454",
               "method": "browser_bulk",
               "approximate": false,
-              "displayValue": "50",
-              "definition": "X public post view counter; not asserted video plays"
+              "displayValue": "51"
             }
           },
           "publicationVerifiedAt": "2026-10-22T21:34:23.190703+00:00",
@@ -831,13 +833,6 @@
     }
   ],
   "history": [
-    {
-      "at": "2026-10-29T23:33:04.970307+00:00",
-      "views": 11407,
-      "posts": 11,
-      "approximate": false,
-      "partial": false
-    },
     {
       "at": "2026-10-29T23:50:40.850283+00:00",
       "views": 11407,
@@ -15950,6 +15945,13 @@
       "posts": 11,
       "approximate": false,
       "partial": false
+    },
+    {
+      "at": "2026-11-20T11:22:19.824Z",
+      "views": 11831,
+      "posts": 11,
+      "approximate": false,
+      "partial": false
     }
   ],
   "tracking": {
@@ -15971,8 +15973,8 @@
     "summary": "Indian Summary"
   },
   "changes24h": {
-    "at": "2026-11-20T11:14:28.484464+00:00",
-    "baselineAt": "2026-11-19T11:10:16.230994+00:00",
+    "at": "2026-11-20T11:22:19.824Z",
+    "baselineAt": "2026-11-19T11:28:49.818434+00:00",
     "views": null,
     "likes": null,
     "followers": null
@@ -16040,8 +16042,6 @@
       "feedStatus": "unavailable",
       "newVideos": 0,
       "reportedPosts": 4,
-      "lastCompleteAt": "2026-11-10T10:36:08.735Z",
-      "lastCompletePostCount": 4,
       "revokedCompleteChecks": [
         {
           "at": "2026-11-03T15:24:43.937Z",
@@ -16049,7 +16049,9 @@
           "fallbackAt": "2026-11-03T13:39:48.715Z",
           "reason": "Historical full-list claim retracted: outer-document end/count did not independently prove the actual TikTok inner video-list terminal state."
         }
-      ]
+      ],
+      "lastCompleteAt": "2026-11-10T10:36:08.735Z",
+      "lastCompletePostCount": 4
     }
   },
   "identityCorrections": [
