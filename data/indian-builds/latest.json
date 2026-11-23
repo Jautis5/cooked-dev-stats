@@ -6,8 +6,8 @@
   },
   "sheetUrl": "https://docs.google.com/spreadsheets/d/1sT8AqlGMMqnJUCcA697DaVcLvRqsJhCT4xMIdl52WYY/edit#gid=785807837",
   "sourceUrl": "https://github.com/Jautis5/cooked-dev-stats",
-  "generatedAt": "2026-11-23T08:08:07.041474+00:00",
-  "lastAttemptAt": "2026-11-23T08:08:07.041474+00:00",
+  "generatedAt": "2026-11-23T08:20:32.528Z",
+  "lastAttemptAt": "2026-11-23T08:20:32.528Z",
   "schedule": {
     "provider": "GitHub Actions",
     "intervalMinutes": 15,
@@ -136,11 +136,9 @@
       "metrics": {
         "followers": {
           "value": 0,
-          "at": "2026-11-20T11:14:51.670Z",
+          "at": "2026-11-23T08:20:32.528Z",
           "source": "https://www.facebook.com/profile.php?id=61594164374065",
-          "method": "browser_bulk",
-          "approximate": false,
-          "displayValue": "0"
+          "method": "browser_bulk"
         },
         "publishedCount": {
           "value": 1,
@@ -303,12 +301,10 @@
           "url": "https://www.facebook.com/reel/2392321408243345",
           "metrics": {
             "views": {
-              "value": 462,
-              "at": "2026-11-20T11:14:51.670Z",
+              "value": 467,
+              "at": "2026-11-23T08:20:32.528Z",
               "source": "https://www.facebook.com/reel/2392321408243345",
-              "method": "browser_bulk",
-              "approximate": false,
-              "displayValue": "462"
+              "method": "browser_bulk"
             },
             "likes": {
               "value": 1,
@@ -838,13 +834,6 @@
     }
   ],
   "history": [
-    {
-      "at": "2026-11-01T10:53:53.341437+00:00",
-      "views": 11481,
-      "posts": 11,
-      "approximate": false,
-      "partial": false
-    },
     {
       "at": "2026-11-01T11:09:11.332302+00:00",
       "views": 11482,
@@ -15957,6 +15946,13 @@
       "posts": 11,
       "approximate": false,
       "partial": false
+    },
+    {
+      "at": "2026-11-23T08:20:32.528Z",
+      "views": 11836,
+      "posts": 11,
+      "approximate": false,
+      "partial": false
     }
   ],
   "tracking": {
@@ -15978,7 +15974,7 @@
     "summary": "Indian Summary"
   },
   "changes24h": {
-    "at": "2026-11-23T08:08:07.041474+00:00",
+    "at": "2026-11-23T08:20:32.528Z",
     "baselineAt": "2026-11-22T08:16:59.145847+00:00",
     "views": null,
     "likes": null,
@@ -16047,8 +16043,6 @@
       "feedStatus": "unavailable",
       "newVideos": 0,
       "reportedPosts": 4,
-      "lastCompleteAt": "2026-11-10T10:36:08.735Z",
-      "lastCompletePostCount": 4,
       "revokedCompleteChecks": [
         {
           "at": "2026-11-03T15:24:43.937Z",
@@ -16056,7 +16050,9 @@
           "fallbackAt": "2026-11-03T13:39:48.715Z",
           "reason": "Historical full-list claim retracted: outer-document end/count did not independently prove the actual TikTok inner video-list terminal state."
         }
-      ]
+      ],
+      "lastCompleteAt": "2026-11-10T10:36:08.735Z",
+      "lastCompletePostCount": 4
     }
   },
   "identityCorrections": [
