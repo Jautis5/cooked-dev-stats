@@ -5,7 +5,7 @@ on:
   workflow_dispatch:
   push:
     branches: [main]
-    paths: ['scripts/collect_kit.py', '.github/workflows/kit.yml']
+    paths: ['scripts/collect_kit.py', 'scripts/collect_lumo_kit.py', '.github/workflows/kit.yml']
 permissions:
   contents: write
   actions: write
@@ -25,20 +25,24 @@ jobs:
         with:
           python-version: '3.12'
       - name: Verify aggregate-only collection
-        run: python -m unittest discover -s scripts -p test_kit.py
+        run: python -m unittest discover -s scripts -p 'test_*kit.py'
       - name: Read confirmed subscriber count
         env:
           KIT_API_KEY: ${{ secrets.KIT_API_KEY }}
         run: python scripts/collect_kit.py
-      - name: Publish count without overwriting concurrent work
+      - name: Read Lumo Wins newsletter analytics
+        env:
+          LUMO_KIT_PUBLIC_API_KEY: ${{ secrets.LUMO_KIT_PUBLIC_API_KEY }}
+        run: python scripts/collect_lumo_kit.py
+      - name: Publish Kit aggregates without overwriting concurrent work
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          if git diff --quiet -- site/data/kit.json; then exit 0; fi
+          if git diff --quiet -- site/data/kit.json site/data/lumo-kit.json; then exit 0; fi
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add site/data/kit.json
-          git commit -m 'Refresh Kit confirmed subscriber count'
+          git add site/data/kit.json site/data/lumo-kit.json
+          git commit -m 'Refresh Kit newsletter metrics'
           published=false
           for attempt in 1 2 3 4; do
             git pull --rebase origin main
