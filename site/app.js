@@ -9,7 +9,7 @@ const ICONS = {
 };
 let channels=[],entries=new Map(),active='all',loading=false,chartRange='24h',chartScope='all',renderedScope='all',cloudHealth=null,cloudConfig={},clockRuns=null;
 let publishingQueue=null;
-let kitStats=null,kitFeedFailed=false;
+let kitStats=null,kitFeedFailed=false,lumoKitStats=null,lumoKitFeedFailed=false;
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const full=n=>n==null?'—':new Intl.NumberFormat('en-US').format(n);
 function compact(n) {
@@ -99,15 +99,75 @@ function kitCard(d,failed=false,scope=selected()?.id||'all',now=Date.now()){
  return '<article class="stat email-stat"><div class="stat-label">'+svg('<rect x="3" y="5" width="18" height="14" rx="3"/><path d="m3 6 9 7 9-7"/>')+'Emails collected</div><div class="stat-value" tabindex="0" title="Kit Total subscribers · confirmed subscribers">'+count+'</div><p class="kit-owner">Cooked Dev · Kit</p><div class="stat-bottom"><a class="kit-subscribers" href="https://app.kit.com/subscribers" target="_blank" rel="noopener">Subscribers '+svg('<path d="M7 17 17 7M7 7h10v10"/>')+'</a><span class="kit-state '+(fresh?'fresh':'limited')+'" title="'+esc(status)+'">'+(fresh?'Auto-updated':'Saved')+'</span></div></article>';
 
 }
-async function loadKit(){
- const urls=['https://raw.githubusercontent.com/Jautis5/cooked-dev-stats/main/site/data/kit.json','data/kit.json'];
+function validLumoKitStats(d){
+ return d?.version===1&&d.channelId==='lumo-wins'&&['ok','partial','error','authorization_required'].includes(d.status)
+  &&(d.status==='authorization_required'||Number.isFinite(Date.parse(d.lastAttemptAt)));
+}
+async function fetchKitFeed(filename,validate,previous){
+ const urls=['https://raw.githubusercontent.com/Jautis5/cooked-dev-stats/main/site/data/'+filename,'data/'+filename];
  const results=await Promise.allSettled(urls.map(async url=>{
-  const r=await fetch(url+'?v='+Date.now(),{cache:'no-store',signal:AbortSignal.timeout(8000)});
-  if(!r.ok)throw Error('Kit feed unavailable');const d=await r.json();if(!validKitStats(d))throw Error('Invalid Kit count');return d;
+  const response=await fetch(url+'?v='+Date.now(),{cache:'no-store',signal:AbortSignal.timeout(8000)});
+  if(!response.ok)throw Error('Kit feed unavailable');
+  const data=await response.json();
+  if(!validate(data))throw Error('Invalid Kit feed');
+  return data;
  }));
- kitFeedFailed=results[0].status==='rejected';
- const candidates=[...results.flatMap(r=>r.status==='fulfilled'?[r.value]:[]),...(kitStats?[kitStats]:[])];
- kitStats=candidates.sort((a,b)=>(Date.parse(b.lastAttemptAt||b.totalSubscribers.at)-Date.parse(a.lastAttemptAt||a.totalSubscribers.at)))[0]||null;
+ const candidates=results.flatMap(r=>r.status==='fulfilled'?[r.value]:[]);
+ const failed=candidates.length===0;
+ if(previous)candidates.push(previous);
+ const checked=d=>Date.parse(d.lastAttemptAt||d.totalSubscribers?.at)||0;
+ return {data:candidates.sort((a,b)=>checked(b)-checked(a))[0]||null,failed};
+}
+async function loadKit(){
+ const [cooked,lumo]=await Promise.all([
+  fetchKitFeed('kit.json',validKitStats,kitStats),
+  fetchKitFeed('lumo-kit.json',validLumoKitStats,lumoKitStats),
+ ]);
+ kitFeedFailed=cooked.failed;
+ kitStats=cooked.data;
+ lumoKitFeedFailed=lumo.failed;
+ lumoKitStats=lumo.data;
+}
+function lumoKitSection(d,failed=false,now=Date.now()){
+ const sections=['totalSubscribers','growth','email','forms','broadcasts'];
+ const noData=sections.every(key=>d?.[key]?.value==null);
+ const delayed=failed||now-Date.parse(d?.lastAttemptAt)>30*60000;
+ const state=!d||d.status==='authorization_required'?'Waiting for Kit connection':d.status==='error'?'Kit update failed':d.status==='partial'?'Some Kit metrics could not be refreshed':delayed?'Kit refresh delayed':'Updated '+time(d.lastAttemptAt);
+ const head='<div class="block-head"><div><h2 id="lumo-kit-title">Kit newsletter</h2><p class="muted">'+esc(state)+'</p></div><a class="btn" href="https://app.kit.com/dashboard" target="_blank" rel="noopener">Open Kit ↗</a></div>';
+ if(noData)return head;
+ const value=key=>d?.[key]?.value;
+ const observed=key=>d[key]?.at?'Observed '+time(d[key].at):'';
+ const checked=key=>observed(key)?' · '+observed(key):'';
+ const observedLine=key=>observed(key)?'<p class="muted">'+esc(observed(key))+'</p>':'';
+ const number=n=>Number.isFinite(n)?full(n):'—';
+ const percent=n=>Number.isFinite(n)?full(n)+'%':'—';
+ const period=(a,b)=>esc(String(a||'').slice(0,10)+' – '+String(b||'').slice(0,10));
+ const sub=value('totalSubscribers');
+ const counts='<p class="muted"><strong>'+number(sub)+'</strong> confirmed subscribers'+esc(checked('totalSubscribers'))+'</p>';
+ const table=(title,labels,rows,empty)=>'<h3>'+esc(title)+'</h3>'+(rows.length?'<div class="table-wrap"><table aria-label="'+esc(title)+'"><thead><tr>'+labels.map(label=>'<th scope="col">'+esc(label)+'</th>').join('')+'</tr></thead><tbody>'+rows.map(row=>'<tr>'+row.map(cell=>'<td>'+cell+'</td>').join('')+'</tr>').join('')+'</tbody></table></div>':'<p class="muted">'+esc(empty)+'</p>');
+ const growth=value('growth');
+ const growthTable=table('Subscriber growth',['Period','Dates in Kit','New','Cancellations','Net growth'],[7,30,90].flatMap(days=>{
+  const row=growth?.[days];
+  return row?[[days+' days',period(row.starting,row.ending),number(row.new_subscribers),number(row.cancellations),number(row.net_new_subscribers)]]:[];
+ }),'Growth data unavailable.')+observedLine('growth');
+ const email=value('email');
+ const emailTable=table('Email performance',['Dates in Kit','Sent','Opened','Open rate','Clicked','Click rate','Unsubscribe rate','Bounce rate'],email?[[period(email.starting,email.ending),number(email.sent),number(email.opened),percent(email.open_rate),number(email.clicked),percent(email.click_rate),percent(email.unsubscribe_rate),percent(email.bounce_rate)]]:[],'Email performance unavailable.')+observedLine('email');
+ const forms=value('forms');
+ const formTable=table('Signup forms & pages',['Source','Status','Subscribers'],(forms||[]).map(row=>[(row.type==='landing_page'?'Landing page':'Form')+' #'+number(row.id),row.archived?'Archived':'Active',number(row.subscribers)]),forms?'No signup forms or landing pages.':'Signup source data unavailable.')+observedLine('forms');
+ const broadcasts=value('broadcasts');
+ const broadcastTable=table('Sent broadcasts',['Broadcast','Sent','Recipients','Opens','Open rate','Clicks','Click rate','Unsubscribes','Unsubscribe rate'],(broadcasts||[]).map(row=>['#'+number(row.id),esc(time(row.sentAt)),number(row.recipients),number(row.opens),percent(row.openRate),number(row.clicks),percent(row.clickRate),number(row.unsubscribes),percent(row.unsubscribeRate)]),broadcasts?'No sent broadcasts in the available Kit history.':'Broadcast data unavailable.')+observedLine('broadcasts');
+ return head+counts+'<details class="number-notes"><summary>Newsletter analytics</summary>'+growthTable+emailTable+formTable+broadcastTable+'</details>';
+}
+function renderLumoKit(){
+ const section=$('lumo-kit');
+ section.hidden=selected()?.id!=='lumo-wins'||currentView()!=='overview';
+ if(section.hidden)return;
+ const html=lumoKitSection(lumoKitStats,lumoKitFeedFailed);
+ if(section.dataset.rendered===html)return;
+ section.dataset.rendered=html;
+ const wasOpen=section.querySelector('details')?.open;
+ section.innerHTML=html;
+ if(wasOpen&&section.querySelector('details'))section.querySelector('details').open=true;
 }
 function renderKit(){
  const stats=$('stats'),html=kitCard(kitStats,kitFeedFailed);
@@ -314,6 +374,7 @@ function render(){
  if(available.length)renderStats(combine(summaries),data||(available.length===1?entries.get(available[0].id).data:null));
  else $('stats').innerHTML='<p class="loading">Stats are unavailable. Try reloading the feed.</p>';
  renderKit();
+ renderLumoKit();
  const attempts=scope.map(x=>checkedAt(entries.get(x.id)?.data)).filter(Boolean).sort();
  $('last-check').textContent=attempts.length?(c?'Feed checked: ':'Oldest feed check: ')+time(attempts[0]):'No successful feed check';
  const states=scope.map(x=>sourceState(entries.get(x.id)));
@@ -605,4 +666,4 @@ $('sidebar')?.addEventListener('click',event=>{const link=event.target.closest('
 document.querySelector('.skip-link')?.addEventListener('click',event=>{event.preventDefault();$('main').focus();});
 
 load();setInterval(load,300000);
-setInterval(async()=>{await loadKit();const email=$('stats').querySelector('.email-stat');if(email){const node=document.createElement('div');node.innerHTML=kitCard(kitStats,kitFeedFailed);email.replaceWith(node.firstElementChild);}},60000);
+setInterval(async()=>{await loadKit();renderLumoKit();const email=$('stats').querySelector('.email-stat');if(email){const node=document.createElement('div');node.innerHTML=kitCard(kitStats,kitFeedFailed);email.replaceWith(node.firstElementChild);}},60000);
