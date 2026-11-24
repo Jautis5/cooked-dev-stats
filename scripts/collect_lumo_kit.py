@@ -4,6 +4,7 @@ import datetime as dt
 import json
 import math
 import os
+from urllib.error import HTTPError
 from urllib.parse import urlencode
 from zoneinfo import ZoneInfo
 
@@ -35,6 +36,12 @@ def timestamp(value):
     return parsed.isoformat()
 
 
+def growth_date(value):
+    if len(value) == 10:
+        return dt.date.fromisoformat(value).isoformat()
+    return timestamp(value)
+
+
 def paginated(fetch, path, field, **params):
     cursors = set()
     while True:
@@ -60,8 +67,8 @@ def growth(fetch, today):
         windows[str(days)] = {
             **{field: count(stats[field]) for field in GROWTH_COUNTS},
             'net_new_subscribers': count(stats['net_new_subscribers'], signed=True),
-            'starting': timestamp(stats['starting']),
-            'ending': timestamp(stats['ending']),
+            'starting': growth_date(stats['starting']),
+            'ending': growth_date(stats['ending']),
         }
     return windows
 
@@ -147,15 +154,19 @@ def refresh(saved, key, now, fetch=request):
         'forms': lambda: forms(read),
         'broadcasts': lambda: broadcasts(read),
     }
-    errors = []
+    errors = {}
     for field, collect in collectors.items():
         try:
             result[field] = {'at': now, 'value': collect()}
-        except Exception:
-            # Keep the previous observation and log only the section name.
-            errors.append(field)
-    result['errors'] = errors
+        except HTTPError as failure:
+            errors[field] = f'HTTP {failure.code}'
+        except Exception as failure:
+            # The exception message and HTTP body can contain account data.
+            errors[field] = type(failure).__name__
+    result['errors'] = list(errors)
     result['status'] = 'ok' if not errors else 'error' if len(errors) == len(collectors) else 'partial'
+    if errors and fetch is request:
+        print(json.dumps({'kitSectionFailures': errors}))
     return result
 
 
