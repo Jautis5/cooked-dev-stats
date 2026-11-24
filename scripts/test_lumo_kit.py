@@ -15,7 +15,7 @@ def fixtures(path, key):
         return {'pagination': {'total_count': 294}, 'subscribers': [{'email_address': 'contact@example.test'}]}
     if path.startswith('account/growth_stats?'):
         return {'stats': {'starting': None, 'new_subscribers': '12.0',
-                          'cancellations': 15.0, 'net_new_subscribers': '-3'}}
+                          'cancellations': '-15.0', 'net_new_subscribers': '-3'}}
     if path == 'account/email_stats':
         return {'stats': {**WINDOW, 'sent': 100, 'opened': 80, 'clicked': 20, 'open_rate': 80,
                           'click_rate': 20, 'open_tracking_enabled': False, 'click_tracking_enabled': True,

@@ -71,8 +71,11 @@ def growth(fetch, today):
     for days in (7, 30, 90):
         start = today - dt.timedelta(days=days - 1)
         stats = fetch(f'account/growth_stats?starting={start}&ending={today}')['stats']
+        # Kit can report cancellations as a negative contribution to net growth.
+        cancellations = growth_count(stats.get('cancellations'), signed=True)
         windows[str(days)] = {
-            **{field: growth_count(stats.get(field)) for field in GROWTH_COUNTS},
+            'new_subscribers': growth_count(stats.get('new_subscribers')),
+            'cancellations': abs(cancellations) if cancellations is not None else None,
             'net_new_subscribers': growth_count(stats.get('net_new_subscribers'), signed=True),
             'starting': start.isoformat(),
             'ending': today.isoformat(),
