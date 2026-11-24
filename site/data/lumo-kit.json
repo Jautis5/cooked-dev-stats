@@ -1,5 +1,48 @@
 {
   "version": 1,
   "channelId": "lumo-wins",
-  "status": "authorization_required"
+  "lastAttemptAt": "2026-11-24T14:49:02.435250+00:00",
+  "totalSubscribers": {
+    "at": "2026-11-24T14:49:02.435250+00:00",
+    "value": 294
+  },
+  "email": {
+    "at": "2026-11-24T14:49:02.435250+00:00",
+    "value": {
+      "sent": 323,
+      "opened": 101,
+      "clicked": 45,
+      "open_rate": 31.27,
+      "click_rate": 13.93,
+      "unsubscribe_rate": 0.62,
+      "bounce_rate": 4.02,
+      "starting": "2026-08-26T14:49:03+00:00",
+      "ending": "2026-11-24T14:49:03+00:00"
+    }
+  },
+  "forms": {
+    "at": "2026-11-24T14:49:02.435250+00:00",
+    "value": [
+      {
+        "id": 10220938,
+        "type": "landing_page",
+        "subscribers": 294,
+        "archived": false
+      },
+      {
+        "id": 10220935,
+        "type": "form",
+        "subscribers": 0,
+        "archived": false
+      }
+    ]
+  },
+  "broadcasts": {
+    "at": "2026-11-24T14:49:02.435250+00:00",
+    "value": []
+  },
+  "errors": [
+    "growth"
+  ],
+  "status": "partial"
 }
