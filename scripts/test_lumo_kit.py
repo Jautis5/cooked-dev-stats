@@ -14,9 +14,8 @@ def fixtures(path, key):
     if path.startswith('subscribers?'):
         return {'pagination': {'total_count': 294}, 'subscribers': [{'email_address': 'contact@example.test'}]}
     if path.startswith('account/growth_stats?'):
-        start, end = (param.split('=', 1)[1] for param in path.split('?')[1].split('&'))
-        return {'stats': {'starting': start, 'ending': end, 'new_subscribers': 12,
-                          'cancellations': 15, 'net_new_subscribers': -3}}
+        return {'stats': {'starting': None, 'new_subscribers': '12.0',
+                          'cancellations': 15.0, 'net_new_subscribers': '-3'}}
     if path == 'account/email_stats':
         return {'stats': {**WINDOW, 'sent': 100, 'opened': 80, 'clicked': 20, 'open_rate': 80,
                           'click_rate': 20, 'open_tracking_enabled': False, 'click_tracking_enabled': True,
@@ -52,6 +51,8 @@ class LumoKitTests(unittest.TestCase):
         self.assertEqual(result['totalSubscribers']['value'], 294)
         self.assertEqual(result['growth']['value']['7']['net_new_subscribers'], -3)
         self.assertEqual(result['growth']['value']['7']['starting'], '2026-11-18')
+        self.assertEqual(result['growth']['value']['7']['new_subscribers'], 12)
+        self.assertEqual(result['growth']['value']['7']['cancellations'], 15)
         self.assertIsNone(result['email']['value']['open_rate'])
         self.assertEqual(result['email']['value']['click_rate'], 20)
         self.assertEqual([form['subscribers'] for form in result['forms']['value']], [230, 22])

@@ -4,6 +4,7 @@ import datetime as dt
 import json
 import math
 import os
+import re
 from urllib.error import HTTPError
 from urllib.parse import urlencode
 from zoneinfo import ZoneInfo
@@ -36,10 +37,16 @@ def timestamp(value):
     return parsed.isoformat()
 
 
-def growth_date(value):
-    if len(value) == 10:
-        return dt.date.fromisoformat(value).isoformat()
-    return timestamp(value)
+def growth_count(value, *, signed=False):
+    # Kit can serialize these integral counters as decimal strings.
+    if isinstance(value, str) and re.fullmatch(r'[+-]?[0-9]+(?:\.0+)?', value.strip()):
+        value = int(value.strip().split('.')[0])
+    if type(value) is float and value.is_integer():
+        value = int(value)
+    try:
+        return count(value, signed=signed)
+    except ValueError:
+        return None
 
 
 def paginated(fetch, path, field, **params):
@@ -65,11 +72,14 @@ def growth(fetch, today):
         start = today - dt.timedelta(days=days - 1)
         stats = fetch(f'account/growth_stats?starting={start}&ending={today}')['stats']
         windows[str(days)] = {
-            **{field: count(stats[field]) for field in GROWTH_COUNTS},
-            'net_new_subscribers': count(stats['net_new_subscribers'], signed=True),
-            'starting': growth_date(stats['starting']),
-            'ending': growth_date(stats['ending']),
+            **{field: growth_count(stats.get(field)) for field in GROWTH_COUNTS},
+            'net_new_subscribers': growth_count(stats.get('net_new_subscribers'), signed=True),
+            'starting': start.isoformat(),
+            'ending': today.isoformat(),
         }
+    if not any(row[field] is not None for row in windows.values()
+               for field in (*GROWTH_COUNTS, 'net_new_subscribers')):
+        raise ValueError('No Kit growth counters available')
     return windows
 
 
